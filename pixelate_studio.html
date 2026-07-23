@@ -119,10 +119,47 @@
     top: 110px;
     z-index: 990;
   }
+  .controls-panel{
+    display:flex;
+    flex-direction:column;
+    height:min(702px, calc(100dvh - 165px));
+    max-height:calc(100dvh - 165px);
+    min-height:360px;
+    padding:12px;
+    overflow:hidden;
+  }
+  .controls-scroll-frame{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+    border:2px solid var(--line);
+    background:var(--panel-2);
+    padding:8px;
+  }
+  .controls-actions{
+    position:sticky;
+    bottom:0;
+    z-index:2;
+    flex:0 0 auto;
+    border-top:2px solid var(--line);
+    padding-top:12px;
+    background:var(--panel);
+  }
+  .controls-actions-row{
+    display:flex;
+    gap:8px;
+  }
   @media (max-width:860px){
     .grid{grid-template-columns:1fr;}
     .grid > .panel {
       position: static !important;
+    }
+    .controls-panel{
+      height:min(702px, calc(100dvh - 32px));
+      max-height:calc(100dvh - 32px);
+      min-height:420px;
     }
   }
 
@@ -456,9 +493,9 @@
 
   <div class="grid">
     <!-- LEFT: controls with accordion -->
-    <div class="panel" style="padding: 12px; display: flex; flex-direction: column; max-height: 702px;">
-      <!-- Scrollable content wrapper -->
-      <div style="flex: 1; overflow-y: auto; padding-right: 6px; margin-bottom: 12px;">
+    <div class="panel controls-panel">
+      <!-- Settings 1–5 scroll only inside this framed region -->
+      <div class="controls-scroll-frame">
         <div class="accordion">
           
           <!-- Accordion Item 1: 이미지 업로드 -->
@@ -647,8 +684,8 @@
       </div>
 
       <!-- Fixed bottom controls container -->
-      <div style="flex-shrink: 0; border-top: 2px solid var(--line); padding-top: 12px; background: var(--panel);">
-        <div style="display: flex; gap: 8px;">
+      <div class="controls-actions">
+        <div class="controls-actions-row">
           <button class="primary" id="runBtn" disabled style="margin-top: 0; flex: 1.5;">변환 실행</button>
           <button class="primary" id="resetBtn" style="margin-top: 0; flex: 1; background: var(--panel-2); color: var(--ink);">조건 초기화</button>
         </div>
