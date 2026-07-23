@@ -2,19 +2,38 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-O9NtaFeL8l5SIJv7H56ui4oYtBPpta758YuV15epIvc='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+<meta name="referrer" content="no-referrer">
 <title>Pixelate Studio — 스프라이트 다운스케일 도구</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="./vendor/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"></script>
 <style>
   /*
     Retro Pixel 스타일 참조: webstylebook.com/pages/retro-pixel
     팔레트: #1a1c2c(bg) · #333c57(line) · #a7f070(accent/mint) · #f77622(accent-2/orange)
-    타이포: 라틴 로고 = Press Start 2P(8bit), 한글 UI 전반 = Galmuri11(한글 지원 픽셀 폰트)
+    타이포: 자체 호스팅 Press Start 2P 및 Galmuri11
     레이아웃: 픽셀 프레임 / RPG 패널, 계단식(step) 호버 모션
   */
+  @font-face{
+    font-family:"Press Start 2P";
+    src:url("./vendor/fonts/PressStart2P-Regular.ttf") format("truetype");
+    font-style:normal;
+    font-weight:400;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:"Galmuri11";
+    src:url("./vendor/fonts/Galmuri11.woff2") format("woff2");
+    font-style:normal;
+    font-weight:400;
+    font-display:swap;
+  }
+  @font-face{
+    font-family:"Galmuri11";
+    src:url("./vendor/fonts/Galmuri11-Bold.woff2") format("woff2");
+    font-style:normal;
+    font-weight:700;
+    font-display:swap;
+  }
   :root{
     --bg: #1a1c2c;
     --panel: #23263c;
@@ -339,7 +358,10 @@
     display:flex; justify-content:space-between; align-items:center;
     padding:5px 0; border-bottom:1px solid var(--line); font-size:11.5px; color:var(--ink-dim);
   }
-  .filelist li span.x{cursor:pointer; color:var(--danger); padding:0 4px;}
+  .filelist li .x{
+    cursor:pointer; color:var(--danger); padding:0 4px; border:0; background:transparent;
+    font:inherit;
+  }
 
   .results{display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:14px;}
   .card{
@@ -451,7 +473,7 @@
                   <strong>클릭하거나 파일을 끌어다 놓으세요</strong>
                   여러 장 선택 가능 (스프라이트 프레임)
                 </div>
-                <input type="file" id="fileInput" accept="image/*" multiple>
+                <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/avif" multiple>
                 <ul class="filelist" id="fileList"></ul>
               </div>
             </div>
@@ -708,6 +730,16 @@
         </label>
       </div>
     </div>
+
+    <div class="field">
+      <label class="toggle">
+        <input type="checkbox" id="persistLogs">
+        작업 기록을 이 브라우저에 저장
+      </label>
+      <p style="margin: 7px 0 0; color: var(--ink-dim); font-size: 10.5px; line-height: 1.5;">
+        활성화하면 파일명, 변환 설정, 결과 이미지가 IndexedDB에 저장됩니다. 공용 기기에서는 사용하지 마세요.
+      </p>
+    </div>
     
     <button class="primary" id="settingsConfirm" style="margin-top: 10px;">확인</button>
   </div>
@@ -718,6 +750,17 @@
 <script>
 let uploadedFiles = []; // {name, img}
 let lastResults = [];   // {name, canvas, jsonData}
+const ALLOWED_IMAGE_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/bmp', 'image/avif']);
+const MAX_FILE_COUNT = 40;
+const MAX_FILE_BYTES = 20 * 1024 * 1024;
+const MAX_TOTAL_BYTES = 80 * 1024 * 1024;
+const MAX_IMAGE_PIXELS = 4096 * 4096;
+const MAX_TOTAL_IMAGE_PIXELS = 64 * 1024 * 1024;
+const MAX_RAW_PROCESS_PIXELS = 4 * 1024 * 1024;
+const MAX_PALETTE_SAMPLES = 50000;
+const MAX_COLOR_COMPARISONS = 80000000;
+const MAX_STORED_RESULT_DIMENSION = 4096 + 60;
+const MAX_STORED_DATA_URL_CHARS = 110 * 1024 * 1024;
 
 // ---------- DOM 요소 참조 ----------
 const themeToggle = document.getElementById('themeToggle');
@@ -812,7 +855,10 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ---------- 미리보기 배경 및 환경설정 제어 ----------
-let currentPreviewBg = localStorage.getItem('previewBg') || 'checker';
+const ALLOWED_PREVIEW_BACKGROUNDS = new Set(['checker', 'white', 'black']);
+const storedPreviewBg = localStorage.getItem('previewBg');
+let currentPreviewBg = ALLOWED_PREVIEW_BACKGROUNDS.has(storedPreviewBg) ? storedPreviewBg : 'checker';
+let persistLogsEnabled = localStorage.getItem('persistLogs') === 'true';
 
 function applyPreviewBg() {
   document.querySelectorAll('.preview, #modalCanvasWrap').forEach(el => {
@@ -825,10 +871,12 @@ const settingsToggle = document.getElementById('settingsToggle');
 const settingsModal = document.getElementById('settingsModal');
 const settingsClose = document.getElementById('settingsClose');
 const settingsConfirm = document.getElementById('settingsConfirm');
+const persistLogsCheck = document.getElementById('persistLogs');
 
 settingsToggle.addEventListener('click', () => {
   const currentRadio = document.querySelector(`input[name="previewBg"][value="${currentPreviewBg}"]`);
   if (currentRadio) currentRadio.checked = true;
+  persistLogsCheck.checked = persistLogsEnabled;
   settingsModal.classList.add('open');
 });
 
@@ -839,11 +887,13 @@ function closeSettings() {
 settingsClose.addEventListener('click', closeSettings);
 settingsConfirm.addEventListener('click', () => {
   const checkedRadio = document.querySelector('input[name="previewBg"]:checked');
-  if (checkedRadio) {
+  if (checkedRadio && ALLOWED_PREVIEW_BACKGROUNDS.has(checkedRadio.value)) {
     currentPreviewBg = checkedRadio.value;
     localStorage.setItem('previewBg', currentPreviewBg);
     applyPreviewBg();
   }
+  persistLogsEnabled = persistLogsCheck.checked;
+  localStorage.setItem('persistLogs', String(persistLogsEnabled));
   closeSettings();
 });
 settingsModal.addEventListener('click', e => { if(e.target === settingsModal) closeSettings(); });
@@ -907,6 +957,10 @@ function saveLogToDB(fileNames, settings, resultsData) {
   transaction.oncomplete = () => {
     console.log('Log saved successfully.');
   };
+  transaction.onerror = () => {
+    statusEl.textContent = '변환은 완료되었지만 브라우저 작업 기록을 저장하지 못했습니다.';
+    statusEl.classList.remove('busy');
+  };
 }
 
 function loadLogsFromDB() {
@@ -926,7 +980,7 @@ function renderLogsList(logs) {
   const logListEl = document.getElementById('logList');
   const logsEmptyEl = document.getElementById('logsEmpty');
   
-  logListEl.innerHTML = '';
+  logListEl.replaceChildren();
   if (logs.length === 0) {
     logsEmptyEl.style.display = 'block';
     return;
@@ -944,28 +998,53 @@ function renderLogsList(logs) {
     const formattedDate = formatDate(log.timestamp);
     const filesText = log.fileNames.join(', ');
     const settingsSummary = getSettingsSummary(log.settings);
-    
-    li.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed var(--line); padding-bottom: 4px;">
-        <span style="font-family: var(--mono); font-size: 11px; color: var(--accent-2); font-weight: bold;">#${log.id}</span>
-        <span style="font-family: var(--mono); font-size: 11px; color: var(--ink-dim);">${formattedDate}</span>
-      </div>
-      <div style="font-family: var(--mono); font-size: 11.5px; color: var(--ink); word-break: break-all;">
-        <strong>파일:</strong> ${filesText}
-      </div>
-      <div style="font-family: var(--mono); font-size: 11px; color: var(--ink-dim);">
-        <strong>옵션:</strong> ${settingsSummary}
-      </div>
-      <div class="btns" style="margin-top: 4px;">
-        <button class="ghost" data-act="load-settings" data-id="${log.id}">옵션 불러오기</button>
-        <button class="ghost" data-act="load-results" data-id="${log.id}">결과 불러오기</button>
-        <button class="ghost" style="color: var(--danger); border-color: var(--line);" data-act="delete-log" data-id="${log.id}">삭제</button>
-      </div>
-    `;
-    
-    li.querySelector('button[data-act="load-settings"]').addEventListener('click', () => loadSettings(log.settings));
-    li.querySelector('button[data-act="load-results"]').addEventListener('click', () => loadResultsFromLog(log.results));
-    li.querySelector('button[data-act="delete-log"]').addEventListener('click', () => deleteLog(log.id));
+
+    const heading = document.createElement('div');
+    heading.style.cssText = 'display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:4px';
+
+    const idLabel = document.createElement('span');
+    idLabel.style.cssText = 'font-family:var(--mono);font-size:11px;color:var(--accent-2);font-weight:bold';
+    idLabel.textContent = `#${log.id}`;
+
+    const dateLabel = document.createElement('span');
+    dateLabel.style.cssText = 'font-family:var(--mono);font-size:11px;color:var(--ink-dim)';
+    dateLabel.textContent = formattedDate;
+    heading.append(idLabel, dateLabel);
+
+    const filesLabel = document.createElement('div');
+    filesLabel.style.cssText = 'font-family:var(--mono);font-size:11.5px;color:var(--ink);word-break:break-all';
+    const filesStrong = document.createElement('strong');
+    filesStrong.textContent = '파일: ';
+    filesLabel.append(filesStrong, document.createTextNode(filesText));
+
+    const settingsLabel = document.createElement('div');
+    settingsLabel.style.cssText = 'font-family:var(--mono);font-size:11px;color:var(--ink-dim)';
+    const settingsStrong = document.createElement('strong');
+    settingsStrong.textContent = '옵션: ';
+    settingsLabel.append(settingsStrong, document.createTextNode(settingsSummary));
+
+    const buttons = document.createElement('div');
+    buttons.className = 'btns';
+    buttons.style.marginTop = '4px';
+
+    const loadSettingsBtn = document.createElement('button');
+    loadSettingsBtn.className = 'ghost';
+    loadSettingsBtn.textContent = '옵션 불러오기';
+    loadSettingsBtn.addEventListener('click', () => loadSettings(log.settings));
+
+    const loadResultsBtn = document.createElement('button');
+    loadResultsBtn.className = 'ghost';
+    loadResultsBtn.textContent = '결과 불러오기';
+    loadResultsBtn.addEventListener('click', () => loadResultsFromLog(log.results));
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'ghost';
+    deleteBtn.style.cssText = 'color:var(--danger);border-color:var(--line)';
+    deleteBtn.textContent = '삭제';
+    deleteBtn.addEventListener('click', () => deleteLog(log.id));
+
+    buttons.append(loadSettingsBtn, loadResultsBtn, deleteBtn);
+    li.append(heading, filesLabel, settingsLabel, buttons);
     
     logListEl.appendChild(li);
   });
@@ -1045,13 +1124,36 @@ function loadSettings(s) {
 }
 
 function loadResultsFromLog(resultsData) {
+  const safeResults = Array.isArray(resultsData)
+    ? resultsData.slice(0, MAX_FILE_COUNT).filter(item => (
+        item &&
+        typeof item.name === 'string' &&
+        item.name.length <= 512 &&
+        Number.isInteger(item.width) &&
+        Number.isInteger(item.height) &&
+        item.width > 0 &&
+        item.height > 0 &&
+        item.width <= MAX_STORED_RESULT_DIMENSION &&
+        item.height <= MAX_STORED_RESULT_DIMENSION &&
+        typeof item.dataUrl === 'string' &&
+        item.dataUrl.startsWith('data:image/png;base64,') &&
+        item.dataUrl.length <= MAX_STORED_DATA_URL_CHARS
+      ))
+    : [];
+
+  if (safeResults.length === 0) {
+    statusEl.textContent = '안전하게 복원할 수 있는 작업 결과가 없습니다.';
+    statusEl.classList.remove('busy');
+    return;
+  }
+
   lastResults = [];
   let loadedCount = 0;
   
   statusEl.textContent = '로그에서 결과 복원 중...';
   statusEl.classList.add('busy');
   
-  resultsData.forEach((item, index) => {
+  safeResults.forEach((item, index) => {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
@@ -1071,13 +1173,17 @@ function loadResultsFromLog(resultsData) {
       };
       
       loadedCount++;
-      if (loadedCount === resultsData.length) {
+      if (loadedCount === safeResults.length) {
         renderResults();
         tabResultsBtn.click();
         statusEl.textContent = `불러옴 — 작업 로그에서 ${lastResults.length}개 결과 복원됨`;
         statusEl.classList.remove('busy');
         downloadAllBtn.style.display = lastResults.length ? 'block' : 'none';
       }
+    };
+    img.onerror = () => {
+      statusEl.textContent = '저장된 결과 이미지 중 일부를 안전하게 복원할 수 없습니다.';
+      statusEl.classList.remove('busy');
     };
     img.src = item.dataUrl;
   });
@@ -1155,35 +1261,101 @@ outlineCheck.addEventListener('change', () => {
 });
 
 function handleFiles(fileListObj){
-  const files = Array.from(fileListObj).filter(f => f.type.startsWith('image/'));
-  let pending = files.length;
-  if(pending === 0) return;
+  const candidates = Array.from(fileListObj);
+  const accepted = [];
+  const rejected = [];
+  let totalBytes = uploadedFiles.reduce((sum, file) => sum + file.size, 0);
+
+  candidates.forEach(file => {
+    if (uploadedFiles.length + accepted.length >= MAX_FILE_COUNT) {
+      rejected.push(`${file.name}: 최대 ${MAX_FILE_COUNT}개 초과`);
+      return;
+    }
+    if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+      rejected.push(`${file.name}: 지원하지 않는 이미지 형식`);
+      return;
+    }
+    if (file.size <= 0 || file.size > MAX_FILE_BYTES) {
+      rejected.push(`${file.name}: 파일당 ${formatSize(MAX_FILE_BYTES)} 제한 초과`);
+      return;
+    }
+    if (totalBytes + file.size > MAX_TOTAL_BYTES) {
+      rejected.push(`${file.name}: 전체 ${formatSize(MAX_TOTAL_BYTES)} 제한 초과`);
+      return;
+    }
+    accepted.push(file);
+    totalBytes += file.size;
+  });
+
+  if (accepted.length === 0) {
+    statusEl.textContent = rejected.length ? `업로드 거부 — ${rejected.join(' / ')}` : '지원하는 이미지 파일을 선택하세요.';
+    return;
+  }
   
   // 이미지 파일이 업로드되면 첫 번째 업로드 아코디언을 열어둔 상태에서, 다운스케일 및 다른 아코디언도 편의상 노출되도록 함
   document.getElementById('accordionUpload').classList.remove('collapsed');
-  
-  files.forEach(f => {
+
+  let completed = 0;
+  const decodeErrors = [];
+  const finishOne = () => {
+    completed++;
+    if (completed !== accepted.length) return;
+    const errors = rejected.concat(decodeErrors);
+    statusEl.textContent = errors.length
+      ? `일부 파일 제외 — ${errors.join(' / ')}`
+      : `${accepted.length}개 이미지가 안전하게 준비되었습니다.`;
+  };
+
+  accepted.forEach(f => {
     const reader = new FileReader();
     reader.onload = ev => {
       const img = new Image();
       img.onload = () => {
+        const pixels = img.width * img.height;
+        if (!Number.isSafeInteger(pixels) || pixels <= 0 || pixels > MAX_IMAGE_PIXELS) {
+          decodeErrors.push(`${f.name}: 최대 4096×4096 픽셀 제한 초과`);
+          finishOne();
+          return;
+        }
+        const existingPixels = uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
+        if (existingPixels + pixels > MAX_TOTAL_IMAGE_PIXELS) {
+          decodeErrors.push(`${f.name}: 전체 디코딩 픽셀 제한 초과`);
+          finishOne();
+          return;
+        }
         uploadedFiles.push({name: f.name, img, size: f.size});
         // 파일 이름을 오름차순으로 정렬
         uploadedFiles.sort((a, b) => a.name.localeCompare(b.name));
         renderFileList();
-        pending--;
+        finishOne();
+      };
+      img.onerror = () => {
+        decodeErrors.push(`${f.name}: 유효한 이미지로 해석할 수 없음`);
+        finishOne();
       };
       img.src = ev.target.result;
+    };
+    reader.onerror = () => {
+      decodeErrors.push(`${f.name}: 파일을 읽을 수 없음`);
+      finishOne();
     };
     reader.readAsDataURL(f);
   });
 }
 
 function renderFileList(){
-  fileListEl.innerHTML = '';
+  fileListEl.replaceChildren();
   uploadedFiles.forEach((f, i) => {
     const li = document.createElement('li');
-    li.innerHTML = `<span>${f.name} (${f.img.width}×${f.img.height}) [${formatSize(f.size)}]</span><span class="x" data-i="${i}">✕</span>`;
+    const description = document.createElement('span');
+    description.textContent = `${f.name} (${f.img.width}×${f.img.height}) [${formatSize(f.size)}]`;
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'x';
+    removeBtn.dataset.i = String(i);
+    removeBtn.setAttribute('aria-label', `${f.name} 제거`);
+    removeBtn.textContent = '✕';
+    li.append(description, removeBtn);
     fileListEl.appendChild(li);
   });
   fileListEl.querySelectorAll('.x').forEach(x => {
@@ -1234,7 +1406,10 @@ drop.addEventListener('drop', e => {
   e.preventDefault(); drop.classList.remove('drag');
   handleFiles(e.dataTransfer.files);
 });
-fileInput.addEventListener('change', e => handleFiles(e.target.files));
+fileInput.addEventListener('change', e => {
+  handleFiles(e.target.files);
+  e.target.value = '';
+});
 
 
 
@@ -1296,6 +1471,10 @@ function boxDownscale(img, size, method){
 
 function kmeans(points, k, iterations=10){
   if(points.length === 0) return [];
+  if(points.length > MAX_PALETTE_SAMPLES){
+    const stride = points.length / MAX_PALETTE_SAMPLES;
+    points = Array.from({length: MAX_PALETTE_SAMPLES}, (_, i) => points[Math.floor(i * stride)]);
+  }
   k = Math.min(k, points.length);
   let centers = [];
   for(let i=0;i<k;i++){
@@ -1325,6 +1504,17 @@ function kmeans(points, k, iterations=10){
     }
   }
   return centers.map(c => c.map(Math.round));
+}
+
+function collectOpaquePoints(data, pixelCount, maxSamples = MAX_PALETTE_SAMPLES){
+  const points = [];
+  const stride = Math.max(1, Math.ceil(pixelCount / maxSamples));
+  for(let i=0; i<pixelCount; i+=stride){
+    if(data[i*4+3] >= 10){
+      points.push([data[i*4], data[i*4+1], data[i*4+2]]);
+    }
+  }
+  return points;
 }
 
 function uniqueColors(data, alpha, n){
@@ -1398,6 +1588,18 @@ async function processAll(){
   const cleanOn = cleanEnabledCheck.checked;
   const cleanPasses = cleanOn ? currentClean() : 0;
   const shared = sharedCheck.checked && uploadedFiles.length > 1 && paletteOn;
+  const estimatedPixels = doDownscale
+    ? uploadedFiles.length * size * size
+    : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
+
+  if(!doDownscale && estimatedPixels > MAX_RAW_PROCESS_PIXELS){
+    statusEl.textContent = '원본 크기 처리는 전체 4백만 픽셀 이하에서만 사용할 수 있습니다. 다운스케일을 켜거나 이미지 수를 줄이세요.';
+    return;
+  }
+  if(paletteOn && estimatedPixels * nColors > MAX_COLOR_COMPARISONS){
+    statusEl.textContent = '예상 색상 연산량이 안전 한도를 넘습니다. 출력 크기, 이미지 수 또는 팔레트 색상 수를 줄이세요.';
+    return;
+  }
 
   runBtn.disabled = true;
   statusEl.textContent = '처리 중...'; statusEl.classList.add('busy');
@@ -1414,11 +1616,16 @@ async function processAll(){
   let sharedPalette = null;
   if(shared){
     let allPoints = [];
+    const stride = Math.max(1, Math.ceil(estimatedPixels / MAX_PALETTE_SAMPLES));
+    let visitedPixels = 0;
     downs.forEach(d => {
       const n = d.w*d.h;
       for(let i=0;i<n;i++){
         const a = d.data[i*4+3];
-        if(a>=10) allPoints.push([d.data[i*4], d.data[i*4+1], d.data[i*4+2]]);
+        if(a>=10 && visitedPixels % stride === 0){
+          allPoints.push([d.data[i*4], d.data[i*4+1], d.data[i*4+2]]);
+        }
+        visitedPixels++;
       }
     });
     sharedPalette = kmeans(allPoints, nColors, 10);
@@ -1426,31 +1633,34 @@ async function processAll(){
   }
 
   lastResults = [];
-  resultsEl.innerHTML = '';
+  resultsEl.replaceChildren();
   resultsEl.classList.remove('empty');
 
   for(const d of downs){
     const w = d.w, h = d.h, n = w*h;
     let palette = sharedPalette;
+    let exactColorMap = null;
     const alpha = new Array(n);
     for(let i=0;i<n;i++) alpha[i] = d.data[i*4+3];
 
     if(!palette){
       if(paletteOn){
-        let points = [];
-        for(let i=0;i<n;i++){
-          if(alpha[i]>=10) points.push([d.data[i*4], d.data[i*4+1], d.data[i*4+2]]);
-        }
+        const points = collectOpaquePoints(d.data, n);
         palette = kmeans(points, nColors, 10);
       } else {
         palette = uniqueColors(d.data, alpha, n);
+        exactColorMap = new Map(palette.map((color, index) => [color.join(','), index]));
       }
     }
 
     let grid = new Array(n).fill(-1);
     for(let i=0;i<n;i++){
       if(alpha[i]>=10){
-        grid[i] = palette.length ? nearestColorIndex(d.data[i*4], d.data[i*4+1], d.data[i*4+2], palette) : -1;
+        if(exactColorMap){
+          grid[i] = exactColorMap.get(`${d.data[i*4]},${d.data[i*4+1]},${d.data[i*4+2]}`) ?? -1;
+        } else {
+          grid[i] = palette.length ? nearestColorIndex(d.data[i*4], d.data[i*4+1], d.data[i*4+2], palette) : -1;
+        }
       }
     }
 
@@ -1552,7 +1762,7 @@ async function processAll(){
   downloadAllBtn.style.display = lastResults.length ? 'block' : 'none';
 
   // 작업 로그 저장
-  if (lastResults.length > 0) {
+  if (lastResults.length > 0 && persistLogsEnabled) {
     const resultsDataToSave = lastResults.map(r => ({
       name: r.name,
       width: r.canvas.width,
@@ -1610,49 +1820,60 @@ function renderResults(){
     return sortOrder === 'asc' ? comparison : -comparison;
   });
 
-  resultsEl.innerHTML = '';
+  resultsEl.replaceChildren();
   resultsEl.className = 'results';
   
   if (sorted.length === 0) {
-    resultsEl.innerHTML = '아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.';
+    resultsEl.textContent = '아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.';
     resultsEl.className = 'empty';
     return;
   }
   
   sorted.forEach((r) => {
-    const idx = lastResults.indexOf(r);
     const card = document.createElement('div');
     card.className = 'card';
     const stem = r.name.replace(/\.[^.]+$/, '');
-    card.innerHTML = `
-      <div class="preview"></div>
-      <div class="name">${stem}_${dimsLabel(r.canvas)}.png</div>
-      <div class="meta">
-        <span>${r.canvas.width}×${r.canvas.height} (${formatSize(r.pngSize)})</span>
-        <span>팔레트 ${r.paletteSize}색</span>
-      </div>
-      <div class="btns">
-        <button class="ghost" data-act="png" data-i="${idx}">PNG</button>
-        <button class="ghost" data-act="json" data-i="${idx}">JSON</button>
-      </div>
-    `;
-    card.querySelector('.preview').appendChild(r.canvas);
-    card.querySelector('.preview').addEventListener('click', () => openModal(r));
-    resultsEl.appendChild(card);
-  });
-  
-  resultsEl.querySelectorAll('button[data-act]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const i = parseInt(btn.dataset.i);
-      const r = lastResults[i];
-      const stem = r.name.replace(/\.[^.]+$/, '');
-      if(btn.dataset.act === 'png'){
-        r.canvas.toBlob(blob => downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.png`));
-      } else {
-        const blob = new Blob([JSON.stringify(r.jsonData, null, 2)], {type:'application/json'});
-        downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.json`);
-      }
+
+    const preview = document.createElement('div');
+    preview.className = 'preview';
+    preview.appendChild(r.canvas);
+    preview.addEventListener('click', () => openModal(r));
+
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = `${stem}_${dimsLabel(r.canvas)}.png`;
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const dimensions = document.createElement('span');
+    dimensions.textContent = `${r.canvas.width}×${r.canvas.height} (${formatSize(r.pngSize)})`;
+    const palette = document.createElement('span');
+    palette.textContent = `팔레트 ${r.paletteSize}색`;
+    meta.append(dimensions, palette);
+
+    const buttons = document.createElement('div');
+    buttons.className = 'btns';
+
+    const pngButton = document.createElement('button');
+    pngButton.className = 'ghost';
+    pngButton.textContent = 'PNG';
+    pngButton.addEventListener('click', () => {
+      r.canvas.toBlob(blob => {
+        if (blob) downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.png`);
+      });
     });
+
+    const jsonButton = document.createElement('button');
+    jsonButton.className = 'ghost';
+    jsonButton.textContent = 'JSON';
+    jsonButton.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(r.jsonData, null, 2)], {type:'application/json'});
+      downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.json`);
+    });
+
+    buttons.append(pngButton, jsonButton);
+    card.append(preview, name, meta, buttons);
+    resultsEl.appendChild(card);
   });
   
   // 현재 선택된 미리보기 배경 적용
@@ -1665,7 +1886,7 @@ const modalTitle = document.getElementById('modalTitle');
 const modalClose = document.getElementById('modalClose');
 
 function openModal(r){
-  modalCanvasWrap.innerHTML = '';
+  modalCanvasWrap.replaceChildren();
   const big = document.createElement('canvas');
   big.width = r.canvas.width; big.height = r.canvas.height;
   const bctx = big.getContext('2d');
@@ -1694,10 +1915,17 @@ function dimsLabel(canvas){
   return canvas.width === canvas.height ? `${canvas.width}px` : `${canvas.width}x${canvas.height}`;
 }
 
+function sanitizeDownloadFilename(filename){
+  const sanitized = String(filename)
+    .replace(/[\u0000-\u001f\u007f/\\:*?"<>|]/g, '_')
+    .slice(0, 180);
+  return sanitized || 'pixelate-result';
+}
+
 function downloadBlob(blob, filename){
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = filename;
+  a.href = url; a.download = sanitizeDownloadFilename(filename);
   document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
 }
@@ -1750,8 +1978,9 @@ document.getElementById('resultSortOrder').addEventListener('change', renderResu
 downloadAllBtn.addEventListener('click', async () => {
   const zip = new JSZip();
   for(const r of lastResults){
-    const stem = r.name.replace(/\.[^.]+$/, '');
+    const stem = sanitizeDownloadFilename(r.name.replace(/\.[^.]+$/, ''));
     const blob = await new Promise(res => r.canvas.toBlob(res));
+    if (!blob) continue;
     zip.file(`${stem}_${dimsLabel(r.canvas)}.png`, blob);
     zip.file(`${stem}_${dimsLabel(r.canvas)}.json`, JSON.stringify(r.jsonData, null, 2));
   }
