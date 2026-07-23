@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'pixelate_studio.html'), 'utf8');
 const securityGuide = readFileSync(resolve(root, 'SECURITY.md'), 'utf8');
+const vercelConfig = JSON.parse(readFileSync(resolve(root, 'vercel.json'), 'utf8'));
 const jszip = readFileSync(resolve(root, 'vendor/jszip.min.js'));
 const failures = [];
 
@@ -40,6 +41,14 @@ if (inlineScripts.length === 1) {
     securityGuide.includes(`'sha256-${inlineHash}'`),
     'SECURITY.md deployment CSP hash is stale',
   );
+  const vercelHeaders = vercelConfig.headers
+    ?.flatMap(rule => rule.headers ?? [])
+    .find(header => header.key.toLowerCase() === 'content-security-policy')
+    ?.value ?? '';
+  check(
+    vercelHeaders.includes(`'sha256-${inlineHash}'`),
+    'vercel.json deployment CSP hash is stale',
+  );
 
   try {
     new Function(inlineScripts[0]);
@@ -53,6 +62,10 @@ const expectedIntegrity = jszipTag.match(/\sintegrity=["']sha384-([^"']+)["']/i)
 const actualIntegrity = createHash('sha384').update(jszip).digest('base64');
 check(Boolean(jszipTag), 'JSZip must be loaded from the local vendor directory');
 check(expectedIntegrity === actualIntegrity, 'Local JSZip integrity hash does not match its file');
+check(
+  vercelConfig.rewrites?.some(rule => rule.source === '/' && rule.destination === '/pixelate_studio.html'),
+  'Vercel root path must rewrite to pixelate_studio.html',
+);
 
 const pinnedAssets = new Map([
   ['vendor/fonts/PressStart2P-Regular.ttf', '7b939b816f8ce185dd8c2c59e85fb05d3dcd5cde0c0b0de4a1651cb5af9c2c2b'],

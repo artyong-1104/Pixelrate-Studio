@@ -10,6 +10,7 @@ Pixelate Studio에는 서버 API, 로그인, 서버 데이터베이스가 없습
 
 - 전용 출처와 HTTPS를 사용합니다. 다른 애플리케이션과 같은 출처에 배포하지 않습니다.
 - `pixelate_studio.html`, `vendor/jszip.min.js`와 라이선스 파일을 함께 배포합니다.
+- Vercel에서는 저장소의 `vercel.json`을 함께 배포해 루트 rewrite와 보안 헤더를 적용합니다.
 - 배포 전에 `node scripts/security-check.mjs`를 실행합니다.
 - HTML의 CSP는 기본 보호 장치입니다. 실제 서비스에서는 아래 정책을 HTTP 응답 헤더에도 적용합니다.
 
