@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-NNf+2ee/6GNI+Hecvpx3AXD3yYFIk4GhU4WCa7qA9ks='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YZ8pydZnQSsiBhLg8l+Hlv+iCdkuUO7TNGotwx4Gam4='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Pixelate Studio — 스프라이트 다운스케일 도구</title>
 <script src="./vendor/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"></script>
@@ -437,6 +437,24 @@
   .status{color:var(--ink-dim); font-size:11.5px; font-family:var(--mono);}
   .status.busy{color:var(--accent-2);}
 
+  #sortControls{
+    display:none; align-items:center; gap:8px; margin-bottom:12px;
+    font-family:var(--pixel-kr); font-size:11px; flex-wrap:wrap;
+  }
+  #sortControls select{
+    width:auto; padding:4px 8px; font-size:11px; display:inline-block;
+  }
+  .result-search{
+    margin-left:auto; display:flex; align-items:center; gap:7px;
+    color:var(--ink-dim);
+  }
+  .result-search input{
+    width:190px; min-width:0; background:var(--panel-2); border:2px solid var(--line);
+    color:var(--ink); padding:5px 8px; font-family:var(--pixel-kr); font-size:11px;
+  }
+  .result-search input::placeholder{color:var(--ink-dim); opacity:.82;}
+  .result-search input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--line);}
 
@@ -445,9 +463,10 @@
   .modal-overlay{
     position:fixed; inset:0; background:rgba(10,11,20,.86);
     display:none; align-items:center; justify-content:center;
-    z-index:100; padding:30px;
+    z-index:1100; padding:30px;
   }
   .modal-overlay.open{display:flex;}
+  .modal-overlay.expanded{padding:12px;}
   .modal-box{
     background:var(--panel); border:3px solid var(--line);
     box-shadow:6px 6px 0 var(--shadow-c);
@@ -464,18 +483,61 @@
     background-size:16px 16px;
     background-position:0 0,0 8px,8px -8px,-8px 0;
     background-color:#1a1c24;
-    display:flex; align-items:center; justify-content:center;
-    padding:0;
+    position:relative; display:block;
+    padding:0; min-width:0; min-height:0;
+    max-width:calc(90vw - 36px); max-height:calc(90vh - 170px);
+    overflow:auto; overscroll-behavior:contain; touch-action:none;
+    scrollbar-width:none; cursor:grab;
   }
-  .modal-box canvas{image-rendering:pixelated; display:block;}
+  .modal-box .modal-canvas-wrap::-webkit-scrollbar{display:none; width:0; height:0;}
+  .modal-box .modal-canvas-wrap.dragging{cursor:grabbing;}
+  .modal-overlay.expanded .modal-box{
+    width:calc(100vw - 24px); height:calc(100vh - 24px);
+    max-width:none; max-height:none; padding:12px; gap:8px;
+  }
+  .modal-overlay.expanded .modal-canvas-wrap{
+    width:100% !important; height:auto !important;
+    max-width:none; max-height:none; min-height:0; flex:1 1 0;
+  }
+  .modal-canvas-stage{position:relative; min-width:100%; min-height:100%;}
+  .modal-canvas-stage canvas{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    image-rendering:pixelated; display:block;
+  }
+  .modal-pixel-grid{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    display:none; pointer-events:none; z-index:1;
+    mix-blend-mode:difference; opacity:.72;
+    background-image:
+      linear-gradient(to right, #fff 1px, transparent 1px),
+      linear-gradient(to bottom, #fff 1px, transparent 1px);
+  }
+  .modal-pixel-grid.visible{display:block;}
   .modal-box .modal-title{font-size:12px; color:var(--ink-dim); font-family:var(--mono);}
   .modal-box .modal-close{
     align-self:flex-end; background:var(--panel-2); border:2px solid var(--line);
     color:var(--ink-dim); cursor:pointer; padding:4px 10px; font-family:var(--pixel-kr); font-size:11px;
   }
   .modal-box .modal-close:hover{color:var(--danger); border-color:var(--danger);}
-  #settingsModal{
-    z-index:1100;
+  .modal-view-controls{
+    width:100%; display:grid; grid-template-columns:auto minmax(100px,1fr) auto auto auto auto auto;
+    align-items:center; gap:8px; font-family:var(--pixel-kr); font-size:11px;
+  }
+  .modal-view-controls .ghost{
+    min-width:34px; padding:5px 8px; font-size:11px;
+  }
+  .modal-view-controls input[type="range"]{min-width:100px; margin:0;}
+  .modal-zoom-value{
+    min-width:42px; color:var(--accent-2); font-family:var(--mono); text-align:center;
+  }
+  .modal-view-reset{
+    width:34px; height:30px; padding:0 !important;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:17px !important; line-height:1;
+  }
+  .modal-grid-toggle[aria-pressed="true"],
+  .modal-expand-toggle[aria-pressed="true"]{
+    border-color:var(--accent); color:var(--accent); background:var(--line);
   }
   #settingsModal .settings-box{
     width:320px;
@@ -536,6 +598,16 @@
     color:var(--ink-dim);
     font-size:10.5px;
     line-height:1.5;
+  }
+  @media (max-width:620px){
+    .result-search{width:100%; margin-left:0;}
+    .result-search input{flex:1; width:auto;}
+    .modal-box .modal-canvas-wrap{max-height:calc(90vh - 210px);}
+    .modal-overlay.expanded{padding:6px;}
+    .modal-overlay.expanded .modal-box{
+      width:calc(100vw - 12px); height:calc(100vh - 12px); padding:8px;
+    }
+    .modal-view-controls{grid-template-columns:auto minmax(48px,1fr) auto auto auto auto auto; gap:6px;}
   }
 </style>
 </head>
@@ -771,17 +843,21 @@
       
       <!-- Tab 1: Results -->
       <div id="tabResults">
-        <div id="sortControls" style="display: none; align-items: center; gap: 8px; margin-bottom: 12px; font-family: var(--pixel-kr); font-size: 11px; flex-wrap: wrap;">
+        <div id="sortControls">
           <span style="color: var(--ink-dim);">정렬:</span>
-          <select id="resultSortBy" style="width: auto; padding: 4px 8px; font-size: 11px; display: inline-block;">
+          <select id="resultSortBy" aria-label="결과 정렬 기준">
             <option value="added" selected>최근추가순</option>
             <option value="name">이름순</option>
             <option value="size">용량순</option>
           </select>
-          <select id="resultSortOrder" style="width: auto; padding: 4px 8px; font-size: 11px; display: inline-block;">
+          <select id="resultSortOrder" aria-label="결과 정렬 순서">
             <option value="asc">오름차순</option>
             <option value="desc" selected>내림차순</option>
           </select>
+          <label class="result-search" for="resultSearch">
+            <span>검색:</span>
+            <input type="search" id="resultSearch" placeholder="이미지 이름 검색" autocomplete="off">
+          </label>
         </div>
         <div id="results" class="empty">아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.</div>
       </div>
@@ -804,7 +880,20 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
     <button class="modal-close" id="modalClose">✕ 닫기</button>
-    <div class="modal-canvas-wrap" id="modalCanvasWrap"></div>
+    <div class="modal-canvas-wrap" id="modalCanvasWrap" tabindex="0" aria-label="확대 이미지 이동 영역">
+      <div class="modal-canvas-stage" id="modalCanvasStage">
+        <div class="modal-pixel-grid" id="modalPixelGrid"></div>
+      </div>
+    </div>
+    <div class="modal-view-controls" aria-label="이미지 보기 배율 조절">
+      <button class="ghost" id="modalZoomOut" aria-label="이미지 축소">−</button>
+      <input type="range" id="modalZoomRange" min="1" max="24" value="1" step="1" aria-label="이미지 보기 배율">
+      <button class="ghost" id="modalZoomIn" aria-label="이미지 확대">＋</button>
+      <output class="modal-zoom-value" id="modalZoomValue" for="modalZoomRange">1배</output>
+      <button class="ghost modal-view-reset" id="modalViewReset" aria-label="보기 초기화" title="보기 초기화">↶</button>
+      <button class="ghost modal-view-reset modal-grid-toggle" id="modalGridToggle" aria-label="1픽셀 격자 보기" title="1픽셀 격자 보기" aria-pressed="false">▦</button>
+      <button class="ghost modal-view-reset modal-expand-toggle" id="modalExpandToggle" aria-label="페이지 안에서 넓게 보기" title="페이지 안에서 넓게 보기" aria-pressed="false">⛶</button>
+    </div>
     <div class="modal-title" id="modalTitle"></div>
   </div>
 </div>
@@ -1906,8 +1995,15 @@ function renderResults(){
 
   const sortBy = document.getElementById('resultSortBy').value;
   const sortOrder = document.getElementById('resultSortOrder').value;
+  const searchQuery = document.getElementById('resultSearch').value.trim().toLocaleLowerCase('ko-KR');
   
-  let sorted = lastResults.slice();
+  let sorted = lastResults.filter(r => {
+    if (!searchQuery) return true;
+    const stem = r.name.replace(/\.[^.]+$/, '');
+    const outputName = `${stem}_${dimsLabel(r.canvas)}.png`;
+    return r.name.toLocaleLowerCase('ko-KR').includes(searchQuery) ||
+      outputName.toLocaleLowerCase('ko-KR').includes(searchQuery);
+  });
   sorted.sort((a, b) => {
     let comparison = 0;
     if (sortBy === 'name') {
@@ -1926,7 +2022,9 @@ function renderResults(){
   resultsEl.className = 'results';
   
   if (sorted.length === 0) {
-    resultsEl.textContent = '아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.';
+    resultsEl.textContent = lastResults.length > 0
+      ? '검색 조건에 맞는 이미지가 없습니다.'
+      : '아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.';
     resultsEl.className = 'empty';
     return;
   }
@@ -1984,34 +2082,183 @@ function renderResults(){
 
 const modalOverlay = document.getElementById('modalOverlay');
 const modalCanvasWrap = document.getElementById('modalCanvasWrap');
+const modalCanvasStage = document.getElementById('modalCanvasStage');
+const modalPixelGrid = document.getElementById('modalPixelGrid');
 const modalTitle = document.getElementById('modalTitle');
 const modalClose = document.getElementById('modalClose');
+const modalZoomOut = document.getElementById('modalZoomOut');
+const modalZoomRange = document.getElementById('modalZoomRange');
+const modalZoomIn = document.getElementById('modalZoomIn');
+const modalZoomValue = document.getElementById('modalZoomValue');
+const modalViewReset = document.getElementById('modalViewReset');
+const modalGridToggle = document.getElementById('modalGridToggle');
+const modalExpandToggle = document.getElementById('modalExpandToggle');
+let activeModalCanvas = null;
+let activeModalResult = null;
+let modalInitialScale = 1;
+let modalFrameWidth = 0;
+let modalFrameHeight = 0;
+let modalPanState = null;
+let modalGridVisible = false;
+let modalExpanded = false;
+
+function setModalGridVisible(visible){
+  modalGridVisible = visible;
+  modalPixelGrid.classList.toggle('visible', visible);
+  modalGridToggle.setAttribute('aria-pressed', String(visible));
+}
+
+function setModalExpanded(expanded, preserveCenter = true){
+  const previousStageWidth = Math.max(1, modalCanvasStage.offsetWidth);
+  const previousStageHeight = Math.max(1, modalCanvasStage.offsetHeight);
+  const centerRatioX = preserveCenter
+    ? (modalCanvasWrap.scrollLeft + (modalCanvasWrap.clientWidth / 2)) / previousStageWidth
+    : 0.5;
+  const centerRatioY = preserveCenter
+    ? (modalCanvasWrap.scrollTop + (modalCanvasWrap.clientHeight / 2)) / previousStageHeight
+    : 0.5;
+
+  modalExpanded = expanded;
+  modalOverlay.classList.toggle('expanded', expanded);
+  modalExpandToggle.setAttribute('aria-pressed', String(expanded));
+  modalExpandToggle.setAttribute('aria-label', expanded ? '기본 크기로 보기' : '페이지 안에서 넓게 보기');
+  modalExpandToggle.title = expanded ? '기본 크기로 보기' : '페이지 안에서 넓게 보기';
+
+  if (!activeModalCanvas || !preserveCenter) return;
+  requestAnimationFrame(() => {
+    const stageWidth = Math.max(1, modalCanvasStage.offsetWidth);
+    const stageHeight = Math.max(1, modalCanvasStage.offsetHeight);
+    modalCanvasWrap.scrollLeft = Math.max(0, (centerRatioX * stageWidth) - (modalCanvasWrap.clientWidth / 2));
+    modalCanvasWrap.scrollTop = Math.max(0, (centerRatioY * stageHeight) - (modalCanvasWrap.clientHeight / 2));
+  });
+}
+
+function setModalScale(nextScale, resetPosition = false){
+  if (!activeModalCanvas || !activeModalResult) return;
+  const minScale = Number(modalZoomRange.min);
+  const maxScale = Number(modalZoomRange.max);
+  const scale = Math.min(maxScale, Math.max(minScale, Math.round(nextScale)));
+  const previousStageWidth = Math.max(1, modalCanvasStage.offsetWidth);
+  const previousStageHeight = Math.max(1, modalCanvasStage.offsetHeight);
+  const centerRatioX = (modalCanvasWrap.scrollLeft + (modalCanvasWrap.clientWidth / 2)) / previousStageWidth;
+  const centerRatioY = (modalCanvasWrap.scrollTop + (modalCanvasWrap.clientHeight / 2)) / previousStageHeight;
+  const canvasWidth = activeModalResult.canvas.width * scale;
+  const canvasHeight = activeModalResult.canvas.height * scale;
+  const stageWidth = Math.max(modalFrameWidth, canvasWidth);
+  const stageHeight = Math.max(modalFrameHeight, canvasHeight);
+
+  activeModalCanvas.style.width = canvasWidth + 'px';
+  activeModalCanvas.style.height = canvasHeight + 'px';
+  modalPixelGrid.style.width = canvasWidth + 'px';
+  modalPixelGrid.style.height = canvasHeight + 'px';
+  modalPixelGrid.style.backgroundSize = `${scale}px ${scale}px`;
+  modalCanvasStage.style.width = stageWidth + 'px';
+  modalCanvasStage.style.height = stageHeight + 'px';
+  modalZoomRange.value = String(scale);
+  modalZoomValue.value = `${scale}배`;
+  modalZoomValue.textContent = `${scale}배`;
+  modalZoomOut.disabled = scale <= minScale;
+  modalZoomIn.disabled = scale >= maxScale;
+  modalTitle.textContent = `${activeModalResult.name} — ${activeModalResult.canvas.width}×${activeModalResult.canvas.height}px, 팔레트 ${activeModalResult.paletteSize}색 (${scale}배 보기)`;
+
+  const nextCenterRatioX = resetPosition ? 0.5 : centerRatioX;
+  const nextCenterRatioY = resetPosition ? 0.5 : centerRatioY;
+  modalCanvasWrap.scrollLeft = Math.max(0, (nextCenterRatioX * stageWidth) - (modalCanvasWrap.clientWidth / 2));
+  modalCanvasWrap.scrollTop = Math.max(0, (nextCenterRatioY * stageHeight) - (modalCanvasWrap.clientHeight / 2));
+}
 
 function openModal(r){
-  modalCanvasWrap.replaceChildren();
+  modalCanvasStage.replaceChildren();
   const big = document.createElement('canvas');
   big.width = r.canvas.width; big.height = r.canvas.height;
   const bctx = big.getContext('2d');
   bctx.imageSmoothingEnabled = false;
   bctx.drawImage(r.canvas, 0, 0);
 
-  const maxDisplay = Math.min(window.innerWidth, window.innerHeight) * 0.7;
-  const scale = Math.max(1, Math.floor(maxDisplay / r.canvas.width));
-  big.style.width = (r.canvas.width * scale) + 'px';
-  big.style.height = (r.canvas.height * scale) + 'px';
-
-  modalCanvasWrap.appendChild(big);
-  modalTitle.textContent = `${r.name} — ${r.canvas.width}×${r.canvas.height}px, 팔레트 ${r.paletteSize}색 (${scale}배 확대 표시)`;
+  const modalChromeHeight = window.innerWidth <= 620 ? 210 : 170;
+  const maxDisplayWidth = Math.max(r.canvas.width, window.innerWidth * 0.7);
+  const maxDisplayHeight = Math.max(r.canvas.height, (window.innerHeight * 0.9) - modalChromeHeight);
+  modalInitialScale = Math.min(Number(modalZoomRange.max), Math.max(1, Math.floor(Math.min(
+    maxDisplayWidth / r.canvas.width,
+    maxDisplayHeight / r.canvas.height
+  ))));
+  modalFrameWidth = r.canvas.width * modalInitialScale;
+  modalFrameHeight = r.canvas.height * modalInitialScale;
+  modalCanvasWrap.style.width = modalFrameWidth + 'px';
+  modalCanvasWrap.style.height = modalFrameHeight + 'px';
+  activeModalCanvas = big;
+  activeModalResult = r;
+  modalCanvasStage.append(big, modalPixelGrid);
   modalOverlay.classList.add('open');
+  setModalExpanded(false, false);
+  setModalGridVisible(false);
+  setModalScale(modalInitialScale, true);
   
   // 모달 안에서도 배경색 설정 적용
   applyPreviewBg();
 }
 
-function closeModal(){ modalOverlay.classList.remove('open'); }
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  setModalExpanded(false, false);
+  modalCanvasWrap.classList.remove('dragging');
+  setModalGridVisible(false);
+  activeModalCanvas = null;
+  activeModalResult = null;
+  modalPanState = null;
+}
 modalClose.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || !modalOverlay.classList.contains('open')) return;
+  if (modalExpanded) setModalExpanded(false);
+  else closeModal();
+});
+modalZoomOut.addEventListener('click', () => setModalScale(Number(modalZoomRange.value) - 1));
+modalZoomIn.addEventListener('click', () => setModalScale(Number(modalZoomRange.value) + 1));
+modalZoomRange.addEventListener('input', () => setModalScale(Number(modalZoomRange.value)));
+modalViewReset.addEventListener('click', () => {
+  setModalScale(modalInitialScale, true);
+  setModalGridVisible(false);
+});
+modalGridToggle.addEventListener('click', () => setModalGridVisible(!modalGridVisible));
+modalExpandToggle.addEventListener('click', () => setModalExpanded(!modalExpanded));
+
+modalCanvasWrap.addEventListener('pointerdown', e => {
+  if (e.button !== 0 || (
+    modalCanvasWrap.scrollWidth <= modalCanvasWrap.clientWidth &&
+    modalCanvasWrap.scrollHeight <= modalCanvasWrap.clientHeight
+  )) return;
+  modalPanState = {
+    pointerId: e.pointerId,
+    startX: e.clientX,
+    startY: e.clientY,
+    scrollLeft: modalCanvasWrap.scrollLeft,
+    scrollTop: modalCanvasWrap.scrollTop
+  };
+  modalCanvasWrap.setPointerCapture(e.pointerId);
+  modalCanvasWrap.classList.add('dragging');
+  e.preventDefault();
+});
+
+modalCanvasWrap.addEventListener('pointermove', e => {
+  if (!modalPanState || modalPanState.pointerId !== e.pointerId) return;
+  modalCanvasWrap.scrollLeft = modalPanState.scrollLeft - (e.clientX - modalPanState.startX);
+  modalCanvasWrap.scrollTop = modalPanState.scrollTop - (e.clientY - modalPanState.startY);
+  e.preventDefault();
+});
+
+function finishModalPan(e){
+  if (!modalPanState || modalPanState.pointerId !== e.pointerId) return;
+  if (modalCanvasWrap.hasPointerCapture(e.pointerId)) {
+    modalCanvasWrap.releasePointerCapture(e.pointerId);
+  }
+  modalPanState = null;
+  modalCanvasWrap.classList.remove('dragging');
+}
+
+modalCanvasWrap.addEventListener('pointerup', finishModalPan);
+modalCanvasWrap.addEventListener('pointercancel', finishModalPan);
 
 function dimsLabel(canvas){
   return canvas.width === canvas.height ? `${canvas.width}px` : `${canvas.width}x${canvas.height}`;
@@ -2076,6 +2323,7 @@ resetBtn.addEventListener('click', () => {
 
 document.getElementById('resultSortBy').addEventListener('change', renderResults);
 document.getElementById('resultSortOrder').addEventListener('change', renderResults);
+document.getElementById('resultSearch').addEventListener('input', renderResults);
 
 downloadAllBtn.addEventListener('click', async () => {
   const zip = new JSZip();
