@@ -15,7 +15,7 @@ Pixelate Studio에는 서버 API, 로그인, 서버 데이터베이스가 없습
 - HTML의 CSP는 기본 보호 장치입니다. 실제 서비스에서는 아래 정책을 HTTP 응답 헤더에도 적용합니다.
 
 ```text
-Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-YZ8pydZnQSsiBhLg8l+Hlv+iCdkuUO7TNGotwx4Gam4='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'
+Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-3pL320EfNFqHouFcWTIemkTyCzzbp11/KfpuGiEOBK0='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
 Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

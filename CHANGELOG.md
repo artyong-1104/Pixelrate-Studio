@@ -6,6 +6,23 @@ Entries are grouped by version and change type.
 
 Korean version: [CHANGELOG.ko.md](./CHANGELOG.ko.md)
 
+## [1.1.0] - 2026-08-02
+
+### Added
+
+- Added an original-geometry mode that preserves a sprite sheet's canvas size and frame layout.
+- Added frame width, frame height, and 1/2/4/8-pixel block-size controls.
+- Kept cleanup and outlines inside each frame in original-geometry mode.
+- Added processing-mode, frame-geometry, and block-size metadata to saved settings and JSON results.
+
+### Changed
+
+- Replaced the downscale checkbox with square-downscale, original-geometry, and no-resize modes.
+- Mapped older work-history records from the previous `downscaleEnabled` setting.
+- Renamed the frame control to clarify that it expects the source frame size and does not resize the output.
+- Added per-file column, row, and total-frame previews plus invalid-division and single-frame warnings.
+- Removed the unused legacy transform pipeline and added regression checks for layout, validation, blocks, alpha, and frame boundaries.
+
 ## [1.0.1] - 2026-07-24
 
 ### Added

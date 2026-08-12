@@ -97,6 +97,11 @@ check(/const MAX_TOTAL_IMAGE_PIXELS = \d+ \* 1024 \* 1024;/.test(html), 'Total d
 check(/const MAX_RAW_PROCESS_PIXELS = \d+ \* 1024 \* 1024;/.test(html), 'Raw processing limit is required');
 check(/const MAX_PALETTE_SAMPLES = \d+;/.test(html), 'Palette sampling limit is required');
 check(/const MAX_COLOR_COMPARISONS = \d+;/.test(html), 'Color comparison limit is required');
+check(!/\blegacyProcessAll\b/.test(html), 'Legacy transform pipeline must be removed');
+check(
+  (html.match(/async function processAll\s*\(/g) ?? []).length === 1,
+  'Exactly one live processAll pipeline is required',
+);
 check(
   /lastResults\.length > 0 && persistLogsEnabled/.test(html),
   'Persistent result logging must remain explicit opt-in',

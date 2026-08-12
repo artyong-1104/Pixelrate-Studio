@@ -2,7 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-3pL320EfNFqHouFcWTIemkTyCzzbp11/KfpuGiEOBK0='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+<!--
+<!-- Inactive historical CSP declarations:
+Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+Legacy hash declaration:
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YZ8pydZnQSsiBhLg8l+Hlv+iCdkuUO7TNGotwx4Gam4='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+<meta name="referrer" content="no-referrer">
+-->
 <meta name="referrer" content="no-referrer">
 <title>Pixelate Studio — 스프라이트 다운스케일 도구</title>
 <script src="./vendor/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG"></script>
@@ -197,6 +205,21 @@
     padding:7px 8px; font-family:var(--mono); font-size:12px;
   }
   .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+
+  .frame-size-note{
+    margin:7px 0 0; color:var(--ink-dim); font-family:var(--pixel-kr);
+    font-size:10.5px; line-height:1.5;
+  }
+  .frame-calculation{
+    margin-top:9px; padding:8px 9px; border:2px solid var(--line);
+    background:var(--panel); color:var(--ink-dim); font-family:var(--pixel-kr);
+    font-size:10.5px; line-height:1.5; overflow-wrap:anywhere;
+  }
+  .frame-calculation ul{list-style:none; margin:0; padding:0;}
+  .frame-calculation li + li{margin-top:5px; padding-top:5px; border-top:1px dashed var(--line);}
+  .frame-calculation .valid{color:var(--accent);}
+  .frame-calculation .warning{color:var(--accent-2);}
+  .frame-calculation .error{color:var(--danger);}
 
   .toggle{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink); cursor:pointer; user-select:none; font-family:var(--pixel-kr);}
   .toggle input{width:15px;height:15px; accent-color:var(--accent);}
@@ -654,24 +677,26 @@
             </div>
           </div>
 
-          <!-- Accordion Item 2: 다운스케일 설정 -->
+          <!-- Accordion Item 2: 크기 처리 설정 -->
           <div class="accordion-item collapsed" id="accordionDownscale">
             <div class="accordion-header">
-              <span>2. 다운스케일 설정</span>
+              <span>2. 크기 처리</span>
               <span class="accordion-icon">▼</span>
             </div>
             <div class="accordion-content-wrapper">
               <div class="accordion-content">
                 <div class="field">
                   <div class="field-header">
-                    <label class="toggle">
-                      <input type="checkbox" id="downscaleEnabled" checked>
-                      다운스케일 적용
-                    </label>
+                    <label for="scaleMode">크기 처리 방식</label>
                     <span class="help-container">
-                      <button class="help-btn" type="button" data-help="체크를 해제하면 크기 축소 없이 원본 이미지 그대로(팔레트 정리/외곽선 등만) 처리합니다. 이미 64×64 등으로 만들어둔 픽셀아트에 외곽선만 추가하고 싶을 때 꺼주세요.">?</button>
+                      <button class="help-btn" type="button" data-help="정사각 다운스케일은 기존 방식입니다. 원본 규격 유지는 프레임별로 픽셀 블록만 만들고 원래 시트 크기로 재조립합니다. 크기 변환 없음은 원본 캔버스에서 색상·정리·외곽선만 적용합니다.">?</button>
                     </span>
                   </div>
+                  <select id="scaleMode">
+                    <option value="square" selected>정사각 다운스케일 (기존)</option>
+                    <option value="preserve-sheet">원본 규격 유지 (스프라이트 시트)</option>
+                    <option value="original">크기 변환 없음</option>
+                  </select>
                 </div>
 
                 <div id="downscaleOptions">
@@ -696,6 +721,38 @@
                     <select id="method">
                       <option value="box" selected>Box (영역 평균)</option>
                       <option value="nearest">Nearest (최근접 이웃)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div id="preserveSheetOptions" style="display:none;">
+                  <div class="field">
+                    <div class="field-header">
+                      <label>원본 프레임 크기</label>
+                      <span class="help-container">
+                        <button class="help-btn" type="button" data-help="시트에 저장된 한 프레임의 실제 크기를 입력하세요. 이 값은 노이즈·외곽선 효과의 프레임 경계를 정하며, 출력 크기를 바꾸지 않습니다. 예: 384×256 시트에 64×64를 입력하면 6열×4행으로 처리합니다.">?</button>
+                      </span>
+                    </div>
+                    <div class="row2">
+                      <input type="number" id="frameWidth" min="1" max="4096" step="1" value="64" aria-label="원본 프레임 너비" aria-describedby="frameSizeNote frameCalculation">
+                      <input type="number" id="frameHeight" min="1" max="4096" step="1" value="64" aria-label="원본 프레임 높이" aria-describedby="frameSizeNote frameCalculation">
+                    </div>
+                    <p class="frame-size-note" id="frameSizeNote">출력 이미지와 각 프레임의 크기는 바뀌지 않습니다.</p>
+                    <div class="frame-calculation" id="frameCalculation" aria-live="polite"></div>
+                  </div>
+
+                  <div class="field">
+                    <div class="field-header">
+                      <label for="pixelBlockSize">픽셀 블록 크기</label>
+                      <span class="help-container">
+                        <button class="help-btn" type="button" data-help="프레임 안에서 몇 픽셀을 하나의 논리 픽셀로 묶을지 정합니다. 블록 1은 공간 축소 없이 기존 효과만 적용하고, 숫자가 클수록 더 굵은 픽셀이 됩니다.">?</button>
+                      </span>
+                    </div>
+                    <select id="pixelBlockSize">
+                      <option value="1">1 × 1</option>
+                      <option value="2">2 × 2</option>
+                      <option value="4" selected>4 × 4</option>
+                      <option value="8">8 × 8</option>
                     </select>
                   </div>
                 </div>
@@ -969,10 +1026,15 @@ const statusEl = document.getElementById('status');
 const resultsEl = document.getElementById('results');
 const downloadAllBtn = document.getElementById('downloadAllBtn');
 
-const downscaleEnabledCheck = document.getElementById('downscaleEnabled');
+const scaleModeSel = document.getElementById('scaleMode');
 const downscaleOptions = document.getElementById('downscaleOptions');
+const preserveSheetOptions = document.getElementById('preserveSheetOptions');
 const sizeSel = document.getElementById('size');
 const methodSel = document.getElementById('method');
+const frameWidthInput = document.getElementById('frameWidth');
+const frameHeightInput = document.getElementById('frameHeight');
+const pixelBlockSizeSel = document.getElementById('pixelBlockSize');
+const frameCalculationEl = document.getElementById('frameCalculation');
 
 const paletteEnabledCheck = document.getElementById('paletteEnabled');
 const paletteControls = document.getElementById('paletteControls');
@@ -1247,10 +1309,18 @@ function formatDate(date) {
   return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
+function normalizeScaleMode(s) {
+  if (s && ['square', 'preserve-sheet', 'original'].includes(s.scaleMode)) return s.scaleMode;
+  return s && s.downscaleEnabled === false ? 'original' : 'square';
+}
+
 function getSettingsSummary(s) {
   const parts = [];
-  if (s.downscaleEnabled) {
+  const scaleMode = normalizeScaleMode(s);
+  if (scaleMode === 'square') {
     parts.push(`크기:${s.size}px(${s.method})`);
+  } else if (scaleMode === 'preserve-sheet') {
+    parts.push(`규격유지:${s.frameWidth}×${s.frameHeight}, 블록:${s.pixelBlockSize}`);
   } else {
     parts.push('크기:원본');
   }
@@ -1270,10 +1340,13 @@ function getSettingsSummary(s) {
 }
 
 function loadSettings(s) {
-  downscaleEnabledCheck.checked = s.downscaleEnabled;
-  downscaleEnabledCheck.dispatchEvent(new Event('change'));
-  sizeSel.value = s.size;
-  methodSel.value = s.method;
+  scaleModeSel.value = normalizeScaleMode(s);
+  scaleModeSel.dispatchEvent(new Event('change'));
+  sizeSel.value = s.size ?? '64';
+  methodSel.value = s.method ?? 'box';
+  frameWidthInput.value = s.frameWidth ?? '64';
+  frameHeightInput.value = s.frameHeight ?? '64';
+  pixelBlockSizeSel.value = String(s.pixelBlockSize ?? '4');
   
   paletteEnabledCheck.checked = s.paletteEnabled;
   paletteEnabledCheck.dispatchEvent(new Event('change'));
@@ -1298,7 +1371,7 @@ function loadSettings(s) {
   if (valEl) valEl.textContent = s.outlineWidthNum;
   
   // 불러온 설정에 맞춰 아코디언 확장
-  if (s.downscaleEnabled) {
+  if (normalizeScaleMode(s) !== 'original') {
     document.getElementById('accordionDownscale').classList.remove('collapsed');
   }
   if (s.paletteEnabled) {
@@ -1310,6 +1383,8 @@ function loadSettings(s) {
   if (s.outline) {
     document.getElementById('accordionOutline').classList.remove('collapsed');
   }
+
+  updateFrameCalculation();
   
   alert('옵션 설정이 성공적으로 복원되었습니다.');
 }
@@ -1420,11 +1495,99 @@ themeToggle.addEventListener('click', () => {
 });
 setTheme('dark');
 
-// ---------- 다운스케일 적용 여부 체크박스 ----------
-downscaleEnabledCheck.addEventListener('change', () => {
-  downscaleOptions.style.opacity = downscaleEnabledCheck.checked ? '1' : '.4';
-  downscaleOptions.querySelectorAll('select').forEach(s => s.disabled = !downscaleEnabledCheck.checked);
-});
+// ---------- 크기 처리 방식 제어 ----------
+function syncScaleModeControls(){
+  const mode = scaleModeSel.value;
+  const isSquare = mode === 'square';
+  const isPreserveSheet = mode === 'preserve-sheet';
+  downscaleOptions.style.display = isSquare ? 'block' : 'none';
+  preserveSheetOptions.style.display = isPreserveSheet ? 'block' : 'none';
+  downscaleOptions.querySelectorAll('select').forEach(select => {
+    select.disabled = !isSquare;
+  });
+  preserveSheetOptions.querySelectorAll('input, select').forEach(control => {
+    control.disabled = !isPreserveSheet;
+  });
+  updateFrameCalculation();
+}
+scaleModeSel.addEventListener('change', syncScaleModeControls);
+
+function getFrameLayout(file, frameWidth, frameHeight){
+  if(file.img.width % frameWidth !== 0 || file.img.height % frameHeight !== 0) return null;
+  const columns = file.img.width / frameWidth;
+  const rows = file.img.height / frameHeight;
+  return { columns, rows, totalFrames: columns * rows };
+}
+
+function getPreserveSheetValidationError(files, frameWidth, frameHeight, blockSize){
+  const validBlock = [1, 2, 4, 8].includes(blockSize);
+  const validFrame = Number.isInteger(frameWidth) && Number.isInteger(frameHeight) &&
+    frameWidth >= 1 && frameWidth <= 4096 && frameHeight >= 1 && frameHeight <= 4096;
+  if(!validFrame || !validBlock){
+    return '규격 유지 오류 — 프레임 크기는 1~4096 정수, 블록 크기는 1·2·4·8이어야 합니다.';
+  }
+  const invalidFile = files.find(file => (
+    !getFrameLayout(file, frameWidth, frameHeight) ||
+    frameWidth % blockSize !== 0 ||
+    frameHeight % blockSize !== 0
+  ));
+  if(!invalidFile) return '';
+  const layout = getFrameLayout(invalidFile, frameWidth, frameHeight);
+  const reason = !layout
+    ? `${invalidFile.img.width}×${invalidFile.img.height} 이미지가 프레임 ${frameWidth}×${frameHeight}로 나누어지지 않습니다.`
+    : `프레임 ${frameWidth}×${frameHeight}이 블록 ${blockSize}로 나누어지지 않습니다.`;
+  return `규격 유지 오류 — ${invalidFile.name}: ${reason}`;
+}
+
+function updateFrameCalculation(){
+  frameCalculationEl.replaceChildren();
+  const frameWidth = Number(frameWidthInput.value);
+  const frameHeight = Number(frameHeightInput.value);
+  const blockSize = Number(pixelBlockSizeSel.value);
+  const validFrame = Number.isInteger(frameWidth) && Number.isInteger(frameHeight) &&
+    frameWidth >= 1 && frameWidth <= 4096 && frameHeight >= 1 && frameHeight <= 4096;
+
+  if(!validFrame){
+    const error = document.createElement('div');
+    error.className = 'error';
+    error.textContent = '프레임 너비·높이를 1~4096 정수로 입력하세요.';
+    frameCalculationEl.appendChild(error);
+    return;
+  }
+  if(![1, 2, 4, 8].includes(blockSize) || frameWidth % blockSize !== 0 || frameHeight % blockSize !== 0){
+    const error = document.createElement('div');
+    error.className = 'error';
+    error.textContent = `프레임 ${frameWidth}×${frameHeight}은 블록 ${blockSize}로 나누어떨어져야 합니다.`;
+    frameCalculationEl.appendChild(error);
+    return;
+  }
+  if(uploadedFiles.length === 0){
+    frameCalculationEl.textContent = '이미지를 업로드하면 열·행·총 프레임 수를 계산합니다.';
+    return;
+  }
+
+  const list = document.createElement('ul');
+  uploadedFiles.forEach(file => {
+    const item = document.createElement('li');
+    const layout = getFrameLayout(file, frameWidth, frameHeight);
+    if(!layout){
+      item.className = 'error';
+      item.textContent = `${file.name}: ${file.img.width}×${file.img.height}에서 ${frameWidth}×${frameHeight} 프레임을 나눌 수 없습니다.`;
+    } else {
+      item.className = layout.totalFrames === 1 ? 'warning' : 'valid';
+      item.textContent = `${file.name}: ${layout.columns}열 × ${layout.rows}행 = ${layout.totalFrames}프레임`;
+      if(layout.totalFrames === 1){
+        item.textContent += ' — 시트 전체를 1프레임으로 처리합니다. 원본 프레임 크기를 확인하세요.';
+      }
+    }
+    list.appendChild(item);
+  });
+  frameCalculationEl.appendChild(list);
+}
+
+frameWidthInput.addEventListener('input', updateFrameCalculation);
+frameHeightInput.addEventListener('input', updateFrameCalculation);
+pixelBlockSizeSel.addEventListener('change', updateFrameCalculation);
 
 // ---------- 팔레트 색상 수 제한 켬/끔 ----------
 function formatSize(bytes) {
@@ -1557,6 +1720,7 @@ function renderFileList(){
     });
   });
   runBtn.disabled = uploadedFiles.length === 0;
+  updateFrameCalculation();
 };
 outlineWidthRange.addEventListener('input', () => {
   outlineWidthNum.value = outlineWidthRange.value;
@@ -1658,6 +1822,58 @@ function boxDownscale(img, size, method){
     }
   }
   return out;
+}
+
+function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize){
+  const raw = getRawPixels(img);
+  const logicalFrameWidth = frameWidth / blockSize;
+  const logicalFrameHeight = frameHeight / blockSize;
+  const logicalWidth = raw.width / blockSize;
+  const logicalHeight = raw.height / blockSize;
+  const out = new Uint8ClampedArray(logicalWidth * logicalHeight * 4);
+
+  for(let y=0; y<logicalHeight; y++){
+    const frameY = Math.floor(y / logicalFrameHeight) * frameHeight;
+    const localY = (y % logicalFrameHeight) * blockSize;
+    for(let x=0; x<logicalWidth; x++){
+      const frameX = Math.floor(x / logicalFrameWidth) * frameWidth;
+      const localX = (x % logicalFrameWidth) * blockSize;
+      const x0 = frameX + localX;
+      const y0 = frameY + localY;
+      let rSum=0, gSum=0, bSum=0, aSum=0, count=0;
+      for(let sy=y0; sy<y0+blockSize; sy++){
+        for(let sx=x0; sx<x0+blockSize; sx++){
+          const si=(sy*raw.width+sx)*4;
+          const a = raw.data[si+3];
+          rSum += raw.data[si]*a;
+          gSum += raw.data[si+1]*a;
+          bSum += raw.data[si+2]*a;
+          aSum += a;
+          count++;
+        }
+      }
+      const ti=(y*logicalWidth+x)*4;
+      if(aSum > 0){
+        out[ti]=rSum/aSum;
+        out[ti+1]=gSum/aSum;
+        out[ti+2]=bSum/aSum;
+        out[ti+3]=Math.round(aSum/count);
+      } else {
+        out[ti]=0; out[ti+1]=0; out[ti+2]=0; out[ti+3]=0;
+      }
+    }
+  }
+
+  return {
+    data: out,
+    w: logicalWidth,
+    h: logicalHeight,
+    sourceW: raw.width,
+    sourceH: raw.height,
+    frameLogicalW: logicalFrameWidth,
+    frameLogicalH: logicalFrameHeight,
+    blockSize
+  };
 }
 
 function kmeans(points, k, iterations=10){
@@ -1770,44 +1986,160 @@ function cleanIsolated(grid, alpha, w, h, passes){
   return result;
 }
 
+function cleanPreserveSheet(grid, alpha, w, h, frameW, frameH, passes){
+  const result = grid.slice();
+  const columns = w / frameW;
+  const rows = h / frameH;
+  for(let frameY=0; frameY<rows; frameY++){
+    for(let frameX=0; frameX<columns; frameX++){
+      const frameGrid = new Array(frameW * frameH);
+      const frameAlpha = new Array(frameW * frameH);
+      for(let y=0; y<frameH; y++){
+        for(let x=0; x<frameW; x++){
+          const sourceI = (frameY*frameH+y)*w + frameX*frameW+x;
+          const frameI = y*frameW+x;
+          frameGrid[frameI] = result[sourceI];
+          frameAlpha[frameI] = alpha[sourceI];
+        }
+      }
+      const cleaned = cleanIsolated(frameGrid, frameAlpha, frameW, frameH, passes);
+      for(let y=0; y<frameH; y++){
+        for(let x=0; x<frameW; x++){
+          result[(frameY*frameH+y)*w + frameX*frameW+x] = cleaned[y*frameW+x];
+        }
+      }
+    }
+  }
+  return result;
+}
+
+function outlinePreserveSheet(grid, alpha, w, h, frameW, frameH, thickness, shape, outlineColorIdx){
+  const resultGrid = grid.slice();
+  const resultAlpha = alpha.slice();
+  const columns = w / frameW;
+  const rows = h / frameH;
+  const offsets4 = [[0,-1],[0,1],[-1,0],[1,0]];
+  const offsets8 = [[0,-1],[0,1],[-1,0],[1,0],[-1,-1],[-1,1],[1,-1],[1,1]];
+  const offsets = shape === '8' ? offsets8 : offsets4;
+
+  for(let frameY=0; frameY<rows; frameY++){
+    for(let frameX=0; frameX<columns; frameX++){
+      const filled = new Array(frameW * frameH);
+      for(let y=0; y<frameH; y++){
+        for(let x=0; x<frameW; x++){
+          const globalI = (frameY*frameH+y)*w + frameX*frameW+x;
+          filled[y*frameW+x] = resultAlpha[globalI] >= 10;
+        }
+      }
+
+      for(let t=0; t<thickness; t++){
+        const newlyFilled = [];
+        for(let y=0; y<frameH; y++){
+          for(let x=0; x<frameW; x++){
+            const frameI = y*frameW+x;
+            if(filled[frameI]) continue;
+            let touches = false;
+            for(const [dy,dx] of offsets){
+              const ny=y+dy, nx=x+dx;
+              if(nx>=0 && nx<frameW && ny>=0 && ny<frameH && filled[ny*frameW+nx]){
+                touches = true;
+                break;
+              }
+            }
+            if(touches){
+              const globalI = (frameY*frameH+y)*w + frameX*frameW+x;
+              resultGrid[globalI] = outlineColorIdx;
+              resultAlpha[globalI] = 255;
+              newlyFilled.push(frameI);
+            }
+          }
+        }
+        newlyFilled.forEach(i => filled[i] = true);
+      }
+    }
+  }
+  return {grid: resultGrid, alpha: resultAlpha};
+}
+
+function expandPreserveSheet(grid, alpha, w, h, blockSize, outputW, outputH){
+  const outputGrid = new Array(outputW * outputH).fill(-1);
+  const outputAlpha = new Array(outputW * outputH).fill(0);
+  for(let y=0; y<h; y++){
+    for(let x=0; x<w; x++){
+      const sourceI = y*w+x;
+      const gridValue = grid[sourceI];
+      const alphaValue = alpha[sourceI];
+      for(let dy=0; dy<blockSize; dy++){
+        const outputY = y*blockSize+dy;
+        for(let dx=0; dx<blockSize; dx++){
+          const outputX = x*blockSize+dx;
+          const outputI = outputY*outputW+outputX;
+          outputGrid[outputI] = gridValue;
+          outputAlpha[outputI] = alphaValue;
+        }
+      }
+    }
+  }
+  return {grid: outputGrid, alpha: outputAlpha, w: outputW, h: outputH};
+}
+
 async function processAll(){
-  const doDownscale = downscaleEnabledCheck.checked;
-  const size = parseInt(sizeSel.value);
+  const scaleMode = scaleModeSel.value;
+  const size = parseInt(sizeSel.value, 10);
+  const method = methodSel.value;
+  const frameWidth = Number(frameWidthInput.value);
+  const frameHeight = Number(frameHeightInput.value);
+  const pixelBlockSize = Number(pixelBlockSizeSel.value);
   const paletteOn = paletteEnabledCheck.checked;
   const nColors = currentColors();
-  const method = methodSel.value;
-  const cleanOn = cleanEnabledCheck.checked;
-  const cleanPasses = cleanOn ? currentClean() : 0;
+  const cleanPasses = cleanEnabledCheck.checked ? currentClean() : 0;
   const shared = sharedCheck.checked && uploadedFiles.length > 1 && paletteOn;
-  const estimatedPixels = doDownscale
+
+  if(scaleMode === 'preserve-sheet'){
+    const validationError = getPreserveSheetValidationError(uploadedFiles, frameWidth, frameHeight, pixelBlockSize);
+    if(validationError){
+      statusEl.textContent = validationError;
+      return;
+    }
+  }
+
+  const logicalPixels = scaleMode === 'square'
+    ? uploadedFiles.length * size * size
+    : scaleMode === 'preserve-sheet'
+      ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / pixelBlockSize) * (file.img.height / pixelBlockSize)), 0)
+      : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
+  const outputPixels = scaleMode === 'square'
     ? uploadedFiles.length * size * size
     : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
 
-  if(!doDownscale && estimatedPixels > MAX_RAW_PROCESS_PIXELS){
-    statusEl.textContent = '원본 크기 처리는 전체 4백만 픽셀 이하에서만 사용할 수 있습니다. 다운스케일을 켜거나 이미지 수를 줄이세요.';
+  if(outputPixels > MAX_RAW_PROCESS_PIXELS){
+    statusEl.textContent = '원본 규격 출력은 전체 4백만 픽셀 이하에서만 사용할 수 있습니다. 이미지 수나 크기를 줄이세요.';
     return;
   }
-  if(paletteOn && estimatedPixels * nColors > MAX_COLOR_COMPARISONS){
+  if(paletteOn && logicalPixels * nColors > MAX_COLOR_COMPARISONS){
     statusEl.textContent = '예상 색상 연산량이 안전 한도를 넘습니다. 출력 크기, 이미지 수 또는 팔레트 색상 수를 줄이세요.';
     return;
   }
 
   runBtn.disabled = true;
-  statusEl.textContent = '처리 중...'; statusEl.classList.add('busy');
+  statusEl.textContent = '처리 중...';
+  statusEl.classList.add('busy');
 
   const downs = uploadedFiles.map(f => {
-    if(doDownscale){
-      return { name: f.name, data: boxDownscale(f.img, size, method), w: size, h: size };
-    } else {
-      const raw = getRawPixels(f.img);
-      return { name: f.name, data: raw.data, w: raw.width, h: raw.height };
+    if(scaleMode === 'square'){
+      return { name: f.name, data: boxDownscale(f.img, size, method), w: size, h: size, mode: scaleMode };
     }
+    if(scaleMode === 'preserve-sheet'){
+      return { name: f.name, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize), mode: scaleMode };
+    }
+    const raw = getRawPixels(f.img);
+    return { name: f.name, data: raw.data, w: raw.width, h: raw.height, mode: scaleMode, sourceW: raw.width, sourceH: raw.height };
   });
 
   let sharedPalette = null;
   if(shared){
-    let allPoints = [];
-    const stride = Math.max(1, Math.ceil(estimatedPixels / MAX_PALETTE_SAMPLES));
+    const allPoints = [];
+    const stride = Math.max(1, Math.ceil(logicalPixels / MAX_PALETTE_SAMPLES));
     let visitedPixels = 0;
     downs.forEach(d => {
       const n = d.w*d.h;
@@ -1836,8 +2168,7 @@ async function processAll(){
 
     if(!palette){
       if(paletteOn){
-        const points = collectOpaquePoints(d.data, n);
-        palette = kmeans(points, nColors, 10);
+        palette = kmeans(collectOpaquePoints(d.data, n), nColors, 10);
       } else {
         palette = uniqueColors(d.data, alpha, n);
         exactColorMap = new Map(palette.map((color, index) => [color.join(','), index]));
@@ -1856,63 +2187,77 @@ async function processAll(){
     }
 
     if(cleanPasses>0){
-      grid = cleanIsolated(grid, alpha, w, h, cleanPasses);
+      grid = d.mode === 'preserve-sheet'
+        ? cleanPreserveSheet(grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH, cleanPasses)
+        : cleanIsolated(grid, alpha, w, h, cleanPasses);
     }
 
     let finalW = w, finalH = h;
     let finalGrid = grid;
     let finalAlpha = alpha;
-    let finalPalette = palette.slice();
+    const finalPalette = palette.slice();
     let outlineColorIdx = -1;
+    const outlineThickness = Math.max(1, parseInt(outlineWidthNum.value, 10) || 1);
 
     if(outlineCheck.checked){
-      const thickness = Math.max(1, parseInt(outlineWidthNum.value) || 1);
-      const shape = outlineShape.value;
-      const rgb = hexToRgb(outlineColor.value);
       outlineColorIdx = finalPalette.length;
-      finalPalette.push(rgb);
+      finalPalette.push(hexToRgb(outlineColor.value));
 
-      const padW = w + thickness*2, padH = h + thickness*2;
-      let pAlpha = new Array(padW*padH).fill(0);
-      let pGrid = new Array(padW*padH).fill(-1);
-      for(let y=0;y<h;y++){
-        for(let x=0;x<w;x++){
-          const srcI = y*w+x;
-          const dstI = (y+thickness)*padW + (x+thickness);
-          pAlpha[dstI] = alpha[srcI];
-          pGrid[dstI] = grid[srcI];
-        }
-      }
-
-      const offsets4 = [[0,-1],[0,1],[-1,0],[1,0]];
-      const offsets8 = [[0,-1],[0,1],[-1,0],[1,0],[-1,-1],[-1,1],[1,-1],[1,1]];
-      const offsets = shape === '8' ? offsets8 : offsets4;
-
-      let filled = pAlpha.map(a => a >= 10);
-      for(let t=0; t<thickness; t++){
-        const newlyFilled = [];
-        for(let y=0;y<padH;y++){
-          for(let x=0;x<padW;x++){
-            const i = y*padW+x;
-            if(filled[i]) continue;
-            let touches = false;
-            for(const [dy,dx] of offsets){
-              const ny=y+dy, nx=x+dx;
-              if(nx>=0 && nx<padW && ny>=0 && ny<padH && filled[ny*padW+nx]){ touches=true; break; }
-            }
-            if(touches){
-              pGrid[i] = outlineColorIdx;
-              pAlpha[i] = 255;
-              newlyFilled.push(i);
-            }
+      if(d.mode === 'preserve-sheet'){
+        const outlined = outlinePreserveSheet(
+          grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH,
+          outlineThickness, outlineShape.value, outlineColorIdx
+        );
+        finalGrid = outlined.grid;
+        finalAlpha = outlined.alpha;
+      } else {
+        const padW = w + outlineThickness*2, padH = h + outlineThickness*2;
+        const pAlpha = new Array(padW*padH).fill(0);
+        const pGrid = new Array(padW*padH).fill(-1);
+        for(let y=0;y<h;y++){
+          for(let x=0;x<w;x++){
+            const srcI = y*w+x;
+            const dstI = (y+outlineThickness)*padW + (x+outlineThickness);
+            pAlpha[dstI] = alpha[srcI];
+            pGrid[dstI] = grid[srcI];
           }
         }
-        newlyFilled.forEach(i => filled[i] = true);
+        const offsets4 = [[0,-1],[0,1],[-1,0],[1,0]];
+        const offsets8 = [[0,-1],[0,1],[-1,0],[1,0],[-1,-1],[-1,1],[1,-1],[1,1]];
+        const offsets = outlineShape.value === '8' ? offsets8 : offsets4;
+        const filled = pAlpha.map(a => a >= 10);
+        for(let t=0; t<outlineThickness; t++){
+          const newlyFilled = [];
+          for(let y=0;y<padH;y++){
+            for(let x=0;x<padW;x++){
+              const i = y*padW+x;
+              if(filled[i]) continue;
+              let touches = false;
+              for(const [dy,dx] of offsets){
+                const ny=y+dy, nx=x+dx;
+                if(nx>=0 && nx<padW && ny>=0 && ny<padH && filled[ny*padW+nx]){ touches=true; break; }
+              }
+              if(touches){
+                pGrid[i] = outlineColorIdx;
+                pAlpha[i] = 255;
+                newlyFilled.push(i);
+              }
+            }
+          }
+          newlyFilled.forEach(i => filled[i] = true);
+        }
+        finalW = padW; finalH = padH;
+        finalGrid = pGrid;
+        finalAlpha = pAlpha;
       }
+    }
 
-      finalW = padW; finalH = padH;
-      finalGrid = pGrid;
-      finalAlpha = pAlpha;
+    if(d.mode === 'preserve-sheet'){
+      const expanded = expandPreserveSheet(finalGrid, finalAlpha, w, h, d.blockSize, d.sourceW, d.sourceH);
+      finalGrid = expanded.grid;
+      finalAlpha = expanded.alpha;
+      finalW = expanded.w;
+      finalH = expanded.h;
     }
 
     const canvas = document.createElement('canvas');
@@ -1937,8 +2282,19 @@ async function processAll(){
     for(let y=0;y<finalH;y++){
       grid2d.push(Array.from(finalGrid.slice(y*finalW,(y+1)*finalW)));
     }
-    const jsonData = { width: finalW, height: finalH, palette: paletteObj, grid: grid2d,
-      outline: outlineCheck.checked ? { paletteIndex: outlineColorIdx, shape: outlineShape.value, thickness: Math.max(1, parseInt(outlineWidthNum.value)||1) } : null };
+    const processing = scaleMode === 'square'
+      ? { mode: 'square', size, method }
+      : scaleMode === 'preserve-sheet'
+        ? { mode: 'preserve-sheet', frameWidth, frameHeight, pixelBlockSize }
+        : { mode: 'original' };
+    const jsonData = {
+      width: finalW,
+      height: finalH,
+      palette: paletteObj,
+      grid: grid2d,
+      outline: outlineCheck.checked ? { paletteIndex: outlineColorIdx, shape: outlineShape.value, thickness: outlineThickness } : null,
+      processing
+    };
 
     const dataUrl = canvas.toDataURL('image/png');
     const pngSize = Math.round(dataUrl.split(',')[1].length * 0.75);
@@ -1952,7 +2308,6 @@ async function processAll(){
   runBtn.disabled = false;
   downloadAllBtn.style.display = lastResults.length ? 'block' : 'none';
 
-  // 작업 로그 저장
   if (lastResults.length > 0 && persistLogsEnabled) {
     const resultsDataToSave = lastResults.map(r => ({
       name: r.name,
@@ -1965,7 +2320,10 @@ async function processAll(){
     }));
     const fileNames = uploadedFiles.map(f => f.name);
     const settings = {
-      downscaleEnabled: downscaleEnabledCheck.checked,
+      scaleMode,
+      frameWidth: frameWidthInput.value,
+      frameHeight: frameHeightInput.value,
+      pixelBlockSize: pixelBlockSizeSel.value,
       size: sizeSel.value,
       method: methodSel.value,
       paletteEnabled: paletteEnabledCheck.checked,
@@ -2282,10 +2640,14 @@ function downloadBlob(blob, filename){
 runBtn.addEventListener('click', processAll);
 
 resetBtn.addEventListener('click', () => {
-  downscaleEnabledCheck.checked = true;
-  downscaleEnabledCheck.dispatchEvent(new Event('change'));
+  scaleModeSel.value = 'square';
+  scaleModeSel.dispatchEvent(new Event('change'));
   sizeSel.value = "64";
   methodSel.value = "box";
+  frameWidthInput.value = "64";
+  frameHeightInput.value = "64";
+  pixelBlockSizeSel.value = "4";
+  updateFrameCalculation();
   
   paletteEnabledCheck.checked = true;
   paletteEnabledCheck.dispatchEvent(new Event('change'));
