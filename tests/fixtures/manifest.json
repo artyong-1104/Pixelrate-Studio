@@ -1,0 +1,333 @@
+{
+  "baselines": [
+    {
+      "expected": {
+        "jsonSha256": "2e2cbcbebae62ae6992bb2453298a64e72aeb1fb58f7cc545be289f93dcceb42",
+        "pngSha256": "240cff6c311d54d6ac9b25c8d15830e5f41bfa61e72c03e5890a16ef0cc61eb0",
+        "rgbaSha256": "ab006b365f9c4ef350de14db3194e688e65043399d4950f710dd2a6ff2c475f1"
+      },
+      "fixtureId": "photo-like",
+      "height": 64,
+      "id": "current-square-default",
+      "paletteSize": 16,
+      "settings": {
+        "alphaThreshold": 10,
+        "cleanPasses": 1,
+        "method": "box",
+        "mode": "square",
+        "outline": false,
+        "paletteSize": 16,
+        "size": 64
+      },
+      "width": 64
+    },
+    {
+      "expected": {
+        "jsonSha256": "98a73ed34509bd8429feb092ffa7d7d4d05bbb33285f521d462d19128fe7763c",
+        "pngSha256": "358068978e90e30b517d34e5570c874e2ae9bac5f01a49cf6c6f5d4b251f7635",
+        "rgbaSha256": "55bf669981d752c5676b40e23dcc272aeadcb18ae48014a09cab8653145f9729"
+      },
+      "fixtureId": "sprite-sheet",
+      "height": 128,
+      "id": "current-preserve-sheet-4x",
+      "paletteSize": 16,
+      "settings": {
+        "alphaThreshold": 10,
+        "cleanPasses": 1,
+        "frameHeight": 64,
+        "frameWidth": 64,
+        "mode": "preserve-sheet",
+        "outline": false,
+        "paletteSize": 16,
+        "pixelBlockSize": 4
+      },
+      "width": 256
+    }
+  ],
+  "fixtures": [
+    {
+      "alphaKind": "opaque",
+      "expected": {
+        "pngSha256": "31e623ebeb6c61db39a43ef48007209a9ff0db38f7e061696e9c5c9c30fd07f9",
+        "rgbaSha256": "35030be67bceb6dfe855714573ecd5f91983b5f0b76f261f78feeab8be95cbca"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 256,
+      "id": "ai-grid-wobble",
+      "knownFeatures": {
+        "maxBoundaryWobble": 1
+      },
+      "knownGrid": {
+        "periods": [
+          8
+        ],
+        "phaseX": 0,
+        "phaseY": 0,
+        "wobble": 1
+      },
+      "width": 256
+    },
+    {
+      "alphaKind": "mixed",
+      "expected": {
+        "pngSha256": "3be47ee0430c2e016ef067cd04cd656a80402819cc2ca6787f4f7a537dd21007",
+        "rgbaSha256": "71bc71d4bf93262d2d38dfb80da04aff03c27be3f45d012ea7841e6ddb813fb5"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 128,
+      "id": "alpha-edge",
+      "knownFeatures": {
+        "componentsAtThreshold10": 4,
+        "islandAreas": [
+          1,
+          2,
+          3
+        ],
+        "softEdgeLevels": 16
+      },
+      "knownGrid": null,
+      "width": 128
+    },
+    {
+      "alphaKind": "mixed",
+      "expected": {
+        "pngSha256": "b6ac23e4e55ec73474497071c98a20428d4581724ae56ab0ac72c6d68ec15666",
+        "rgbaSha256": "a55d1628c4279a162f307704f1b827efab9aa4d8fbc5a16af267ac25985027ac"
+      },
+      "expectedFailure": [],
+      "frameCount": 16,
+      "generatorVersion": 1,
+      "height": 64,
+      "id": "animation-16",
+      "knownFeatures": {
+        "frameCount": 16,
+        "staticRect": [
+          2,
+          2,
+          8,
+          8
+        ]
+      },
+      "knownGrid": {
+        "periods": [
+          1
+        ],
+        "phaseX": 0,
+        "phaseY": 0
+      },
+      "width": 64
+    },
+    {
+      "alphaKind": "binary",
+      "expected": {
+        "pngSha256": "7631292112dcf415998731419b755bfbaa38dde9193b3375698827ae2d380704",
+        "rgbaSha256": "f74f015261aa2e5ca0b906aa7425e07953cd0a4f2d4924ac4b6195a1fdaa9efe"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 128,
+      "id": "clean-pixel-art",
+      "knownFeatures": {
+        "logicalBlockSize": 4
+      },
+      "knownGrid": {
+        "periods": [
+          4
+        ],
+        "phaseX": 0,
+        "phaseY": 0
+      },
+      "width": 128
+    },
+    {
+      "alphaKind": "opaque",
+      "expected": {
+        "pngSha256": "d93b1e369d49aaf60e8625a0e1cf3da074d0b2ae48bac341536f07e18e4c7814",
+        "rgbaSha256": "0da1ceafca73253243de55b546c7dc1d2aae884b55f073d0e6453ed70adf4c40"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 64,
+      "id": "gradient-gray",
+      "knownFeatures": {
+        "endpoints": [
+          0,
+          255
+        ],
+        "gradientAxis": "x"
+      },
+      "knownGrid": null,
+      "width": 256
+    },
+    {
+      "alphaKind": "opaque",
+      "expected": {
+        "pngSha256": "d6a9bc5ffa6896e1f025c8cdbdc7c35bf551d53337e767ef0dcf426ff71d5282",
+        "rgbaSha256": "838c77defca9c085d30b1ef69b2efffd7b56c2c4db325f4be3e6fb32402b681c"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 128,
+      "id": "hard-edge-phase",
+      "knownFeatures": {
+        "sections": 3
+      },
+      "knownGrid": {
+        "periods": [
+          3,
+          4,
+          8
+        ],
+        "phaseX": 1,
+        "phaseY": 1
+      },
+      "width": 192
+    },
+    {
+      "alphaKind": "opaque",
+      "expected": {
+        "pngSha256": "f10708341506d8df023bb35b1b472e4f5501a504ceca95ba5e73dd4eb1ef1bcf",
+        "rgbaSha256": "4747493c3f448838d917f9deb655b4dca927c4d4dcdf2373a0dcf1bad7c83032"
+      },
+      "expectedFailure": [
+        "low-edge-support"
+      ],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 120,
+      "id": "low-contrast",
+      "knownFeatures": {
+        "rgbDeltas": [
+          4,
+          8,
+          20
+        ]
+      },
+      "knownGrid": null,
+      "width": 160
+    },
+    {
+      "alphaKind": "binary",
+      "expected": {
+        "pngSha256": "767748a49884debbd0b69df1614ecb324ca7dd2232745df200a4fe2e5e72937e",
+        "rgbaSha256": "1729ccb8af7ea11d88dcdd55e3bf1e763c6493f346974c00a6d5f35ff9452cd1"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 702,
+      "id": "non-square-factor",
+      "knownFeatures": {
+        "factor": 3,
+        "logicalHeight": 234,
+        "logicalWidth": 160
+      },
+      "knownGrid": {
+        "periods": [
+          3
+        ],
+        "phaseX": 0,
+        "phaseY": 0
+      },
+      "width": 480
+    },
+    {
+      "alphaKind": "opaque",
+      "expected": {
+        "pngSha256": "dbed81f3cc68617d1422ed8b7dde2cceb335f2d386f7249f215044252867d398",
+        "rgbaSha256": "f398b97a9dc1f997bf928a561b995c3a7f5777d5b63eaff5ed4ff7ea3ace8378"
+      },
+      "expectedFailure": [
+        "grid-not-present"
+      ],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 192,
+      "id": "photo-like",
+      "knownFeatures": {
+        "expectedGrid": false
+      },
+      "knownGrid": null,
+      "width": 256
+    },
+    {
+      "alphaKind": "mixed",
+      "expected": {
+        "pngSha256": "c148c3616f67c52610ad251a48e2104db38da27421e8c6e41249fd8cc080472a",
+        "rgbaSha256": "25f83919cb99cf85eca562acf38b5a1fe815374693ae2bed0fb42626d44c9495"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 128,
+      "id": "sprite-sheet",
+      "knownFeatures": {
+        "columns": 4,
+        "frameCount": 8,
+        "frameHeight": 64,
+        "frameWidth": 64,
+        "rows": 2
+      },
+      "knownGrid": {
+        "periods": [
+          4
+        ],
+        "phaseX": 0,
+        "phaseY": 0
+      },
+      "width": 256
+    },
+    {
+      "alphaKind": "opaque",
+      "expected": {
+        "pngSha256": "ad908e47572f3cef6ba595271ff150bb86e7f1ad246101bf7ef4916e35d573db",
+        "rgbaSha256": "892ecf467b08546a2e11f249ccdf9ccad9086fe18a1b72c509a394b21fbb36ec"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 128,
+      "id": "texture-checker",
+      "knownFeatures": {
+        "checkerSize": 4,
+        "ditherSize": 2
+      },
+      "knownGrid": {
+        "periods": [
+          2,
+          4
+        ],
+        "phaseX": 0,
+        "phaseY": 0
+      },
+      "width": 192
+    },
+    {
+      "alphaKind": "binary",
+      "expected": {
+        "pngSha256": "481be708a3bb79010bea521a10f9e38e5e68256cce01abe88de094b80a10b156",
+        "rgbaSha256": "19b80be384844bf44fa30f384b20cf7649fa1cb08aeebcec7c57bbb073c39e19"
+      },
+      "expectedFailure": [],
+      "frameCount": 1,
+      "generatorVersion": 1,
+      "height": 192,
+      "id": "thin-lines",
+      "knownFeatures": {
+        "thinFeaturePixels": 1389
+      },
+      "knownGrid": null,
+      "width": 192
+    }
+  ],
+  "generatorVersion": 1,
+  "schemaVersion": 1,
+  "seed": 20260814
+}

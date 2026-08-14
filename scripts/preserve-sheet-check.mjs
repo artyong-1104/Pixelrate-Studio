@@ -2,68 +2,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import vm from 'node:vm';
+import { extractInlineFunction } from './lib/extract-inline-function.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'pixelate_studio.html'), 'utf8');
-
-function extractFunction(name) {
-  const marker = `function ${name}(`;
-  const start = html.indexOf(marker);
-  assert.notEqual(start, -1, `${name} must exist in pixelate_studio.html`);
-  const openBrace = html.indexOf('{', start + marker.length);
-  assert.notEqual(openBrace, -1, `${name} must have a function body`);
-
-  let depth = 0;
-  let quote = '';
-  let escaped = false;
-  let lineComment = false;
-  let blockComment = false;
-  for (let i = openBrace; i < html.length; i++) {
-    const char = html[i];
-    const next = html[i + 1];
-    if (lineComment) {
-      if (char === '\n') lineComment = false;
-      continue;
-    }
-    if (blockComment) {
-      if (char === '*' && next === '/') {
-        blockComment = false;
-        i++;
-      }
-      continue;
-    }
-    if (quote) {
-      if (escaped) {
-        escaped = false;
-      } else if (char === '\\') {
-        escaped = true;
-      } else if (char === quote) {
-        quote = '';
-      }
-      continue;
-    }
-    if (char === '/' && next === '/') {
-      lineComment = true;
-      i++;
-      continue;
-    }
-    if (char === '/' && next === '*') {
-      blockComment = true;
-      i++;
-      continue;
-    }
-    if (char === '"' || char === "'" || char === '`') {
-      quote = char;
-      continue;
-    }
-    if (char === '{') depth++;
-    if (char === '}') {
-      depth--;
-      if (depth === 0) return html.slice(start, i + 1);
-    }
-  }
-  assert.fail(`${name} function body is incomplete`);
-}
 
 assert.doesNotMatch(html, /\blegacyProcessAll\b/, 'The removed legacy transform pipeline must not return');
 assert.equal(
@@ -90,7 +32,7 @@ const context = vm.createContext({
   getRawPixels: image => image,
 });
 vm.runInContext(
-  `${functionNames.map(extractFunction).join('\n')}\nthis.api = { ${functionNames.join(', ')} };`,
+  `${functionNames.map(name => extractInlineFunction(html, name)).join('\n')}\nthis.api = { ${functionNames.join(', ')} };`,
   context,
 );
 const {
