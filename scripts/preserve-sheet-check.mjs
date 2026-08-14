@@ -19,6 +19,8 @@ const functionNames = [
   'getFrameLayout',
   'getPreserveSheetValidationError',
   'preserveSheetDownscale',
+  'getFactorValidationError',
+  'exactFactorDownscale',
   'cleanIsolated',
   'cleanPreserveSheet',
   'outlinePreserveSheet',
@@ -28,6 +30,7 @@ const context = vm.createContext({
   Array,
   Math,
   Number,
+  parseInt,
   Uint8ClampedArray,
   getRawPixels: image => image,
 });
@@ -40,6 +43,8 @@ const {
   getFrameLayout,
   getPreserveSheetValidationError,
   preserveSheetDownscale,
+  getFactorValidationError,
+  exactFactorDownscale,
   cleanPreserveSheet,
   outlinePreserveSheet,
   expandPreserveSheet,
@@ -222,4 +227,95 @@ const unframedClean = cleanPreserveSheet(
 assert.equal(framedClean[boundaryPixel], 1, 'Cleanup must not read neighboring frames');
 assert.equal(unframedClean[boundaryPixel], 2, 'The fixture must detect unsegmented cleanup');
 
-console.log('Preserve-sheet regression checks passed (layout, validation, compatibility, blocks, alpha, boundaries).');
+// ---------- GEO-001 Factor Mode Checks ----------
+assert.equal(normalizeScaleMode({ scaleMode: 'factor' }), 'factor');
+
+const nonSquare1 = { name: 'hero.png', img: { width: 768, height: 1344 } };
+const nonSquare2 = { name: 'portrait.png', img: { width: 480, height: 702 } };
+assert.equal(getFactorValidationError([nonSquare1], 8, 'whole', 64, 64), '', '768×1344 / 8 must pass whole factor validation');
+assert.equal(getFactorValidationError([nonSquare2], 3, 'whole', 64, 64), '', '480×702 / 3 must pass whole factor validation');
+assert.match(getFactorValidationError([nonSquare1], 1, 'whole', 64, 64), /축소 배율은 2~16 정수/, 'Factor 1 must be rejected');
+assert.match(getFactorValidationError([nonSquare1], 17, 'whole', 64, 64), /축소 배율은 2~16 정수/, 'Factor 17 must be rejected');
+assert.match(getFactorValidationError([nonSquare1], NaN, 'whole', 64, 64), /축소 배율은 2~16 정수/, 'NaN factor must be rejected');
+assert.match(
+  getFactorValidationError([{ name: 'test.png', img: { width: 768, height: 1345 } }], 8, 'whole', 64, 64),
+  /test\.png: 768×1345는 배율 8로 정확히 나눌 수 없습니다/,
+  '768×1345 / 8 must report division error with filename and dimensions',
+);
+assert.match(
+  getFactorValidationError([{ name: 'odd.png', img: { width: 101, height: 100 } }], 4, 'whole', 64, 64),
+  /odd\.png: 101×100는 배율 4로 정확히 나눌 수 없습니다/,
+  '101×100 / 4 must be rejected',
+);
+assert.match(
+  getFactorValidationError([
+    nonSquare1,
+    { name: 'bad.png', img: { width: 768, height: 1345 } },
+  ], 8, 'whole', 64, 64),
+  /bad\.png/,
+  'Multi-file validation must identify the first failing file in factor mode',
+);
+
+assert.equal(getFactorValidationError([{ name: 'sheet.png', img: { width: 128, height: 64 } }], 4, 'sheet', 64, 64), '', '128×64 sheet with 64×64 frames / 4 must pass');
+assert.match(
+  getFactorValidationError([{ name: 'sheet.png', img: { width: 132, height: 132 } }], 4, 'sheet', 66, 66),
+  /프레임 66×66이 배율 4로 나누어지지 않습니다/,
+  'Sheet mode must reject frame dimensions not divisible by factor',
+);
+assert.match(
+  getFactorValidationError([{ name: 'sheet.png', img: { width: 130, height: 64 } }], 2, 'sheet', 64, 64),
+  /sheet\.png: 130×64 이미지가 프레임 64×64로 나누어지지 않습니다/,
+  'Sheet mode must reject image not divisible by frame dimensions',
+);
+
+const dummy768 = { data: new Uint8ClampedArray(768 * 1344 * 4), width: 768, height: 1344 };
+const down768 = exactFactorDownscale(dummy768, 8);
+assert.equal(down768.w, 96);
+assert.equal(down768.h, 168);
+assert.equal(down768.sourceW, 768);
+assert.equal(down768.sourceH, 1344);
+assert.equal(down768.factor, 8);
+
+const dummy480 = { data: new Uint8ClampedArray(480 * 702 * 4), width: 480, height: 702 };
+const down480 = exactFactorDownscale(dummy480, 3);
+assert.equal(down480.w, 160);
+assert.equal(down480.h, 234);
+assert.equal(down480.sourceW, 480);
+assert.equal(down480.sourceH, 702);
+assert.equal(down480.factor, 3);
+
+const factorSheetDown = exactFactorDownscale(
+  { data: rawData, width: rawWidth, height: rawHeight },
+  4,
+  64,
+  64,
+);
+assert.equal(factorSheetDown.w, 32);
+assert.equal(factorSheetDown.h, 16);
+assert.equal(factorSheetDown.sourceW, rawWidth);
+assert.equal(factorSheetDown.sourceH, rawHeight);
+assert.equal(factorSheetDown.frameLogicalW, 16);
+assert.equal(factorSheetDown.frameLogicalH, 16);
+assert.equal(factorSheetDown.factor, 4);
+assert.deepEqual(
+  Array.from(factorSheetDown.data.slice((15 * 4), (15 * 4) + 4)),
+  [15, 0, 7, 255],
+  'Factor sheet downscale last logical pixel of frame 1 must align frame-locally',
+);
+assert.deepEqual(
+  Array.from(factorSheetDown.data.slice((16 * 4), (16 * 4) + 4)),
+  [100, 0, 7, 255],
+  'Factor sheet downscale alignment must restart at frame boundary',
+);
+
+const factorAlphaWeighted = exactFactorDownscale(
+  { data: alphaRaw, width: 4, height: 4 },
+  4,
+);
+assert.deepEqual(
+  Array.from(factorAlphaWeighted.data),
+  [255, 0, 0, 16],
+  'Factor cell downscale must use alpha-weighted RGB and average alpha',
+);
+
+console.log('Preserve-sheet and exact-factor regression checks passed (layout, validation, compatibility, blocks, alpha, boundaries).');

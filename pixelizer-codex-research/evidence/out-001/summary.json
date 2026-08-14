@@ -1,0 +1,34 @@
+{
+  "blockUniformityPassed": true,
+  "deterministic": true,
+  "deterministicSha256": "40e2a4a5ddce9be03e86c7b9226ef585f88911fdbe2d34225a29a4e8c5f9757d",
+  "generatedAt": "2026-08-14T09:38:16.636Z",
+  "implementationId": "OUT-001",
+  "zipEntries": [
+    {
+      "name": "hero_96x168.png",
+      "sha256": "0446810d279349bfd410957e04d05ca576c33f1c25ad3c8578b3e4d32644516b",
+      "size": 64748
+    },
+    {
+      "name": "hero_96x168_2x.png",
+      "sha256": "8b38176cf738aa5ddb7e17c75d29d10ed569e0f504f2602aeda38df4171ffd59",
+      "size": 258467
+    },
+    {
+      "name": "hero_96x168_4x.png",
+      "sha256": "bd38e6c3abb46e17dccb705a44e4ca1e8641d6d59ab43e7d1bea52de01ec354d",
+      "size": 1033007
+    },
+    {
+      "name": "hero_96x168_8x.png",
+      "sha256": "17be7a49a6d93e68012c5dd850311d778e07f1c501f9e1830bfeb6c405174e7d",
+      "size": 4130495
+    },
+    {
+      "name": "hero_96x168.json",
+      "sha256": "599109d66fbbc3dea74b0b8e49d135bd0291a7d9455d39c6be5e2cd4ab4f7293",
+      "size": 159755
+    }
+  ]
+}

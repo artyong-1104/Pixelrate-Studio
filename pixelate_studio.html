@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-3pL320EfNFqHouFcWTIemkTyCzzbp11/KfpuGiEOBK0='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-G/bhVsE3S2y4CkbPDY6LtdHKsBbk2xxx3t1BTJkggNo='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
 <!--
 <!-- Inactive historical CSP declarations:
 Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
@@ -689,14 +689,63 @@ Legacy hash declaration:
                   <div class="field-header">
                     <label for="scaleMode">크기 처리 방식</label>
                     <span class="help-container">
-                      <button class="help-btn" type="button" data-help="정사각 다운스케일은 기존 방식입니다. 원본 규격 유지는 프레임별로 픽셀 블록만 만들고 원래 시트 크기로 재조립합니다. 크기 변환 없음은 원본 캔버스에서 색상·정리·외곽선만 적용합니다.">?</button>
+                      <button class="help-btn" type="button" data-help="정사각 다운스케일은 기존 방식입니다. 정수 배율 축소는 2~16배로 줄여 종횡비를 유지합니다. 원본 규격 유지는 프레임별로 픽셀 블록만 만들고 원래 시트 크기로 재조립합니다. 크기 변환 없음은 원본 캔버스에서 색상·정리·외곽선만 적용합니다.">?</button>
                     </span>
                   </div>
                   <select id="scaleMode">
                     <option value="square" selected>정사각 다운스케일 (기존)</option>
+                    <option value="factor">정수 배율 축소 (비율 유지)</option>
                     <option value="preserve-sheet">원본 규격 유지 (스프라이트 시트)</option>
                     <option value="original">크기 변환 없음</option>
                   </select>
+                </div>
+
+                <div id="factorOptions" style="display:none;">
+                  <div class="field">
+                    <div class="field-header">
+                      <label for="factor">축소 배율</label>
+                      <span class="help-container">
+                        <button class="help-btn" type="button" data-help="원본 가로·세로를 정확히 정수 배율로 축소하여 원본의 종횡비를 보존합니다 (2~16).">?</button>
+                      </span>
+                    </div>
+                    <input type="number" id="factor" min="2" max="16" step="1" value="4" aria-label="축소 배율" aria-describedby="factorCalculation">
+                  </div>
+
+                  <div class="field">
+                    <div class="field-header">
+                      <label>프레임 분할 방식</label>
+                      <span class="help-container">
+                        <button class="help-btn" type="button" data-help="전체 이미지는 이미지 전체를 하나의 캔버스로 처리하며, 스프라이트 시트 프레임별은 각 프레임 단위로 원점을 맞춰 노이즈 정리 및 외곽선을 적용합니다.">?</button>
+                      </span>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                      <label class="toggle">
+                        <input type="radio" name="factorFrameMode" value="whole" checked>
+                        전체 이미지
+                      </label>
+                      <label class="toggle">
+                        <input type="radio" name="factorFrameMode" value="sheet">
+                        스프라이트 시트 프레임별
+                      </label>
+                    </div>
+                  </div>
+
+                  <div id="factorFrameSizeContainer" style="display:none;">
+                    <div class="field">
+                      <div class="field-header">
+                        <label>원본 프레임 크기</label>
+                        <span class="help-container">
+                          <button class="help-btn" type="button" data-help="스프라이트 시트에서 한 프레임의 원본 너비와 높이를 입력하세요. 프레임 크기는 축소 배율로 나누어떨어져야 합니다.">?</button>
+                        </span>
+                      </div>
+                      <div class="row2">
+                        <input type="number" id="factorFrameWidth" min="1" max="4096" step="1" value="64" aria-label="정수 배율 원본 프레임 너비" aria-describedby="factorCalculation">
+                        <input type="number" id="factorFrameHeight" min="1" max="4096" step="1" value="64" aria-label="정수 배율 원본 프레임 높이" aria-describedby="factorCalculation">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="frame-calculation" id="factorCalculation" aria-live="polite"></div>
                 </div>
 
                 <div id="downscaleOptions">
@@ -875,6 +924,41 @@ Legacy hash declaration:
             </div>
           </div>
 
+          <!-- Accordion Item 6: 내보내기 설정 -->
+          <div class="accordion-item collapsed" id="accordionExport">
+            <div class="accordion-header">
+              <span>6. 내보내기 설정</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content-wrapper">
+              <div class="accordion-content">
+                <fieldset class="field" style="border:none; padding:0; margin:0;">
+                  <legend class="field-header" style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <label>추가 nearest 확대본</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="기본 native 해상도 외에 2×/4×/8× 최근접 이웃(nearest-neighbor) 확대본을 함께 생성합니다. 확대본은 정확한 N×N 픽셀 블록으로 구성됩니다.">?</button>
+                    </span>
+                  </legend>
+                  <div style="display:flex; gap:12px; margin-top:4px;">
+                    <label class="toggle">
+                      <input type="checkbox" id="exportScale2x" value="2" name="exportNearestScale">
+                      2×
+                    </label>
+                    <label class="toggle">
+                      <input type="checkbox" id="exportScale4x" value="4" name="exportNearestScale">
+                      4×
+                    </label>
+                    <label class="toggle">
+                      <input type="checkbox" id="exportScale8x" value="8" name="exportNearestScale">
+                      8×
+                    </label>
+                  </div>
+                  <div id="exportScaleWarning" class="frame-size-note" style="color:var(--danger); margin-top:6px; display:none;"></div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -1027,8 +1111,14 @@ const resultsEl = document.getElementById('results');
 const downloadAllBtn = document.getElementById('downloadAllBtn');
 
 const scaleModeSel = document.getElementById('scaleMode');
+const factorOptions = document.getElementById('factorOptions');
 const downscaleOptions = document.getElementById('downscaleOptions');
 const preserveSheetOptions = document.getElementById('preserveSheetOptions');
+const factorInput = document.getElementById('factor');
+const factorFrameSizeContainer = document.getElementById('factorFrameSizeContainer');
+const factorFrameWidthInput = document.getElementById('factorFrameWidth');
+const factorFrameHeightInput = document.getElementById('factorFrameHeight');
+const factorCalculationEl = document.getElementById('factorCalculation');
 const sizeSel = document.getElementById('size');
 const methodSel = document.getElementById('method');
 const frameWidthInput = document.getElementById('frameWidth');
@@ -1053,6 +1143,11 @@ const outlineWidthRange = document.getElementById('outlineWidth');
 const outlineWidthNum = document.getElementById('outlineWidthNum');
 const outlineColor = document.getElementById('outlineColor');
 const outlineShape = document.getElementById('outlineShape');
+
+const exportScale2x = document.getElementById('exportScale2x');
+const exportScale4x = document.getElementById('exportScale4x');
+const exportScale8x = document.getElementById('exportScale8x');
+const exportScaleWarning = document.getElementById('exportScaleWarning');
 
 // ---------- 아코디언 토글 제어 ----------
 document.querySelectorAll('.accordion-header').forEach(header => {
@@ -1310,7 +1405,7 @@ function formatDate(date) {
 }
 
 function normalizeScaleMode(s) {
-  if (s && ['square', 'preserve-sheet', 'original'].includes(s.scaleMode)) return s.scaleMode;
+  if (s && ['square', 'factor', 'preserve-sheet', 'original'].includes(s.scaleMode)) return s.scaleMode;
   return s && s.downscaleEnabled === false ? 'original' : 'square';
 }
 
@@ -1319,6 +1414,12 @@ function getSettingsSummary(s) {
   const scaleMode = normalizeScaleMode(s);
   if (scaleMode === 'square') {
     parts.push(`크기:${s.size}px(${s.method})`);
+  } else if (scaleMode === 'factor') {
+    if (s.factorFrameMode === 'sheet') {
+      parts.push(`배율:÷${s.factor ?? 4}(시트 ${s.frameWidth ?? 64}×${s.frameHeight ?? 64})`);
+    } else {
+      parts.push(`배율:÷${s.factor ?? 4}`);
+    }
   } else if (scaleMode === 'preserve-sheet') {
     parts.push(`규격유지:${s.frameWidth}×${s.frameHeight}, 블록:${s.pixelBlockSize}`);
   } else {
@@ -1336,6 +1437,9 @@ function getSettingsSummary(s) {
   if (s.outline) {
     parts.push(`외곽선:${s.outlineWidthNum}px(${s.outlineShape === '8' ? '8방향' : '4방향'})`);
   }
+  if (Array.isArray(s.exportNearestScales) && s.exportNearestScales.length > 0) {
+    parts.push(`확대출력:${s.exportNearestScales.map(sc => sc + '×').join(',')}`);
+  }
   return parts.join(' | ');
 }
 
@@ -1344,6 +1448,15 @@ function loadSettings(s) {
   scaleModeSel.dispatchEvent(new Event('change'));
   sizeSel.value = s.size ?? '64';
   methodSel.value = s.method ?? 'box';
+  factorInput.value = s.factor ?? '4';
+  const factorFrameMode = s.factorFrameMode === 'sheet' ? 'sheet' : 'whole';
+  const factorRadio = document.querySelector(`input[name="factorFrameMode"][value="${factorFrameMode}"]`);
+  if (factorRadio) {
+    factorRadio.checked = true;
+    factorRadio.dispatchEvent(new Event('change'));
+  }
+  factorFrameWidthInput.value = s.frameWidth ?? '64';
+  factorFrameHeightInput.value = s.frameHeight ?? '64';
   frameWidthInput.value = s.frameWidth ?? '64';
   frameHeightInput.value = s.frameHeight ?? '64';
   pixelBlockSizeSel.value = String(s.pixelBlockSize ?? '4');
@@ -1369,6 +1482,12 @@ function loadSettings(s) {
   
   const valEl = document.getElementById('outlineWidthVal');
   if (valEl) valEl.textContent = s.outlineWidthNum;
+
+  const exportScales = Array.isArray(s.exportNearestScales) ? s.exportNearestScales : [];
+  exportScale2x.checked = exportScales.includes(2);
+  exportScale4x.checked = exportScales.includes(4);
+  exportScale8x.checked = exportScales.includes(8);
+  updateExportScaleWarnings();
   
   // 불러온 설정에 맞춰 아코디언 확장
   if (normalizeScaleMode(s) !== 'original') {
@@ -1383,8 +1502,15 @@ function loadSettings(s) {
   if (s.outline) {
     document.getElementById('accordionOutline').classList.remove('collapsed');
   }
+  if (exportScales.length > 0) {
+    document.getElementById('accordionExport').classList.remove('collapsed');
+  }
 
   updateFrameCalculation();
+  updateFactorCalculation();
+  if (lastResults.length > 0) {
+    renderResults();
+  }
   
   alert('옵션 설정이 성공적으로 복원되었습니다.');
 }
@@ -1499,8 +1625,10 @@ setTheme('dark');
 function syncScaleModeControls(){
   const mode = scaleModeSel.value;
   const isSquare = mode === 'square';
+  const isFactor = mode === 'factor';
   const isPreserveSheet = mode === 'preserve-sheet';
   downscaleOptions.style.display = isSquare ? 'block' : 'none';
+  factorOptions.style.display = isFactor ? 'block' : 'none';
   preserveSheetOptions.style.display = isPreserveSheet ? 'block' : 'none';
   downscaleOptions.querySelectorAll('select').forEach(select => {
     select.disabled = !isSquare;
@@ -1508,9 +1636,151 @@ function syncScaleModeControls(){
   preserveSheetOptions.querySelectorAll('input, select').forEach(control => {
     control.disabled = !isPreserveSheet;
   });
-  updateFrameCalculation();
+  factorOptions.querySelectorAll('input').forEach(control => {
+    control.disabled = !isFactor;
+  });
+  if(isFactor){
+    syncFactorFrameModeControls();
+    updateFactorCalculation();
+  }
+  if(isPreserveSheet){
+    updateFrameCalculation();
+  }
 }
 scaleModeSel.addEventListener('change', syncScaleModeControls);
+
+function syncFactorFrameModeControls(){
+  const mode = scaleModeSel.value;
+  const isFactor = mode === 'factor';
+  const frameMode = document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole';
+  const isSheet = frameMode === 'sheet';
+  factorFrameSizeContainer.style.display = isSheet ? 'block' : 'none';
+  factorFrameWidthInput.disabled = !isFactor || !isSheet;
+  factorFrameHeightInput.disabled = !isFactor || !isSheet;
+  updateFactorCalculation();
+}
+
+function getFactorValidationError(files, factor, factorFrameMode, frameWidth, frameHeight){
+  const validFactor = Number.isInteger(factor) && factor >= 2 && factor <= 16;
+  const isSheet = factorFrameMode === 'sheet';
+  if(!validFactor){
+    return '정수 배율 축소 오류 — 축소 배율은 2~16 정수여야 합니다.';
+  }
+  if(isSheet){
+    const validFrame = Number.isInteger(frameWidth) && Number.isInteger(frameHeight) &&
+      frameWidth >= 1 && frameWidth <= 4096 && frameHeight >= 1 && frameHeight <= 4096;
+    if(!validFrame){
+      return '정수 배율 축소 오류 — 프레임 크기는 1~4096 정수, 축소 배율은 2~16 정수여야 합니다.';
+    }
+    if(frameWidth % factor !== 0 || frameHeight % factor !== 0){
+      return `정수 배율 축소 오류 — 프레임 ${frameWidth}×${frameHeight}이 배율 ${factor}로 나누어지지 않습니다.`;
+    }
+    const invalidFile = files.find(file => (
+      file.img.width % frameWidth !== 0 || file.img.height % frameHeight !== 0
+    ));
+    if(invalidFile){
+      return `정수 배율 축소 오류 — ${invalidFile.name}: ${invalidFile.img.width}×${invalidFile.img.height} 이미지가 프레임 ${frameWidth}×${frameHeight}로 나누어지지 않습니다.`;
+    }
+  } else {
+    const invalidFile = files.find(file => (
+      file.img.width % factor !== 0 || file.img.height % factor !== 0 ||
+      (file.img.width / factor) < 1 || (file.img.height / factor) < 1
+    ));
+    if(invalidFile){
+      return `정수 배율 축소 오류 — ${invalidFile.name}: ${invalidFile.img.width}×${invalidFile.img.height}는 배율 ${factor}로 정확히 나눌 수 없습니다.`;
+    }
+  }
+  return '';
+}
+
+function updateFactorCalculation(){
+  factorCalculationEl.replaceChildren();
+  const factor = Number(factorInput.value);
+  const factorFrameMode = document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole';
+  const isSheet = factorFrameMode === 'sheet';
+  const frameWidth = Number(factorFrameWidthInput.value);
+  const frameHeight = Number(factorFrameHeightInput.value);
+
+  const validFactor = Number.isInteger(factor) && factor >= 2 && factor <= 16;
+  if(!validFactor){
+    const error = document.createElement('div');
+    error.className = 'error';
+    error.textContent = '축소 배율을 2~16 정수로 입력하세요.';
+    factorCalculationEl.appendChild(error);
+    if(scaleModeSel.value === 'factor' && uploadedFiles.length > 0) runBtn.disabled = true;
+    return;
+  }
+
+  if(isSheet){
+    const validFrame = Number.isInteger(frameWidth) && Number.isInteger(frameHeight) &&
+      frameWidth >= 1 && frameWidth <= 4096 && frameHeight >= 1 && frameHeight <= 4096;
+    if(!validFrame){
+      const error = document.createElement('div');
+      error.className = 'error';
+      error.textContent = '프레임 너비·높이를 1~4096 정수로 입력하세요.';
+      factorCalculationEl.appendChild(error);
+      if(scaleModeSel.value === 'factor' && uploadedFiles.length > 0) runBtn.disabled = true;
+      return;
+    }
+    if(frameWidth % factor !== 0 || frameHeight % factor !== 0){
+      const error = document.createElement('div');
+      error.className = 'error';
+      error.textContent = `프레임 ${frameWidth}×${frameHeight}이 배율 ${factor}로 나누어떨어져야 합니다.`;
+      factorCalculationEl.appendChild(error);
+      if(scaleModeSel.value === 'factor' && uploadedFiles.length > 0) runBtn.disabled = true;
+      return;
+    }
+  }
+
+  if(uploadedFiles.length === 0){
+    factorCalculationEl.textContent = isSheet
+      ? '이미지를 업로드하면 열·행·총 프레임 수 및 프레임별 축소 크기를 계산합니다.'
+      : '이미지를 업로드하면 축소 후 출력 크기를 계산합니다.';
+    return;
+  }
+
+  let hasError = false;
+  const list = document.createElement('ul');
+  uploadedFiles.forEach(file => {
+    const item = document.createElement('li');
+    if(isSheet){
+      const layout = getFrameLayout(file, frameWidth, frameHeight);
+      if(!layout){
+        hasError = true;
+        item.className = 'error';
+        item.textContent = `${file.name}: ${file.img.width}×${file.img.height}에서 ${frameWidth}×${frameHeight} 프레임을 나눌 수 없습니다.`;
+      } else {
+        item.className = layout.totalFrames === 1 ? 'warning' : 'valid';
+        item.textContent = `${file.name}: ${layout.columns}열 × ${layout.rows}행 = ${layout.totalFrames}프레임 (프레임 ${frameWidth/factor}×${frameHeight/factor}, 전체 ${file.img.width/factor}×${file.img.height/factor})`;
+        if(layout.totalFrames === 1){
+          item.textContent += ' — 시트 전체를 1프레임으로 처리합니다.';
+        }
+      }
+    } else {
+      if(file.img.width % factor !== 0 || file.img.height % factor !== 0 || (file.img.width / factor) < 1 || (file.img.height / factor) < 1){
+        hasError = true;
+        item.className = 'error';
+        item.textContent = `${file.name}: ${file.img.width}×${file.img.height}는 배율 ${factor}로 정확히 나눌 수 없습니다.`;
+      } else {
+        item.className = 'valid';
+        item.textContent = `입력 ${file.img.width}×${file.img.height} ÷ ${factor} → 출력 ${file.img.width/factor}×${file.img.height/factor}`;
+      }
+    }
+    list.appendChild(item);
+  });
+  factorCalculationEl.appendChild(list);
+
+  if(scaleModeSel.value === 'factor'){
+    runBtn.disabled = uploadedFiles.length === 0 || hasError;
+  }
+}
+
+document.querySelectorAll('input[name="factorFrameMode"]').forEach(radio => {
+  radio.addEventListener('change', syncFactorFrameModeControls);
+});
+factorInput.addEventListener('input', updateFactorCalculation);
+factorFrameWidthInput.addEventListener('input', updateFactorCalculation);
+factorFrameHeightInput.addEventListener('input', updateFactorCalculation);
 
 function getFrameLayout(file, frameWidth, frameHeight){
   if(file.img.width % frameWidth !== 0 || file.img.height % frameHeight !== 0) return null;
@@ -1721,6 +1991,7 @@ function renderFileList(){
   });
   runBtn.disabled = uploadedFiles.length === 0;
   updateFrameCalculation();
+  updateFactorCalculation();
 };
 outlineWidthRange.addEventListener('input', () => {
   outlineWidthNum.value = outlineWidthRange.value;
@@ -1874,6 +2145,71 @@ function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize){
     frameLogicalH: logicalFrameHeight,
     blockSize
   };
+}
+
+function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null){
+  const raw = (img && img.data && typeof img.width === 'number' && typeof img.height === 'number')
+    ? img
+    : getRawPixels(img);
+  const factorVal = parseInt(factor, 10);
+  const isSheet = frameWidth != null && frameHeight != null;
+  const fw = isSheet ? parseInt(frameWidth, 10) : raw.width;
+  const fh = isSheet ? parseInt(frameHeight, 10) : raw.height;
+
+  const logicalWidth = raw.width / factorVal;
+  const logicalHeight = raw.height / factorVal;
+  const logicalFrameWidth = fw / factorVal;
+  const logicalFrameHeight = fh / factorVal;
+
+  const out = new Uint8ClampedArray(logicalWidth * logicalHeight * 4);
+
+  for(let y=0; y<logicalHeight; y++){
+    const frameY = isSheet ? Math.floor(y / logicalFrameHeight) * fh : 0;
+    const localY = isSheet ? (y % logicalFrameHeight) * factorVal : y * factorVal;
+    const y0 = frameY + localY;
+    for(let x=0; x<logicalWidth; x++){
+      const frameX = isSheet ? Math.floor(x / logicalFrameWidth) * fw : 0;
+      const localX = isSheet ? (x % logicalFrameWidth) * factorVal : x * factorVal;
+      const x0 = frameX + localX;
+      let rSum=0, gSum=0, bSum=0, aSum=0, count=0;
+      for(let sy=y0; sy<y0+factorVal; sy++){
+        for(let sx=x0; sx<x0+factorVal; sx++){
+          const si=(sy*raw.width+sx)*4;
+          const a = raw.data[si+3];
+          rSum += raw.data[si]*a;
+          gSum += raw.data[si+1]*a;
+          bSum += raw.data[si+2]*a;
+          aSum += a;
+          count++;
+        }
+      }
+      const ti=(y*logicalWidth+x)*4;
+      if(aSum > 0){
+        out[ti]=rSum/aSum;
+        out[ti+1]=gSum/aSum;
+        out[ti+2]=bSum/aSum;
+        out[ti+3]=Math.round(aSum/count);
+      } else {
+        out[ti]=0; out[ti+1]=0; out[ti+2]=0; out[ti+3]=0;
+      }
+    }
+  }
+
+  const result = {
+    data: out,
+    w: logicalWidth,
+    h: logicalHeight,
+    sourceW: raw.width,
+    sourceH: raw.height,
+    factor: factorVal
+  };
+  if(isSheet){
+    result.frameWidth = fw;
+    result.frameHeight = fh;
+    result.frameLogicalW = logicalFrameWidth;
+    result.frameLogicalH = logicalFrameHeight;
+  }
+  return result;
 }
 
 function kmeans(points, k, iterations=10){
@@ -2083,10 +2419,80 @@ function expandPreserveSheet(grid, alpha, w, h, blockSize, outputW, outputH){
   return {grid: outputGrid, alpha: outputAlpha, w: outputW, h: outputH};
 }
 
+function getSelectedNearestScales(){
+  const scales = [];
+  if (exportScale2x && exportScale2x.checked) scales.push(2);
+  if (exportScale4x && exportScale4x.checked) scales.push(4);
+  if (exportScale8x && exportScale8x.checked) scales.push(8);
+  return scales;
+}
+
+function createNearestCanvas(sourceCanvas, scale){
+  const s = parseInt(scale, 10);
+  if(![2, 4, 8].includes(s)){
+    throw new Error(`지원하지 않는 확대 배율: ${scale}`);
+  }
+  const targetW = sourceCanvas.width * s;
+  const targetH = sourceCanvas.height * s;
+  if(targetW <= 0 || targetH <= 0 || targetW * targetH > MAX_RAW_PROCESS_PIXELS || targetW > 4096 || targetH > 4096){
+    throw new Error(`확대 크기 초과: ${targetW}×${targetH}는 최대 허용 범위를 넘습니다.`);
+  }
+  const c = document.createElement('canvas');
+  c.width = targetW;
+  c.height = targetH;
+  const ctx = c.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(sourceCanvas, 0, 0, targetW, targetH);
+  return c;
+}
+
+function updateExportScaleWarnings(){
+  if (!exportScaleWarning) return;
+  const scales = getSelectedNearestScales();
+  if (scales.length === 0 || lastResults.length === 0) {
+    exportScaleWarning.style.display = 'none';
+    exportScaleWarning.textContent = '';
+    return;
+  }
+  const warnings = [];
+  for (const s of scales) {
+    for (const r of lastResults) {
+      const targetW = r.canvas.width * s;
+      const targetH = r.canvas.height * s;
+      if (targetW * targetH > MAX_RAW_PROCESS_PIXELS || targetW > 4096 || targetH > 4096) {
+        warnings.push(`${r.name}: ${s}× 확대 시 최대 처리량(${targetW}×${targetH}) 초과`);
+        break;
+      }
+    }
+  }
+  if (warnings.length > 0) {
+    exportScaleWarning.style.display = 'block';
+    exportScaleWarning.textContent = `주의: ${warnings.join(' / ')}`;
+  } else {
+    exportScaleWarning.style.display = 'none';
+    exportScaleWarning.textContent = '';
+  }
+}
+
+[exportScale2x, exportScale4x, exportScale8x].forEach(cb => {
+  if (cb) {
+    cb.addEventListener('change', () => {
+      updateExportScaleWarnings();
+      if (lastResults.length > 0) {
+        renderResults();
+      }
+    });
+  }
+});
+
 async function processAll(){
   const scaleMode = scaleModeSel.value;
   const size = parseInt(sizeSel.value, 10);
   const method = methodSel.value;
+  const factor = Number(factorInput.value);
+  const factorFrameMode = document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole';
+  const factorFrameWidth = Number(factorFrameWidthInput.value);
+  const factorFrameHeight = Number(factorFrameHeightInput.value);
   const frameWidth = Number(frameWidthInput.value);
   const frameHeight = Number(frameHeightInput.value);
   const pixelBlockSize = Number(pixelBlockSizeSel.value);
@@ -2095,6 +2501,13 @@ async function processAll(){
   const cleanPasses = cleanEnabledCheck.checked ? currentClean() : 0;
   const shared = sharedCheck.checked && uploadedFiles.length > 1 && paletteOn;
 
+  if(scaleMode === 'factor'){
+    const validationError = getFactorValidationError(uploadedFiles, factor, factorFrameMode, factorFrameWidth, factorFrameHeight);
+    if(validationError){
+      statusEl.textContent = validationError;
+      return;
+    }
+  }
   if(scaleMode === 'preserve-sheet'){
     const validationError = getPreserveSheetValidationError(uploadedFiles, frameWidth, frameHeight, pixelBlockSize);
     if(validationError){
@@ -2105,12 +2518,16 @@ async function processAll(){
 
   const logicalPixels = scaleMode === 'square'
     ? uploadedFiles.length * size * size
-    : scaleMode === 'preserve-sheet'
-      ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / pixelBlockSize) * (file.img.height / pixelBlockSize)), 0)
-      : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
+    : scaleMode === 'factor'
+      ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / factor) * (file.img.height / factor)), 0)
+      : scaleMode === 'preserve-sheet'
+        ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / pixelBlockSize) * (file.img.height / pixelBlockSize)), 0)
+        : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
   const outputPixels = scaleMode === 'square'
     ? uploadedFiles.length * size * size
-    : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
+    : scaleMode === 'factor'
+      ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / factor) * (file.img.height / factor)), 0)
+      : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
 
   if(outputPixels > MAX_RAW_PROCESS_PIXELS){
     statusEl.textContent = '원본 규격 출력은 전체 4백만 픽셀 이하에서만 사용할 수 있습니다. 이미지 수나 크기를 줄이세요.';
@@ -2128,6 +2545,15 @@ async function processAll(){
   const downs = uploadedFiles.map(f => {
     if(scaleMode === 'square'){
       return { name: f.name, data: boxDownscale(f.img, size, method), w: size, h: size, mode: scaleMode };
+    }
+    if(scaleMode === 'factor'){
+      const isSheet = factorFrameMode === 'sheet';
+      return {
+        name: f.name,
+        ...exactFactorDownscale(f.img, factor, isSheet ? factorFrameWidth : null, isSheet ? factorFrameHeight : null),
+        mode: scaleMode,
+        factorFrameMode
+      };
     }
     if(scaleMode === 'preserve-sheet'){
       return { name: f.name, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize), mode: scaleMode };
@@ -2187,7 +2613,7 @@ async function processAll(){
     }
 
     if(cleanPasses>0){
-      grid = d.mode === 'preserve-sheet'
+      grid = (d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet'))
         ? cleanPreserveSheet(grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH, cleanPasses)
         : cleanIsolated(grid, alpha, w, h, cleanPasses);
     }
@@ -2203,7 +2629,7 @@ async function processAll(){
       outlineColorIdx = finalPalette.length;
       finalPalette.push(hexToRgb(outlineColor.value));
 
-      if(d.mode === 'preserve-sheet'){
+      if(d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet')){
         const outlined = outlinePreserveSheet(
           grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH,
           outlineThickness, outlineShape.value, outlineColorIdx
@@ -2282,18 +2708,46 @@ async function processAll(){
     for(let y=0;y<finalH;y++){
       grid2d.push(Array.from(finalGrid.slice(y*finalW,(y+1)*finalW)));
     }
-    const processing = scaleMode === 'square'
-      ? { mode: 'square', size, method }
-      : scaleMode === 'preserve-sheet'
-        ? { mode: 'preserve-sheet', frameWidth, frameHeight, pixelBlockSize }
-        : { mode: 'original' };
+    let processing;
+    if(scaleMode === 'square'){
+      processing = { mode: 'square', size, method };
+    } else if(scaleMode === 'factor'){
+      processing = factorFrameMode === 'sheet'
+        ? {
+            mode: 'factor',
+            factor,
+            frameMode: 'sheet',
+            frameWidth: factorFrameWidth,
+            frameHeight: factorFrameHeight,
+            frameLogicalWidth: factorFrameWidth / factor,
+            frameLogicalHeight: factorFrameHeight / factor,
+            logicalWidth: d.w,
+            logicalHeight: d.h
+          }
+        : {
+            mode: 'factor',
+            factor,
+            frameMode: 'whole',
+            logicalWidth: d.w,
+            logicalHeight: d.h
+          };
+    } else if(scaleMode === 'preserve-sheet'){
+      processing = { mode: 'preserve-sheet', frameWidth, frameHeight, pixelBlockSize };
+    } else {
+      processing = { mode: 'original' };
+    }
+    const selectedScales = getSelectedNearestScales();
     const jsonData = {
       width: finalW,
       height: finalH,
       palette: paletteObj,
       grid: grid2d,
       outline: outlineCheck.checked ? { paletteIndex: outlineColorIdx, shape: outlineShape.value, thickness: outlineThickness } : null,
-      processing
+      processing,
+      exports: {
+        native: true,
+        nearestScales: selectedScales
+      }
     };
 
     const dataUrl = canvas.toDataURL('image/png');
@@ -2303,6 +2757,7 @@ async function processAll(){
   }
 
   renderResults();
+  updateExportScaleWarnings();
   statusEl.textContent = `완료 — ${lastResults.length}개 이미지 처리됨`;
   statusEl.classList.remove('busy');
   runBtn.disabled = false;
@@ -2321,8 +2776,10 @@ async function processAll(){
     const fileNames = uploadedFiles.map(f => f.name);
     const settings = {
       scaleMode,
-      frameWidth: frameWidthInput.value,
-      frameHeight: frameHeightInput.value,
+      factor: factorInput.value,
+      factorFrameMode: document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole',
+      frameWidth: scaleMode === 'factor' ? factorFrameWidthInput.value : frameWidthInput.value,
+      frameHeight: scaleMode === 'factor' ? factorFrameHeightInput.value : frameHeightInput.value,
       pixelBlockSize: pixelBlockSizeSel.value,
       size: sizeSel.value,
       method: methodSel.value,
@@ -2337,7 +2794,8 @@ async function processAll(){
       outlineWidth: outlineWidthRange.value,
       outlineWidthNum: outlineWidthNum.value,
       outlineColor: outlineColor.value,
-      outlineShape: outlineShape.value
+      outlineShape: outlineShape.value,
+      exportNearestScales: getSelectedNearestScales()
     };
     saveLogToDB(fileNames, settings, resultsDataToSave);
   }
@@ -2409,27 +2867,72 @@ function renderResults(){
     palette.textContent = `팔레트 ${r.paletteSize}색`;
     meta.append(dimensions, palette);
 
+    const selectedScales = getSelectedNearestScales();
+    if (selectedScales.length > 0) {
+      const extraMeta = document.createElement('span');
+      extraMeta.textContent = `추가 출력: ${selectedScales.map(s => s + '×').join(', ')}`;
+      meta.appendChild(extraMeta);
+    }
+
     const buttons = document.createElement('div');
     buttons.className = 'btns';
 
     const pngButton = document.createElement('button');
     pngButton.className = 'ghost';
     pngButton.textContent = 'PNG';
+    pngButton.setAttribute('aria-label', `${r.name} native PNG 다운로드 (${r.canvas.width}×${r.canvas.height})`);
     pngButton.addEventListener('click', () => {
       r.canvas.toBlob(blob => {
         if (blob) downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.png`);
       });
     });
+    buttons.appendChild(pngButton);
+
+    for (const s of selectedScales) {
+      const targetW = r.canvas.width * s;
+      const targetH = r.canvas.height * s;
+      const exceedsLimit = targetW * targetH > MAX_RAW_PROCESS_PIXELS || targetW > 4096 || targetH > 4096;
+
+      const scaleButton = document.createElement('button');
+      scaleButton.className = 'ghost';
+      scaleButton.textContent = `${s}× PNG`;
+      if (exceedsLimit) {
+        scaleButton.disabled = true;
+        scaleButton.title = `이 결과는 ${s}× 확대 시 최대 처리량을 넘습니다.`;
+        scaleButton.setAttribute('aria-label', `${r.name} ${s}× 확대 PNG 다운로드 불가 (최대 처리량 초과)`);
+      } else {
+        scaleButton.setAttribute('aria-label', `${r.name} ${s}× 확대 PNG 다운로드 (${targetW}×${targetH})`);
+        scaleButton.addEventListener('click', () => {
+          try {
+            const scaledCanvas = createNearestCanvas(r.canvas, s);
+            scaledCanvas.toBlob(blob => {
+              if (blob) downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}_${s}x.png`);
+            });
+          } catch (e) {
+            alert(e.message);
+          }
+        });
+      }
+      buttons.appendChild(scaleButton);
+    }
 
     const jsonButton = document.createElement('button');
     jsonButton.className = 'ghost';
     jsonButton.textContent = 'JSON';
+    jsonButton.setAttribute('aria-label', `${r.name} JSON 다운로드`);
     jsonButton.addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(r.jsonData, null, 2)], {type:'application/json'});
+      const exportJson = {
+        ...r.jsonData,
+        exports: {
+          native: true,
+          nearestScales: selectedScales
+        }
+      };
+      const blob = new Blob([JSON.stringify(exportJson, null, 2)], {type:'application/json'});
       downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.json`);
     });
+    buttons.appendChild(jsonButton);
 
-    buttons.append(pngButton, jsonButton);
     card.append(preview, name, meta, buttons);
     resultsEl.appendChild(card);
   });
@@ -2642,12 +3145,21 @@ runBtn.addEventListener('click', processAll);
 resetBtn.addEventListener('click', () => {
   scaleModeSel.value = 'square';
   scaleModeSel.dispatchEvent(new Event('change'));
+  factorInput.value = "4";
+  const defaultFactorRadio = document.querySelector('input[name="factorFrameMode"][value="whole"]');
+  if(defaultFactorRadio){
+    defaultFactorRadio.checked = true;
+    defaultFactorRadio.dispatchEvent(new Event('change'));
+  }
+  factorFrameWidthInput.value = "64";
+  factorFrameHeightInput.value = "64";
   sizeSel.value = "64";
   methodSel.value = "box";
   frameWidthInput.value = "64";
   frameHeightInput.value = "64";
   pixelBlockSizeSel.value = "4";
   updateFrameCalculation();
+  updateFactorCalculation();
   
   paletteEnabledCheck.checked = true;
   paletteEnabledCheck.dispatchEvent(new Event('change'));
@@ -2670,6 +3182,11 @@ resetBtn.addEventListener('click', () => {
   
   const valEl = document.getElementById('outlineWidthVal');
   if (valEl) valEl.textContent = 1;
+
+  exportScale2x.checked = false;
+  exportScale4x.checked = false;
+  exportScale8x.checked = false;
+  updateExportScaleWarnings();
   
   // 첫 번째 아코디언을 제외하고 모두 접기
   document.querySelectorAll('.accordion-item').forEach(item => {
@@ -2689,15 +3206,55 @@ document.getElementById('resultSearch').addEventListener('input', renderResults)
 
 downloadAllBtn.addEventListener('click', async () => {
   const zip = new JSZip();
+  const selectedScales = getSelectedNearestScales();
+  const skippedFiles = [];
+
   for(const r of lastResults){
     const stem = sanitizeDownloadFilename(r.name.replace(/\.[^.]+$/, ''));
+    const dims = dimsLabel(r.canvas);
+
+    // Native PNG
     const blob = await new Promise(res => r.canvas.toBlob(res));
-    if (!blob) continue;
-    zip.file(`${stem}_${dimsLabel(r.canvas)}.png`, blob);
-    zip.file(`${stem}_${dimsLabel(r.canvas)}.json`, JSON.stringify(r.jsonData, null, 2));
+    if (blob) {
+      zip.file(`${stem}_${dims}.png`, blob);
+    }
+
+    // Nearest enlarged PNGs
+    for (const s of selectedScales) {
+      try {
+        const targetW = r.canvas.width * s;
+        const targetH = r.canvas.height * s;
+        if (targetW * targetH > MAX_RAW_PROCESS_PIXELS || targetW > 4096 || targetH > 4096) {
+          skippedFiles.push(`${r.name} (${s}×: ${targetW}×${targetH} 최대 크기 초과)`);
+          continue;
+        }
+        const scaledCanvas = createNearestCanvas(r.canvas, s);
+        const scaledBlob = await new Promise(res => scaledCanvas.toBlob(res));
+        if (scaledBlob) {
+          zip.file(`${stem}_${dims}_${s}x.png`, scaledBlob);
+        }
+      } catch (e) {
+        skippedFiles.push(`${r.name} (${s}×: ${e.message})`);
+      }
+    }
+
+    // JSON (single file with exports metadata)
+    const exportJson = {
+      ...r.jsonData,
+      exports: {
+        native: true,
+        nearestScales: selectedScales
+      }
+    };
+    zip.file(`${stem}_${dims}.json`, JSON.stringify(exportJson, null, 2));
   }
+
   const content = await zip.generateAsync({type:'blob'});
   downloadBlob(content, 'pixelate_results.zip');
+
+  if (skippedFiles.length > 0) {
+    alert(`일부 확대 이미지는 픽셀 제한을 초과하여 ZIP에서 제외되었습니다:\n${skippedFiles.join('\n')}`);
+  }
 });
 
 // ---------- 데이터베이스 초기화 및 설정 적용 ----------

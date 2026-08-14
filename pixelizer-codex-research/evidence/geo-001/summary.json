@@ -1,0 +1,38 @@
+{
+  "cases": [
+    {
+      "factor": 3,
+      "frameMode": "whole",
+      "id": "non-square-factor-3x",
+      "inputDimensions": "480×702",
+      "jsonSha256": "59cb62644d2b172ac14e4962ff900d35d3b61471dd57d4b2a24e2608187db8d9",
+      "outputDimensions": "160×234",
+      "pngSha256": "16ccc3691a1da0f17789acb295cc1afba0223d455168f7f7ddf80aed78d4f897",
+      "rgbaSha256": "d7bb82f69ea2b5bccf209cf7bbffef0c0fccf9d1ecbf85ce6d35734517c3a239"
+    },
+    {
+      "factor": 8,
+      "frameMode": "whole",
+      "id": "hero-factor-8x",
+      "inputDimensions": "768×1344",
+      "jsonSha256": "08ba61a59087e6b972987bd98cb9ba4124f4cf35f968cd571255c78f8c2ae6eb",
+      "outputDimensions": "96×168",
+      "pngSha256": "0446810d279349bfd410957e04d05ca576c33f1c25ad3c8578b3e4d32644516b",
+      "rgbaSha256": "09b6c3bf7ba75e8d8347e16754aafa4cd92bf68f84c138a3f160ab26596b2abe"
+    },
+    {
+      "factor": 4,
+      "frameMode": "sheet",
+      "id": "sprite-sheet-factor-4x",
+      "inputDimensions": "256×128",
+      "jsonSha256": "25152fbabc274549200770c319d422a1ef359f5f194201b8f3236eb2aa16e1f5",
+      "outputDimensions": "64×32",
+      "pngSha256": "822f390ec7baa5202d772c92e00e95e790fc3f9bafb8b3a622c95a0ed33aeedc",
+      "rgbaSha256": "b5d1d3fa7b8a5a4158f18aa025a943396ed00a9c8e597e96adaf2d4ff2d95dc9"
+    }
+  ],
+  "deterministic": true,
+  "deterministicSha256": "893f0da6936f5051c2ac15215764bfbaba0f25d4326d8a44a2e4fb5ba71a232d",
+  "generatedAt": "2026-08-14T09:30:41.158Z",
+  "implementationId": "GEO-001"
+}

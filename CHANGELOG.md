@@ -6,6 +6,26 @@ Entries are grouped by version and change type.
 
 Korean version: [CHANGELOG.ko.md](./CHANGELOG.ko.md)
 
+## [1.3.0] - 2026-08-14
+
+### Added
+
+- Added optional 2×/4×/8× nearest-neighbor enlarged PNG dual export alongside native logical resolution PNGs (OUT-001).
+- Generated enlarged PNGs on-demand as exact N×N uniform RGBA pixel blocks with immediate memory release.
+- Added dynamic individual PNG download buttons per selected scale on result cards.
+- Supported sequential ZIP export bundling native PNGs, scaled PNGs, and JSON metadata with `exports` configuration.
+- Added boundary limit warnings and graceful exclusion for canvases exceeding maximum pixel or dimension limits.
+
+## [1.2.0] - 2026-08-14
+
+### Added
+
+- Added an exact integer factor downscaling mode (`factor`) preserving aspect ratios with native logical resolution output (GEO-001).
+- Supported whole-image downscaling and sprite sheet frame-local downscaling.
+- Kept noise cleanup and outline effects confined within frame boundaries in sheet mode.
+- Added live dimension calculation and pre-execution validation rejecting non-divisible inputs with file names and calculations.
+- Added `factor`, `frameMode`, and logical dimension metadata to saved settings and JSON results.
+
 ## [1.1.0] - 2026-08-02
 
 ### Added

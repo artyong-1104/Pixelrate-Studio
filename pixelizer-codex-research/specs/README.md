@@ -9,8 +9,8 @@
 | 구분 | 완료 | 전체 | 진행률 |
 |---|---:|---:|---:|
 | 명세 작성 | 15 | 15 | 100% |
-| 구현 | 1 | 15 | 6.7% |
-| QA | 1 | 15 | 6.7% |
+| 구현 | 3 | 15 | 20.0% |
+| QA | 3 | 15 | 20.0% |
 
 ## 상태 정의
 
@@ -31,16 +31,16 @@
 | ID | 항목 | 분류 | 우선순위 | 선행 항목 | 권장 모델 | 구현 | QA | 명세 | 증거 |
 |---|---|---|---|---|---|---|---|---|---|
 | QLT-001 | 시각 품질·시간축 테스트 하네스 | ENGINEERING-INFERENCE | P0 | 없음 | Sol xhigh | `DONE` | 완료 | [열기](items/qlt-001-visual-quality-harness.md) | [검사·보고서](../evidence/qlt-001/README.md) |
-| GEO-001 | 비율 유지 exact-factor/native 출력 | SOURCE-BACKED | P1 | QLT-001 | Luna xhigh | `READY` | 미실행 | [열기](items/geo-001-exact-factor-output.md) | — |
-| OUT-001 | native + nearest 확대 이중 출력 | SOURCE-BACKED | P1 | GEO-001 | Luna xhigh | `NOT_STARTED` | 미실행 | [열기](items/out-001-dual-export.md) | — |
+| GEO-001 | 비율 유지 exact-factor/native 출력 | SOURCE-BACKED | P1 | QLT-001 | Luna xhigh | `DONE` | 완료 | [열기](items/geo-001-exact-factor-output.md) | [검사·보고서](../evidence/geo-001/README.md) |
+| OUT-001 | native + nearest 확대 이중 출력 | SOURCE-BACKED | P1 | GEO-001 | Luna xhigh | `DONE` | 완료 | [열기](items/out-001-dual-export.md) | [검사·보고서](../evidence/out-001/README.md) |
 | CFG-001 | versioned 설정 JSON·preset | SOURCE-BACKED + ENGINEERING-INFERENCE | P1 | QLT-001 | Luna xhigh | `READY` | 미실행 | [열기](items/cfg-001-settings-presets.md) | — |
-| UX-001 | 1×/2×/8× 및 원본/결과 A/B | SOURCE-BACKED | P1 | GEO-001 | Luna xhigh | `NOT_STARTED` | 미실행 | [열기](items/ux-001-actual-size-ab-preview.md) | — |
+| UX-001 | 1×/2×/8× 및 원본/결과 A/B | SOURCE-BACKED | P1 | GEO-001 | Luna xhigh | `READY` | 미실행 | [열기](items/ux-001-actual-size-ab-preview.md) | — |
 | PAL-001 | custom palette 입력·미리보기 | SOURCE-BACKED | P1 | QLT-001, CFG-001 | Luna xhigh | `NOT_STARTED` | 미실행 | [열기](items/pal-001-custom-palette.md) | — |
 | ALP-001 | 고채도 배경과 alpha island 진단 | SOURCE-BACKED + ENGINEERING-INFERENCE | P1 | QLT-001 | Luna xhigh | `READY` | 미실행 | [열기](items/alp-001-alpha-diagnostics.md) | — |
 | ANI-001 | 다중 파일·시트 애니메이션 검수 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | UX-001 | Luna xhigh + Sol 검토 | `NOT_STARTED` | 미실행 | [열기](items/ani-001-animation-review.md) | — |
-| GRID-001 | Sobel grid period/phase 감지 | SOURCE-BACKED + EXPERIMENTAL | P2 | QLT-001, GEO-001 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/grid-001-grid-detection.md) | — |
+| GRID-001 | Sobel grid period/phase 감지 | SOURCE-BACKED + EXPERIMENTAL | P2 | QLT-001, GEO-001 | Sol xhigh | `READY` | 미실행 | [열기](items/grid-001-grid-detection.md) | — |
 | ALP-002 | binary/coverage alpha 정책 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | QLT-001, CFG-001, ALP-001 | Luna xhigh + Sol 검토 | `NOT_STARTED` | 미실행 | [열기](items/alp-002-alpha-policy.md) | — |
-| CELL-001 | 셀 대표색 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, GEO-001 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/cell-001-representative-colors.md) | — |
+| CELL-001 | 셀 대표색 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, GEO-001 | Sol xhigh | `READY` | 미실행 | [열기](items/cell-001-representative-colors.md) | — |
 | PAL-002 | 지각 팔레트·샘플링 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/pal-002-palette-algorithms.md) | — |
 | DIT-001 | 정지 이미지 ordered dithering | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001, CFG-001 | Luna xhigh + Sol 검토 | `NOT_STARTED` | 미실행 | [열기](items/dit-001-ordered-dithering.md) | — |
 | EDGE-001 | Weber/line-aware/selout | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, CELL-001 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/edge-001-line-aware-selout.md) | — |
