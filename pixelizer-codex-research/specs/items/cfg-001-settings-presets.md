@@ -5,8 +5,8 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | DONE |
+| QA 상태 | 완료 |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED + ENGINEERING-INFERENCE |
 | 구현 모델 | Luna xhigh |

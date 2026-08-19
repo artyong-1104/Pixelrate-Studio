@@ -6,6 +6,41 @@ Pixelate Studio의 주요 변경 사항을 기록합니다.
 
 영어 버전: [CHANGELOG.md](./CHANGELOG.md)
 
+## [1.6.0] - 2026-08-19
+
+### 추가
+
+- 팔레트 방식 선택기 추가 (`자동 생성 (K-means)`, `직접 지정 (Custom Palette)`, `제한 없음 (원본 색상)`) (PAL-001).
+- 고정 팔레트 직접 지정 UI 지원: `#RRGGBB` 텍스트 입력, 파일 불러오기(`.txt`, `.gpl`, `.png`), 모두 지우기 버튼.
+- HEX 엄격 파서(`parseHexPalette`), GIMP 팔레트 파서(`parseGplPalette`), PNG 래스터 불투명 색상 추출기(`parsePngPaletteData`).
+- 팔레트 중복 색상 자동 제거 및 최초 등장 순서 보존(`dedupePaletteColors`), 실시간 색상 칩(chip) 그리드 및 카운트 통계 표시.
+- sRGB 유클리드 최근접 색상 매핑 시 앞선 인덱스 우선 tie-breaking 규칙 적용.
+- 미사용 색상을 보존하는 JSON `palette` 객체 및 `processing.palette` (`mode`, `inputColors`, `usedColors`, `distance`) 메타데이터 출력.
+- `MAX_COLOR_COMPARISONS`(50,000,000) 연산량 초과 차단 가드 적용.
+- Versioned 설정 봉투 v1의 `paletteMode` 및 `customPalette` 직렬화와 기존 `paletteEnabled` 설정에 대한 하위 호환 마이그레이션 지원.
+
+## [1.5.0] - 2026-08-19
+
+### 추가
+
+- 모달 검수 창에 `1×`(실제 크기), `2×`(표준), `8×`(진단) 빠른 배율 선택 버튼 추가 (UX-001).
+- 모달 내 보기 모드 전환 기능 추가 (`결과`, `원본`, `나란히` A/B 비교).
+- `나란히` 비교 모드에서 왜곡 없이 동일한 프레임 크기에 원본과 결과를 정렬하여 배치하고 치수 라벨 제공.
+- 1픽셀 격자 오버레이가 결과 캔버스에만 종속되도록 분리.
+- 작업 로그에서 복원한 결과(원본 없음)에 대해 `원본`/`나란히` 버튼을 비활성화하고 안내 문구를 표시하는 폴백 로직 적용.
+- 화면 너비 620px 이하 모바일 환경에서 두 비교 패널이 세로로 자동 스택되는 반응형 레이아웃 지원.
+
+## [1.4.0] - 2026-08-19
+
+### 추가
+
+- Versioned 설정 envelope v1 (`pixelate-studio-settings`) JSON 내보내기/불러오기 기능 추가 (CFG-001).
+- 목적별 내장 프리셋 추가 (`기본값`, `애니메이션 안전`, `시트 규격 유지`).
+- 프리셋 적용 전 변경될 항목을 명확히 보여주는 인라인 diff 확인 및 사용자 승인 절차 추가.
+- 설정 파일 크기 상한(64KB) 및 프로토타입 오염 방지(`__proto__`, `prototype`, `constructor` 엄격 차단) 보안 검증 추가.
+- 잘못된 설정 파일 불러오기 시 UI 상태를 변경하지 않는 원자적 검증(atomic validation) 적용.
+- 기존 IndexedDB 작업 기록의 구버전 flat 설정을 v1 규격으로 안전하게 정규화(normalize)하여 하위 호환성 유지.
+
 ## [1.3.0] - 2026-08-14
 
 ### 추가

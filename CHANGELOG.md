@@ -6,6 +6,41 @@ Entries are grouped by version and change type.
 
 Korean version: [CHANGELOG.ko.md](./CHANGELOG.ko.md)
 
+## [1.6.0] - 2026-08-19
+
+### Added
+
+- Added palette mode selector (`자동 생성 (K-means)` / Auto, `직접 지정 (Custom Palette)` / Custom, `제한 없음 (원본 색상)` / Unlimited) (PAL-001).
+- Added custom palette UI: `#RRGGBB` hex textarea, file upload (`.txt`, `.gpl`, `.png`), and clear button.
+- Implemented strict HEX parser (`parseHexPalette`), GIMP palette parser (`parseGplPalette`), and PNG raster opaque color extractor (`parsePngPaletteData`).
+- Added exact RGB deduplication preserving first-appearance order (`dedupePaletteColors`), live stats (`유효 N색 · 중복 M개 제거 · 무시 K개`), and interactive swatch chip preview grid.
+- Guaranteed deterministic tie-breaking for equidistant sRGB colors favoring earlier palette indices.
+- Preserved complete custom palettes (including unused colors) in output JSON `palette` object alongside `processing.palette` (`mode`, `inputColors`, `usedColors`, `distance`) metadata.
+- Enforced `MAX_COLOR_COMPARISONS` (50,000,000) execution guard against excessive processing workload.
+- Integrated `paletteMode` and `customPalette` into versioned settings envelope v1 with backward-compatible migration of legacy `paletteEnabled` flag.
+
+## [1.5.0] - 2026-08-19
+
+### Added
+
+- Added `1×` (native resolution), `2×` (standard), and `8×` (diagnostic) quick zoom buttons in modal view (UX-001).
+- Added view mode controls (`결과` / Result, `원본` / Source, `나란히` / Side-by-side A/B comparison).
+- Maintained distortion-free aspect alignment and dimension labels across matching comparison frames.
+- Isolated the 1-pixel grid overlay strictly to the pixel art result canvas.
+- Added graceful fallback for log-restored results lacking original source images (disabling source modes with informative tooltips).
+- Added responsive vertical stacking for side-by-side panes on mobile viewports (<= 620px).
+
+## [1.4.0] - 2026-08-19
+
+### Added
+
+- Added portable, versioned settings envelope v1 (`pixelate-studio-settings`) JSON export and import (CFG-001).
+- Added goal-oriented built-in presets (`default`, `animation-safe`, `preserve-sheet`).
+- Added deterministic inline diff preview and user confirmation before applying preset changes.
+- Added strict envelope validation, 64KB size limit, and prototype pollution protection (`__proto__`, `prototype`, `constructor`).
+- Ensured atomic validation where invalid imported files leave UI settings completely unmodified.
+- Migrated legacy IndexedDB flat settings to normalized v1 representation for backward-compatibility.
+
 ## [1.3.0] - 2026-08-14
 
 ### Added

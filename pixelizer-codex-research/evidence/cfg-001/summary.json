@@ -1,0 +1,116 @@
+{
+  "item": "CFG-001",
+  "title": "Versioned settings JSON and presets evidence report",
+  "generatedAt": "2026-08-14T09:52:08.738Z",
+  "schemaVersion": 1,
+  "sampleValidation": {
+    "format": "pixelate-studio-settings",
+    "version": 1,
+    "createdAt": "2026-08-14T00:00:00.000Z",
+    "settings": {
+      "scaleMode": "factor",
+      "size": 64,
+      "method": "box",
+      "factor": 4,
+      "factorFrameMode": "sheet",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "pixelBlockSize": 4,
+      "paletteEnabled": true,
+      "colors": 16,
+      "shared": true,
+      "cleanEnabled": true,
+      "cleanPasses": 1,
+      "outline": false,
+      "outlineWidth": 1,
+      "outlineColor": "#000000",
+      "outlineShape": "4",
+      "exportNearestScales": [
+        2,
+        4
+      ]
+    },
+    "warnings": []
+  },
+  "legacyMigration": {
+    "input": {
+      "downscaleEnabled": false,
+      "colorsNum": 32,
+      "cleanNum": 2,
+      "outlineWidthNum": 3
+    },
+    "output": {
+      "scaleMode": "original",
+      "size": 64,
+      "method": "box",
+      "factor": 4,
+      "factorFrameMode": "whole",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "pixelBlockSize": 4,
+      "paletteEnabled": true,
+      "colors": 32,
+      "shared": true,
+      "cleanEnabled": true,
+      "cleanPasses": 2,
+      "outline": false,
+      "outlineWidth": 3,
+      "outlineColor": "#000000",
+      "outlineShape": "4",
+      "exportNearestScales": []
+    },
+    "warnings": []
+  },
+  "rejectionResults": [
+    {
+      "name": "version-2-rejection",
+      "rejected": true,
+      "error": "지원하지 않는 설정 버전: v2. 현재 버전은 v1만 지원합니다."
+    },
+    {
+      "name": "prototype-pollution-rejection",
+      "rejected": true,
+      "error": "보안 위험: 금지된 속성 키가 포함되어 있습니다."
+    },
+    {
+      "name": "out-of-range-size",
+      "rejected": true,
+      "error": "size는 16~512 범위의 정수여야 합니다: 1000"
+    },
+    {
+      "name": "invalid-scale-mode",
+      "rejected": true,
+      "error": "유효하지 않은 scaleMode 값: invalid"
+    }
+  ],
+  "presetDiffs": {
+    "preserveSheetFromDefault": [
+      {
+        "key": "scaleMode",
+        "label": "크기 처리 방식",
+        "from": "square",
+        "to": "preserve-sheet",
+        "fromText": "정사각 다운스케일",
+        "toText": "원본 규격 유지"
+      }
+    ],
+    "animationSafeFromCustom": [
+      {
+        "key": "shared",
+        "label": "공유 팔레트",
+        "from": false,
+        "to": true,
+        "fromText": "꺼짐",
+        "toText": "켜짐"
+      },
+      {
+        "key": "outline",
+        "label": "외곽선 효과 사용",
+        "from": true,
+        "to": false,
+        "fromText": "켜짐",
+        "toText": "꺼짐"
+      }
+    ]
+  }
+}

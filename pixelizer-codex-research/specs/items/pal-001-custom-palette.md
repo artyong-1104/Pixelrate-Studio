@@ -5,12 +5,14 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | DONE |
+| QA 상태 | 완료 |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED |
 | 구현 모델 | Luna xhigh |
 | 선행 항목 | QLT-001, CFG-001 |
+| 완료 일자 | 2026-08-19 |
+| 검증 증거 | [evidence/pal-001/README.md](file:///Users/wondong-geon/앱개발/pixelate_studio/pixelizer-codex-research/evidence/pal-001/README.md) |
 
 ## 2. 목표와 사용자 완료 상태
 

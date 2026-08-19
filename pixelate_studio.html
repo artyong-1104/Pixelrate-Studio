@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-G/bhVsE3S2y4CkbPDY6LtdHKsBbk2xxx3t1BTJkggNo='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-K1zoyUoXkcoUC6fiQBXMO6hhr832xcXlf8TP30HIvVE='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
 <!--
 <!-- Inactive historical CSP declarations:
 Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
@@ -508,7 +508,7 @@ Legacy hash declaration:
     background-color:#1a1c24;
     position:relative; display:block;
     padding:0; min-width:0; min-height:0;
-    max-width:calc(90vw - 36px); max-height:calc(90vh - 170px);
+    max-width:calc(90vw - 36px); max-height:calc(90vh - 180px);
     overflow:auto; overscroll-behavior:contain; touch-action:none;
     scrollbar-width:none; cursor:grab;
   }
@@ -522,10 +522,27 @@ Legacy hash declaration:
     width:100% !important; height:auto !important;
     max-width:none; max-height:none; min-height:0; flex:1 1 0;
   }
-  .modal-canvas-stage{position:relative; min-width:100%; min-height:100%;}
-  .modal-canvas-stage canvas{
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  .modal-canvas-stage{
+    position:relative; min-width:100%; min-height:100%;
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    padding:16px; box-sizing:border-box;
+  }
+  .modal-pane{
+    display:flex; flex-direction:column; align-items:center; gap:6px; position:relative;
+  }
+  .modal-pane-label{
+    font-family:var(--pixel-kr); font-size:11px; color:var(--ink);
+    background:var(--panel-2); padding:2px 8px; border-radius:var(--radius-sm);
+    border:1px solid var(--line); text-align:center;
+  }
+  .modal-pane-canvas-wrap{
+    position:relative; display:flex; align-items:center; justify-content:center;
+  }
+  .modal-result-pane canvas{
     image-rendering:pixelated; display:block;
+  }
+  .modal-source-pane canvas{
+    image-rendering:auto; display:block; object-fit:contain;
   }
   .modal-pixel-grid{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
@@ -536,31 +553,58 @@ Legacy hash declaration:
       linear-gradient(to bottom, #fff 1px, transparent 1px);
   }
   .modal-pixel-grid.visible{display:block;}
-  .modal-box .modal-title{font-size:12px; color:var(--ink-dim); font-family:var(--mono);}
+  .modal-box .modal-title{font-size:12px; color:var(--ink-dim); font-family:var(--mono); text-align:center;}
   .modal-box .modal-close{
-    align-self:flex-end; background:var(--panel-2); border:2px solid var(--line);
+    background:var(--panel-2); border:2px solid var(--line);
     color:var(--ink-dim); cursor:pointer; padding:4px 10px; font-family:var(--pixel-kr); font-size:11px;
   }
   .modal-box .modal-close:hover{color:var(--danger); border-color:var(--danger);}
+  .modal-mode-group, .modal-quick-zoom-group{
+    display:inline-flex; gap:4px; align-items:center;
+  }
+  .modal-mode-btn, .modal-quick-zoom{
+    font-family:var(--pixel-kr); font-size:11px; padding:3px 8px; min-width:32px;
+  }
+  .modal-mode-btn[aria-pressed="true"], .modal-quick-zoom[aria-pressed="true"]{
+    border-color:var(--accent); color:var(--accent); background:var(--line); font-weight:bold;
+  }
   .modal-view-controls{
-    width:100%; display:grid; grid-template-columns:auto minmax(100px,1fr) auto auto auto auto auto;
-    align-items:center; gap:8px; font-family:var(--pixel-kr); font-size:11px;
+    width:100%; display:flex; flex-wrap:wrap;
+    align-items:center; justify-content:center; gap:8px; font-family:var(--pixel-kr); font-size:11px;
   }
+  .modal-view-controls input[type="range"]{min-width:90px; max-width:140px; margin:0; flex:1;}
   .modal-view-controls .ghost{
-    min-width:34px; padding:5px 8px; font-size:11px;
+    min-width:30px; padding:4px 6px; font-size:11px;
   }
-  .modal-view-controls input[type="range"]{min-width:100px; margin:0;}
   .modal-zoom-value{
-    min-width:42px; color:var(--accent-2); font-family:var(--mono); text-align:center;
+    min-width:38px; color:var(--accent-2); font-family:var(--mono); text-align:center;
   }
   .modal-view-reset{
-    width:34px; height:30px; padding:0 !important;
+    width:32px; height:28px; padding:0 !important;
     display:inline-flex; align-items:center; justify-content:center;
-    font-size:17px !important; line-height:1;
+    font-size:16px !important; line-height:1;
   }
   .modal-grid-toggle[aria-pressed="true"],
   .modal-expand-toggle[aria-pressed="true"]{
     border-color:var(--accent); color:var(--accent); background:var(--line);
+  }
+  @media (max-width:620px){
+    .modal-canvas-stage{
+      flex-direction:column; gap:14px;
+    }
+  }
+  .palette-chip-grid{
+    display:flex; flex-wrap:wrap; gap:4px; margin-top:8px;
+    max-height:140px; overflow-y:auto; padding:4px;
+    background:var(--bg); border:1px solid var(--line); border-radius:var(--radius-sm);
+  }
+  .palette-chip{
+    width:20px; height:20px; border-radius:3px;
+    border:1px solid rgba(255,255,255,0.2); box-shadow:0 1px 2px rgba(0,0,0,0.3);
+    position:relative; cursor:pointer; flex-shrink:0;
+  }
+  .palette-chip:hover, .palette-chip:focus{
+    outline:2px solid var(--accent); z-index:2;
   }
   #settingsModal .settings-box{
     width:320px;
@@ -657,6 +701,35 @@ Legacy hash declaration:
     <div class="panel controls-panel">
       <!-- Settings 1–5 scroll only inside this framed region -->
       <div class="controls-scroll-frame">
+        <!-- Preset and Import/Export toolbar -->
+        <div class="preset-toolbar" style="margin-bottom: 12px; padding: 10px; background: var(--panel-2); border-radius: var(--radius); border: 1px solid var(--line);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+            <label for="presetSelect" style="font-weight:600; font-size:13px;">설정 프리셋</label>
+            <div style="display:flex; gap:6px;">
+              <button type="button" class="ghost" id="exportSettingsBtn" style="padding:4px 8px; font-size:12px;" title="현재 설정을 JSON 파일로 내보냅니다">설정 내보내기</button>
+              <button type="button" class="ghost" id="importSettingsBtn" style="padding:4px 8px; font-size:12px;" title="JSON 설정 파일을 불러옵니다">설정 불러오기</button>
+              <input type="file" id="importSettingsInput" accept=".json,application/json" style="display:none;">
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <select id="presetSelect" style="flex:1;" aria-label="프리셋 선택">
+              <option value="default">기본값 (정사각 64px, 팔레트 16색, 노이즈정리 1회)</option>
+              <option value="animation-safe">애니메이션 안전 (공유 팔레트, 노이즈정리 1회, 외곽선 해제)</option>
+              <option value="preserve-sheet">시트 규격 유지 (원본 64×64 프레임, 4px 블록)</option>
+            </select>
+            <button type="button" class="primary" id="applyPresetBtn" style="padding:6px 12px; font-size:12px; margin-top:0; white-space:nowrap;">적용</button>
+          </div>
+          <div id="presetDiffBox" style="display:none; margin-top:8px; padding:8px; background:var(--bg); border:1px solid var(--line); border-radius:var(--radius-sm);">
+            <div style="font-weight:600; font-size:12px; margin-bottom:4px;">변경될 설정 항목:</div>
+            <ul id="presetDiffList" style="margin:0 0 8px 16px; padding:0; font-size:12px; color:var(--ink-dim);"></ul>
+            <div style="display:flex; gap:6px; justify-content:flex-end;">
+              <button type="button" class="ghost" id="presetDiffCancelBtn" style="padding:3px 8px; font-size:11px;">취소</button>
+              <button type="button" class="primary" id="presetDiffConfirmBtn" style="padding:3px 8px; font-size:11px; margin-top:0;">변경 적용</button>
+            </div>
+          </div>
+          <div id="settingsFeedback" class="frame-size-note" aria-live="polite" style="margin-top:6px; font-size:12px; display:none;"></div>
+        </div>
+
         <div class="accordion">
           
           <!-- Accordion Item 1: 이미지 업로드 -->
@@ -819,28 +892,63 @@ Legacy hash declaration:
               <div class="accordion-content">
                 <div class="field">
                   <div class="field-header">
-                    <label class="toggle">
-                      <input type="checkbox" id="paletteEnabled" checked>
-                      팔레트 색상 수 제한
-                    </label>
+                    <label for="paletteMode">팔레트 방식</label>
                     <span class="help-container">
-                      <button class="help-btn" type="button" data-help="체크 해제 시 색상 축소 없이 원본 색상을 그대로 사용합니다. 켜면 지정된 색상 수로 이미지의 팔레트를 제한합니다.">?</button>
+                      <button class="help-btn" type="button" data-help="자동 생성은 K-means 알고리즘으로 대표 색상을 추출하고, 직접 지정은 HEX/GPL/PNG 형식의 고정 팔레트를 적용하며, 제한 없음은 원본 고유 색상을 유지합니다.">?</button>
                     </span>
                   </div>
-                  <div class="row2" id="paletteControls" style="margin-top:8px;">
-                    <input type="range" id="colors" min="2" max="256" value="16">
-                    <input type="number" id="colorsNum" min="2" max="256" value="16">
+                  <select id="paletteMode" aria-label="팔레트 방식">
+                    <option value="auto" selected>자동 생성 (K-means)</option>
+                    <option value="custom">직접 지정 (Custom Palette)</option>
+                    <option value="unlimited">제한 없음 (원본 색상)</option>
+                  </select>
+                </div>
+
+                <!-- Auto mode controls: colors count slider -->
+                <div class="field" id="paletteAutoControls">
+                  <div class="field-header">
+                    <label for="colors">색상 수 (2~256)</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="이미지에서 추출할 대표 색상의 최대 개수를 설정합니다.">?</button>
+                    </span>
+                  </div>
+                  <div class="row2" id="paletteControls">
+                    <input type="range" id="colors" min="2" max="256" value="16" aria-label="팔레트 색상 수 슬라이더">
+                    <input type="number" id="colorsNum" min="2" max="256" value="16" aria-label="팔레트 색상 수">
                   </div>
                 </div>
 
-                <div class="field">
+                <!-- Custom mode controls -->
+                <div class="field" id="customPaletteControls" style="display:none;">
+                  <div class="field-header">
+                    <label for="customPaletteText">직접 지정 팔레트 (HEX / GPL / PNG)</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="한 줄에 하나씩 #RRGGBB 코드를 입력하거나 쉼표/공백으로 구분하세요. .txt, .gpl (GIMP Palette), 또는 참조 .png 파일(최대 1MB)을 불러올 수 있습니다.">?</button>
+                    </span>
+                  </div>
+                  <textarea id="customPaletteText" rows="4" placeholder="#000000&#10;#ffffff&#10;#ff0000&#10;... (2~256개 #RRGGBB)" aria-label="직접 지정 팔레트 색상 목록" style="width:100%; font-family:var(--mono); font-size:11px; resize:vertical; box-sizing:border-box;"></textarea>
+
+                  <div style="display:flex; gap:6px; margin-top:6px; align-items:center;">
+                    <button type="button" class="ghost" id="loadPaletteFileBtn" style="font-size:11px; padding:4px 8px; flex:1;">팔레트 파일 불러오기</button>
+                    <input type="file" id="paletteFileInput" accept=".txt,.gpl,.png" style="display:none;">
+                    <button type="button" class="ghost" id="clearCustomPaletteBtn" style="font-size:11px; padding:4px 8px; color:var(--danger); border-color:var(--line);">모두 지우기</button>
+                  </div>
+
+                  <div id="customPaletteStats" class="frame-size-note" aria-live="polite" style="margin-top:6px;">유효 0색</div>
+                  <div id="customPaletteWarning" class="frame-size-note" style="color:var(--danger); margin-top:4px; display:none;"></div>
+
+                  <div id="customPaletteChips" class="palette-chip-grid" role="region" aria-label="팔레트 색상 칩 미리보기"></div>
+                </div>
+
+                <!-- Shared palette control -->
+                <div class="field" id="paletteSharedField">
                   <div class="field-header">
                     <label class="toggle">
                       <input type="checkbox" id="shared" checked>
                       여러 프레임에 팔레트 공유 (애니메이션 색 통일)
                     </label>
                     <span class="help-container">
-                      <button class="help-btn" type="button" data-help="체크하면 업로드한 모든 이미지가 하나의 공통 팔레트를 사용합니다. 스프라이트 애니메이션 프레임들을 처리할 때 켜두세요.">?</button>
+                      <button class="help-btn" type="button" data-help="체크하면 업로드한 모든 이미지가 하나의 공통 팔레트를 사용합니다. 직접 지정 팔레트 사용 시에는 항상 공유 팔레트가 적용됩니다.">?</button>
                     </span>
                   </div>
                 </div>
@@ -1020,13 +1128,38 @@ Legacy hash declaration:
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
-    <button class="modal-close" id="modalClose">✕ 닫기</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <!-- Mode buttons -->
+      <div class="modal-mode-group" role="group" aria-label="보기 모드">
+        <button class="ghost modal-mode-btn active" id="modalModeResult" type="button" aria-pressed="true">결과</button>
+        <button class="ghost modal-mode-btn" id="modalModeSource" type="button" aria-pressed="false" title="원본 이미지 보기">원본</button>
+        <button class="ghost modal-mode-btn" id="modalModeSplit" type="button" aria-pressed="false" title="원본과 결과 나란히 비교">나란히</button>
+      </div>
+      <button class="modal-close" id="modalClose">✕ 닫기</button>
+    </div>
+
     <div class="modal-canvas-wrap" id="modalCanvasWrap" tabindex="0" aria-label="확대 이미지 이동 영역">
       <div class="modal-canvas-stage" id="modalCanvasStage">
-        <div class="modal-pixel-grid" id="modalPixelGrid"></div>
+        <div class="modal-pane modal-source-pane" id="modalSourcePane" style="display:none;">
+          <div class="modal-pane-label" id="modalSourceLabel">원본</div>
+          <div class="modal-pane-canvas-wrap" id="modalSourceCanvasWrap"></div>
+        </div>
+        <div class="modal-pane modal-result-pane" id="modalResultPane">
+          <div class="modal-pane-label" id="modalResultLabel" style="display:none;">결과</div>
+          <div class="modal-pane-canvas-wrap" id="modalResultCanvasWrap">
+            <div class="modal-pixel-grid" id="modalPixelGrid"></div>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="modal-view-controls" aria-label="이미지 보기 배율 조절">
+      <!-- Quick zoom buttons -->
+      <div class="modal-quick-zoom-group" role="group" aria-label="빠른 배율 선택">
+        <button class="ghost modal-quick-zoom" id="modalZoom1x" type="button" data-zoom="1" aria-pressed="false">1×</button>
+        <button class="ghost modal-quick-zoom" id="modalZoom2x" type="button" data-zoom="2" aria-pressed="false">2×</button>
+        <button class="ghost modal-quick-zoom" id="modalZoom8x" type="button" data-zoom="8" aria-pressed="false">8×</button>
+      </div>
       <button class="ghost" id="modalZoomOut" aria-label="이미지 축소">−</button>
       <input type="range" id="modalZoomRange" min="1" max="24" value="1" step="1" aria-label="이미지 보기 배율">
       <button class="ghost" id="modalZoomIn" aria-label="이미지 확대">＋</button>
@@ -1035,6 +1168,7 @@ Legacy hash declaration:
       <button class="ghost modal-view-reset modal-grid-toggle" id="modalGridToggle" aria-label="1픽셀 격자 보기" title="1픽셀 격자 보기" aria-pressed="false">▦</button>
       <button class="ghost modal-view-reset modal-expand-toggle" id="modalExpandToggle" aria-label="페이지 안에서 넓게 보기" title="페이지 안에서 넓게 보기" aria-pressed="false">⛶</button>
     </div>
+    <div id="modalFallbackNotice" class="frame-size-note" style="display:none; color:var(--ink-dim); text-align:center; margin-top:2px;">저장된 로그에는 원본 이미지가 없습니다.</div>
     <div class="modal-title" id="modalTitle"></div>
   </div>
 </div>
@@ -1126,11 +1260,22 @@ const frameHeightInput = document.getElementById('frameHeight');
 const pixelBlockSizeSel = document.getElementById('pixelBlockSize');
 const frameCalculationEl = document.getElementById('frameCalculation');
 
-const paletteEnabledCheck = document.getElementById('paletteEnabled');
+const paletteModeSel = document.getElementById('paletteMode');
+const paletteAutoControls = document.getElementById('paletteAutoControls');
 const paletteControls = document.getElementById('paletteControls');
 const colorsRange = document.getElementById('colors');
 const colorsNum = document.getElementById('colorsNum');
+const customPaletteControls = document.getElementById('customPaletteControls');
+const customPaletteText = document.getElementById('customPaletteText');
+const loadPaletteFileBtn = document.getElementById('loadPaletteFileBtn');
+const paletteFileInput = document.getElementById('paletteFileInput');
+const clearCustomPaletteBtn = document.getElementById('clearCustomPaletteBtn');
+const customPaletteStats = document.getElementById('customPaletteStats');
+const customPaletteWarning = document.getElementById('customPaletteWarning');
+const customPaletteChips = document.getElementById('customPaletteChips');
+const paletteSharedField = document.getElementById('paletteSharedField');
 const sharedCheck = document.getElementById('shared');
+const paletteEnabledCheck = null;
 
 const cleanEnabledCheck = document.getElementById('cleanEnabled');
 const cleanControls = document.getElementById('cleanControls');
@@ -1148,6 +1293,17 @@ const exportScale2x = document.getElementById('exportScale2x');
 const exportScale4x = document.getElementById('exportScale4x');
 const exportScale8x = document.getElementById('exportScale8x');
 const exportScaleWarning = document.getElementById('exportScaleWarning');
+
+const presetSelect = document.getElementById('presetSelect');
+const applyPresetBtn = document.getElementById('applyPresetBtn');
+const exportSettingsBtn = document.getElementById('exportSettingsBtn');
+const importSettingsBtn = document.getElementById('importSettingsBtn');
+const importSettingsInput = document.getElementById('importSettingsInput');
+const presetDiffBox = document.getElementById('presetDiffBox');
+const presetDiffList = document.getElementById('presetDiffList');
+const presetDiffCancelBtn = document.getElementById('presetDiffCancelBtn');
+const presetDiffConfirmBtn = document.getElementById('presetDiffConfirmBtn');
+const settingsFeedback = document.getElementById('settingsFeedback');
 
 // ---------- 아코디언 토글 제어 ----------
 document.querySelectorAll('.accordion-header').forEach(header => {
@@ -1404,6 +1560,62 @@ function formatDate(date) {
   return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
+const FORBIDDEN_SETTINGS_KEYS = ['__proto__', 'prototype', 'constructor'];
+const FORBIDDEN_SETTINGS_PATTERN = /"(?:__proto__|prototype|constructor)"\s*:/i;
+
+function checkNoForbiddenKeys(obj) {
+  if (!obj || typeof obj !== 'object') return;
+  for (const k of Object.getOwnPropertyNames(obj)) {
+    if (FORBIDDEN_SETTINGS_KEYS.includes(k)) {
+      throw new Error(`보안 위험: 금지된 속성 키(${k})가 포함되어 있습니다.`);
+    }
+    if (typeof obj[k] === 'object' && obj[k] !== null) {
+      checkNoForbiddenKeys(obj[k]);
+    }
+  }
+}
+
+const DEFAULT_SETTINGS = Object.freeze({
+  scaleMode: 'square',
+  size: 64,
+  method: 'box',
+  factor: 4,
+  factorFrameMode: 'whole',
+  frameWidth: 64,
+  frameHeight: 64,
+  pixelBlockSize: 4,
+  paletteMode: 'auto',
+  customPalette: [],
+  paletteEnabled: true,
+  colors: 16,
+  shared: true,
+  cleanEnabled: true,
+  cleanPasses: 1,
+  outline: false,
+  outlineWidth: 1,
+  outlineColor: '#000000',
+  outlineShape: '4',
+  exportNearestScales: []
+});
+
+const PRESETS = Object.freeze({
+  default: {
+    ...DEFAULT_SETTINGS
+  },
+  'animation-safe': {
+    shared: true,
+    cleanEnabled: true,
+    cleanPasses: 1,
+    outline: false
+  },
+  'preserve-sheet': {
+    scaleMode: 'preserve-sheet',
+    frameWidth: 64,
+    frameHeight: 64,
+    pixelBlockSize: 4
+  }
+});
+
 function normalizeScaleMode(s) {
   if (s && ['square', 'factor', 'preserve-sheet', 'original'].includes(s.scaleMode)) return s.scaleMode;
   return s && s.downscaleEnabled === false ? 'original' : 'square';
@@ -1413,7 +1625,7 @@ function getSettingsSummary(s) {
   const parts = [];
   const scaleMode = normalizeScaleMode(s);
   if (scaleMode === 'square') {
-    parts.push(`크기:${s.size}px(${s.method})`);
+    parts.push(`크기:${s.size ?? 64}px(${s.method ?? 'box'})`);
   } else if (scaleMode === 'factor') {
     if (s.factorFrameMode === 'sheet') {
       parts.push(`배율:÷${s.factor ?? 4}(시트 ${s.frameWidth ?? 64}×${s.frameHeight ?? 64})`);
@@ -1421,21 +1633,27 @@ function getSettingsSummary(s) {
       parts.push(`배율:÷${s.factor ?? 4}`);
     }
   } else if (scaleMode === 'preserve-sheet') {
-    parts.push(`규격유지:${s.frameWidth}×${s.frameHeight}, 블록:${s.pixelBlockSize}`);
+    parts.push(`규격유지:${s.frameWidth ?? 64}×${s.frameHeight ?? 64}, 블록:${s.pixelBlockSize ?? 4}`);
   } else {
     parts.push('크기:원본');
   }
-  if (s.paletteEnabled) {
-    parts.push(`팔레트:${s.colorsNum}색`);
-  } else {
+  if (s.paletteMode === 'custom') {
+    const customCount = Array.isArray(s.customPalette) ? s.customPalette.length : (s.colors || 0);
+    parts.push(`팔레트:직접지정(${customCount}색)`);
+  } else if (s.paletteMode === 'unlimited' || s.paletteEnabled === false) {
     parts.push('팔레트:제한없음');
+  } else {
+    const colorsCount = s.colors ?? s.colorsNum ?? 16;
+    parts.push(`팔레트:${colorsCount}색`);
   }
-  if (s.cleanEnabled && s.cleanNum > 0) {
-    parts.push(`정리:${s.cleanNum}회`);
+  const cleanPassesCount = s.cleanPasses ?? s.cleanNum ?? (s.cleanEnabled ? 1 : 0);
+  if (cleanPassesCount > 0 && (s.cleanEnabled ?? true)) {
+    parts.push(`정리:${cleanPassesCount}회`);
   }
   if (s.shared) parts.push('공유팔레트');
   if (s.outline) {
-    parts.push(`외곽선:${s.outlineWidthNum}px(${s.outlineShape === '8' ? '8방향' : '4방향'})`);
+    const widthVal = s.outlineWidth ?? s.outlineWidthNum ?? 1;
+    parts.push(`외곽선:${widthVal}px(${s.outlineShape === '8' ? '8방향' : '4방향'})`);
   }
   if (Array.isArray(s.exportNearestScales) && s.exportNearestScales.length > 0) {
     parts.push(`확대출력:${s.exportNearestScales.map(sc => sc + '×').join(',')}`);
@@ -1443,76 +1661,516 @@ function getSettingsSummary(s) {
   return parts.join(' | ');
 }
 
-function loadSettings(s) {
-  scaleModeSel.value = normalizeScaleMode(s);
-  scaleModeSel.dispatchEvent(new Event('change'));
-  sizeSel.value = s.size ?? '64';
-  methodSel.value = s.method ?? 'box';
-  factorInput.value = s.factor ?? '4';
-  const factorFrameMode = s.factorFrameMode === 'sheet' ? 'sheet' : 'whole';
-  const factorRadio = document.querySelector(`input[name="factorFrameMode"][value="${factorFrameMode}"]`);
-  if (factorRadio) {
-    factorRadio.checked = true;
-    factorRadio.dispatchEvent(new Event('change'));
-  }
-  factorFrameWidthInput.value = s.frameWidth ?? '64';
-  factorFrameHeightInput.value = s.frameHeight ?? '64';
-  frameWidthInput.value = s.frameWidth ?? '64';
-  frameHeightInput.value = s.frameHeight ?? '64';
-  pixelBlockSizeSel.value = String(s.pixelBlockSize ?? '4');
-  
-  paletteEnabledCheck.checked = s.paletteEnabled;
-  paletteEnabledCheck.dispatchEvent(new Event('change'));
-  colorsRange.value = s.colors;
-  colorsNum.value = s.colorsNum;
-  
-  cleanEnabledCheck.checked = s.cleanEnabled;
-  cleanEnabledCheck.dispatchEvent(new Event('change'));
-  cleanRange.value = s.clean;
-  cleanNum.value = s.cleanNum;
-  
-  sharedCheck.checked = s.shared;
-  
-  outlineCheck.checked = s.outline;
-  outlineCheck.dispatchEvent(new Event('change'));
-  outlineWidthRange.value = s.outlineWidth;
-  outlineWidthNum.value = s.outlineWidthNum;
-  outlineColor.value = s.outlineColor;
-  outlineShape.value = s.outlineShape;
-  
-  const valEl = document.getElementById('outlineWidthVal');
-  if (valEl) valEl.textContent = s.outlineWidthNum;
+function readUiSettings() {
+  const scaleMode = scaleModeSel ? scaleModeSel.value : 'square';
+  const size = sizeSel ? parseInt(sizeSel.value, 10) : 64;
+  const method = methodSel ? methodSel.value : 'box';
+  const factor = factorInput ? parseInt(factorInput.value, 10) : 4;
+  const factorFrameMode = document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole';
+  const frameWidth = scaleMode === 'factor'
+    ? (factorFrameWidthInput ? parseInt(factorFrameWidthInput.value, 10) : 64)
+    : (frameWidthInput ? parseInt(frameWidthInput.value, 10) : 64);
+  const frameHeight = scaleMode === 'factor'
+    ? (factorFrameHeightInput ? parseInt(factorFrameHeightInput.value, 10) : 64)
+    : (frameHeightInput ? parseInt(frameHeightInput.value, 10) : 64);
+  const pixelBlockSize = pixelBlockSizeSel ? parseInt(pixelBlockSizeSel.value, 10) : 4;
+  const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
+  const parsedCustom = customPaletteText ? parseHexPalette(customPaletteText.value) : { hexes: [] };
+  const customPalette = parsedCustom.hexes;
+  const colors = paletteMode === 'custom'
+    ? Math.max(2, Math.min(256, customPalette.length || 16))
+    : (colorsNum ? parseInt(colorsNum.value, 10) : 16);
+  const paletteEnabled = paletteMode !== 'unlimited';
+  const shared = paletteMode === 'custom' ? true : (sharedCheck ? sharedCheck.checked : true);
+  const cleanEnabled = cleanEnabledCheck ? cleanEnabledCheck.checked : true;
+  const cleanPasses = cleanNum ? parseInt(cleanNum.value, 10) : 1;
+  const outline = outlineCheck ? outlineCheck.checked : false;
+  const outlineWidth = outlineWidthNum ? parseInt(outlineWidthNum.value, 10) : 1;
+  const outlineColorVal = outlineColor ? outlineColor.value : '#000000';
+  const outlineShapeVal = outlineShape ? outlineShape.value : '4';
+  const exportNearestScales = getSelectedNearestScales();
 
-  const exportScales = Array.isArray(s.exportNearestScales) ? s.exportNearestScales : [];
-  exportScale2x.checked = exportScales.includes(2);
-  exportScale4x.checked = exportScales.includes(4);
-  exportScale8x.checked = exportScales.includes(8);
-  updateExportScaleWarnings();
-  
-  // 불러온 설정에 맞춰 아코디언 확장
-  if (normalizeScaleMode(s) !== 'original') {
-    document.getElementById('accordionDownscale').classList.remove('collapsed');
+  return {
+    scaleMode,
+    size,
+    method,
+    factor,
+    factorFrameMode,
+    frameWidth,
+    frameHeight,
+    pixelBlockSize,
+    paletteMode,
+    customPalette,
+    paletteEnabled,
+    colors,
+    shared,
+    cleanEnabled,
+    cleanPasses,
+    outline,
+    outlineWidth,
+    outlineColor: outlineColorVal,
+    outlineShape: outlineShapeVal,
+    exportNearestScales
+  };
+}
+
+function normalizeSettings(input, source = 'envelope') {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+    throw new Error('설정 데이터가 유효한 객체 형태가 아닙니다.');
   }
-  if (s.paletteEnabled) {
-    document.getElementById('accordionPalette').classList.remove('collapsed');
+  checkNoForbiddenKeys(input);
+
+  const warnings = [];
+  const result = source === 'partial-preset' ? {} : { ...DEFAULT_SETTINGS };
+
+  const knownKeys = new Set([
+    'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'paletteMode', 'customPalette',
+    'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
+    'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
+    'downscaleEnabled', 'colorsNum', 'cleanNum', 'clean', 'outlineWidthNum'
+  ]);
+
+  for (const k of Object.keys(input)) {
+    if (!knownKeys.has(k)) {
+      warnings.push(`알려지지 않은 설정 필드 '${k}'가 무시되었습니다.`);
+    }
   }
-  if (s.cleanEnabled) {
-    document.getElementById('accordionNoise').classList.remove('collapsed');
+
+  if ('scaleMode' in input) {
+    if (!['square', 'factor', 'preserve-sheet', 'original'].includes(input.scaleMode)) {
+      throw new Error(`유효하지 않은 scaleMode 값: ${input.scaleMode}`);
+    }
+    result.scaleMode = input.scaleMode;
+  } else if ('downscaleEnabled' in input) {
+    result.scaleMode = input.downscaleEnabled ? 'square' : 'original';
   }
-  if (s.outline) {
-    document.getElementById('accordionOutline').classList.remove('collapsed');
+
+  if ('size' in input) {
+    const val = Number(input.size);
+    if (!Number.isInteger(val) || val < 16 || val > 512) {
+      throw new Error(`size는 16~512 범위의 정수여야 합니다: ${input.size}`);
+    }
+    result.size = val;
   }
-  if (exportScales.length > 0) {
-    document.getElementById('accordionExport').classList.remove('collapsed');
+
+  if ('method' in input) {
+    if (!['box', 'bilinear', 'nearest'].includes(input.method)) {
+      throw new Error(`유효하지 않은 method 값: ${input.method}`);
+    }
+    result.method = input.method;
+  }
+
+  if ('factor' in input) {
+    const val = Number(input.factor);
+    if (!Number.isInteger(val) || val < 2 || val > 16) {
+      throw new Error(`factor는 2~16 범위의 정수여야 합니다: ${input.factor}`);
+    }
+    result.factor = val;
+  }
+
+  if ('factorFrameMode' in input) {
+    if (!['whole', 'sheet'].includes(input.factorFrameMode)) {
+      throw new Error(`유효하지 않은 factorFrameMode 값: ${input.factorFrameMode}`);
+    }
+    result.factorFrameMode = input.factorFrameMode;
+  }
+
+  if ('frameWidth' in input) {
+    const val = Number(input.frameWidth);
+    if (!Number.isInteger(val) || val < 8 || val > 4096) {
+      throw new Error(`frameWidth는 8~4096 범위의 정수여야 합니다: ${input.frameWidth}`);
+    }
+    result.frameWidth = val;
+  }
+
+  if ('frameHeight' in input) {
+    const val = Number(input.frameHeight);
+    if (!Number.isInteger(val) || val < 8 || val > 4096) {
+      throw new Error(`frameHeight는 8~4096 범위의 정수여야 합니다: ${input.frameHeight}`);
+    }
+    result.frameHeight = val;
+  }
+
+  if ('pixelBlockSize' in input) {
+    const val = Number(input.pixelBlockSize);
+    if (![1, 2, 4, 8].includes(val)) {
+      throw new Error(`pixelBlockSize는 1, 2, 4, 8 중 하나여야 합니다: ${input.pixelBlockSize}`);
+    }
+    result.pixelBlockSize = val;
+  }
+
+  if ('paletteMode' in input) {
+    if (!['auto', 'custom', 'unlimited'].includes(input.paletteMode)) {
+      throw new Error(`유효하지 않은 paletteMode 값: ${input.paletteMode}`);
+    }
+    result.paletteMode = input.paletteMode;
+    result.paletteEnabled = input.paletteMode !== 'unlimited';
+  } else if ('paletteEnabled' in input) {
+    if (typeof input.paletteEnabled !== 'boolean') {
+      throw new Error(`paletteEnabled는 boolean이어야 합니다: ${input.paletteEnabled}`);
+    }
+    result.paletteEnabled = input.paletteEnabled;
+    result.paletteMode = input.paletteEnabled ? 'auto' : 'unlimited';
+  }
+
+  if ('customPalette' in input) {
+    if (!Array.isArray(input.customPalette)) {
+      throw new Error('customPalette는 배열이어야 합니다.');
+    }
+    const deduped = [];
+    const seen = new Set();
+    for (const item of input.customPalette) {
+      if (typeof item !== 'string' || !/^#[0-9a-fA-F]{6}$/.test(item)) {
+        throw new Error(`customPalette의 항목은 유효한 #RRGGBB 형식이어야 합니다: ${item}`);
+      }
+      const norm = item.toUpperCase();
+      if (!seen.has(norm)) {
+        seen.add(norm);
+        deduped.push(norm);
+      }
+    }
+    if (result.paletteMode === 'custom' && (deduped.length < 2 || deduped.length > 256)) {
+      throw new Error(`customPalette는 2~256개의 유효한 색상이어야 합니다 (현재 ${deduped.length}개).`);
+    }
+    result.customPalette = deduped;
+    if (result.paletteMode === 'custom') {
+      result.colors = deduped.length;
+    }
+  }
+
+  const rawColors = 'colors' in input ? input.colors : input.colorsNum;
+  if (rawColors !== undefined) {
+    const val = Number(rawColors);
+    if (!Number.isInteger(val) || val < 2 || val > 256) {
+      throw new Error(`colors는 2~256 범위의 정수여야 합니다: ${rawColors}`);
+    }
+    if (result.paletteMode !== 'custom') {
+      result.colors = val;
+    }
+  }
+
+  if ('shared' in input) {
+    if (typeof input.shared !== 'boolean') {
+      throw new Error(`shared는 boolean이어야 합니다: ${input.shared}`);
+    }
+    result.shared = input.shared;
+  }
+
+  if ('cleanEnabled' in input) {
+    if (typeof input.cleanEnabled !== 'boolean') {
+      throw new Error(`cleanEnabled는 boolean이어야 합니다: ${input.cleanEnabled}`);
+    }
+    result.cleanEnabled = input.cleanEnabled;
+  }
+
+  const rawClean = 'cleanPasses' in input ? input.cleanPasses : ('cleanNum' in input ? input.cleanNum : input.clean);
+  if (rawClean !== undefined) {
+    const val = Number(rawClean);
+    if (!Number.isInteger(val) || val < 0 || val > 10) {
+      throw new Error(`cleanPasses는 0~10 범위의 정수여야 합니다: ${rawClean}`);
+    }
+    result.cleanPasses = val;
+  }
+
+  if ('outline' in input) {
+    if (typeof input.outline !== 'boolean') {
+      throw new Error(`outline은 boolean이어야 합니다: ${input.outline}`);
+    }
+    result.outline = input.outline;
+  }
+
+  const rawWidth = 'outlineWidth' in input ? input.outlineWidth : input.outlineWidthNum;
+  if (rawWidth !== undefined) {
+    const val = Number(rawWidth);
+    if (!Number.isInteger(val) || val < 1 || val > 30) {
+      throw new Error(`outlineWidth는 1~30 범위의 정수여야 합니다: ${rawWidth}`);
+    }
+    result.outlineWidth = val;
+  }
+
+  if ('outlineColor' in input) {
+    if (typeof input.outlineColor !== 'string' || !/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(input.outlineColor)) {
+      throw new Error(`outlineColor는 올바른 16진수 색상 코드(#RRGGBB)여야 합니다: ${input.outlineColor}`);
+    }
+    result.outlineColor = input.outlineColor;
+  }
+
+  if ('outlineShape' in input) {
+    const str = String(input.outlineShape);
+    if (!['4', '8'].includes(str)) {
+      throw new Error(`outlineShape는 '4' 또는 '8'이어야 합니다: ${input.outlineShape}`);
+    }
+    result.outlineShape = str;
+  }
+
+  if ('exportNearestScales' in input) {
+    if (!Array.isArray(input.exportNearestScales)) {
+      throw new Error(`exportNearestScales는 배열이어야 합니다: ${input.exportNearestScales}`);
+    }
+    const sanitized = [];
+    for (const sc of input.exportNearestScales) {
+      const sVal = Number(sc);
+      if (![2, 4, 8].includes(sVal)) {
+        throw new Error(`exportNearestScales 항목은 2, 4, 8 중 하나여야 합니다: ${sc}`);
+      }
+      if (!sanitized.includes(sVal)) sanitized.push(sVal);
+    }
+    sanitized.sort((a, b) => a - b);
+    result.exportNearestScales = sanitized;
+  }
+
+  return { settings: result, warnings };
+}
+
+function validateSettingsEnvelope(rawText) {
+  if (typeof rawText !== 'string') {
+    throw new Error('입력 데이터가 문자열이 아닙니다.');
+  }
+  const byteLength = new Blob([rawText]).size;
+  if (byteLength > 65536) {
+    throw new Error(`설정 파일 크기(${byteLength} bytes)가 최대 허용 한도(64KB)를 초과했습니다.`);
+  }
+  if (FORBIDDEN_SETTINGS_PATTERN.test(rawText)) {
+    throw new Error('보안 위험: 금지된 속성 키가 포함되어 있습니다.');
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(rawText);
+  } catch (e) {
+    throw new Error(`JSON 구문 분석 오류: ${e.message}`);
+  }
+
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('설정 데이터가 유효한 객체 구조가 아닙니다.');
+  }
+  checkNoForbiddenKeys(parsed);
+
+  if (parsed.format !== 'pixelate-studio-settings') {
+    throw new Error(`유효하지 않은 설정 포맷: '${parsed.format}'. 'pixelate-studio-settings' 포맷만 지원합니다.`);
+  }
+
+  if (parsed.version !== 1) {
+    throw new Error(`지원하지 않는 설정 버전: v${parsed.version}. 현재 버전은 v1만 지원합니다.`);
+  }
+
+  if (!parsed.settings || typeof parsed.settings !== 'object' || Array.isArray(parsed.settings)) {
+    throw new Error('설정 데이터(settings) 객체가 누락되었거나 올바르지 않습니다.');
+  }
+
+  const { settings, warnings } = normalizeSettings(parsed.settings, 'envelope');
+  return {
+    format: parsed.format,
+    version: parsed.version,
+    createdAt: typeof parsed.createdAt === 'string' ? parsed.createdAt : null,
+    settings,
+    warnings
+  };
+}
+
+const SETTING_LABELS = Object.freeze({
+  scaleMode: '크기 처리 방식',
+  size: '정사각 다운스케일 크기',
+  method: '다운스케일 보간법',
+  factor: '축소 배율',
+  factorFrameMode: '정수 배율 프레임 분할',
+  frameWidth: '프레임 너비',
+  frameHeight: '프레임 높이',
+  pixelBlockSize: '블록 크기',
+  paletteMode: '팔레트 방식',
+  customPalette: '직접 지정 팔레트',
+  paletteEnabled: '팔레트 제한 사용',
+  colors: '팔레트 색상 수',
+  shared: '공유 팔레트',
+  cleanEnabled: '노이즈 필터 사용',
+  cleanPasses: '노이즈 필터 반복 횟수',
+  outline: '외곽선 효과 사용',
+  outlineWidth: '외곽선 굵기',
+  outlineColor: '외곽선 색상',
+  outlineShape: '외곽선 형태',
+  exportNearestScales: '추가 nearest 확대본'
+});
+
+function formatSettingValue(key, val) {
+  if (val === undefined || val === null) return '기본값';
+  if (typeof val === 'boolean') return val ? '켜짐' : '꺼짐';
+  if (key === 'scaleMode') {
+    const map = { square: '정사각 다운스케일', factor: '정수 배율 축소', 'preserve-sheet': '원본 규격 유지', original: '크기 변환 없음' };
+    return map[val] || val;
+  }
+  if (key === 'factorFrameMode') return val === 'sheet' ? '스프라이트 시트 프레임별' : '전체 이미지';
+  if (key === 'size') return `${val}px`;
+  if (key === 'factor') return `÷${val}`;
+  if (key === 'frameWidth' || key === 'frameHeight') return `${val}px`;
+  if (key === 'pixelBlockSize') return `${val}px`;
+  if (key === 'paletteMode') {
+    const map = { auto: '자동 생성 (K-means)', custom: '직접 지정 (Custom Palette)', unlimited: '제한 없음 (원본 색상)' };
+    return map[val] || val;
+  }
+  if (key === 'customPalette') {
+    return Array.isArray(val) ? `${val.length}색` : '0색';
+  }
+  if (key === 'colors') return `${val}색`;
+  if (key === 'cleanPasses') return `${val}회`;
+  if (key === 'outlineWidth') return `${val}px`;
+  if (key === 'outlineShape') return val === '8' ? '8방향 (대각선 포함)' : '4방향 (상하좌우만)';
+  if (key === 'exportNearestScales') {
+    return Array.isArray(val) && val.length > 0 ? val.map(s => s + '×').join(', ') : '없음';
+  }
+  return String(val);
+}
+
+function diffSettings(current, next) {
+  const diffs = [];
+  const keys = [
+    'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'paletteMode', 'customPalette',
+    'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
+    'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales'
+  ];
+
+  for (const k of keys) {
+    if (!(k in next)) continue;
+    const curVal = current[k];
+    const nextVal = next[k];
+    const isDifferent = Array.isArray(curVal) && Array.isArray(nextVal)
+      ? curVal.slice().sort().join(',') !== nextVal.slice().sort().join(',')
+      : curVal !== nextVal;
+
+    if (isDifferent) {
+      diffs.push({
+        key: k,
+        label: SETTING_LABELS[k] || k,
+        from: curVal,
+        to: nextVal,
+        fromText: formatSettingValue(k, curVal),
+        toText: formatSettingValue(k, nextVal)
+      });
+    }
+  }
+  return diffs;
+}
+
+function applyUiSettings(settings) {
+  if (settings.scaleMode) {
+    scaleModeSel.value = settings.scaleMode;
+    scaleModeSel.dispatchEvent(new Event('change'));
+  }
+  if (settings.size !== undefined) sizeSel.value = String(settings.size);
+  if (settings.method) methodSel.value = settings.method;
+  if (settings.factor !== undefined) factorInput.value = String(settings.factor);
+  if (settings.factorFrameMode) {
+    const factorRadio = document.querySelector(`input[name="factorFrameMode"][value="${settings.factorFrameMode}"]`);
+    if (factorRadio) {
+      factorRadio.checked = true;
+      factorRadio.dispatchEvent(new Event('change'));
+    }
+  }
+  if (settings.frameWidth !== undefined) {
+    factorFrameWidthInput.value = String(settings.frameWidth);
+    frameWidthInput.value = String(settings.frameWidth);
+  }
+  if (settings.frameHeight !== undefined) {
+    factorFrameHeightInput.value = String(settings.frameHeight);
+    frameHeightInput.value = String(settings.frameHeight);
+  }
+  if (settings.pixelBlockSize !== undefined) {
+    pixelBlockSizeSel.value = String(settings.pixelBlockSize);
+  }
+  if (settings.paletteMode) {
+    paletteModeSel.value = settings.paletteMode;
+  } else if (settings.paletteEnabled !== undefined) {
+    paletteModeSel.value = settings.paletteEnabled ? 'auto' : 'unlimited';
+  }
+  if (Array.isArray(settings.customPalette)) {
+    customPaletteText.value = settings.customPalette.join('\n');
+  }
+  updatePaletteModeUi();
+  renderCustomPalettePreview();
+
+  if (settings.colors !== undefined) {
+    colorsRange.value = settings.colors;
+    colorsNum.value = settings.colors;
+  }
+  if (settings.shared !== undefined) {
+    sharedCheck.checked = settings.shared;
+  }
+  if (settings.cleanEnabled !== undefined) {
+    cleanEnabledCheck.checked = settings.cleanEnabled;
+    cleanEnabledCheck.dispatchEvent(new Event('change'));
+  }
+  if (settings.cleanPasses !== undefined) {
+    cleanRange.value = settings.cleanPasses;
+    cleanNum.value = settings.cleanPasses;
+  }
+  if (settings.outline !== undefined) {
+    outlineCheck.checked = settings.outline;
+    outlineCheck.dispatchEvent(new Event('change'));
+  }
+  if (settings.outlineWidth !== undefined) {
+    outlineWidthRange.value = settings.outlineWidth;
+    outlineWidthNum.value = settings.outlineWidth;
+    const valEl = document.getElementById('outlineWidthVal');
+    if (valEl) valEl.textContent = settings.outlineWidth;
+  }
+  if (settings.outlineColor) {
+    outlineColor.value = settings.outlineColor;
+  }
+  if (settings.outlineShape) {
+    outlineShape.value = settings.outlineShape;
+  }
+  if (Array.isArray(settings.exportNearestScales)) {
+    exportScale2x.checked = settings.exportNearestScales.includes(2);
+    exportScale4x.checked = settings.exportNearestScales.includes(4);
+    exportScale8x.checked = settings.exportNearestScales.includes(8);
+  }
+
+  if (settings.scaleMode && settings.scaleMode !== 'original') {
+    document.getElementById('accordionDownscale')?.classList.remove('collapsed');
+  }
+  if (settings.paletteEnabled) {
+    document.getElementById('accordionPalette')?.classList.remove('collapsed');
+  }
+  if (settings.cleanEnabled) {
+    document.getElementById('accordionNoise')?.classList.remove('collapsed');
+  }
+  if (settings.outline) {
+    document.getElementById('accordionOutline')?.classList.remove('collapsed');
+  }
+  if (settings.exportNearestScales && settings.exportNearestScales.length > 0) {
+    document.getElementById('accordionExport')?.classList.remove('collapsed');
   }
 
   updateFrameCalculation();
   updateFactorCalculation();
+  updateExportScaleWarnings();
   if (lastResults.length > 0) {
     renderResults();
   }
-  
-  alert('옵션 설정이 성공적으로 복원되었습니다.');
+}
+
+function showSettingsFeedback(msg, isError = false) {
+  if (!settingsFeedback) return;
+  settingsFeedback.textContent = msg;
+  settingsFeedback.style.display = 'block';
+  settingsFeedback.style.color = isError ? 'var(--danger)' : 'var(--accent)';
+}
+
+function loadSettings(s) {
+  try {
+    const { settings, warnings } = normalizeSettings(s, 'legacy-log');
+    applyUiSettings(settings);
+    let msg = '옵션 설정이 성공적으로 복원되었습니다.';
+    if (warnings.length > 0) {
+      msg += ` (${warnings.join(', ')})`;
+    }
+    showSettingsFeedback(msg);
+    alert('옵션 설정이 성공적으로 복원되었습니다.');
+  } catch (err) {
+    showSettingsFeedback(`설정 복원 실패: ${err.message}`, true);
+    alert(`설정 복원 실패: ${err.message}`);
+  }
 }
 
 function loadResultsFromLog(resultsData) {
@@ -1561,7 +2219,10 @@ function loadResultsFromLog(resultsData) {
         paletteSize: item.paletteSize,
         pngSize: item.pngSize || Math.round(item.dataUrl.split(',')[1].length * 0.75),
         dataUrl: item.dataUrl,
-        addedIndex: index
+        addedIndex: index,
+        sourceImage: null,
+        sourceWidth: null,
+        sourceHeight: null
       };
       
       loadedCount++;
@@ -2274,9 +2935,237 @@ function uniqueColors(data, alpha, n){
   return list;
 }
 
+function rgbToHex(r, g, b) {
+  const hex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  return '#' + hex.toUpperCase();
+}
+
 function hexToRgb(hex){
   const m = hex.replace('#','').match(/.{1,2}/g);
   return [parseInt(m[0],16), parseInt(m[1],16), parseInt(m[2],16)];
+}
+
+function dedupePaletteColors(rawColors) {
+  const seen = new Set();
+  const uniqueList = [];
+  let duplicatesRemoved = 0;
+  for (const c of rawColors) {
+    const key = `${c[0]},${c[1]},${c[2]}`;
+    if (seen.has(key)) {
+      duplicatesRemoved++;
+    } else {
+      seen.add(key);
+      uniqueList.push(c);
+    }
+  }
+  return {
+    colors: uniqueList,
+    hexes: uniqueList.map(c => rgbToHex(c[0], c[1], c[2])),
+    duplicatesRemoved
+  };
+}
+
+function parseHexPalette(text) {
+  if (!text || typeof text !== 'string') {
+    return { colors: [], hexes: [], duplicatesRemoved: 0, ignoredCount: 0, errors: [] };
+  }
+  const lines = text.split(/\r?\n/);
+  const rawColors = [];
+  const errors = [];
+  let ignoredCount = 0;
+
+  for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+    const line = lines[lineIdx].trim();
+    if (!line || line.startsWith('//') || line.startsWith(';')) continue;
+
+    const tokens = line.split(/[,\s]+/).filter(Boolean);
+    for (const token of tokens) {
+      if (token.startsWith('#')) {
+        if (/^#[0-9a-fA-F]{6}$/.test(token)) {
+          rawColors.push(hexToRgb(token));
+        } else {
+          ignoredCount++;
+          errors.push(`[Line ${lineIdx + 1}] 유효하지 않은 HEX 형식 '${token}' (6자리 #RRGGBB만 지원됩니다)`);
+        }
+      } else if (/^[0-9a-fA-F]{6}$/.test(token)) {
+        rawColors.push(hexToRgb('#' + token));
+      } else {
+        ignoredCount++;
+        errors.push(`[Line ${lineIdx + 1}] 인식할 수 없는 토큰 '${token}'`);
+      }
+    }
+  }
+
+  const deduped = dedupePaletteColors(rawColors);
+  return {
+    colors: deduped.colors,
+    hexes: deduped.hexes,
+    duplicatesRemoved: deduped.duplicatesRemoved,
+    ignoredCount,
+    errors
+  };
+}
+
+function parseGplPalette(text) {
+  if (!text || typeof text !== 'string') {
+    return { colors: [], hexes: [], duplicatesRemoved: 0, ignoredCount: 0, errors: ['빈 내용입니다.'] };
+  }
+  const lines = text.split(/\r?\n/);
+  const rawColors = [];
+  const errors = [];
+  let isGimpPalette = false;
+  let ignoredCount = 0;
+
+  for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+    const line = lines[lineIdx].trim();
+    if (!line) continue;
+    if (lineIdx === 0 || !isGimpPalette) {
+      if (/^GIMP Palette/i.test(line)) {
+        isGimpPalette = true;
+        continue;
+      }
+      if (line.startsWith('#') || /^Name:/i.test(line) || /^Columns:/i.test(line)) {
+        continue;
+      }
+    }
+    if (line.startsWith('#') || /^Name:/i.test(line) || /^Columns:/i.test(line) || /^Channels:/i.test(line)) {
+      continue;
+    }
+
+    const match = line.match(/^(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})/);
+    if (match) {
+      const r = parseInt(match[1], 10);
+      const g = parseInt(match[2], 10);
+      const b = parseInt(match[3], 10);
+      if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) {
+        rawColors.push([r, g, b]);
+      } else {
+        ignoredCount++;
+        errors.push(`[Line ${lineIdx + 1}] RGB 값 범위(0~255) 초과: ${line}`);
+      }
+    } else {
+      ignoredCount++;
+      errors.push(`[Line ${lineIdx + 1}] 유효하지 않은 GPL 색상 행: ${line}`);
+    }
+  }
+
+  if (!isGimpPalette && rawColors.length === 0) {
+    return parseHexPalette(text);
+  }
+
+  const deduped = dedupePaletteColors(rawColors);
+  return {
+    colors: deduped.colors,
+    hexes: deduped.hexes,
+    duplicatesRemoved: deduped.duplicatesRemoved,
+    ignoredCount,
+    errors
+  };
+}
+
+function parsePngPaletteData(imgData) {
+  const data = imgData.data;
+  const totalPixels = imgData.width * imgData.height;
+  const rawColors = [];
+  let partialAlphaCount = 0;
+  let transparentCount = 0;
+
+  for (let i = 0; i < totalPixels; i++) {
+    const idx = i * 4;
+    const a = data[idx + 3];
+    if (a === 255) {
+      rawColors.push([data[idx], data[idx + 1], data[idx + 2]]);
+    } else if (a === 0) {
+      transparentCount++;
+    } else {
+      partialAlphaCount++;
+    }
+  }
+
+  const deduped = dedupePaletteColors(rawColors);
+  const warnings = [];
+  if (partialAlphaCount > 0) {
+    warnings.push(`부분 투명(alpha 1~254) 픽셀 ${partialAlphaCount}개가 무시되었습니다.`);
+  }
+
+  return {
+    colors: deduped.colors,
+    hexes: deduped.hexes,
+    duplicatesRemoved: deduped.duplicatesRemoved,
+    ignoredCount: partialAlphaCount + transparentCount,
+    partialAlphaCount,
+    warnings,
+    errors: []
+  };
+}
+
+let currentParsedCustomPalette = { colors: [], hexes: [], duplicatesRemoved: 0, ignoredCount: 0, errors: [] };
+
+function updatePaletteModeUi() {
+  const mode = paletteModeSel ? paletteModeSel.value : 'auto';
+  if (mode === 'auto') {
+    if (paletteAutoControls) paletteAutoControls.style.display = 'block';
+    if (customPaletteControls) customPaletteControls.style.display = 'none';
+    if (paletteSharedField) paletteSharedField.style.display = 'block';
+    if (sharedCheck) sharedCheck.disabled = false;
+  } else if (mode === 'custom') {
+    if (paletteAutoControls) paletteAutoControls.style.display = 'none';
+    if (customPaletteControls) customPaletteControls.style.display = 'block';
+    if (paletteSharedField) paletteSharedField.style.display = 'block';
+    if (sharedCheck) {
+      sharedCheck.checked = true;
+      sharedCheck.disabled = true;
+    }
+    renderCustomPalettePreview();
+  } else { // 'unlimited'
+    if (paletteAutoControls) paletteAutoControls.style.display = 'none';
+    if (customPaletteControls) customPaletteControls.style.display = 'none';
+    if (paletteSharedField) paletteSharedField.style.display = 'none';
+    if (sharedCheck) sharedCheck.disabled = true;
+  }
+}
+
+function renderCustomPalettePreview() {
+  if (!customPaletteText || !customPaletteStats || !customPaletteChips) return;
+  const text = customPaletteText.value;
+  currentParsedCustomPalette = parseHexPalette(text);
+
+  const count = currentParsedCustomPalette.hexes.length;
+  let statsText = `유효 ${count}색`;
+  if (currentParsedCustomPalette.duplicatesRemoved > 0) {
+    statsText += ` · 중복 ${currentParsedCustomPalette.duplicatesRemoved}개 제거`;
+  }
+  if (currentParsedCustomPalette.ignoredCount > 0) {
+    statsText += ` · 무시 ${currentParsedCustomPalette.ignoredCount}개`;
+  }
+  customPaletteStats.textContent = statsText;
+
+  if (customPaletteWarning) {
+    if (currentParsedCustomPalette.errors.length > 0) {
+      customPaletteWarning.textContent = currentParsedCustomPalette.errors.slice(0, 3).join('\n');
+      customPaletteWarning.style.display = 'block';
+    } else if (count < 2 && paletteModeSel?.value === 'custom') {
+      customPaletteWarning.textContent = '팔레트 색상은 최소 2개 이상이어야 합니다.';
+      customPaletteWarning.style.display = 'block';
+    } else if (count > 256) {
+      customPaletteWarning.textContent = `팔레트 색상 수는 최대 256개까지 허용됩니다 (현재 ${count}색).`;
+      customPaletteWarning.style.display = 'block';
+    } else {
+      customPaletteWarning.textContent = '';
+      customPaletteWarning.style.display = 'none';
+    }
+  }
+
+  customPaletteChips.replaceChildren();
+  currentParsedCustomPalette.hexes.forEach((hex, idx) => {
+    const chip = document.createElement('div');
+    chip.className = 'palette-chip';
+    chip.style.backgroundColor = hex;
+    chip.title = `${idx + 1}: ${hex}`;
+    chip.setAttribute('aria-label', `색상 ${idx + 1}: ${hex}`);
+    chip.tabIndex = 0;
+    customPaletteChips.appendChild(chip);
+  });
 }
 
 function nearestColorIndex(r,g,b,palette){
@@ -2496,10 +3385,25 @@ async function processAll(){
   const frameWidth = Number(frameWidthInput.value);
   const frameHeight = Number(frameHeightInput.value);
   const pixelBlockSize = Number(pixelBlockSizeSel.value);
-  const paletteOn = paletteEnabledCheck.checked;
-  const nColors = currentColors();
+  const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
+  const paletteOn = paletteMode !== 'unlimited';
+  const parsedCustom = paletteMode === 'custom' ? parseHexPalette(customPaletteText.value) : { colors: [], hexes: [] };
+  const customColors = parsedCustom.colors;
+
+  if (paletteMode === 'custom') {
+    if (customColors.length < 2) {
+      statusEl.textContent = '직접 지정 팔레트에는 최소 2개 이상의 유효한 색상이 필요합니다.';
+      return;
+    }
+    if (customColors.length > 256) {
+      statusEl.textContent = `직접 지정 팔레트의 색상 수가 256개를 초과합니다 (현재 ${customColors.length}색).`;
+      return;
+    }
+  }
+
+  const nColors = paletteMode === 'custom' ? customColors.length : currentColors();
   const cleanPasses = cleanEnabledCheck.checked ? currentClean() : 0;
-  const shared = sharedCheck.checked && uploadedFiles.length > 1 && paletteOn;
+  const shared = paletteMode === 'custom' ? true : (sharedCheck.checked && uploadedFiles.length > 1 && paletteOn);
 
   if(scaleMode === 'factor'){
     const validationError = getFactorValidationError(uploadedFiles, factor, factorFrameMode, factorFrameWidth, factorFrameHeight);
@@ -2563,7 +3467,9 @@ async function processAll(){
   });
 
   let sharedPalette = null;
-  if(shared){
+  if(paletteMode === 'custom'){
+    sharedPalette = customColors;
+  } else if(shared){
     const allPoints = [];
     const stride = Math.max(1, Math.ceil(logicalPixels / MAX_PALETTE_SAMPLES));
     let visitedPixels = 0;
@@ -2593,8 +3499,10 @@ async function processAll(){
     for(let i=0;i<n;i++) alpha[i] = d.data[i*4+3];
 
     if(!palette){
-      if(paletteOn){
+      if(paletteMode === 'auto'){
         palette = kmeans(collectOpaquePoints(d.data, n), nColors, 10);
+      } else if(paletteMode === 'custom'){
+        palette = customColors;
       } else {
         palette = uniqueColors(d.data, alpha, n);
         exactColorMap = new Map(palette.map((color, index) => [color.join(','), index]));
@@ -2626,8 +3534,20 @@ async function processAll(){
     const outlineThickness = Math.max(1, parseInt(outlineWidthNum.value, 10) || 1);
 
     if(outlineCheck.checked){
-      outlineColorIdx = finalPalette.length;
-      finalPalette.push(hexToRgb(outlineColor.value));
+      const oRgb = hexToRgb(outlineColor.value);
+      let foundIdx = -1;
+      for(let i=0; i<finalPalette.length; i++){
+        if(finalPalette[i][0] === oRgb[0] && finalPalette[i][1] === oRgb[1] && finalPalette[i][2] === oRgb[2]){
+          foundIdx = i;
+          break;
+        }
+      }
+      if(foundIdx >= 0){
+        outlineColorIdx = foundIdx;
+      } else {
+        outlineColorIdx = finalPalette.length;
+        finalPalette.push(oRgb);
+      }
 
       if(d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet')){
         const outlined = outlinePreserveSheet(
@@ -2736,6 +3656,35 @@ async function processAll(){
     } else {
       processing = { mode: 'original' };
     }
+
+    let paletteProcessing;
+    if(paletteMode === 'custom'){
+      const usedIndices = new Set();
+      for(let i=0; i<finalGrid.length; i++){
+        if(finalGrid[i] >= 0 && finalGrid[i] < customColors.length && finalAlpha[i] >= 10){
+          usedIndices.add(finalGrid[i]);
+        }
+      }
+      paletteProcessing = {
+        mode: 'custom',
+        inputColors: customColors.length,
+        usedColors: usedIndices.size,
+        distance: 'srgb'
+      };
+    } else if(paletteMode === 'unlimited'){
+      paletteProcessing = {
+        mode: 'unlimited',
+        colors: palette.length
+      };
+    } else {
+      paletteProcessing = {
+        mode: 'auto',
+        colors: palette.length,
+        shared: shared
+      };
+    }
+    processing.palette = paletteProcessing;
+
     const selectedScales = getSelectedNearestScales();
     const jsonData = {
       width: finalW,
@@ -2752,7 +3701,18 @@ async function processAll(){
 
     const dataUrl = canvas.toDataURL('image/png');
     const pngSize = Math.round(dataUrl.split(',')[1].length * 0.75);
-    lastResults.push({ name: d.name, canvas, jsonData, paletteSize: finalPalette.length, pngSize, dataUrl, addedIndex: lastResults.length });
+    lastResults.push({
+      name: d.name,
+      canvas,
+      jsonData,
+      paletteSize: finalPalette.length,
+      pngSize,
+      dataUrl,
+      addedIndex: lastResults.length,
+      sourceImage: d.img,
+      sourceWidth: d.img ? (d.img.naturalWidth || d.img.width) : finalW,
+      sourceHeight: d.img ? (d.img.naturalHeight || d.img.height) : finalH
+    });
     await new Promise(r=>setTimeout(r,0));
   }
 
@@ -2774,29 +3734,7 @@ async function processAll(){
       pngSize: r.pngSize
     }));
     const fileNames = uploadedFiles.map(f => f.name);
-    const settings = {
-      scaleMode,
-      factor: factorInput.value,
-      factorFrameMode: document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole',
-      frameWidth: scaleMode === 'factor' ? factorFrameWidthInput.value : frameWidthInput.value,
-      frameHeight: scaleMode === 'factor' ? factorFrameHeightInput.value : frameHeightInput.value,
-      pixelBlockSize: pixelBlockSizeSel.value,
-      size: sizeSel.value,
-      method: methodSel.value,
-      paletteEnabled: paletteEnabledCheck.checked,
-      colors: colorsRange.value,
-      colorsNum: colorsNum.value,
-      cleanEnabled: cleanEnabledCheck.checked,
-      clean: cleanRange.value,
-      cleanNum: cleanNum.value,
-      shared: sharedCheck.checked,
-      outline: outlineCheck.checked,
-      outlineWidth: outlineWidthRange.value,
-      outlineWidthNum: outlineWidthNum.value,
-      outlineColor: outlineColor.value,
-      outlineShape: outlineShape.value,
-      exportNearestScales: getSelectedNearestScales()
-    };
+    const settings = readUiSettings();
     saveLogToDB(fileNames, settings, resultsDataToSave);
   }
 }
@@ -2944,9 +3882,21 @@ function renderResults(){
 const modalOverlay = document.getElementById('modalOverlay');
 const modalCanvasWrap = document.getElementById('modalCanvasWrap');
 const modalCanvasStage = document.getElementById('modalCanvasStage');
+const modalSourcePane = document.getElementById('modalSourcePane');
+const modalSourceLabel = document.getElementById('modalSourceLabel');
+const modalSourceCanvasWrap = document.getElementById('modalSourceCanvasWrap');
+const modalResultPane = document.getElementById('modalResultPane');
+const modalResultLabel = document.getElementById('modalResultLabel');
+const modalResultCanvasWrap = document.getElementById('modalResultCanvasWrap');
 const modalPixelGrid = document.getElementById('modalPixelGrid');
 const modalTitle = document.getElementById('modalTitle');
 const modalClose = document.getElementById('modalClose');
+const modalModeResult = document.getElementById('modalModeResult');
+const modalModeSource = document.getElementById('modalModeSource');
+const modalModeSplit = document.getElementById('modalModeSplit');
+const modalZoom1x = document.getElementById('modalZoom1x');
+const modalZoom2x = document.getElementById('modalZoom2x');
+const modalZoom8x = document.getElementById('modalZoom8x');
 const modalZoomOut = document.getElementById('modalZoomOut');
 const modalZoomRange = document.getElementById('modalZoomRange');
 const modalZoomIn = document.getElementById('modalZoomIn');
@@ -2954,14 +3904,47 @@ const modalZoomValue = document.getElementById('modalZoomValue');
 const modalViewReset = document.getElementById('modalViewReset');
 const modalGridToggle = document.getElementById('modalGridToggle');
 const modalExpandToggle = document.getElementById('modalExpandToggle');
+const modalFallbackNotice = document.getElementById('modalFallbackNotice');
+
 let activeModalCanvas = null;
+let activeModalSourceCanvas = null;
 let activeModalResult = null;
+let modalViewMode = 'result';
+let modalCurrentScale = 1;
 let modalInitialScale = 1;
 let modalFrameWidth = 0;
 let modalFrameHeight = 0;
 let modalPanState = null;
 let modalGridVisible = false;
 let modalExpanded = false;
+
+function createLazySourceCanvas(sourceImg, resultW, resultH) {
+  if (!sourceImg) return null;
+  const canvas = document.createElement('canvas');
+  const srcW = sourceImg.naturalWidth || sourceImg.width || resultW;
+  const srcH = sourceImg.naturalHeight || sourceImg.height || resultH;
+  canvas.width = srcW;
+  canvas.height = srcH;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(sourceImg, 0, 0);
+  }
+  return canvas;
+}
+
+function updateQuickZoomButtons(scale) {
+  const qBtns = [
+    { el: modalZoom1x, zoom: 1 },
+    { el: modalZoom2x, zoom: 2 },
+    { el: modalZoom8x, zoom: 8 }
+  ];
+  qBtns.forEach(({ el, zoom }) => {
+    if (!el) return;
+    const isPressed = scale === zoom;
+    el.setAttribute('aria-pressed', String(isPressed));
+  });
+}
 
 function setModalGridVisible(visible){
   modalGridVisible = visible;
@@ -2994,33 +3977,108 @@ function setModalExpanded(expanded, preserveCenter = true){
   });
 }
 
+function setModalViewMode(mode) {
+  if (!activeModalResult) return;
+  const hasSource = Boolean(activeModalResult.sourceImage);
+  if ((mode === 'source' || mode === 'split') && !hasSource) {
+    mode = 'result';
+  }
+  modalViewMode = mode;
+
+  modalModeResult.setAttribute('aria-pressed', String(mode === 'result'));
+  modalModeResult.classList.toggle('active', mode === 'result');
+  modalModeSource.setAttribute('aria-pressed', String(mode === 'source'));
+  modalModeSource.classList.toggle('active', mode === 'source');
+  modalModeSplit.setAttribute('aria-pressed', String(mode === 'split'));
+  modalModeSplit.classList.toggle('active', mode === 'split');
+
+  if ((mode === 'source' || mode === 'split') && !activeModalSourceCanvas && hasSource) {
+    activeModalSourceCanvas = createLazySourceCanvas(
+      activeModalResult.sourceImage,
+      activeModalResult.canvas.width,
+      activeModalResult.canvas.height
+    );
+    if (activeModalSourceCanvas && modalSourceCanvasWrap) {
+      modalSourceCanvasWrap.replaceChildren(activeModalSourceCanvas);
+    }
+  }
+
+  if (mode === 'result') {
+    modalSourcePane.style.display = 'none';
+    modalResultPane.style.display = 'flex';
+    modalResultLabel.style.display = 'none';
+  } else if (mode === 'source') {
+    modalSourcePane.style.display = 'flex';
+    modalSourceLabel.style.display = 'none';
+    modalResultPane.style.display = 'none';
+  } else { // 'split'
+    modalSourcePane.style.display = 'flex';
+    modalSourceLabel.style.display = 'block';
+    modalResultPane.style.display = 'flex';
+    modalResultLabel.style.display = 'block';
+  }
+
+  setModalScale(modalCurrentScale, false);
+}
+
 function setModalScale(nextScale, resetPosition = false){
   if (!activeModalCanvas || !activeModalResult) return;
   const minScale = Number(modalZoomRange.min);
   const maxScale = Number(modalZoomRange.max);
   const scale = Math.min(maxScale, Math.max(minScale, Math.round(nextScale)));
+  modalCurrentScale = scale;
+
   const previousStageWidth = Math.max(1, modalCanvasStage.offsetWidth);
   const previousStageHeight = Math.max(1, modalCanvasStage.offsetHeight);
   const centerRatioX = (modalCanvasWrap.scrollLeft + (modalCanvasWrap.clientWidth / 2)) / previousStageWidth;
   const centerRatioY = (modalCanvasWrap.scrollTop + (modalCanvasWrap.clientHeight / 2)) / previousStageHeight;
+
   const canvasWidth = activeModalResult.canvas.width * scale;
   const canvasHeight = activeModalResult.canvas.height * scale;
-  const stageWidth = Math.max(modalFrameWidth, canvasWidth);
-  const stageHeight = Math.max(modalFrameHeight, canvasHeight);
 
   activeModalCanvas.style.width = canvasWidth + 'px';
   activeModalCanvas.style.height = canvasHeight + 'px';
   modalPixelGrid.style.width = canvasWidth + 'px';
   modalPixelGrid.style.height = canvasHeight + 'px';
   modalPixelGrid.style.backgroundSize = `${scale}px ${scale}px`;
+
+  if (activeModalSourceCanvas) {
+    activeModalSourceCanvas.style.width = canvasWidth + 'px';
+    activeModalSourceCanvas.style.height = canvasHeight + 'px';
+  }
+
+  let stageWidth, stageHeight;
+  const isStacked = window.innerWidth <= 620;
+  if (modalViewMode === 'split') {
+    if (isStacked) {
+      stageWidth = Math.max(modalFrameWidth, canvasWidth + 32);
+      stageHeight = Math.max(modalFrameHeight, (canvasHeight * 2) + 80);
+    } else {
+      stageWidth = Math.max(modalFrameWidth, (canvasWidth * 2) + 60);
+      stageHeight = Math.max(modalFrameHeight, canvasHeight + 60);
+    }
+  } else {
+    stageWidth = Math.max(modalFrameWidth, canvasWidth + 32);
+    stageHeight = Math.max(modalFrameHeight, canvasHeight + 32);
+  }
+
   modalCanvasStage.style.width = stageWidth + 'px';
   modalCanvasStage.style.height = stageHeight + 'px';
+
   modalZoomRange.value = String(scale);
   modalZoomValue.value = `${scale}배`;
   modalZoomValue.textContent = `${scale}배`;
   modalZoomOut.disabled = scale <= minScale;
   modalZoomIn.disabled = scale >= maxScale;
-  modalTitle.textContent = `${activeModalResult.name} — ${activeModalResult.canvas.width}×${activeModalResult.canvas.height}px, 팔레트 ${activeModalResult.paletteSize}색 (${scale}배 보기)`;
+  updateQuickZoomButtons(scale);
+
+  const srcW = activeModalResult.sourceWidth || (activeModalResult.sourceImage?.naturalWidth) || activeModalResult.canvas.width;
+  const srcH = activeModalResult.sourceHeight || (activeModalResult.sourceImage?.naturalHeight) || activeModalResult.canvas.height;
+  modalSourceLabel.textContent = `원본 (${srcW}×${srcH})`;
+  modalResultLabel.textContent = `결과 (${activeModalResult.canvas.width}×${activeModalResult.canvas.height})`;
+
+  const modeLabel = modalViewMode === 'source' ? '원본 보기' : (modalViewMode === 'split' ? '나란히 보기' : '결과 보기');
+  modalTitle.textContent = `${activeModalResult.name} — ${activeModalResult.canvas.width}×${activeModalResult.canvas.height}px, 팔레트 ${activeModalResult.paletteSize}색 (${scale}배 ${modeLabel})`;
 
   const nextCenterRatioX = resetPosition ? 0.5 : centerRatioX;
   const nextCenterRatioY = resetPosition ? 0.5 : centerRatioY;
@@ -3029,14 +4087,45 @@ function setModalScale(nextScale, resetPosition = false){
 }
 
 function openModal(r){
-  modalCanvasStage.replaceChildren();
+  modalResultCanvasWrap.replaceChildren(modalPixelGrid);
+  modalSourceCanvasWrap.replaceChildren();
+  activeModalSourceCanvas = null;
+
   const big = document.createElement('canvas');
   big.width = r.canvas.width; big.height = r.canvas.height;
   const bctx = big.getContext('2d');
   bctx.imageSmoothingEnabled = false;
   bctx.drawImage(r.canvas, 0, 0);
 
-  const modalChromeHeight = window.innerWidth <= 620 ? 210 : 170;
+  modalResultCanvasWrap.prepend(big);
+  activeModalCanvas = big;
+  activeModalResult = r;
+
+  const hasSource = Boolean(r.sourceImage);
+  modalModeSource.disabled = !hasSource;
+  modalModeSplit.disabled = !hasSource;
+  if (!hasSource) {
+    modalModeSource.title = '저장된 로그에는 원본 이미지가 없습니다.';
+    modalModeSplit.title = '저장된 로그에는 원본 이미지가 없습니다.';
+    modalFallbackNotice.style.display = 'block';
+  } else {
+    modalModeSource.title = '원본 이미지 보기';
+    modalModeSplit.title = '원본과 결과 나란히 비교';
+    modalFallbackNotice.style.display = 'none';
+  }
+
+  modalViewMode = 'result';
+  modalModeResult.setAttribute('aria-pressed', 'true');
+  modalModeResult.classList.add('active');
+  modalModeSource.setAttribute('aria-pressed', 'false');
+  modalModeSource.classList.remove('active');
+  modalModeSplit.setAttribute('aria-pressed', 'false');
+  modalModeSplit.classList.remove('active');
+  modalSourcePane.style.display = 'none';
+  modalResultPane.style.display = 'flex';
+  modalResultLabel.style.display = 'none';
+
+  const modalChromeHeight = window.innerWidth <= 620 ? 230 : 180;
   const maxDisplayWidth = Math.max(r.canvas.width, window.innerWidth * 0.7);
   const maxDisplayHeight = Math.max(r.canvas.height, (window.innerHeight * 0.9) - modalChromeHeight);
   modalInitialScale = Math.min(Number(modalZoomRange.max), Math.max(1, Math.floor(Math.min(
@@ -3047,9 +4136,7 @@ function openModal(r){
   modalFrameHeight = r.canvas.height * modalInitialScale;
   modalCanvasWrap.style.width = modalFrameWidth + 'px';
   modalCanvasWrap.style.height = modalFrameHeight + 'px';
-  activeModalCanvas = big;
-  activeModalResult = r;
-  modalCanvasStage.append(big, modalPixelGrid);
+
   modalOverlay.classList.add('open');
   setModalExpanded(false, false);
   setModalGridVisible(false);
@@ -3064,10 +4151,24 @@ function closeModal(){
   setModalExpanded(false, false);
   modalCanvasWrap.classList.remove('dragging');
   setModalGridVisible(false);
-  activeModalCanvas = null;
+
+  if (activeModalSourceCanvas) {
+    activeModalSourceCanvas.remove();
+    activeModalSourceCanvas = null;
+  }
+  if (modalSourceCanvasWrap) {
+    modalSourceCanvasWrap.replaceChildren();
+  }
+  if (activeModalCanvas) {
+    activeModalCanvas.remove();
+    activeModalCanvas = null;
+  }
+
   activeModalResult = null;
   modalPanState = null;
+  modalViewMode = 'result';
 }
+
 modalClose.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
 document.addEventListener('keydown', e => {
@@ -3075,8 +4176,17 @@ document.addEventListener('keydown', e => {
   if (modalExpanded) setModalExpanded(false);
   else closeModal();
 });
-modalZoomOut.addEventListener('click', () => setModalScale(Number(modalZoomRange.value) - 1));
-modalZoomIn.addEventListener('click', () => setModalScale(Number(modalZoomRange.value) + 1));
+
+modalModeResult.addEventListener('click', () => setModalViewMode('result'));
+modalModeSource.addEventListener('click', () => setModalViewMode('source'));
+modalModeSplit.addEventListener('click', () => setModalViewMode('split'));
+
+modalZoom1x.addEventListener('click', () => setModalScale(1));
+modalZoom2x.addEventListener('click', () => setModalScale(2));
+modalZoom8x.addEventListener('click', () => setModalScale(8));
+
+modalZoomOut.addEventListener('click', () => setModalScale(modalCurrentScale - 1));
+modalZoomIn.addEventListener('click', () => setModalScale(modalCurrentScale + 1));
 modalZoomRange.addEventListener('input', () => setModalScale(Number(modalZoomRange.value)));
 modalViewReset.addEventListener('click', () => {
   setModalScale(modalInitialScale, true);
@@ -3142,51 +4252,88 @@ function downloadBlob(blob, filename){
 
 runBtn.addEventListener('click', processAll);
 
-resetBtn.addEventListener('click', () => {
-  scaleModeSel.value = 'square';
-  scaleModeSel.dispatchEvent(new Event('change'));
-  factorInput.value = "4";
-  const defaultFactorRadio = document.querySelector('input[name="factorFrameMode"][value="whole"]');
-  if(defaultFactorRadio){
-    defaultFactorRadio.checked = true;
-    defaultFactorRadio.dispatchEvent(new Event('change'));
+applyPresetBtn.addEventListener('click', () => {
+  const current = readUiSettings();
+  const presetKey = presetSelect.value;
+  const presetSettings = PRESETS[presetKey];
+  if (!presetSettings) return;
+  const diffs = diffSettings(current, presetSettings);
+  if (diffs.length === 0) {
+    showSettingsFeedback('선택한 프리셋 설정과 현재 설정이 이미 일치합니다.');
+    presetDiffBox.style.display = 'none';
+    return;
   }
-  factorFrameWidthInput.value = "64";
-  factorFrameHeightInput.value = "64";
-  sizeSel.value = "64";
-  methodSel.value = "box";
-  frameWidthInput.value = "64";
-  frameHeightInput.value = "64";
-  pixelBlockSizeSel.value = "4";
-  updateFrameCalculation();
-  updateFactorCalculation();
-  
-  paletteEnabledCheck.checked = true;
-  paletteEnabledCheck.dispatchEvent(new Event('change'));
-  colorsRange.value = 16;
-  colorsNum.value = 16;
-  
-  cleanEnabledCheck.checked = true;
-  cleanEnabledCheck.dispatchEvent(new Event('change'));
-  cleanRange.value = 1;
-  cleanNum.value = 1;
-  
-  sharedCheck.checked = true;
-  
-  outlineCheck.checked = false;
-  outlineCheck.dispatchEvent(new Event('change'));
-  outlineWidthRange.value = 1;
-  outlineWidthNum.value = 1;
-  outlineColor.value = "#000000";
-  outlineShape.value = "4";
-  
-  const valEl = document.getElementById('outlineWidthVal');
-  if (valEl) valEl.textContent = 1;
+  presetDiffList.replaceChildren();
+  diffs.forEach(d => {
+    const li = document.createElement('li');
+    li.textContent = `${d.label}: ${d.fromText} → ${d.toText}`;
+    presetDiffList.appendChild(li);
+  });
+  presetDiffBox.style.display = 'block';
+  showSettingsFeedback('변경할 항목을 확인한 뒤 [변경 적용] 버튼을 누르세요.');
+});
 
-  exportScale2x.checked = false;
-  exportScale4x.checked = false;
-  exportScale8x.checked = false;
-  updateExportScaleWarnings();
+presetDiffCancelBtn.addEventListener('click', () => {
+  presetDiffBox.style.display = 'none';
+  showSettingsFeedback('프리셋 적용이 취소되었습니다.');
+});
+
+presetDiffConfirmBtn.addEventListener('click', () => {
+  const presetKey = presetSelect.value;
+  const presetSettings = PRESETS[presetKey];
+  if (!presetSettings) return;
+  const { settings } = normalizeSettings({ ...readUiSettings(), ...presetSettings }, 'partial-preset');
+  applyUiSettings(settings);
+  presetDiffBox.style.display = 'none';
+  const presetName = presetSelect.options[presetSelect.selectedIndex].text.split(' ')[0];
+  showSettingsFeedback(`'${presetName}' 프리셋이 성공적으로 적용되었습니다.`);
+});
+
+exportSettingsBtn.addEventListener('click', () => {
+  const current = readUiSettings();
+  const envelope = {
+    format: 'pixelate-studio-settings',
+    version: 1,
+    createdAt: new Date().toISOString(),
+    settings: current
+  };
+  const blob = new Blob([JSON.stringify(envelope, null, 2)], { type: 'application/json' });
+  downloadBlob(blob, 'pixelate-studio-settings-v1.json');
+  showSettingsFeedback('현재 설정이 pixelate-studio-settings-v1.json 파일로 내보내졌습니다.');
+});
+
+importSettingsBtn.addEventListener('click', () => {
+  importSettingsInput.click();
+});
+
+importSettingsInput.addEventListener('change', async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  if (file.size > 65536) {
+    showSettingsFeedback(`설정 파일 크기(${file.size} bytes)가 64KB를 초과하여 불러올 수 없습니다.`, true);
+    importSettingsInput.value = '';
+    return;
+  }
+  try {
+    const text = await file.text();
+    const validated = validateSettingsEnvelope(text);
+    applyUiSettings(validated.settings);
+    let msg = '설정 파일이 성공적으로 적용되었습니다.';
+    if (validated.warnings.length > 0) {
+      msg += ` (${validated.warnings.join(', ')})`;
+    }
+    showSettingsFeedback(msg);
+  } catch (err) {
+    showSettingsFeedback(`설정 불러오기 실패: ${err.message}`, true);
+  } finally {
+    importSettingsInput.value = '';
+  }
+});
+
+resetBtn.addEventListener('click', () => {
+  applyUiSettings(DEFAULT_SETTINGS);
+  presetSelect.value = 'default';
+  presetDiffBox.style.display = 'none';
   
   // 첫 번째 아코디언을 제외하고 모두 접기
   document.querySelectorAll('.accordion-item').forEach(item => {
@@ -3197,6 +4344,7 @@ resetBtn.addEventListener('click', () => {
     }
   });
   
+  showSettingsFeedback('변환 조건이 초기화되었습니다.');
   alert('변환 조건이 초기화되었습니다.');
 });
 
@@ -3257,12 +4405,104 @@ downloadAllBtn.addEventListener('click', async () => {
   }
 });
 
+if (paletteModeSel) {
+  paletteModeSel.addEventListener('change', () => {
+    updatePaletteModeUi();
+  });
+}
+
+if (customPaletteText) {
+  customPaletteText.addEventListener('input', () => {
+    renderCustomPalettePreview();
+  });
+}
+
+if (loadPaletteFileBtn && paletteFileInput) {
+  loadPaletteFileBtn.addEventListener('click', () => {
+    paletteFileInput.click();
+  });
+
+  paletteFileInput.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 1048576) {
+      alert(`팔레트 파일 크기(${Math.round(file.size / 1024)}KB)가 최대 허용 크기(1MB)를 초과했습니다.`);
+      paletteFileInput.value = '';
+      return;
+    }
+
+    const fileName = file.name.toLowerCase();
+    try {
+      if (fileName.endsWith('.png')) {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = () => reject(new Error('PNG 이미지를 로드할 수 없습니다.'));
+          img.src = url;
+        });
+        URL.revokeObjectURL(url);
+
+        if (img.naturalWidth > 4096 || img.naturalHeight > 4096) {
+          throw new Error(`PNG 해상도(${img.naturalWidth}×${img.naturalHeight})가 최대 허용치(4096×4096)를 초과했습니다.`);
+        }
+
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = img.naturalWidth;
+        tempCanvas.height = img.naturalHeight;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(img, 0, 0);
+        const imgData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+        const parsed = parsePngPaletteData(imgData);
+
+        if (parsed.hexes.length === 0) {
+          throw new Error('PNG 이미지에서 유효한 불투명(alpha=255) 색상을 찾을 수 없습니다.');
+        }
+        customPaletteText.value = parsed.hexes.join('\n');
+        renderCustomPalettePreview();
+        if (parsed.warnings.length > 0 && customPaletteWarning) {
+          customPaletteWarning.textContent = parsed.warnings.join('\n');
+          customPaletteWarning.style.display = 'block';
+        }
+      } else {
+        const text = await file.text();
+        let parsed;
+        if (fileName.endsWith('.gpl') || /^GIMP Palette/i.test(text)) {
+          parsed = parseGplPalette(text);
+        } else {
+          parsed = parseHexPalette(text);
+        }
+        if (parsed.hexes.length === 0) {
+          throw new Error('파일에서 유효한 색상을 찾을 수 없습니다.');
+        }
+        customPaletteText.value = parsed.hexes.join('\n');
+        renderCustomPalettePreview();
+      }
+    } catch (err) {
+      alert(`팔레트 불러오기 실패: ${err.message}`);
+    } finally {
+      paletteFileInput.value = '';
+    }
+  });
+}
+
+if (clearCustomPaletteBtn && customPaletteText) {
+  clearCustomPaletteBtn.addEventListener('click', () => {
+    customPaletteText.value = '';
+    renderCustomPalettePreview();
+  });
+}
+
 // ---------- 데이터베이스 초기화 및 설정 적용 ----------
 initDB().then(() => {
   loadLogsFromDB();
 }).catch(err => {
   console.error('Database initialization failed:', err);
 });
+
+// 초기 팔레트 UI 동기화
+updatePaletteModeUi();
+renderCustomPalettePreview();
 
 // 초기 배경 클래스 부여
 applyPreviewBg();

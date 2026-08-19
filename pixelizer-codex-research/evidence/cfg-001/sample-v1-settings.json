@@ -1,0 +1,28 @@
+{
+  "format": "pixelate-studio-settings",
+  "version": 1,
+  "createdAt": "2026-08-14T00:00:00.000Z",
+  "settings": {
+    "scaleMode": "factor",
+    "size": 64,
+    "method": "box",
+    "factor": 4,
+    "factorFrameMode": "sheet",
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "pixelBlockSize": 4,
+    "paletteEnabled": true,
+    "colors": 16,
+    "shared": true,
+    "cleanEnabled": true,
+    "cleanPasses": 1,
+    "outline": false,
+    "outlineWidth": 1,
+    "outlineColor": "#000000",
+    "outlineShape": "4",
+    "exportNearestScales": [
+      2,
+      4
+    ]
+  }
+}

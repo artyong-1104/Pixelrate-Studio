@@ -1,0 +1,115 @@
+{
+  "itemId": "PAL-001",
+  "itemTitle": "Custom palette 입력·미리보기·검증",
+  "status": "DONE",
+  "generatedAt": "2026-08-19T05:23:42.699Z",
+  "cspHash": "sha256-K1zoyUoXkcoUC6fiQBXMO6hhr832xcXlf8TP30HIvVE=",
+  "features": {
+    "paletteModes": [
+      "auto",
+      "custom",
+      "unlimited"
+    ],
+    "parsers": [
+      "hex",
+      "gpl",
+      "png"
+    ],
+    "deduplication": "first-appearance RGB preservation",
+    "tieBreaking": "earlier index priority",
+    "maxComparisonsGuard": 50000000,
+    "settingsVersion": 1,
+    "jsonMetadata": "processing.palette with inputColors, usedColors, distance"
+  },
+  "tests": {
+    "unitTests": "scripts/palette-check.mjs (100% passed)",
+    "uiTests": "scripts/pal001-ui-check.mjs (100% passed)",
+    "securityChecks": "scripts/security-check.mjs (100% passed)",
+    "settingsChecks": "scripts/settings-check.mjs (100% passed)",
+    "visualQuality": "scripts/visual-quality-check.mjs (12/12 deterministic)"
+  },
+  "sampleEnvelope": {
+    "format": "pixelate-studio-settings",
+    "version": 1,
+    "createdAt": "2026-08-19T05:23:42.698Z",
+    "settings": {
+      "scaleMode": "square",
+      "size": 64,
+      "method": "box",
+      "factor": 4,
+      "factorFrameMode": "whole",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "pixelBlockSize": 4,
+      "paletteMode": "custom",
+      "customPalette": [
+        "#0F380F",
+        "#306230",
+        "#8BAC0F",
+        "#9BBC0F"
+      ],
+      "paletteEnabled": true,
+      "colors": 4,
+      "shared": true,
+      "cleanEnabled": true,
+      "cleanPasses": 1,
+      "outline": false,
+      "outlineWidth": 1,
+      "outlineColor": "#000000",
+      "outlineShape": "4",
+      "exportNearestScales": []
+    }
+  },
+  "sampleResultJson": {
+    "width": 64,
+    "height": 64,
+    "palette": {
+      "0": [
+        15,
+        56,
+        15
+      ],
+      "1": [
+        48,
+        98,
+        48
+      ],
+      "2": [
+        139,
+        172,
+        15
+      ],
+      "3": [
+        155,
+        188,
+        15
+      ]
+    },
+    "grid": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "outline": null,
+    "processing": {
+      "mode": "square",
+      "size": 64,
+      "method": "box",
+      "palette": {
+        "mode": "custom",
+        "inputColors": 4,
+        "usedColors": 3,
+        "distance": "srgb"
+      }
+    },
+    "exports": {
+      "native": true,
+      "nearestScales": []
+    }
+  }
+}

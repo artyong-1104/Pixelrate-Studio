@@ -1,0 +1,88 @@
+{
+  "item": "UX-001",
+  "title": "1×/2×/8× quick view and side-by-side A/B comparison evidence report",
+  "generatedAt": "2026-08-19T05:06:33.107Z",
+  "quickZoomResults": [
+    {
+      "scale": 1,
+      "name": "1×",
+      "logicalDimensions": "64×64",
+      "displayDimensions": "64×64px",
+      "ariaPressedFor": {
+        "is1x": true,
+        "is2x": false,
+        "is8x": false
+      }
+    },
+    {
+      "scale": 2,
+      "name": "2×",
+      "logicalDimensions": "64×64",
+      "displayDimensions": "128×128px",
+      "ariaPressedFor": {
+        "is1x": false,
+        "is2x": true,
+        "is8x": false
+      }
+    },
+    {
+      "scale": 8,
+      "name": "8×",
+      "logicalDimensions": "64×64",
+      "displayDimensions": "512×512px",
+      "ariaPressedFor": {
+        "is1x": false,
+        "is2x": false,
+        "is8x": true
+      }
+    }
+  ],
+  "viewModes": [
+    {
+      "mode": "result",
+      "name": "결과",
+      "sourcePaneVisible": false,
+      "resultPaneVisible": true,
+      "resultLabelsVisible": false,
+      "gridOverlayTarget": "result-canvas-only"
+    },
+    {
+      "mode": "source",
+      "name": "원본",
+      "sourcePaneVisible": true,
+      "resultPaneVisible": false,
+      "sourceLabelsVisible": false,
+      "gridOverlayTarget": "none"
+    },
+    {
+      "mode": "split",
+      "name": "나란히",
+      "sourcePaneVisible": true,
+      "resultPaneVisible": true,
+      "sourceLabelsVisible": true,
+      "resultLabelsVisible": true,
+      "gridOverlayTarget": "result-canvas-only",
+      "desktopLayout": "horizontal-row",
+      "mobileLayout": "vertical-column (<=620px)"
+    }
+  ],
+  "fallbackScenario": {
+    "scenario": "log-restored-result-without-source-image",
+    "sourceImage": null,
+    "modalModeSource": {
+      "disabled": true,
+      "title": "저장된 로그에는 원본 이미지가 없습니다."
+    },
+    "modalModeSplit": {
+      "disabled": true,
+      "title": "저장된 로그에는 원본 이미지가 없습니다."
+    },
+    "fallbackNoticeVisible": true,
+    "viewModeEnforced": "result"
+  },
+  "memorySafety": {
+    "lazySourceCanvasCreatedOnDemand": true,
+    "sourceImageExcludedFromIndexedDBAndJSON": true,
+    "cleanupOnCloseModal": true
+  }
+}
