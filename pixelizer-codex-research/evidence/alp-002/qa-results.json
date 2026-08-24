@@ -1,0 +1,207 @@
+{
+  "specId": "ALP-002",
+  "testedAt": "2026-08-23T02:22:41Z",
+  "browser": "Codex in-app browser",
+  "testedUrl": "http://localhost:8765/pixelate_studio.html?qa=alp002-final-20260823",
+  "status": "PASS",
+  "desktop": {
+    "binary10": {
+      "mode": "original",
+      "paletteMode": "unlimited",
+      "threshold": 10,
+      "output": [128, 128],
+      "partialAlphaCount": 0,
+      "warningVisible": false,
+      "pass": true
+    },
+    "coverage10": {
+      "mode": "original",
+      "paletteMode": "unlimited",
+      "threshold": 10,
+      "output": [128, 128],
+      "partialAlphaCount": 3816,
+      "warningVisible": true,
+      "pass": true
+    },
+    "coverage128": {
+      "mode": "original",
+      "paletteMode": "unlimited",
+      "threshold": 128,
+      "output": [128, 128],
+      "partialAlphaCount": 1792,
+      "sourcePartialAlphaCount": 3976,
+      "pass": true
+    },
+    "scaleModes": {
+      "original": { "output": [128, 128], "pass": true },
+      "square": { "output": [64, 64], "partialAlphaCount": 988, "pass": true },
+      "factor": { "factor": 2, "output": [64, 64], "partialAlphaCount": 988, "pass": true },
+      "gridRepair": { "grid": [4, 4, 0, 0], "output": [32, 32], "partialAlphaCount": 272, "pass": true },
+      "preserveSheet": { "output": [128, 128], "pass": true }
+    },
+    "outline": {
+      "enabled": true,
+      "newPixelAlpha": 255,
+      "existingPartialAlphaCount": 3816,
+      "output": [128, 128],
+      "pass": true
+    },
+    "preview": {
+      "zoom1x": true,
+      "zoom8x": true,
+      "backgrounds": ["checker", "white"],
+      "pass": true
+    }
+  },
+  "sheet": {
+    "input": "alpha-edge.png",
+    "frame": [64, 64],
+    "layout": [2, 2],
+    "frameCount": 4,
+    "pixelBlockSize": 1,
+    "outline": true,
+    "output": [128, 128],
+    "partialAlphaCount": 3816,
+    "pass": true
+  },
+  "settingsRoundTrip": {
+    "exportFeedback": "현재 설정이 pixelate-studio-settings-v1.json 파일로 내보내졌습니다.",
+    "importFeedback": "설정 파일이 성공적으로 적용되었습니다.",
+    "restored": {
+      "alphaMode": "coverage",
+      "alphaThreshold": 77,
+      "scaleMode": "original",
+      "paletteMode": "unlimited",
+      "cleanEnabled": false,
+      "exportNearestScales": [2, 8]
+    },
+    "pass": true
+  },
+  "logRestore": {
+    "testedAt": "2026-08-23T02:30:20Z",
+    "testedUrl": "http://localhost:8765/pixelate_studio.html?qa=alp002-final-logrestore-20260823",
+    "persistedMode": "coverage",
+    "persistedThreshold": 10,
+    "restoredResultCount": 1,
+    "restoredOutput": [32, 32],
+    "restoredCardPartialAlphaCount": 272,
+    "restoredSummaryPartialAlphaCount": 272,
+    "statusFeedback": "불러옴 — 작업 로그에서 1개 결과 복원됨",
+    "capture": "browser-log-restore.jpg",
+    "captureSha256": "430fb11e6d86d0d0d3fa9bd9c0ee505c8b475969be56fec58ae96480c0f156a8",
+    "pass": true
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "documentScrollWidth": 382,
+    "horizontalOverflow": false,
+    "keyboardThreshold": 128,
+    "rangeThreshold": 128,
+    "partialAlphaCount": 1792,
+    "warningVisible": true,
+    "runEnabled": true,
+    "pass": true
+  },
+  "logSizeGate": {
+    "method": "Executable production helpers extracted from pixelate_studio.html",
+    "alphaMatrixLimitBytes": 16777216,
+    "resultJsonLimitBytes": 33554432,
+    "fourMillionAlphaEstimateBytes": 16781314,
+    "rejectionKind": "alpha-matrix",
+    "downloadRemainsAvailable": true,
+    "pass": true
+  },
+  "rereviewFixQa": {
+    "testedAt": "2026-08-23T03:00:31Z",
+    "testedUrl": "http://localhost:8765/pixelate_studio.html?qa=alp002-rereview-20260823",
+    "desktopModal": {
+      "viewport": [1280, 720],
+      "coverageOutput": [128, 128],
+      "partialAlphaCount": 3816,
+      "backgroundButton": {
+        "width": 61.25,
+        "scrollWidth": 57,
+        "whiteSpace": "nowrap"
+      },
+      "alphaDiagnosticsButton": {
+        "width": 68.5859375,
+        "scrollWidth": 65,
+        "whiteSpace": "nowrap"
+      },
+      "backgroundAlphaOverlap": false,
+      "alphaExpandOverlap": false,
+      "pass": true
+    },
+    "outlineSheet": {
+      "frame": [64, 64],
+      "layout": [2, 2],
+      "output": [128, 128],
+      "backgroundAlphaOverlap": false,
+      "alphaExpandOverlap": false,
+      "pass": true
+    },
+    "mobile": {
+      "viewport": [390, 844],
+      "documentScrollWidth": 382,
+      "horizontalOverflow": false,
+      "keyboardThreshold": 128,
+      "rangeThreshold": 128,
+      "partialAlphaCount": 1792,
+      "warningVisible": true,
+      "pass": true
+    },
+    "aggregateLogSizeGate": {
+      "combinedResultJsonBytes": 35651615,
+      "limitBytes": 33554432,
+      "rejectionKind": "result-json-total",
+      "pass": true
+    },
+    "jpegNegativeGate": {
+      "verifiedAt": "2026-08-23T04:10:17Z",
+      "soiEoiOnlyRejected": true,
+      "sofWithoutScanRejected": true,
+      "truncatedRejected": true,
+      "invalidSofSosLengthsRejected": true,
+      "nonDecodableEntropyRejected": true,
+      "oneByOneRejected": true,
+      "hashMismatchRejected": true,
+      "pathTraversalRejected": true,
+      "decoderBacked": true,
+      "pass": true
+    },
+    "topologyAndArtifacts": {
+      "binary": { "components": 1, "holes": 1 },
+      "coverage": { "components": 1, "holes": 1 },
+      "coverageMatrixMatchesPngAlpha": true,
+      "binaryRgbaSha256": "73407d8cf02ba3d07102a8b47a134bf3ee693768a48f5a6d7f7ecf754636c8d8",
+      "legacyProjectionSha256": "21990b6ae732f343b6dca56b97435a7f2ebca4f21daae420284f164450cb3667",
+      "deterministicSha256": "49525c16bec9a8965f4e10e443de893a39e99ac933b297e8fbf7220220f08dca",
+      "pass": true
+    },
+    "pass": true
+  },
+  "consoleErrorCount": 0,
+  "captures": [
+    "browser-coverage-threshold10.jpg",
+    "browser-coverage-threshold128-mobile.jpg",
+    "browser-outline-sheet.jpg"
+  ],
+  "captureSha256": {
+    "browser-coverage-threshold10.jpg": "c629a70b9ff2abb73d8dd948ffc0addd83e09d68cf386b8f100c5a4766824dd2",
+    "browser-coverage-threshold128-mobile.jpg": "4b9d9f73533a2428b8fb106cffd1a6cb2628a3e8dae5815bb0a54a69ae0a8b60",
+    "browser-outline-sheet.jpg": "46d627be4e37e7cdf690383f11c99ec64e0c05603a5daa09db1342c0b98d0c06"
+  },
+  "requiredReview": {
+    "model": "Sol xhigh",
+    "result": "PASS",
+    "reviewedAt": "2026-08-23",
+    "report": "sol-xhigh-rereview-2026-08-23.md",
+    "reportSha256": "c71fad874c2f3394280330cfc7037636a99b9cbb757fcb91381b4a9340ef0d8f",
+    "previousReview": {
+      "result": "CHANGES_REQUESTED",
+      "reviewedAt": "2026-08-23",
+      "report": "sol-xhigh-final-review-2026-08-23.md",
+      "reportSha256": "9787465edf24de54876939164e76a1797ff3e7e7f8bbe9ccbaa5bf85c15f393e"
+    }
+  }
+}

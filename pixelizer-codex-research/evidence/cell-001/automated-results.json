@@ -1,0 +1,731 @@
+{
+  "implementationId": "CELL-001",
+  "generatedAt": "2026-08-23T07:07:47.216Z",
+  "status": "DONE",
+  "settings": {
+    "factor": 4,
+    "palette": "unlimited",
+    "alpha": "binary/10",
+    "cleanup": false,
+    "outline": false,
+    "dither": false
+  },
+  "modeOrder": [
+    "mean-srgb",
+    "mean-linear",
+    "center",
+    "median",
+    "majority"
+  ],
+  "modeLabels": {
+    "mean-srgb": "균형 평균 (sRGB, 기본)",
+    "mean-linear": "선형광 평균",
+    "center": "중앙 샘플",
+    "median": "중앙값",
+    "majority": "최빈색"
+  },
+  "matrix": [
+    {
+      "fixtureId": "eye-highlight",
+      "input": [
+        64,
+        64
+      ],
+      "output": [
+        16,
+        16
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "73a7a32a84647d97391b5327db8dd48b25fd61cd33a2845c3133407593db4a80",
+          "alphaSha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+          "deterministic": true,
+          "runtimeMs": 1.087,
+          "flatRegionVariance": 3.027,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0,
+          "centered": {
+            "thinFeatureSurvival": 0.062,
+            "featureColorError": 0.938
+          },
+          "offcenter": {
+            "thinFeatureSurvival": 0.062,
+            "featureColorError": 0.938
+          }
+        },
+        "mean-linear": {
+          "rgbaSha256": "60343835793c3222eaf73ba781fb6994124ed1e504a510631f861f3697028963",
+          "alphaSha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+          "deterministic": true,
+          "runtimeMs": 6.373,
+          "flatRegionVariance": 27.246,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.03125,
+          "meanChannelAbsDelta": 0.625,
+          "centered": {
+            "thinFeatureSurvival": 0.1953,
+            "featureColorError": 0.8062
+          },
+          "offcenter": {
+            "thinFeatureSurvival": 0.1953,
+            "featureColorError": 0.8062
+          }
+        },
+        "center": {
+          "rgbaSha256": "98deb1c07ae38bf871ae06aa7a7f5c20d7d9e6a01f06abcb68bedd41642e7231",
+          "alphaSha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+          "deterministic": true,
+          "runtimeMs": 1.607,
+          "flatRegionVariance": 401.996,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.03125,
+          "meanChannelAbsDelta": 2.526,
+          "centered": {
+            "thinFeatureSurvival": 1,
+            "featureColorError": 0
+          },
+          "offcenter": {
+            "thinFeatureSurvival": 0,
+            "featureColorError": 1
+          }
+        },
+        "median": {
+          "rgbaSha256": "a2c5b54497d01ca227ae94afe18cbde09ffe39994cafa2968de47cb53e36c5a9",
+          "alphaSha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+          "deterministic": true,
+          "runtimeMs": 1.437,
+          "flatRegionVariance": 0,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.03125,
+          "meanChannelAbsDelta": 0.313,
+          "centered": {
+            "thinFeatureSurvival": 0,
+            "featureColorError": 1
+          },
+          "offcenter": {
+            "thinFeatureSurvival": 0,
+            "featureColorError": 1
+          }
+        },
+        "majority": {
+          "rgbaSha256": "a2c5b54497d01ca227ae94afe18cbde09ffe39994cafa2968de47cb53e36c5a9",
+          "alphaSha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+          "deterministic": true,
+          "runtimeMs": 1.438,
+          "flatRegionVariance": 0,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.03125,
+          "meanChannelAbsDelta": 0.313,
+          "centered": {
+            "thinFeatureSurvival": 0,
+            "featureColorError": 1
+          },
+          "offcenter": {
+            "thinFeatureSurvival": 0,
+            "featureColorError": 1
+          }
+        }
+      }
+    },
+    {
+      "fixtureId": "thin-lines",
+      "input": [
+        192,
+        192
+      ],
+      "output": [
+        48,
+        48
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "404f8fc0628be9c031478f909825e44c9633eb0220d75f48474d143576e33d6c",
+          "alphaSha256": "7f3be8d3876bb2c10c826bf3b539ed75aa5286f180dd420937cb8f51898566b8",
+          "deterministic": true,
+          "runtimeMs": 4.497,
+          "flatRegionVariance": 940.43,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "dcd50f467066fc2d061cf121d2686b0107ccd38e942fe5bc4585c14de2385399",
+          "alphaSha256": "7f3be8d3876bb2c10c826bf3b539ed75aa5286f180dd420937cb8f51898566b8",
+          "deterministic": true,
+          "runtimeMs": 6.027,
+          "flatRegionVariance": 943.235,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.046099,
+          "meanChannelAbsDelta": 0.348
+        },
+        "center": {
+          "rgbaSha256": "7fc3a70a1f6a3ae7a382939ab776792356cf99037f11b8ea95996fbed2104494",
+          "alphaSha256": "7f3be8d3876bb2c10c826bf3b539ed75aa5286f180dd420937cb8f51898566b8",
+          "deterministic": true,
+          "runtimeMs": 3.76,
+          "flatRegionVariance": 968.621,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.046099,
+          "meanChannelAbsDelta": 1.883
+        },
+        "median": {
+          "rgbaSha256": "b2003ce4b6c943e054173359d7587d4d1e52501510e9bb4ad49033f15c592728",
+          "alphaSha256": "7f3be8d3876bb2c10c826bf3b539ed75aa5286f180dd420937cb8f51898566b8",
+          "deterministic": true,
+          "runtimeMs": 4.971,
+          "flatRegionVariance": 933.331,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.046099,
+          "meanChannelAbsDelta": 1.228
+        },
+        "majority": {
+          "rgbaSha256": "1d1ebeb3544095b719d7fec5081d773a85f2ffc03abbfef59a8d3b3ceea8d92a",
+          "alphaSha256": "7f3be8d3876bb2c10c826bf3b539ed75aa5286f180dd420937cb8f51898566b8",
+          "deterministic": true,
+          "runtimeMs": 5.022,
+          "flatRegionVariance": 932.182,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.046099,
+          "meanChannelAbsDelta": 1.379
+        }
+      }
+    },
+    {
+      "fixtureId": "hard-edge-phase",
+      "input": [
+        192,
+        128
+      ],
+      "output": [
+        48,
+        32
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "812bffd8242874f6923363e7b648f755c690ec0f47e21914782aa34c19fb457c",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 2.846,
+          "flatRegionVariance": 199.527,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "1b799120972d7a200b481980b4102a7071f80ebeefc7de374f8b2a2666d80fce",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 35.835,
+          "flatRegionVariance": 181.176,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.916667,
+          "meanChannelAbsDelta": 1.819
+        },
+        "center": {
+          "rgbaSha256": "23ee448732f1770e982cb06a0caec0488643b37e9aa04b02d528cce3ca224a7d",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 6.867,
+          "flatRegionVariance": 295.799,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.916667,
+          "meanChannelAbsDelta": 8.09
+        },
+        "median": {
+          "rgbaSha256": "d80356e842be51aa06ef22f64e64faafeb33f5d20228573d9f8a785b6fbf629a",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 5.065,
+          "flatRegionVariance": 287.202,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.720052,
+          "meanChannelAbsDelta": 5.796
+        },
+        "majority": {
+          "rgbaSha256": "39b05f7d10b149e6bb980b696050b4d4a016e747f97dbdb17185201a136aafe1",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 6.327,
+          "flatRegionVariance": 354.476,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.916667,
+          "meanChannelAbsDelta": 8.09
+        }
+      }
+    },
+    {
+      "fixtureId": "texture-checker",
+      "input": [
+        192,
+        128
+      ],
+      "output": [
+        48,
+        32
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "3ab4a1e2aa2c48ef1879d10ddf0d14cef60989a4571d2c29987dd9e3db1b5838",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 3.018,
+          "flatRegionVariance": 234.984,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "1038f7d4b3cbfe76611b32484ade794c301356ed567a502eb24eee4592ec7076",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 37.666,
+          "flatRegionVariance": 233.542,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 1,
+          "meanChannelAbsDelta": 0.648
+        },
+        "center": {
+          "rgbaSha256": "54b67792af336008e17fec3bd43acd2774c228688442e3bc1230f03f403f2390",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 7.105,
+          "flatRegionVariance": 240.235,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 1,
+          "meanChannelAbsDelta": 9
+        },
+        "median": {
+          "rgbaSha256": "50b84aaf0cbb27a2566811f05a6962972974e28140ce2420f9ca7ac74b6b65dd",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 7.304,
+          "flatRegionVariance": 235.278,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.823568,
+          "meanChannelAbsDelta": 0.476
+        },
+        "majority": {
+          "rgbaSha256": "01f6d86e44ab9f0123f25d6d29ef8e41feb819e1ccd4e584716161c31490442c",
+          "alphaSha256": "e6d1b616fc8f6230c07d0e573527b701e7f377803916cc22f51faa21917d9160",
+          "deterministic": true,
+          "runtimeMs": 6.587,
+          "flatRegionVariance": 248.868,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 1,
+          "meanChannelAbsDelta": 9.002
+        }
+      }
+    },
+    {
+      "fixtureId": "low-contrast",
+      "input": [
+        160,
+        120
+      ],
+      "output": [
+        40,
+        30
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "caedb8e5603b82d73075e764c0703991e54926932959c34fdbd14a3de09f1846",
+          "alphaSha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee",
+          "deterministic": true,
+          "runtimeMs": 2.2,
+          "flatRegionVariance": 12.332,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "36e8bc8d43ec43f5824ab9f49d90b929b59e6345057a34af488cc84f2d4e11f1",
+          "alphaSha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee",
+          "deterministic": true,
+          "runtimeMs": 27.952,
+          "flatRegionVariance": 12.324,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.0025,
+          "meanChannelAbsDelta": 0.003
+        },
+        "center": {
+          "rgbaSha256": "0659f97decc48923e7ce29aaff7407580bafabeae990be0f26d4dd29c8764f02",
+          "alphaSha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee",
+          "deterministic": true,
+          "runtimeMs": 5.614,
+          "flatRegionVariance": 13.775,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.1075,
+          "meanChannelAbsDelta": 0.512
+        },
+        "median": {
+          "rgbaSha256": "c14934ce0f0dc49cd8bd55bfb4301c2d8fe6cce9fbbc1924284243ec7d3db91f",
+          "alphaSha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee",
+          "deterministic": true,
+          "runtimeMs": 3.801,
+          "flatRegionVariance": 12.103,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.078333,
+          "meanChannelAbsDelta": 0.305
+        },
+        "majority": {
+          "rgbaSha256": "e10fd0255c107cd5d1f7b0bcf9cd2390d79db0a416e1a3225414e9986092871c",
+          "alphaSha256": "710baa8a6ca5b64e17e58b95140486de08b5dcd1369ef96114c39a72a18647ee",
+          "deterministic": true,
+          "runtimeMs": 4.182,
+          "flatRegionVariance": 13.452,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.1075,
+          "meanChannelAbsDelta": 0.48
+        }
+      }
+    },
+    {
+      "fixtureId": "alpha-edge",
+      "input": [
+        128,
+        128
+      ],
+      "output": [
+        32,
+        32
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "f3a24876ffff6203112f00cd999c48e35501cce083c87d1c563ef0c91557d0d0",
+          "alphaSha256": "f60be21354197f9e10f0921768c7bdabfd873620c45a40f9bde15eb1f1348830",
+          "deterministic": true,
+          "runtimeMs": 1.812,
+          "flatRegionVariance": 0.868,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "f3a24876ffff6203112f00cd999c48e35501cce083c87d1c563ef0c91557d0d0",
+          "alphaSha256": "f60be21354197f9e10f0921768c7bdabfd873620c45a40f9bde15eb1f1348830",
+          "deterministic": true,
+          "runtimeMs": 11.675,
+          "flatRegionVariance": 0.868,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "center": {
+          "rgbaSha256": "f3a24876ffff6203112f00cd999c48e35501cce083c87d1c563ef0c91557d0d0",
+          "alphaSha256": "f60be21354197f9e10f0921768c7bdabfd873620c45a40f9bde15eb1f1348830",
+          "deterministic": true,
+          "runtimeMs": 3.059,
+          "flatRegionVariance": 0.868,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "median": {
+          "rgbaSha256": "f3a24876ffff6203112f00cd999c48e35501cce083c87d1c563ef0c91557d0d0",
+          "alphaSha256": "f60be21354197f9e10f0921768c7bdabfd873620c45a40f9bde15eb1f1348830",
+          "deterministic": true,
+          "runtimeMs": 2.499,
+          "flatRegionVariance": 0.868,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "majority": {
+          "rgbaSha256": "f3a24876ffff6203112f00cd999c48e35501cce083c87d1c563ef0c91557d0d0",
+          "alphaSha256": "f60be21354197f9e10f0921768c7bdabfd873620c45a40f9bde15eb1f1348830",
+          "deterministic": true,
+          "runtimeMs": 2.381,
+          "flatRegionVariance": 0.868,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        }
+      }
+    },
+    {
+      "fixtureId": "clean-pixel-art",
+      "input": [
+        128,
+        128
+      ],
+      "output": [
+        32,
+        32
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "alphaSha256": "addc91bde8fd0673bb6938cf4ec45681332c7d6dcc30b58ecf0196dcae0417ab",
+          "deterministic": true,
+          "runtimeMs": 1.646,
+          "flatRegionVariance": 1851.316,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "alphaSha256": "addc91bde8fd0673bb6938cf4ec45681332c7d6dcc30b58ecf0196dcae0417ab",
+          "deterministic": true,
+          "runtimeMs": 6.005,
+          "flatRegionVariance": 1851.316,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "center": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "alphaSha256": "addc91bde8fd0673bb6938cf4ec45681332c7d6dcc30b58ecf0196dcae0417ab",
+          "deterministic": true,
+          "runtimeMs": 2.35,
+          "flatRegionVariance": 1851.316,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "median": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "alphaSha256": "addc91bde8fd0673bb6938cf4ec45681332c7d6dcc30b58ecf0196dcae0417ab",
+          "deterministic": true,
+          "runtimeMs": 1.977,
+          "flatRegionVariance": 1851.316,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "majority": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "alphaSha256": "addc91bde8fd0673bb6938cf4ec45681332c7d6dcc30b58ecf0196dcae0417ab",
+          "deterministic": true,
+          "runtimeMs": 2.049,
+          "flatRegionVariance": 1851.316,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        }
+      }
+    },
+    {
+      "fixtureId": "ai-grid-wobble",
+      "input": [
+        256,
+        256
+      ],
+      "output": [
+        64,
+        64
+      ],
+      "candidates": {
+        "mean-srgb": {
+          "rgbaSha256": "514df310630d5ac2d8feeecd9fcc8053a94fcf61b6abb1d286180b5868dd06d7",
+          "alphaSha256": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+          "deterministic": true,
+          "runtimeMs": 7.755,
+          "flatRegionVariance": 487.946,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0,
+          "meanChannelAbsDelta": 0
+        },
+        "mean-linear": {
+          "rgbaSha256": "9a11df95d91a57043367099d047128e7124a7db533cb1a0c9698235195eca480",
+          "alphaSha256": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+          "deterministic": true,
+          "runtimeMs": 98.003,
+          "flatRegionVariance": 486.517,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.637695,
+          "meanChannelAbsDelta": 1.039
+        },
+        "center": {
+          "rgbaSha256": "e9fea337ca14276e9d689d81e0ed143ef19c51ad6d192e9833cc7d2803038172",
+          "alphaSha256": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+          "deterministic": true,
+          "runtimeMs": 17.984,
+          "flatRegionVariance": 552.751,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.95166,
+          "meanChannelAbsDelta": 5.184
+        },
+        "median": {
+          "rgbaSha256": "cc7299ad2cf4107ab67a908525ff9d1494a2addf1a976d1fdf6313b5f135393d",
+          "alphaSha256": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+          "deterministic": true,
+          "runtimeMs": 16.467,
+          "flatRegionVariance": 538.135,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.828369,
+          "meanChannelAbsDelta": 3.849
+        },
+        "majority": {
+          "rgbaSha256": "76e9fb74fdda0b434d335afa1abd19e4f702f92b68a1bd35a48c9832f158b1bc",
+          "alphaSha256": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+          "deterministic": true,
+          "runtimeMs": 18.759,
+          "flatRegionVariance": 557.151,
+          "edgeDisplacement": 0,
+          "changedPixelRatio": 0.943604,
+          "meanChannelAbsDelta": 5.123
+        }
+      }
+    }
+  ],
+  "adoption": {
+    "default": "mean-srgb",
+    "promotedCandidates": [],
+    "decision": "KEEP_EXPERIMENTAL",
+    "reasons": {
+      "mean-linear": "중앙·비중앙 작은 특징 기여는 커지지만 sRGB 기준선 대비 밝기와 경계색이 광범위하게 달라져 범용 preset 게이트를 통과하지 못함",
+      "center": "중앙 특징 생존 1, 비중앙 특징 생존 0로 위치 민감 회귀가 5%를 초과함",
+      "median": "중앙/비중앙 특징 생존 0/0로 작은 특징 손실",
+      "majority": "중앙/비중앙 특징 생존 0/0로 작은 특징 손실"
+    }
+  },
+  "defaultHashes": {
+    "currentSquareRgba": "ab006b365f9c",
+    "currentPreserveSheetRgba": "55bf669981d7",
+    "visualQualityDeterministic": "db4b3d904fbcc53e83966e3db097b6e27242ee6494e7c0f2f943a007e6f23cef"
+  },
+  "deterministic": true,
+  "sheets": {
+    "native": {
+      "file": "candidate-matrix-native.png",
+      "width": 320,
+      "height": 420
+    },
+    "zoom8x": {
+      "file": "candidate-matrix-8x.png",
+      "width": 2000,
+      "height": 2436
+    }
+  },
+  "browserQa": {
+    "implementationId": "CELL-001",
+    "status": "PASS",
+    "performedAt": "2026-08-23T07:03:37Z",
+    "target": "http://localhost:8765/pixelate_studio.html?qa=cell001-20260823",
+    "browser": "Codex in-app browser",
+    "defaultHidden": {
+      "pass": true,
+      "details": {
+        "toggleChecked": false,
+        "ariaExpanded": "false",
+        "fieldDisplay": "none",
+        "selectDisabled": true,
+        "selectValue": "mean-srgb",
+        "horizontalOverflow": 0
+      }
+    },
+    "candidateWarning": {
+      "pass": true,
+      "candidate": "center",
+      "text": "실험 기능이며 작은 특징이 사라지거나 밝기가 달라질 수 있습니다."
+    },
+    "resultMetadata": {
+      "pass": true,
+      "centerCard": "대표색 center",
+      "majorityCard": "대표색 majority",
+      "centerOutput": "16x16, 150 bytes, 2 colors",
+      "majorityOutput": "16x16, 123 bytes, 1 color"
+    },
+    "settingsRoundTrip": {
+      "pass": true,
+      "exportFeedback": "현재 설정이 pixelate-studio-settings-v1.json 파일로 내보내졌습니다.",
+      "importFeedback": "설정 파일이 성공적으로 적용되었습니다.",
+      "restored": {
+        "representativeColor": "majority",
+        "showExperimentalFeatures": true,
+        "scaleMode": "factor",
+        "factor": 4,
+        "paletteMode": "unlimited",
+        "cleanEnabled": false
+      }
+    },
+    "mobile": {
+      "pass": true,
+      "viewport": [
+        390,
+        844
+      ],
+      "capturedPixels": [
+        382,
+        827
+      ],
+      "horizontalOverflow": 0,
+      "resultMetadataVisible": true
+    },
+    "keyboard": {
+      "pass": true,
+      "focusTargets": [
+        "showExperimentalFeatures",
+        "representativeColor"
+      ],
+      "nativeControls": [
+        "input[type=checkbox]",
+        "select"
+      ],
+      "note": "두 native control이 브라우저 포커스를 받고 레이블과 연결됨을 확인했으며 후보 선택 후 경고 갱신을 검증했다."
+    },
+    "actualSizeReview": {
+      "pass": true,
+      "oneX": {
+        "canvasPixels": [
+          16,
+          16
+        ],
+        "cssPixels": [
+          16,
+          16
+        ],
+        "zoomLabel": "1배"
+      },
+      "eightX": {
+        "zoomLabel": "8배",
+        "ariaPressed": "true",
+        "centeredFeatureSurvival": 1,
+        "offcenterFeatureSurvival": 0
+      }
+    },
+    "consoleErrors": [],
+    "captures": [
+      "browser-default-hidden.png",
+      "browser-center-8x.png",
+      "browser-mobile-majority.png",
+      "browser-settings-roundtrip.png"
+    ],
+    "captureSha256": {
+      "browser-default-hidden.png": "ded133bdd1623033a3a25c9c2d77e300efbb2854b2ae2cdfa4e513662fc1ca89",
+      "browser-center-8x.png": "5240f88e8649f6e1236fa2696ac5761fba6eb706a36a08126a4d9c5f6f8a53f6",
+      "browser-mobile-majority.png": "3ccc471b027dedece7ec87bbf1c908d2ce4fb1e258f3b9c694c94fd07f0f85c6",
+      "browser-settings-roundtrip.png": "b251d1d772c533b625d3185683adae0051f44e5d98fd190079f1158aceac1fcf"
+    }
+  },
+  "captureEvidence": {
+    "browser-default-hidden.png": {
+      "width": 1272,
+      "height": 738,
+      "bytes": 83670,
+      "sha256": "ded133bdd1623033a3a25c9c2d77e300efbb2854b2ae2cdfa4e513662fc1ca89"
+    },
+    "browser-center-8x.png": {
+      "width": 1272,
+      "height": 716,
+      "bytes": 273575,
+      "sha256": "5240f88e8649f6e1236fa2696ac5761fba6eb706a36a08126a4d9c5f6f8a53f6"
+    },
+    "browser-mobile-majority.png": {
+      "width": 382,
+      "height": 827,
+      "bytes": 84930,
+      "sha256": "3ccc471b027dedece7ec87bbf1c908d2ce4fb1e258f3b9c694c94fd07f0f85c6"
+    },
+    "browser-settings-roundtrip.png": {
+      "width": 1272,
+      "height": 738,
+      "bytes": 102264,
+      "sha256": "b251d1d772c533b625d3185683adae0051f44e5d98fd190079f1158aceac1fcf"
+    }
+  },
+  "browserQaPass": true,
+  "pending": []
+}

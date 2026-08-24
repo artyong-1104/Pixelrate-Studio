@@ -15,6 +15,11 @@ assert.match(html, /id="importSettingsBtn"/, 'importSettingsBtn element must exi
 assert.match(html, /id="importSettingsInput"/, 'importSettingsInput element must exist');
 assert.match(html, /id="presetDiffBox"/, 'presetDiffBox element must exist');
 assert.match(html, /id="settingsFeedback"/, 'settingsFeedback element must exist');
+assert.match(html, /id="showExperimentalFeatures"/, 'CELL-001 experimental feature toggle must exist');
+assert.match(html, /id="representativeColor"/, 'CELL-001 representative select must exist');
+for (const id of ['mean-srgb', 'mean-linear', 'center', 'median', 'majority']) {
+  assert.match(html, new RegExp(`value="${id}"`), `CELL-001 option ${id} must exist`);
+}
 
 // 2. Extract functions into test sandbox
 const functionNames = [
@@ -74,9 +79,19 @@ const DEFAULT_SETTINGS = Object.freeze({
   method: 'box',
   factor: 4,
   factorFrameMode: 'whole',
+  gridFrameMode: 'whole',
+  gridFrameWidth: 64,
+  gridFrameHeight: 64,
+  gridSizeX: 8,
+  gridSizeY: 8,
+  gridPhaseX: 0,
+  gridPhaseY: 0,
+  gridSource: 'manual',
+  gridLockedAcrossFrames: true,
   frameWidth: 64,
   frameHeight: 64,
   pixelBlockSize: 4,
+  representativeColor: 'mean-srgb',
   paletteMode: 'auto',
   customPalette: [],
   paletteEnabled: true,
@@ -88,7 +103,9 @@ const DEFAULT_SETTINGS = Object.freeze({
   outlineWidth: 1,
   outlineColor: '#000000',
   outlineShape: '4',
-  exportNearestScales: []
+  exportNearestScales: [],
+  alphaMode: 'binary',
+  alphaThreshold: 10
 });
 
 const PRESETS = Object.freeze({
@@ -113,9 +130,19 @@ const SETTING_LABELS = Object.freeze({
   method: '다운스케일 보간법',
   factor: '축소 배율',
   factorFrameMode: '정수 배율 프레임 분할',
+  gridFrameMode: '격자 분석 단위',
+  gridFrameWidth: '격자 시트 프레임 너비',
+  gridFrameHeight: '격자 시트 프레임 높이',
+  gridSizeX: '격자 픽셀 크기 X',
+  gridSizeY: '격자 픽셀 크기 Y',
+  gridPhaseX: '격자 offset X',
+  gridPhaseY: '격자 offset Y',
+  gridSource: '격자 입력 출처',
+  gridLockedAcrossFrames: '프레임 간 격자 잠금',
   frameWidth: '프레임 너비',
   frameHeight: '프레임 높이',
   pixelBlockSize: '블록 크기',
+  representativeColor: '셀 대표색',
   paletteMode: '팔레트 방식',
   customPalette: '직접 지정 팔레트',
   paletteEnabled: '팔레트 제한 사용',
@@ -127,7 +154,9 @@ const SETTING_LABELS = Object.freeze({
   outlineWidth: '외곽선 굵기',
   outlineColor: '외곽선 색상',
   outlineShape: '외곽선 형태',
-  exportNearestScales: '추가 nearest 확대본'
+  exportNearestScales: '추가 nearest 확대본',
+  alphaMode: '투명도 처리 방식',
+  alphaThreshold: '투명도 임계값'
 });
 
 ${functionNames.map(name => extractInlineFunction(html, name)).join('\n')}
@@ -174,9 +203,19 @@ const customSettings = {
   method: 'nearest',
   factor: 8,
   factorFrameMode: 'sheet',
+  gridFrameMode: 'whole',
+  gridFrameWidth: 64,
+  gridFrameHeight: 64,
+  gridSizeX: 8,
+  gridSizeY: 8,
+  gridPhaseX: 0,
+  gridPhaseY: 0,
+  gridSource: 'manual',
+  gridLockedAcrossFrames: true,
   frameWidth: 128,
   frameHeight: 128,
   pixelBlockSize: 8,
+  representativeColor: 'majority',
   paletteMode: 'auto',
   customPalette: [],
   paletteEnabled: true,
@@ -188,7 +227,9 @@ const customSettings = {
   outlineWidth: 2,
   outlineColor: '#ff0000',
   outlineShape: '8',
-  exportNearestScales: [2, 8]
+  exportNearestScales: [2, 8],
+  alphaMode: 'coverage',
+  alphaThreshold: 128
 };
 const customEnvelope = {
   format: 'pixelate-studio-settings',
@@ -198,6 +239,30 @@ const customEnvelope = {
 };
 const validatedCustom = validateSettingsEnvelope(JSON.stringify(customEnvelope));
 assert.deepEqual(JSON.parse(JSON.stringify(validatedCustom.settings)), customSettings, 'Custom factor settings must round trip exactly');
+
+const gridSettings = {
+  ...DEFAULT_SETTINGS,
+  scaleMode: 'grid-repair',
+  gridFrameMode: 'sheet',
+  gridFrameWidth: 96,
+  gridFrameHeight: 80,
+  gridSizeX: 8,
+  gridSizeY: 4,
+  gridPhaseX: 3,
+  gridPhaseY: 1,
+  gridSource: 'auto',
+  gridLockedAcrossFrames: true
+};
+const validatedGrid = validateSettingsEnvelope(JSON.stringify({
+  format: 'pixelate-studio-settings',
+  version: 1,
+  settings: gridSettings
+}));
+assert.deepEqual(
+  JSON.parse(JSON.stringify(validatedGrid.settings)),
+  JSON.parse(JSON.stringify(gridSettings)),
+  'GRID-001 settings must round trip exactly'
+);
 
 // 5. Test Legacy Settings Migration (from old IndexedDB logs)
 const legacyLog1 = {
@@ -277,6 +342,21 @@ assert.throws(
   'Factor 17 must be rejected'
 );
 assert.throws(
+  () => normalizeSettings({ gridSizeX: 1 }),
+  /gridSizeX는 2~32 범위의 정수/,
+  'Grid size below 2 must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ gridSizeX: 8, gridPhaseX: 8 }),
+  /gridPhaseX는 0~7 범위의 정수/,
+  'Grid phase equal to its period must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ gridLockedAcrossFrames: false }),
+  /gridLockedAcrossFrames는 프레임 간 격자 흔들림을 막기 위해 true/,
+  'Per-frame grid drift must be rejected'
+);
+assert.throws(
   () => normalizeSettings({ colors: 1 }),
   /colors는 2~256 범위의 정수/,
   'Colors < 2 must be rejected'
@@ -301,6 +381,33 @@ assert.throws(
   /exportNearestScales 항목은 2, 4, 8/,
   'Invalid nearest scale must be rejected'
 );
+assert.throws(
+  () => normalizeSettings({ alphaMode: 'linear' }),
+  /유효하지 않은 alphaMode 값/,
+  'Invalid alphaMode must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ alphaThreshold: 0 }),
+  /alphaThreshold는 1~254 범위의 정수/,
+  'alphaThreshold 0 must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ alphaThreshold: 255 }),
+  /alphaThreshold는 1~254 범위의 정수/,
+  'alphaThreshold 255 must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ alphaThreshold: 'not-a-number' }),
+  /alphaThreshold는 1~254 범위의 정수/,
+  'alphaThreshold NaN must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ representativeColor: 'automatic-best' }),
+  /유효하지 않은 representativeColor 값/,
+  'Unknown representativeColor must be rejected'
+);
+const normalizedLegacyRepresentative = normalizeSettings({ scaleMode: 'factor', factor: 4 });
+assert.equal(normalizedLegacyRepresentative.settings.representativeColor, 'mean-srgb', 'Legacy settings must default to mean-srgb');
 
 // 6.5 Prototype Pollution Prevention
 assert.throws(
@@ -374,6 +481,12 @@ assert.equal(diffSheet[0].key, 'scaleMode');
 assert.equal(diffSheet[0].fromText, '정사각 다운스케일');
 assert.equal(diffSheet[0].toText, '원본 규격 유지');
 
+const representativeDiff = diffSettings(DEFAULT_SETTINGS, { representativeColor: 'mean-linear' });
+assert.equal(representativeDiff.length, 1);
+assert.equal(representativeDiff[0].label, '셀 대표색');
+assert.equal(representativeDiff[0].toText, '선형광 평균');
+assert.match(getSettingsSummary({ scaleMode: 'factor', factor: 4, representativeColor: 'majority' }), /대표색:majority/);
+
 // 9. Export contains no image data or filenames
 const exportedKeys = Object.keys(validatedCustom.settings);
 assert.equal(exportedKeys.includes('dataUrl'), false);
@@ -381,4 +494,4 @@ assert.equal(exportedKeys.includes('canvas'), false);
 assert.equal(exportedKeys.includes('name'), false);
 assert.equal(exportedKeys.includes('files'), false);
 
-console.log('CFG-001 regression checks passed (envelope schema, legacy migration, strict validation, prototype safety, presets diff, 64KB limit).');
+console.log('CFG-001 regression checks passed (envelope schema, GRID-001 round trip, legacy migration, strict validation, prototype safety, presets diff, 64KB limit).');

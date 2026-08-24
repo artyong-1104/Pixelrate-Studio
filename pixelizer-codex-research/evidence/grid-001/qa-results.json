@@ -1,0 +1,156 @@
+{
+  "specId": "GRID-001",
+  "algorithmVersion": 2,
+  "testedAt": "2026-08-23T01:37:10Z",
+  "browser": "Codex in-app browser",
+  "testedUrl": "http://localhost:8765/pixelate_studio.html?qa=grid001-v2-20260823",
+  "status": "PASS",
+  "previousRunAlgorithmVersion": 1,
+  "browserRerun": {
+    "attemptedAt": "2026-08-23",
+    "status": "PASS",
+    "reason": "Fresh algorithmVersion 2 browser QA completed on localhost after the 127.0.0.1 permission path was replaced."
+  },
+  "desktop": {
+    "clean8px": {
+      "detected": "X 8px / offset 3 · Y 8px / offset 3",
+      "confidencePercent": 100,
+      "elapsedMs": 36,
+      "mainThreadMaxChunkMs": 3,
+      "applyEnabled": true,
+      "overlayVisible": true,
+      "legend": ["세로 경계: 자홍 실선", "가로 경계: 하늘 점선"],
+      "cropText": "프레임당 출력 23×19 · 제외 margin X 3/3px · Y 3/3px",
+      "applyPass": true
+    },
+    "mediumConfidence": {
+      "detected": "X 4px / offset 0 · Y 4px / offset 0",
+      "confidencePercent": 60,
+      "message": "확신이 낮습니다. 값을 확인하세요.",
+      "applyEnabled": false,
+      "previewVisible": true,
+      "pass": true
+    },
+    "cleanPixelArt": {
+      "detected": {"sizeX": 4, "sizeY": 4, "phaseX": 0, "phaseY": 0},
+      "confidencePercent": 60,
+      "autoApplyEnabled": false,
+      "previewVisible": true,
+      "cropText": "프레임당 출력 32×32 · 제외 margin X 0/0px · Y 0/0px",
+      "pass": true
+    },
+    "wobble": {
+      "detected": "X 8px / offset 1 · Y 8px / offset 0",
+      "confidencePercent": 38,
+      "message": "격자를 안정적으로 찾지 못했습니다.",
+      "autoApplyEnabled": false,
+      "previewVisible": true,
+      "pass": true
+    },
+    "lowContrast": {
+      "detected": "X 12px / offset 0 · Y 25px / offset 0",
+      "confidencePercent": 31,
+      "message": "격자를 안정적으로 찾지 못했습니다.",
+      "autoApplyEnabled": false,
+      "pass": true
+    },
+    "photoLike": {
+      "detected": "X 2px / offset 1 · Y 2px / offset 1",
+      "confidencePercent": 23,
+      "message": "격자를 안정적으로 찾지 못했습니다.",
+      "autoApplyEnabled": false,
+      "falsePositive": false,
+      "previewVisible": true,
+      "pass": true
+    }
+  },
+  "sheet": {
+    "input": "sprite-sheet.png",
+    "frameGeometry": [64, 64],
+    "detected": "X 15px / offset 2 · Y 14px / offset 6",
+    "confidencePercent": 5,
+    "sameGridForcedTextVisible": true,
+    "previewVisible": true,
+    "autoApplyEnabled": false,
+    "pass": true
+  },
+  "sequence": {
+    "inputFrameCount": 16,
+    "manualGrid": [4, 4, 0, 0],
+    "outputFrameCount": 16,
+    "outputFrameSize": [16, 16],
+    "gridChip": "격자 잠금: 켜짐",
+    "gridOverlayEnabled": true,
+    "measuredFrames": ["7 / 16", "8 / 16", "9 / 16", "10 / 16"],
+    "canvasRect": {"x": 460, "y": 160.953125, "width": 384, "height": 384},
+    "viewportVariance": 0,
+    "pass": true
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "documentScrollWidth": 382,
+    "horizontalOverflow": false,
+    "keyboardEnteredGrid": [4, 4, 0, 0],
+    "manualLock": true,
+    "manualApplyPass": true,
+    "runEnabled": true,
+    "pass": true
+  },
+  "cancellation": {
+    "inputPixels": 4194304,
+    "browserWallMs": 889,
+    "during": {"message": "격자 분석 중…", "cancelEnabled": true, "analyzeEnabled": false},
+    "after": {
+      "message": "격자 분석을 취소했습니다.",
+      "cancelEnabled": false,
+      "analyzeEnabled": true,
+      "applyEnabled": false,
+      "runEnabled": false
+    },
+    "pass": true
+  },
+  "limits": {
+    "over4MInput": [2049, 2048],
+    "message": "격자 자동 분석은 총 4M 픽셀 이하에서만 사용할 수 있습니다. 수동 값을 입력하세요.",
+    "manualLockEnabled": true,
+    "autoAnalysisRejected": true,
+    "pass": true
+  },
+  "performance": {
+    "input": [2048, 2048],
+    "inputPixels": 4194304,
+    "elapsedMs": 775,
+    "preprocessMaxChunkMs": 13,
+    "sobelMaxChunkMs": 13,
+    "endToEndMaxChunkMs": 13,
+    "measurement": "The browser UI exposed max(preprocessMaxChunkMs, sobelMaxChunkMs) as 13ms. Each component is recorded as the same conservative upper bound; the end-to-end maximum is the directly displayed value.",
+    "pass": true
+  },
+  "consoleErrorCount": 0,
+  "captures": [
+    "browser-clean-8px-overlay.jpg",
+    "browser-clean-pixel-art-auto.jpg",
+    "browser-photo-safe-reject.jpg",
+    "browser-sequence-lock.jpg",
+    "browser-mobile-manual.jpg"
+  ],
+  "captureSha256": {
+    "browser-clean-8px-overlay.jpg": "c1f28517eef6d47be6928aec3fdead49569d2b5a5e8b0b512f280aa420f4d3ca",
+    "browser-clean-pixel-art-auto.jpg": "155eb48d789319bbae294803f64e12ad4da98032a8b3e460983a366366d321d2",
+    "browser-photo-safe-reject.jpg": "265d13c1b10fe29bc22337f8fed9a2f908d744b984de30ee26bb3ec724defadd",
+    "browser-sequence-lock.jpg": "efc3ba158c2e47214c4cdbecbefa983bb238d488b9e2a477872a96365fc9c6ea",
+    "browser-mobile-manual.jpg": "da4d0fa585f00bc55343577ee0c95db622b6256d179a94ec866f854f731af105"
+  },
+  "requiredReview": {
+    "model": "Sol xhigh",
+    "result": "PASS",
+    "reviewedAt": "2026-08-23",
+    "report": "sol-xhigh-final-review-2026-08-23.md",
+    "reportSha256": "dd0c23fa8cddd9104bf80a2c087dce09b9429f42124a07f9f56502c52fbd067e",
+    "previousReview": {
+      "result": "BROWSER_QA_REQUIRED",
+      "reviewedAt": "2026-08-21",
+      "report": "sol-xhigh-rereview-2026-08-21.md"
+    }
+  }
+}

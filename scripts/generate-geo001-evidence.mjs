@@ -16,6 +16,11 @@ const evidenceDir = resolve(root, 'pixelizer-codex-research/evidence/geo-001');
 mkdirSync(evidenceDir, { recursive: true });
 
 const functionNames = [
+  'normalizeRepresentativeColor',
+  'srgbChannelToLinear',
+  'linearChannelToSrgb',
+  'representativeMedian',
+  'representativeColorForCell',
   'exactFactorDownscale',
   'kmeans',
   'collectOpaquePoints',

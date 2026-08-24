@@ -6,6 +6,53 @@ Pixelate Studio의 주요 변경 사항을 기록합니다.
 
 영어 버전: [CHANGELOG.md](./CHANGELOG.md)
 
+## [미배포]
+
+### 추가
+
+- CELL-001 실험용 셀 대표색 선택 기능 추가: alpha-aware `mean-srgb`, 선형광 평균, 중앙 샘플, 채널별 중앙값, exact-RGB 최빈색을 결정적으로 계산한다. 비기본 후보는 `실험 기능 표시` 안에만 유지하고 설정 JSON 왕복과 결과 메타데이터 기록을 지원하며 기본 preset은 변경하지 않는다.
+- `AI 픽셀 격자 복구 (실험)` 모드 추가 (GRID-001): alpha-masked Sobel profile, 2~32px X/Y 주기·offset 감지, confidence 표시 및 75% 자동 적용 게이트.
+- GRID-001 algorithm v2에서 binary alpha topology를 격자 증거로 추가해 희소한 4×4 clean pixel art 감지를 수정하고, canvas read·sheet slicing·alpha scan·Sobel의 전체 main-thread chunk 계측과 fail-closed 증거 검사를 추가.
+- X/Y 수동 격자 입력과 잠금, 제외 margin overlay, 전체 이미지·다중 파일·스프라이트 시트 프레임별 정규화 분석 및 단일 sequence grid lock 지원.
+- alpha-weighted sRGB 셀 대표색, full-cell 전용 출력, additive `processing.grid` 결과 메타데이터, 4M 자동 분석 상한과 취소 가능한 chunk 처리 추가.
+
+### 검증
+
+- CELL-001 exact 값·tie-break·threshold·1×·경로·결정성 검사를 통과하고 기본 시각 해시 2개와 QLT fixture 12개를 유지했으며, fresh localhost 데스크톱·모바일·설정·실제 크기 QA를 완료했다. 전체 fixture 채택 게이트를 넘은 후보가 없어 `mean-srgb` 기본값을 유지하고 실험 후보를 preset으로 승격하지 않았다.
+- 분리된 clean 3/4/8px grid, ±1px wobble, photo-like false-positive, 시트 집계, 결정성 및 4M 성능 자동 게이트 통과. 희소 경계 `clean-pixel-art`는 낮은 신뢰도로 자동 적용을 차단하고 수동 격자를 요구하는 알려진 한계가 있어, 실제 브라우저 QA와 독립 Sol xhigh 재검토 전까지 `NEEDS_REVIEW` 상태 유지.
+
+## [1.8.0] - 2026-08-19
+
+### 추가
+
+- 다중 파일 및 스프라이트 시트 프레임 대상 애니메이션 검수 모달(`#animModal`) 추가 (ANI-001).
+- 2개 이상 결과 파일 또는 시트 변환 결과 존재 시 결과 툴바에 `애니메이션 검수` 버튼 자동 노출.
+- 다중 파일 시퀀스(업로드 파일명 오름차순 + 추가 순서 tie-break) 및 스프라이트 시트 프레임 분할(row-major, 최대 256프레임 상한) 지원.
+- 1~30 FPS 가변 속도 재생(기본 8 FPS), 루프 토글, 이전/다음 프레임 스텝 이동 및 1×/2×/8× 퀵 줌 제어.
+- `Space`(재생/일시정지), `←`/`→`(프레임 이동), `B`(배경 순환), `Esc`(모달 닫기) 단축키 지원 (텍스트 입력창 포커스 시 단축키 비활성화).
+- 공유 팔레트, 격자 잠금, 디더링 안정성 정책 상태 칩(`#animPolicyChips`) 표시.
+- `prefers-reduced-motion: reduce` 감지 시 일시정지 초기 진입 및 모달 닫기·백그라운드 탭 전환 시 완전한 타이머 해제(누수 방지).
+
+### 수정
+
+- 제거된 팔레트 체크박스의 이벤트 연결 때문에 전체 애플리케이션 초기화가 중단되던 오류 수정.
+- 애니메이션 모달의 텍스트 제어 버튼이 32px 아이콘 폭에 눌리던 데스크톱·모바일 레이아웃 오류 수정.
+- dialog semantics, 포커스 trap·복귀, 재생 중 frame live announcement 억제를 추가해 키보드·스크린 리더 동작 보완.
+- 업로드 승인 순서 `addedIndex`를 결과·로그까지 유지하고, 디더링 metadata가 없을 때 `꺼짐` 대신 `확인 불가`로 표시하도록 수정.
+- ANI 검사가 복제 알고리즘이 아니라 HTML의 실제 함수들을 추출해 실행하고, 브라우저·10분 재생 증거가 없으면 자동으로 `DONE` 처리하지 않도록 강화.
+
+## [1.7.0] - 2026-08-19
+
+### 추가
+
+- 미리보기 배경 7종 지원: 기본 격자(`checker`), 흰색(`white`), 검은색(`black`), 고채도 녹색(`green`, `#00FF00`), 고채도 마젠타(`magenta`, `#FF00FF`), 고채도 시안(`cyan`, `#00FFFF`), 사용자 지정 색상(`custom`, `#RRGGBB`) (ALP-001).
+- 툴바 및 모달의 `배경 (B)` 버튼과 전역 `B` 단축키를 통한 배경 즉시 순환 기능 (텍스트 입력창 포커스 시 단축키 자동 비활성화).
+- 노이즈 제거 및 외곽선 처리 전 순수 논리 alpha 채널 대상 고속 진단 함수 `computeAlphaDiagnostics` 구현.
+- 4-이웃 연결성 기반 고립 섬(islands, 면적 $\le 4$) 및 부분 알파($0 < \alpha < 255$) 자동 진단 및 스프라이트 시트 프레임 경계 격리.
+- 결과 카드 메타데이터에 `부분 알파 N · 작은 섬 M` (0건 시 `부분 알파 없음 · 고립 섬 없음`, 구형 로그 `알파 진단: 기록 없음`) 요약 표시.
+- 모달 내 `알파 진단` 토글 버튼과 고립 섬 위치를 반투명 노란색 영역 및 테두리로 강조하는 오버레이 캔버스(`#modalAlphaOverlay`) 추가.
+- 결과 JSON의 `diagnostics.alpha` (`partialAlphaCount`, `islandCount`, `islandPixelCount`, `threshold`) 메타데이터 출력.
+
 ## [1.6.0] - 2026-08-19
 
 ### 추가

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-K1zoyUoXkcoUC6fiQBXMO6hhr832xcXlf8TP30HIvVE='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-scbQuBLH8V4KWjBs8NX0JfJshO1j/Uc5q9HE/EebSws='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
 <!--
 <!-- Inactive historical CSP declarations:
 Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
@@ -220,6 +220,21 @@ Legacy hash declaration:
   .frame-calculation .valid{color:var(--accent);}
   .frame-calculation .warning{color:var(--accent-2);}
   .frame-calculation .error{color:var(--danger);}
+  .frame-calculation.valid{color:var(--accent);}
+  .frame-calculation.warning{color:var(--accent-2);}
+  .frame-calculation.error{color:var(--danger);}
+  .grid-analysis-actions{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0;}
+  .grid-analysis-actions button{margin-top:0; flex:1 1 120px;}
+  .grid-analysis-preview{
+    display:none; margin-top:10px; max-height:280px; overflow:auto;
+    border:2px solid var(--line); background:var(--panel-2); padding:6px;
+  }
+  .grid-analysis-preview canvas{display:block; max-width:100%; height:auto; image-rendering:auto;}
+  .grid-analysis-legend{display:flex; gap:12px; flex-wrap:wrap; margin-top:6px; font-size:10px; color:var(--ink-dim);}
+  .grid-analysis-legend span::before{content:""; display:inline-block; width:18px; margin-right:5px; vertical-align:middle;}
+  .grid-analysis-legend .vertical::before{border-top:2px solid #ff2da8;}
+  .grid-analysis-legend .horizontal::before{border-top:2px dashed #00e5ff;}
+  .grid-manual-fields input:invalid{border-color:var(--danger);}
 
   .toggle{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink); cursor:pointer; user-select:none; font-family:var(--pixel-kr);}
   .toggle input{width:15px;height:15px; accent-color:var(--accent);}
@@ -380,6 +395,18 @@ Legacy hash declaration:
   .preview.bg-black, .modal-canvas-wrap.bg-black {
     background: #000000 !important;
   }
+  .preview.bg-green, .modal-canvas-wrap.bg-green {
+    background: #00ff00 !important;
+  }
+  .preview.bg-magenta, .modal-canvas-wrap.bg-magenta {
+    background: #ff00ff !important;
+  }
+  .preview.bg-cyan, .modal-canvas-wrap.bg-cyan {
+    background: #00ffff !important;
+  }
+  .preview.bg-custom, .modal-canvas-wrap.bg-custom {
+    background: var(--custom-preview-bg, #ffaa00) !important;
+  }
   .preview.bg-checker, .modal-canvas-wrap.bg-checker {
     background:
       linear-gradient(45deg,#e0e0e0 25%,transparent 25%),
@@ -393,6 +420,15 @@ Legacy hash declaration:
   .modal-canvas-wrap.bg-checker {
     background-size:16px 16px !important;
     background-position:0 0,0 8px,8px -8px,-8px 0 !important;
+  }
+  .modal-alpha-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    z-index: 3;
   }
 
   button.primary{
@@ -584,6 +620,12 @@ Legacy hash declaration:
     display:inline-flex; align-items:center; justify-content:center;
     font-size:16px !important; line-height:1;
   }
+  .modal-text-control, .anim-text-control{
+    width:auto; min-width:max-content; min-height:28px; height:auto;
+    padding:4px 8px !important; white-space:nowrap;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--pixel-kr); font-size:11px !important; line-height:1.2;
+  }
   .modal-grid-toggle[aria-pressed="true"],
   .modal-expand-toggle[aria-pressed="true"]{
     border-color:var(--accent); color:var(--accent); background:var(--line);
@@ -666,6 +708,73 @@ Legacy hash declaration:
     font-size:10.5px;
     line-height:1.5;
   }
+  .anim-policy-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    font-size: 11px;
+    font-family: var(--pixel-kr);
+    margin-top: 6px;
+  }
+  .anim-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: var(--panel-2);
+    color: var(--ink-dim);
+  }
+  .anim-chip.active {
+    border-color: var(--accent);
+    color: var(--ink);
+    background: var(--line);
+  }
+  .anim-chip.warn {
+    border-color: #ffaa00;
+    color: var(--ink);
+  }
+  .anim-playback-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .anim-playback-controls button:disabled,
+  .anim-playback-controls input:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .anim-fps-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  .anim-fps-control input[type="range"] {
+    width: 70px;
+  }
+  .anim-fps-control input[type="number"] {
+    width: 42px;
+    padding: 2px 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-align: center;
+  }
+  .anim-frame-indicator {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: bold;
+    min-width: 80px;
+    text-align: center;
+  }
   @media (max-width:620px){
     .result-search{width:100%; margin-left:0;}
     .result-search input{flex:1; width:auto;}
@@ -675,6 +784,7 @@ Legacy hash declaration:
       width:calc(100vw - 12px); height:calc(100vh - 12px); padding:8px;
     }
     .modal-view-controls{grid-template-columns:auto minmax(48px,1fr) auto auto auto auto auto; gap:6px;}
+    .anim-playback-controls{gap:4px;}
   }
 </style>
 </head>
@@ -768,6 +878,7 @@ Legacy hash declaration:
                   <select id="scaleMode">
                     <option value="square" selected>정사각 다운스케일 (기존)</option>
                     <option value="factor">정수 배율 축소 (비율 유지)</option>
+                    <option value="grid-repair">AI 픽셀 격자 복구 (실험)</option>
                     <option value="preserve-sheet">원본 규격 유지 (스프라이트 시트)</option>
                     <option value="original">크기 변환 없음</option>
                   </select>
@@ -819,6 +930,64 @@ Legacy hash declaration:
                   </div>
 
                   <div class="frame-calculation" id="factorCalculation" aria-live="polite"></div>
+                </div>
+
+                <div id="gridRepairOptions" style="display:none;">
+                  <p class="frame-size-note">실험 기능입니다. 격자를 분석한 뒤 결과와 제외 margin을 확인하고 직접 적용해야 합니다.</p>
+
+                  <div class="field">
+                    <div class="field-header">
+                      <label>분석 단위</label>
+                      <span class="help-container"><button class="help-btn" type="button" data-help="여러 파일은 하나의 시퀀스로 분석합니다. 시트 모드는 전체 시트가 아니라 각 프레임 profile을 정규화해 하나의 격자로 합칩니다.">?</button></span>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                      <label class="toggle"><input type="radio" name="gridFrameMode" value="whole" checked> 전체 이미지·다중 파일</label>
+                      <label class="toggle"><input type="radio" name="gridFrameMode" value="sheet"> 스프라이트 시트 프레임별</label>
+                    </div>
+                  </div>
+
+                  <div id="gridFrameSizeContainer" style="display:none;">
+                    <div class="field">
+                      <label>원본 프레임 크기</label>
+                      <div class="row2">
+                        <input type="number" id="gridFrameWidth" min="8" max="4096" step="1" value="64" aria-label="격자 분석 프레임 너비">
+                        <input type="number" id="gridFrameHeight" min="8" max="4096" step="1" value="64" aria-label="격자 분석 프레임 높이">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid-analysis-actions">
+                    <button type="button" class="primary" id="gridAnalyzeBtn">격자 분석</button>
+                    <button type="button" class="ghost" id="gridCancelBtn" disabled>분석 취소</button>
+                  </div>
+                  <div class="frame-calculation" id="gridAnalysisResult" role="status" aria-live="polite">분석 전입니다. 자동 적용하지 않습니다.</div>
+
+                  <div class="field grid-manual-fields" style="margin-top:12px;">
+                    <label>픽셀 크기 X / Y (2~32)</label>
+                    <div class="row2">
+                      <input type="number" id="gridSizeX" min="2" max="32" step="1" value="8" aria-label="격자 픽셀 크기 X">
+                      <input type="number" id="gridSizeY" min="2" max="32" step="1" value="8" aria-label="격자 픽셀 크기 Y">
+                    </div>
+                  </div>
+                  <div class="field grid-manual-fields">
+                    <label>offset X / Y</label>
+                    <div class="row2">
+                      <input type="number" id="gridPhaseX" min="0" max="7" step="1" value="0" aria-label="격자 offset X">
+                      <input type="number" id="gridPhaseY" min="0" max="7" step="1" value="0" aria-label="격자 offset Y">
+                    </div>
+                  </div>
+                  <label class="toggle"><input type="checkbox" id="gridManualLock"> 수동 값 잠금</label>
+                  <p class="frame-size-note">다중 파일·시트는 모든 프레임에 같은 격자를 강제 적용합니다.</p>
+                  <button type="button" class="primary" id="gridApplyBtn" disabled>이 격자 적용</button>
+                  <div class="frame-calculation" id="gridCropResult" aria-live="polite">적용할 격자가 없습니다.</div>
+
+                  <div class="grid-analysis-preview" id="gridAnalysisPreview">
+                    <canvas id="gridAnalysisCanvas" aria-label="감지된 격자와 제외 margin overlay"></canvas>
+                  </div>
+                  <div class="grid-analysis-legend" id="gridAnalysisLegend" style="display:none;">
+                    <span class="vertical">세로 경계: 자홍 실선</span>
+                    <span class="horizontal">가로 경계: 하늘 점선</span>
+                  </div>
                 </div>
 
                 <div id="downscaleOptions">
@@ -876,6 +1045,31 @@ Legacy hash declaration:
                       <option value="4" selected>4 × 4</option>
                       <option value="8">8 × 8</option>
                     </select>
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top:14px;">
+                  <label class="toggle">
+                    <input type="checkbox" id="showExperimentalFeatures" aria-controls="representativeColorField" aria-expanded="false">
+                    실험 기능 표시
+                  </label>
+                </div>
+                <div class="field" id="representativeColorField" style="display:none; border-left:2px solid var(--line); padding-left:11px;">
+                  <div class="field-header">
+                    <label for="representativeColor">셀 대표색</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="같은 셀 영역에서 RGB를 고르는 실험 방식입니다. 기본 sRGB 평균은 기존 결과를 유지하며 다른 후보는 작은 특징이나 밝기를 바꿀 수 있습니다.">?</button>
+                    </span>
+                  </div>
+                  <select id="representativeColor" disabled aria-describedby="representativeColorWarning">
+                    <option value="mean-srgb" selected>균형 평균 (sRGB, 기본)</option>
+                    <option value="mean-linear">선형광 평균</option>
+                    <option value="center">중앙 샘플</option>
+                    <option value="median">중앙값</option>
+                    <option value="majority">최빈색</option>
+                  </select>
+                  <div id="representativeColorWarning" class="frame-size-note" role="status" aria-live="polite" style="display:none; color:var(--ink-dim); margin-top:6px; background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
+                    실험 기능이며 작은 특징이 사라지거나 밝기가 달라질 수 있습니다.
                   </div>
                 </div>
               </div>
@@ -956,10 +1150,60 @@ Legacy hash declaration:
             </div>
           </div>
 
-          <!-- Accordion Item 4: 노이즈 필터 -->
+          <!-- Accordion Item 4: 투명도 처리 -->
+          <div class="accordion-item collapsed" id="accordionAlpha">
+            <div class="accordion-header">
+              <span>4. 투명도 처리</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content-wrapper">
+              <div class="accordion-content">
+                <fieldset class="field" style="border:none; padding:0; margin:0;">
+                  <legend class="field-header" style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <label>투명도 처리 방식</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="임계값(threshold) 미만 픽셀은 투명(0)으로 처리됩니다. 선명한 스프라이트(binary)는 임계값 이상 픽셀의 알파를 255로 변환하고, 픽셀 점유율 유지(coverage)는 원본의 부분 투명도(1~255)를 유지합니다.">?</button>
+                    </span>
+                  </legend>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <label class="toggle">
+                      <input type="radio" name="alphaMode" id="alphaModeBinary" value="binary" checked>
+                      선명한 스프라이트 (0/255)
+                    </label>
+                    <label class="toggle">
+                      <input type="radio" name="alphaMode" id="alphaModeCoverage" value="coverage">
+                      픽셀 점유율 유지 (부분 투명도)
+                    </label>
+                  </div>
+                  <div id="alphaCoverageWarning" class="frame-size-note" style="color:var(--ink-dim); margin-top:8px; display:none; background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px; font-size:12px;">
+                    일부 엔진·팔레트 워크플로는 부분 투명도를 다르게 처리할 수 있습니다.
+                  </div>
+                </fieldset>
+
+                <div class="field" style="margin-top:14px;">
+                  <div class="field-header">
+                    <label for="alphaThresholdRange">투명도 임계값 (1~254)</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="임계값 미만의 알파 값을 가진 픽셀은 배경(완전 투명, 0)으로 간주되어 팔레트 샘플링 및 결과물에서 제외됩니다.">?</button>
+                    </span>
+                  </div>
+                  <div class="row2" style="margin-top:8px;">
+                    <input type="range" id="alphaThresholdRange" min="1" max="254" value="10" aria-label="투명도 임계값 슬라이더">
+                    <input type="number" id="alphaThresholdNum" min="1" max="254" value="10" aria-label="투명도 임계값 숫자 입력">
+                  </div>
+                </div>
+
+                <div id="alphaDiagnosticsSummary" style="margin-top:10px; font-family:var(--mono); font-size:11.5px; color:var(--ink-dim);">
+                  현재 결과에는 부분 알파 0개가 있습니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion Item 5: 노이즈 필터 -->
           <div class="accordion-item collapsed" id="accordionNoise">
             <div class="accordion-header">
-              <span>4. 노이즈 필터</span>
+              <span>5. 노이즈 필터</span>
               <span class="accordion-icon">▼</span>
             </div>
             <div class="accordion-content-wrapper">
@@ -983,10 +1227,10 @@ Legacy hash declaration:
             </div>
           </div>
 
-          <!-- Accordion Item 5: 외곽선 효과 -->
+          <!-- Accordion Item 6: 외곽선 효과 -->
           <div class="accordion-item collapsed" id="accordionOutline">
             <div class="accordion-header">
-              <span>5. 외곽선 효과</span>
+              <span>6. 외곽선 효과</span>
               <span class="accordion-icon">▼</span>
             </div>
             <div class="accordion-content-wrapper">
@@ -1032,10 +1276,10 @@ Legacy hash declaration:
             </div>
           </div>
 
-          <!-- Accordion Item 6: 내보내기 설정 -->
+          <!-- Accordion Item 7: 내보내기 설정 -->
           <div class="accordion-item collapsed" id="accordionExport">
             <div class="accordion-header">
-              <span>6. 내보내기 설정</span>
+              <span>7. 내보내기 설정</span>
               <span class="accordion-icon">▼</span>
             </div>
             <div class="accordion-content-wrapper">
@@ -1107,6 +1351,8 @@ Legacy hash declaration:
             <span>검색:</span>
             <input type="search" id="resultSearch" placeholder="이미지 이름 검색" autocomplete="off">
           </label>
+          <button class="ghost" id="previewBgCycleBtn" type="button" title="미리보기 배경 순환 (단축키: B)" aria-label="미리보기 배경 순환">배경 (B)</button>
+          <button class="ghost" id="animReviewBtn" type="button" style="display:none;" title="다중 파일·시트 프레임 애니메이션 검수" aria-label="다중 파일·시트 프레임 애니메이션 검수">애니메이션 검수</button>
         </div>
         <div id="results" class="empty">아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.</div>
       </div>
@@ -1148,6 +1394,7 @@ Legacy hash declaration:
           <div class="modal-pane-label" id="modalResultLabel" style="display:none;">결과</div>
           <div class="modal-pane-canvas-wrap" id="modalResultCanvasWrap">
             <div class="modal-pixel-grid" id="modalPixelGrid"></div>
+            <canvas class="modal-alpha-overlay" id="modalAlphaOverlay" style="display:none;"></canvas>
           </div>
         </div>
       </div>
@@ -1166,10 +1413,66 @@ Legacy hash declaration:
       <output class="modal-zoom-value" id="modalZoomValue" for="modalZoomRange">1배</output>
       <button class="ghost modal-view-reset" id="modalViewReset" aria-label="보기 초기화" title="보기 초기화">↶</button>
       <button class="ghost modal-view-reset modal-grid-toggle" id="modalGridToggle" aria-label="1픽셀 격자 보기" title="1픽셀 격자 보기" aria-pressed="false">▦</button>
+      <button class="ghost modal-view-reset modal-text-control" id="modalBgCycleBtn" aria-label="배경 순환 (단축키: B)" title="배경 순환 (단축키: B)">배경 (B)</button>
+      <button class="ghost modal-view-reset modal-text-control modal-alpha-toggle" id="modalAlphaDiagToggle" aria-label="알파 진단 및 고립 섬 표시" title="알파 진단 및 고립 섬 표시" aria-pressed="false" disabled>알파 진단</button>
       <button class="ghost modal-view-reset modal-expand-toggle" id="modalExpandToggle" aria-label="페이지 안에서 넓게 보기" title="페이지 안에서 넓게 보기" aria-pressed="false">⛶</button>
     </div>
     <div id="modalFallbackNotice" class="frame-size-note" style="display:none; color:var(--ink-dim); text-align:center; margin-top:2px;">저장된 로그에는 원본 이미지가 없습니다.</div>
     <div class="modal-title" id="modalTitle"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="animModal" role="dialog" aria-modal="true" aria-labelledby="animModalTitle">
+  <div class="modal-box">
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%; gap:8px;">
+      <div style="display:flex; align-items:center; gap:8px; flex:1; overflow:hidden;">
+        <span id="animModalTitle" style="font-family:var(--pixel-kr); font-size:12px; font-weight:bold; color:var(--ink); white-space:nowrap;">애니메이션 검수</span>
+        <select id="animSourceSelect" style="max-width:280px; font-size:11px;" aria-label="애니메이션 검수 대상 선택"></select>
+      </div>
+      <button class="modal-close" id="animClose" type="button">✕ 닫기</button>
+    </div>
+
+    <div class="modal-canvas-wrap" id="animCanvasWrap" tabindex="0" aria-label="애니메이션 뷰포트 영역">
+      <div class="modal-canvas-stage" id="animCanvasStage">
+        <canvas id="animCanvas" style="image-rendering:pixelated; image-rendering:crisp-edges; display:block;"></canvas>
+        <div class="modal-pixel-grid" id="animPixelGrid"></div>
+      </div>
+    </div>
+
+    <!-- Playback & View Controls -->
+    <div class="anim-playback-controls" aria-label="애니메이션 재생 제어">
+      <button class="ghost anim-text-control" id="animPlayPauseBtn" type="button" aria-label="재생/일시정지 (단축키: Space)" title="재생/일시정지 (단축키: Space)" aria-pressed="true">❚❚ 일시정지</button>
+      <button class="ghost modal-view-reset" id="animPrevBtn" type="button" aria-label="이전 프레임 (단축키: ←)" title="이전 프레임 (단축키: ←)">◀</button>
+      <button class="ghost modal-view-reset" id="animNextBtn" type="button" aria-label="다음 프레임 (단축키: →)" title="다음 프레임 (단축키: →)">▶</button>
+      <button class="ghost anim-text-control active" id="animLoopBtn" type="button" aria-label="반복 재생 토글" title="반복 재생 토글" aria-pressed="true">반복 켜짐</button>
+
+      <div class="anim-fps-control">
+        <span>FPS:</span>
+        <input type="range" id="animFpsRange" min="1" max="30" value="8" step="1" aria-label="재생 속도 (FPS)">
+        <input type="number" id="animFpsNumber" min="1" max="30" value="8" aria-label="재생 속도 숫자 입력">
+      </div>
+
+      <div class="anim-frame-indicator" id="animFrameLabel" role="status" aria-live="polite" aria-atomic="true">1 / 1</div>
+
+      <!-- Quick zoom & reset -->
+      <div class="modal-quick-zoom-group" role="group" aria-label="빠른 배율 선택">
+        <button class="ghost modal-quick-zoom" id="animZoom1x" type="button" data-zoom="1" aria-pressed="false">1×</button>
+        <button class="ghost modal-quick-zoom" id="animZoom2x" type="button" data-zoom="2" aria-pressed="false">2×</button>
+        <button class="ghost modal-quick-zoom" id="animZoom8x" type="button" data-zoom="8" aria-pressed="false">8×</button>
+      </div>
+      <button class="ghost modal-view-reset modal-grid-toggle" id="animGridToggle" type="button" aria-label="1픽셀 격자 보기" title="1픽셀 격자 보기" aria-pressed="false">▦</button>
+      <button class="ghost anim-text-control" id="animBgCycleBtn" type="button" aria-label="배경 순환 (단축키: B)" title="배경 순환 (단축키: B)">배경 (B)</button>
+      <button class="ghost modal-view-reset modal-expand-toggle" id="animExpandToggle" type="button" aria-label="페이지 안에서 넓게 보기" title="페이지 안에서 넓게 보기" aria-pressed="false">⛶</button>
+    </div>
+
+    <!-- Policy Status Chips -->
+    <div class="anim-policy-chips" id="animPolicyChips" aria-label="애니메이션 안정성 상태">
+      <span class="anim-chip" id="animChipPalette">공유 팔레트: 확인 중</span>
+      <span class="anim-chip" id="animChipGrid">격자 잠금: 확인 중</span>
+      <span class="anim-chip" id="animChipDither">디더링: 확인 불가</span>
+    </div>
+
+    <div id="animNotice" class="frame-size-note" style="display:none; color:var(--ink-dim); text-align:center; white-space:pre-line; margin-top:2px;"></div>
   </div>
 </div>
 
@@ -1181,7 +1484,7 @@ Legacy hash declaration:
     </div>
     
     <div class="field settings-section">
-      <label class="settings-section-title">미리보기 배경설정</label>
+      <label class="settings-section-title">미리보기 배경설정 (단축키: B로 순환)</label>
       <div class="settings-options">
         <label class="toggle">
           <input type="radio" name="previewBg" value="checker" checked>
@@ -1194,6 +1497,24 @@ Legacy hash declaration:
         <label class="toggle">
           <input type="radio" name="previewBg" value="black">
           Black (검은색)
+        </label>
+        <label class="toggle">
+          <input type="radio" name="previewBg" value="green">
+          Green (#00FF00 고채도 녹색)
+        </label>
+        <label class="toggle">
+          <input type="radio" name="previewBg" value="magenta">
+          Magenta (#FF00FF 고채도 마젠타)
+        </label>
+        <label class="toggle">
+          <input type="radio" name="previewBg" value="cyan">
+          Cyan (#00FFFF 고채도 시안)
+        </label>
+        <label class="toggle" style="display:flex; align-items:center; gap:8px;">
+          <input type="radio" name="previewBg" value="custom">
+          Custom Color:
+          <input type="color" id="customBgPicker" value="#ffaa00" style="width:28px; height:24px; padding:0; border:1px solid var(--line); cursor:pointer;">
+          <input type="text" id="customBgText" value="#FFAA00" maxlength="7" style="width:75px; padding:2px 4px; font-family:var(--mono); font-size:11px; text-transform:uppercase;">
         </label>
       </div>
     </div>
@@ -1216,8 +1537,10 @@ Legacy hash declaration:
 <div id="globalHelpBubble" role="tooltip" aria-hidden="true"></div>
 
 <script>
-let uploadedFiles = []; // {name, img}
+let uploadedFiles = []; // {name, img, size, addedIndex}
 let lastResults = [];   // {name, canvas, jsonData}
+let nextUploadAddedIndex = 0;
+let gridAnalysisState = { result: null, applied: null, token: 0, busy: false, elapsedMs: 0 };
 const ALLOWED_IMAGE_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/bmp', 'image/avif']);
 const MAX_FILE_COUNT = 40;
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
@@ -1229,6 +1552,8 @@ const MAX_PALETTE_SAMPLES = 50000;
 const MAX_COLOR_COMPARISONS = 80000000;
 const MAX_STORED_RESULT_DIMENSION = 4096 + 60;
 const MAX_STORED_DATA_URL_CHARS = 110 * 1024 * 1024;
+const MAX_STORED_ALPHA_MATRIX_BYTES = 16 * 1024 * 1024;
+const MAX_STORED_RESULT_JSON_BYTES = 32 * 1024 * 1024;
 
 // ---------- DOM 요소 참조 ----------
 const themeToggle = document.getElementById('themeToggle');
@@ -1253,12 +1578,33 @@ const factorFrameSizeContainer = document.getElementById('factorFrameSizeContain
 const factorFrameWidthInput = document.getElementById('factorFrameWidth');
 const factorFrameHeightInput = document.getElementById('factorFrameHeight');
 const factorCalculationEl = document.getElementById('factorCalculation');
+const gridRepairOptions = document.getElementById('gridRepairOptions');
+const gridFrameSizeContainer = document.getElementById('gridFrameSizeContainer');
+const gridFrameWidthInput = document.getElementById('gridFrameWidth');
+const gridFrameHeightInput = document.getElementById('gridFrameHeight');
+const gridAnalyzeBtn = document.getElementById('gridAnalyzeBtn');
+const gridCancelBtn = document.getElementById('gridCancelBtn');
+const gridAnalysisResult = document.getElementById('gridAnalysisResult');
+const gridSizeXInput = document.getElementById('gridSizeX');
+const gridSizeYInput = document.getElementById('gridSizeY');
+const gridPhaseXInput = document.getElementById('gridPhaseX');
+const gridPhaseYInput = document.getElementById('gridPhaseY');
+const gridManualLock = document.getElementById('gridManualLock');
+const gridApplyBtn = document.getElementById('gridApplyBtn');
+const gridCropResult = document.getElementById('gridCropResult');
+const gridAnalysisPreview = document.getElementById('gridAnalysisPreview');
+const gridAnalysisCanvas = document.getElementById('gridAnalysisCanvas');
+const gridAnalysisLegend = document.getElementById('gridAnalysisLegend');
 const sizeSel = document.getElementById('size');
 const methodSel = document.getElementById('method');
 const frameWidthInput = document.getElementById('frameWidth');
 const frameHeightInput = document.getElementById('frameHeight');
 const pixelBlockSizeSel = document.getElementById('pixelBlockSize');
 const frameCalculationEl = document.getElementById('frameCalculation');
+const showExperimentalFeatures = document.getElementById('showExperimentalFeatures');
+const representativeColorField = document.getElementById('representativeColorField');
+const representativeColorSel = document.getElementById('representativeColor');
+const representativeColorWarning = document.getElementById('representativeColorWarning');
 
 const paletteModeSel = document.getElementById('paletteMode');
 const paletteAutoControls = document.getElementById('paletteAutoControls');
@@ -1275,7 +1621,13 @@ const customPaletteWarning = document.getElementById('customPaletteWarning');
 const customPaletteChips = document.getElementById('customPaletteChips');
 const paletteSharedField = document.getElementById('paletteSharedField');
 const sharedCheck = document.getElementById('shared');
-const paletteEnabledCheck = null;
+
+const alphaModeBinaryRadio = document.getElementById('alphaModeBinary');
+const alphaModeCoverageRadio = document.getElementById('alphaModeCoverage');
+const alphaThresholdRange = document.getElementById('alphaThresholdRange');
+const alphaThresholdNum = document.getElementById('alphaThresholdNum');
+const alphaCoverageWarning = document.getElementById('alphaCoverageWarning');
+const alphaDiagnosticsSummary = document.getElementById('alphaDiagnosticsSummary');
 
 const cleanEnabledCheck = document.getElementById('cleanEnabled');
 const cleanControls = document.getElementById('cleanControls');
@@ -1359,15 +1711,75 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ---------- 미리보기 배경 및 환경설정 제어 ----------
-const ALLOWED_PREVIEW_BACKGROUNDS = new Set(['checker', 'white', 'black']);
+const ALLOWED_PREVIEW_BACKGROUNDS = new Set(['checker', 'white', 'black', 'green', 'magenta', 'cyan', 'custom']);
+const BG_CYCLE_ORDER = ['checker', 'white', 'black', 'green', 'magenta', 'cyan', 'custom'];
+
 const storedPreviewBg = localStorage.getItem('previewBg');
 let currentPreviewBg = ALLOWED_PREVIEW_BACKGROUNDS.has(storedPreviewBg) ? storedPreviewBg : 'checker';
+
+const storedCustomBg = localStorage.getItem('previewCustomBg');
+let currentCustomBg = (storedCustomBg && /^#[0-9a-fA-F]{6}$/.test(storedCustomBg)) ? storedCustomBg.toUpperCase() : '#FFAA00';
+
 let persistLogsEnabled = localStorage.getItem('persistLogs') === 'true';
 
 function applyPreviewBg() {
-  document.querySelectorAll('.preview, #modalCanvasWrap').forEach(el => {
-    el.classList.remove('bg-white', 'bg-black', 'bg-checker');
+  document.documentElement.style.setProperty('--custom-preview-bg', currentCustomBg);
+  document.querySelectorAll('.preview, #modalCanvasWrap, #animCanvasWrap').forEach(el => {
+    el.classList.remove('bg-white', 'bg-black', 'bg-checker', 'bg-green', 'bg-magenta', 'bg-cyan', 'bg-custom');
     el.classList.add('bg-' + currentPreviewBg);
+  });
+}
+
+function cyclePreviewBg() {
+  const idx = BG_CYCLE_ORDER.indexOf(currentPreviewBg);
+  currentPreviewBg = BG_CYCLE_ORDER[(idx + 1) % BG_CYCLE_ORDER.length];
+  localStorage.setItem('previewBg', currentPreviewBg);
+  applyPreviewBg();
+  const currentRadio = document.querySelector(`input[name="previewBg"][value="${currentPreviewBg}"]`);
+  if (currentRadio) currentRadio.checked = true;
+}
+
+// B 단축키로 배경 순환 (텍스트 입력창 제외)
+document.addEventListener('keydown', (e) => {
+  if ((e.key === 'b' || e.key === 'B') && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    const activeEl = document.activeElement;
+    const tag = activeEl?.tagName?.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || activeEl?.isContentEditable) {
+      return;
+    }
+    const openAnimDialog = document.getElementById('animModal');
+    const animBackgroundControl = document.getElementById('animBgCycleBtn');
+    if (openAnimDialog?.classList.contains('open') && animBackgroundControl?.disabled) return;
+    cyclePreviewBg();
+  }
+});
+
+const previewBgCycleBtn = document.getElementById('previewBgCycleBtn');
+if (previewBgCycleBtn) {
+  previewBgCycleBtn.addEventListener('click', cyclePreviewBg);
+}
+
+const modalBgCycleBtn = document.getElementById('modalBgCycleBtn');
+if (modalBgCycleBtn) {
+  modalBgCycleBtn.addEventListener('click', cyclePreviewBg);
+}
+
+const customBgPicker = document.getElementById('customBgPicker');
+const customBgText = document.getElementById('customBgText');
+
+if (customBgPicker && customBgText) {
+  customBgPicker.addEventListener('input', () => {
+    customBgText.value = customBgPicker.value.toUpperCase();
+    const customRadio = document.querySelector('input[name="previewBg"][value="custom"]');
+    if (customRadio) customRadio.checked = true;
+  });
+  customBgText.addEventListener('input', () => {
+    const val = customBgText.value.trim();
+    if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+      customBgPicker.value = val;
+      const customRadio = document.querySelector('input[name="previewBg"][value="custom"]');
+      if (customRadio) customRadio.checked = true;
+    }
   });
 }
 
@@ -1380,6 +1792,8 @@ const persistLogsCheck = document.getElementById('persistLogs');
 settingsToggle.addEventListener('click', () => {
   const currentRadio = document.querySelector(`input[name="previewBg"][value="${currentPreviewBg}"]`);
   if (currentRadio) currentRadio.checked = true;
+  if (customBgPicker) customBgPicker.value = currentCustomBg;
+  if (customBgText) customBgText.value = currentCustomBg;
   persistLogsCheck.checked = persistLogsEnabled;
   settingsModal.classList.add('open');
 });
@@ -1392,6 +1806,13 @@ settingsClose.addEventListener('click', closeSettings);
 settingsConfirm.addEventListener('click', () => {
   const checkedRadio = document.querySelector('input[name="previewBg"]:checked');
   if (checkedRadio && ALLOWED_PREVIEW_BACKGROUNDS.has(checkedRadio.value)) {
+    if (checkedRadio.value === 'custom' && customBgText) {
+      const val = customBgText.value.trim();
+      if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+        currentCustomBg = val.toUpperCase();
+        localStorage.setItem('previewCustomBg', currentCustomBg);
+      }
+    }
     currentPreviewBg = checkedRadio.value;
     localStorage.setItem('previewBg', currentPreviewBg);
     applyPreviewBg();
@@ -1416,6 +1837,7 @@ tabResultsBtn.addEventListener('click', () => {
 });
 
 tabLogsBtn.addEventListener('click', () => {
+  if (typeof closeAnimModal === 'function') closeAnimModal(false);
   tabLogsBtn.classList.add('active');
   tabResultsBtn.classList.remove('active');
   tabResults.style.display = 'none';
@@ -1447,6 +1869,12 @@ function initDB() {
 
 function saveLogToDB(fileNames, settings, resultsData) {
   if (!db) return;
+  const storageIssue = getResultLogStorageIssue(resultsData);
+  if (storageIssue) {
+    statusEl.textContent = `완료 — ${resultsData.length}개 이미지 처리됨 · ${storageIssue.name} 결과 JSON이 작업 기록 한도(${formatSize(storageIssue.limit)})를 넘어 로그 저장을 생략했습니다. PNG·JSON 다운로드는 계속 사용할 수 있습니다.`;
+    statusEl.classList.remove('busy');
+    return;
+  }
   const logEntry = {
     timestamp: new Date(),
     fileNames: fileNames,
@@ -1581,9 +2009,19 @@ const DEFAULT_SETTINGS = Object.freeze({
   method: 'box',
   factor: 4,
   factorFrameMode: 'whole',
+  gridFrameMode: 'whole',
+  gridFrameWidth: 64,
+  gridFrameHeight: 64,
+  gridSizeX: 8,
+  gridSizeY: 8,
+  gridPhaseX: 0,
+  gridPhaseY: 0,
+  gridSource: 'manual',
+  gridLockedAcrossFrames: true,
   frameWidth: 64,
   frameHeight: 64,
   pixelBlockSize: 4,
+  representativeColor: 'mean-srgb',
   paletteMode: 'auto',
   customPalette: [],
   paletteEnabled: true,
@@ -1595,7 +2033,9 @@ const DEFAULT_SETTINGS = Object.freeze({
   outlineWidth: 1,
   outlineColor: '#000000',
   outlineShape: '4',
-  exportNearestScales: []
+  exportNearestScales: [],
+  alphaMode: 'binary',
+  alphaThreshold: 10
 });
 
 const PRESETS = Object.freeze({
@@ -1617,7 +2057,7 @@ const PRESETS = Object.freeze({
 });
 
 function normalizeScaleMode(s) {
-  if (s && ['square', 'factor', 'preserve-sheet', 'original'].includes(s.scaleMode)) return s.scaleMode;
+  if (s && ['square', 'factor', 'grid-repair', 'preserve-sheet', 'original'].includes(s.scaleMode)) return s.scaleMode;
   return s && s.downscaleEnabled === false ? 'original' : 'square';
 }
 
@@ -1632,10 +2072,16 @@ function getSettingsSummary(s) {
     } else {
       parts.push(`배율:÷${s.factor ?? 4}`);
     }
+  } else if (scaleMode === 'grid-repair') {
+    const frameText = s.gridFrameMode === 'sheet' ? `, 시트 ${s.gridFrameWidth ?? 64}×${s.gridFrameHeight ?? 64}` : '';
+    parts.push(`격자:${s.gridSizeX ?? 8}×${s.gridSizeY ?? 8}, offset ${s.gridPhaseX ?? 0}/${s.gridPhaseY ?? 0}${frameText}`);
   } else if (scaleMode === 'preserve-sheet') {
     parts.push(`규격유지:${s.frameWidth ?? 64}×${s.frameHeight ?? 64}, 블록:${s.pixelBlockSize ?? 4}`);
   } else {
     parts.push('크기:원본');
+  }
+  if (s.representativeColor && s.representativeColor !== 'mean-srgb') {
+    parts.push(`대표색:${s.representativeColor}`);
   }
   if (s.paletteMode === 'custom') {
     const customCount = Array.isArray(s.customPalette) ? s.customPalette.length : (s.colors || 0);
@@ -1658,6 +2104,9 @@ function getSettingsSummary(s) {
   if (Array.isArray(s.exportNearestScales) && s.exportNearestScales.length > 0) {
     parts.push(`확대출력:${s.exportNearestScales.map(sc => sc + '×').join(',')}`);
   }
+  if (s.alphaMode === 'coverage' || (s.alphaThreshold !== undefined && s.alphaThreshold !== 10)) {
+    parts.push(`알파:${s.alphaMode === 'coverage' ? 'coverage' : 'binary'}(${s.alphaThreshold ?? 10})`);
+  }
   return parts.join(' | ');
 }
 
@@ -1667,6 +2116,7 @@ function readUiSettings() {
   const method = methodSel ? methodSel.value : 'box';
   const factor = factorInput ? parseInt(factorInput.value, 10) : 4;
   const factorFrameMode = document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole';
+  const gridFrameMode = document.querySelector('input[name="gridFrameMode"]:checked')?.value || 'whole';
   const frameWidth = scaleMode === 'factor'
     ? (factorFrameWidthInput ? parseInt(factorFrameWidthInput.value, 10) : 64)
     : (frameWidthInput ? parseInt(frameWidthInput.value, 10) : 64);
@@ -1674,6 +2124,7 @@ function readUiSettings() {
     ? (factorFrameHeightInput ? parseInt(factorFrameHeightInput.value, 10) : 64)
     : (frameHeightInput ? parseInt(frameHeightInput.value, 10) : 64);
   const pixelBlockSize = pixelBlockSizeSel ? parseInt(pixelBlockSizeSel.value, 10) : 4;
+  const representativeColor = representativeColorSel ? representativeColorSel.value : 'mean-srgb';
   const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
   const parsedCustom = customPaletteText ? parseHexPalette(customPaletteText.value) : { hexes: [] };
   const customPalette = parsedCustom.hexes;
@@ -1689,6 +2140,8 @@ function readUiSettings() {
   const outlineColorVal = outlineColor ? outlineColor.value : '#000000';
   const outlineShapeVal = outlineShape ? outlineShape.value : '4';
   const exportNearestScales = getSelectedNearestScales();
+  const alphaMode = (alphaModeCoverageRadio && alphaModeCoverageRadio.checked) ? 'coverage' : 'binary';
+  const alphaThreshold = alphaThresholdNum ? parseInt(alphaThresholdNum.value, 10) : (alphaThresholdRange ? parseInt(alphaThresholdRange.value, 10) : 10);
 
   return {
     scaleMode,
@@ -1696,9 +2149,19 @@ function readUiSettings() {
     method,
     factor,
     factorFrameMode,
+    gridFrameMode,
+    gridFrameWidth: gridFrameWidthInput ? parseInt(gridFrameWidthInput.value, 10) : 64,
+    gridFrameHeight: gridFrameHeightInput ? parseInt(gridFrameHeightInput.value, 10) : 64,
+    gridSizeX: gridSizeXInput ? parseInt(gridSizeXInput.value, 10) : 8,
+    gridSizeY: gridSizeYInput ? parseInt(gridSizeYInput.value, 10) : 8,
+    gridPhaseX: gridPhaseXInput ? parseInt(gridPhaseXInput.value, 10) : 0,
+    gridPhaseY: gridPhaseYInput ? parseInt(gridPhaseYInput.value, 10) : 0,
+    gridSource: gridAnalysisState.applied?.source || (gridManualLock?.checked ? 'manual' : 'auto'),
+    gridLockedAcrossFrames: true,
     frameWidth,
     frameHeight,
     pixelBlockSize,
+    representativeColor,
     paletteMode,
     customPalette,
     paletteEnabled,
@@ -1710,7 +2173,9 @@ function readUiSettings() {
     outlineWidth,
     outlineColor: outlineColorVal,
     outlineShape: outlineShapeVal,
-    exportNearestScales
+    exportNearestScales,
+    alphaMode,
+    alphaThreshold: Number.isInteger(alphaThreshold) ? Math.max(1, Math.min(254, alphaThreshold)) : 10
   };
 }
 
@@ -1725,9 +2190,12 @@ function normalizeSettings(input, source = 'envelope') {
 
   const knownKeys = new Set([
     'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
-    'frameWidth', 'frameHeight', 'pixelBlockSize', 'paletteMode', 'customPalette',
+    'gridFrameMode', 'gridFrameWidth', 'gridFrameHeight', 'gridSizeX', 'gridSizeY',
+    'gridPhaseX', 'gridPhaseY', 'gridSource', 'gridLockedAcrossFrames',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode', 'customPalette',
     'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
     'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
+    'alphaMode', 'alphaThreshold',
     'downscaleEnabled', 'colorsNum', 'cleanNum', 'clean', 'outlineWidthNum'
   ]);
 
@@ -1738,7 +2206,7 @@ function normalizeSettings(input, source = 'envelope') {
   }
 
   if ('scaleMode' in input) {
-    if (!['square', 'factor', 'preserve-sheet', 'original'].includes(input.scaleMode)) {
+    if (!['square', 'factor', 'grid-repair', 'preserve-sheet', 'original'].includes(input.scaleMode)) {
       throw new Error(`유효하지 않은 scaleMode 값: ${input.scaleMode}`);
     }
     result.scaleMode = input.scaleMode;
@@ -1776,6 +2244,57 @@ function normalizeSettings(input, source = 'envelope') {
     result.factorFrameMode = input.factorFrameMode;
   }
 
+  if ('gridFrameMode' in input) {
+    if (!['whole', 'sheet'].includes(input.gridFrameMode)) {
+      throw new Error(`유효하지 않은 gridFrameMode 값: ${input.gridFrameMode}`);
+    }
+    result.gridFrameMode = input.gridFrameMode;
+  }
+
+  for (const key of ['gridFrameWidth', 'gridFrameHeight']) {
+    if (key in input) {
+      const val = Number(input[key]);
+      if (!Number.isInteger(val) || val < 8 || val > 4096) {
+        throw new Error(`${key}는 8~4096 범위의 정수여야 합니다: ${input[key]}`);
+      }
+      result[key] = val;
+    }
+  }
+
+  for (const key of ['gridSizeX', 'gridSizeY']) {
+    if (key in input) {
+      const val = Number(input[key]);
+      if (!Number.isInteger(val) || val < 2 || val > 32) {
+        throw new Error(`${key}는 2~32 범위의 정수여야 합니다: ${input[key]}`);
+      }
+      result[key] = val;
+    }
+  }
+
+  for (const [phaseKey, sizeKey] of [['gridPhaseX', 'gridSizeX'], ['gridPhaseY', 'gridSizeY']]) {
+    if (phaseKey in input) {
+      const val = Number(input[phaseKey]);
+      const sizeVal = Number(input[sizeKey] ?? result[sizeKey]);
+      if (!Number.isInteger(val) || val < 0 || val >= sizeVal) {
+        throw new Error(`${phaseKey}는 0~${sizeVal - 1} 범위의 정수여야 합니다: ${input[phaseKey]}`);
+      }
+      result[phaseKey] = val;
+    }
+  }
+
+  if ('gridSource' in input) {
+    if (!['auto', 'manual'].includes(input.gridSource)) {
+      throw new Error(`gridSource는 auto 또는 manual이어야 합니다: ${input.gridSource}`);
+    }
+    result.gridSource = input.gridSource;
+  }
+  if ('gridLockedAcrossFrames' in input) {
+    if (input.gridLockedAcrossFrames !== true) {
+      throw new Error('gridLockedAcrossFrames는 프레임 간 격자 흔들림을 막기 위해 true여야 합니다.');
+    }
+    result.gridLockedAcrossFrames = true;
+  }
+
   if ('frameWidth' in input) {
     const val = Number(input.frameWidth);
     if (!Number.isInteger(val) || val < 8 || val > 4096) {
@@ -1798,6 +2317,13 @@ function normalizeSettings(input, source = 'envelope') {
       throw new Error(`pixelBlockSize는 1, 2, 4, 8 중 하나여야 합니다: ${input.pixelBlockSize}`);
     }
     result.pixelBlockSize = val;
+  }
+
+  if ('representativeColor' in input) {
+    if (!['mean-srgb', 'mean-linear', 'center', 'median', 'majority'].includes(input.representativeColor)) {
+      throw new Error(`유효하지 않은 representativeColor 값: ${input.representativeColor}`);
+    }
+    result.representativeColor = input.representativeColor;
   }
 
   if ('paletteMode' in input) {
@@ -1920,6 +2446,21 @@ function normalizeSettings(input, source = 'envelope') {
     result.exportNearestScales = sanitized;
   }
 
+  if ('alphaMode' in input) {
+    if (!['binary', 'coverage'].includes(input.alphaMode)) {
+      throw new Error(`유효하지 않은 alphaMode 값: ${input.alphaMode}`);
+    }
+    result.alphaMode = input.alphaMode;
+  }
+
+  if ('alphaThreshold' in input) {
+    const val = Number(input.alphaThreshold);
+    if (!Number.isInteger(val) || val < 1 || val > 254) {
+      throw new Error(`alphaThreshold는 1~254 범위의 정수여야 합니다: ${input.alphaThreshold}`);
+    }
+    result.alphaThreshold = val;
+  }
+
   return { settings: result, warnings };
 }
 
@@ -1975,9 +2516,19 @@ const SETTING_LABELS = Object.freeze({
   method: '다운스케일 보간법',
   factor: '축소 배율',
   factorFrameMode: '정수 배율 프레임 분할',
+  gridFrameMode: '격자 분석 단위',
+  gridFrameWidth: '격자 시트 프레임 너비',
+  gridFrameHeight: '격자 시트 프레임 높이',
+  gridSizeX: '격자 픽셀 크기 X',
+  gridSizeY: '격자 픽셀 크기 Y',
+  gridPhaseX: '격자 offset X',
+  gridPhaseY: '격자 offset Y',
+  gridSource: '격자 출처',
+  gridLockedAcrossFrames: '프레임 간 격자 잠금',
   frameWidth: '프레임 너비',
   frameHeight: '프레임 높이',
   pixelBlockSize: '블록 크기',
+  representativeColor: '셀 대표색',
   paletteMode: '팔레트 방식',
   customPalette: '직접 지정 팔레트',
   paletteEnabled: '팔레트 제한 사용',
@@ -1989,21 +2540,29 @@ const SETTING_LABELS = Object.freeze({
   outlineWidth: '외곽선 굵기',
   outlineColor: '외곽선 색상',
   outlineShape: '외곽선 형태',
-  exportNearestScales: '추가 nearest 확대본'
+  exportNearestScales: '추가 nearest 확대본',
+  alphaMode: '투명도 처리 방식',
+  alphaThreshold: '투명도 임계값'
 });
 
 function formatSettingValue(key, val) {
   if (val === undefined || val === null) return '기본값';
   if (typeof val === 'boolean') return val ? '켜짐' : '꺼짐';
   if (key === 'scaleMode') {
-    const map = { square: '정사각 다운스케일', factor: '정수 배율 축소', 'preserve-sheet': '원본 규격 유지', original: '크기 변환 없음' };
+    const map = { square: '정사각 다운스케일', factor: '정수 배율 축소', 'grid-repair': 'AI 픽셀 격자 복구', 'preserve-sheet': '원본 규격 유지', original: '크기 변환 없음' };
     return map[val] || val;
   }
   if (key === 'factorFrameMode') return val === 'sheet' ? '스프라이트 시트 프레임별' : '전체 이미지';
+  if (key === 'gridFrameMode') return val === 'sheet' ? '스프라이트 시트 프레임별' : '전체 이미지·다중 파일';
+  if (key === 'gridSource') return val === 'manual' ? '수동' : '자동';
   if (key === 'size') return `${val}px`;
   if (key === 'factor') return `÷${val}`;
   if (key === 'frameWidth' || key === 'frameHeight') return `${val}px`;
   if (key === 'pixelBlockSize') return `${val}px`;
+  if (key === 'representativeColor') {
+    const map = { 'mean-srgb': '균형 평균 (sRGB, 기본)', 'mean-linear': '선형광 평균', center: '중앙 샘플', median: '중앙값', majority: '최빈색' };
+    return map[val] || val;
+  }
   if (key === 'paletteMode') {
     const map = { auto: '자동 생성 (K-means)', custom: '직접 지정 (Custom Palette)', unlimited: '제한 없음 (원본 색상)' };
     return map[val] || val;
@@ -2018,6 +2577,8 @@ function formatSettingValue(key, val) {
   if (key === 'exportNearestScales') {
     return Array.isArray(val) && val.length > 0 ? val.map(s => s + '×').join(', ') : '없음';
   }
+  if (key === 'alphaMode') return val === 'coverage' ? '픽셀 점유율 유지 (부분 투명도)' : '선명한 스프라이트 (0/255)';
+  if (key === 'alphaThreshold') return `${val}`;
   return String(val);
 }
 
@@ -2025,9 +2586,12 @@ function diffSettings(current, next) {
   const diffs = [];
   const keys = [
     'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
-    'frameWidth', 'frameHeight', 'pixelBlockSize', 'paletteMode', 'customPalette',
+    'gridFrameMode', 'gridFrameWidth', 'gridFrameHeight', 'gridSizeX', 'gridSizeY',
+    'gridPhaseX', 'gridPhaseY', 'gridSource', 'gridLockedAcrossFrames',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode', 'customPalette',
     'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
-    'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales'
+    'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
+    'alphaMode', 'alphaThreshold'
   ];
 
   for (const k of keys) {
@@ -2067,6 +2631,17 @@ function applyUiSettings(settings) {
       factorRadio.dispatchEvent(new Event('change'));
     }
   }
+  if (settings.gridFrameMode) {
+    const gridRadio = document.querySelector(`input[name="gridFrameMode"][value="${settings.gridFrameMode}"]`);
+    if (gridRadio) gridRadio.checked = true;
+  }
+  if (settings.gridFrameWidth !== undefined) gridFrameWidthInput.value = String(settings.gridFrameWidth);
+  if (settings.gridFrameHeight !== undefined) gridFrameHeightInput.value = String(settings.gridFrameHeight);
+  if (settings.gridSizeX !== undefined) gridSizeXInput.value = String(settings.gridSizeX);
+  if (settings.gridSizeY !== undefined) gridSizeYInput.value = String(settings.gridSizeY);
+  if (settings.gridPhaseX !== undefined) gridPhaseXInput.value = String(settings.gridPhaseX);
+  if (settings.gridPhaseY !== undefined) gridPhaseYInput.value = String(settings.gridPhaseY);
+  if (gridManualLock) gridManualLock.checked = settings.gridSource === 'manual';
   if (settings.frameWidth !== undefined) {
     factorFrameWidthInput.value = String(settings.frameWidth);
     frameWidthInput.value = String(settings.frameWidth);
@@ -2078,6 +2653,11 @@ function applyUiSettings(settings) {
   if (settings.pixelBlockSize !== undefined) {
     pixelBlockSizeSel.value = String(settings.pixelBlockSize);
   }
+  if (settings.representativeColor) {
+    representativeColorSel.value = settings.representativeColor;
+    showExperimentalFeatures.checked = settings.representativeColor !== 'mean-srgb';
+  }
+  updateRepresentativeColorUi(false);
   if (settings.paletteMode) {
     paletteModeSel.value = settings.paletteMode;
   } else if (settings.paletteEnabled !== undefined) {
@@ -2126,11 +2706,27 @@ function applyUiSettings(settings) {
     exportScale8x.checked = settings.exportNearestScales.includes(8);
   }
 
+  if (settings.alphaMode) {
+    if (settings.alphaMode === 'coverage') {
+      if (alphaModeCoverageRadio) alphaModeCoverageRadio.checked = true;
+    } else {
+      if (alphaModeBinaryRadio) alphaModeBinaryRadio.checked = true;
+    }
+  }
+  if (settings.alphaThreshold !== undefined) {
+    if (alphaThresholdRange) alphaThresholdRange.value = String(settings.alphaThreshold);
+    if (alphaThresholdNum) alphaThresholdNum.value = String(settings.alphaThreshold);
+  }
+  updateAlphaModeUi();
+
   if (settings.scaleMode && settings.scaleMode !== 'original') {
     document.getElementById('accordionDownscale')?.classList.remove('collapsed');
   }
   if (settings.paletteEnabled) {
     document.getElementById('accordionPalette')?.classList.remove('collapsed');
+  }
+  if (settings.alphaMode === 'coverage' || (settings.alphaThreshold !== undefined && settings.alphaThreshold !== 10)) {
+    document.getElementById('accordionAlpha')?.classList.remove('collapsed');
   }
   if (settings.cleanEnabled) {
     document.getElementById('accordionNoise')?.classList.remove('collapsed');
@@ -2144,6 +2740,8 @@ function applyUiSettings(settings) {
 
   updateFrameCalculation();
   updateFactorCalculation();
+  syncGridFrameModeControls();
+  restoreGridSettingsState(settings);
   updateExportScaleWarnings();
   if (lastResults.length > 0) {
     renderResults();
@@ -2219,7 +2817,7 @@ function loadResultsFromLog(resultsData) {
         paletteSize: item.paletteSize,
         pngSize: item.pngSize || Math.round(item.dataUrl.split(',')[1].length * 0.75),
         dataUrl: item.dataUrl,
-        addedIndex: index,
+        addedIndex: Number.isInteger(item.addedIndex) ? item.addedIndex : index,
         sourceImage: null,
         sourceWidth: null,
         sourceHeight: null
@@ -2283,13 +2881,378 @@ themeToggle.addEventListener('click', () => {
 setTheme('dark');
 
 // ---------- 크기 처리 방식 제어 ----------
+function getGridFrameMode(){
+  return document.querySelector('input[name="gridFrameMode"]:checked')?.value || 'whole';
+}
+
+function getGridFrameValidationError(files, frameMode, frameWidth, frameHeight, forAnalysis = false){
+  if(!Array.isArray(files) || files.length === 0) return '먼저 이미지를 업로드하세요.';
+  if(forAnalysis){
+    const analysisPixels = files.reduce((sum, file) => sum + file.img.width * file.img.height, 0);
+    if(analysisPixels > MAX_RAW_PROCESS_PIXELS) return '격자 자동 분석은 총 4M 픽셀 이하에서만 사용할 수 있습니다. 수동 값을 입력하세요.';
+  }
+  if(frameMode === 'sheet'){
+    if(!Number.isInteger(frameWidth) || !Number.isInteger(frameHeight) || frameWidth < 8 || frameHeight < 8 || frameWidth > 4096 || frameHeight > 4096){
+      return '시트 프레임 너비·높이는 8~4096 범위의 정수여야 합니다.';
+    }
+    const invalid = files.find(file => file.img.width % frameWidth !== 0 || file.img.height % frameHeight !== 0);
+    if(invalid) return `${invalid.name}: ${invalid.img.width}×${invalid.img.height}는 프레임 ${frameWidth}×${frameHeight}로 나누어떨어지지 않습니다.`;
+  } else {
+    const tooSmall = files.find(file => file.img.width < 8 || file.img.height < 8);
+    if(tooSmall) return `${tooSmall.name}: 가로·세로 축은 각각 8px 이상이어야 합니다.`;
+  }
+  return '';
+}
+
+function estimateGridRepairPixels(files, grid, frameMode, frameWidth, frameHeight){
+  if(frameMode === 'sheet'){
+    const crop = computeGridCrop(frameWidth, frameHeight, grid);
+    return files.reduce((sum, file) => sum + (file.img.width / frameWidth) * (file.img.height / frameHeight) * crop.outputWidth * crop.outputHeight, 0);
+  }
+  return files.reduce((sum, file) => {
+    const crop = computeGridCrop(file.img.width, file.img.height, grid);
+    return sum + crop.outputWidth * crop.outputHeight;
+  }, 0);
+}
+
+function getGridManualValues(){
+  return {
+    sizeX: Number(gridSizeXInput.value),
+    sizeY: Number(gridSizeYInput.value),
+    phaseX: Number(gridPhaseXInput.value),
+    phaseY: Number(gridPhaseYInput.value)
+  };
+}
+
+function updateGridPhaseLimits(){
+  const sizeX = Math.max(2, Math.min(32, Number(gridSizeXInput.value) || 2));
+  const sizeY = Math.max(2, Math.min(32, Number(gridSizeYInput.value) || 2));
+  gridPhaseXInput.max = String(sizeX - 1);
+  gridPhaseYInput.max = String(sizeY - 1);
+  if(Number(gridPhaseXInput.value) >= sizeX) gridPhaseXInput.value = String(sizeX - 1);
+  if(Number(gridPhaseYInput.value) >= sizeY) gridPhaseYInput.value = String(sizeY - 1);
+}
+
+function syncGridRunState(){
+  if(scaleModeSel.value !== 'grid-repair') return;
+  runBtn.disabled = uploadedFiles.length === 0 || !gridAnalysisState.applied || gridAnalysisState.busy;
+}
+
+function clearGridOverlay(){
+  if(gridAnalysisCanvas){
+    const ctx = gridAnalysisCanvas.getContext('2d');
+    if(ctx) ctx.clearRect(0, 0, gridAnalysisCanvas.width, gridAnalysisCanvas.height);
+    gridAnalysisCanvas.width = 1;
+    gridAnalysisCanvas.height = 1;
+  }
+  if(gridAnalysisPreview) gridAnalysisPreview.style.display = 'none';
+  if(gridAnalysisLegend) gridAnalysisLegend.style.display = 'none';
+}
+
+function invalidateGridAnalysis(message = '입력 또는 분석 조건이 바뀌었습니다. 격자를 다시 분석하거나 수동 값을 적용하세요.'){
+  gridAnalysisState.token++;
+  gridAnalysisState.result = null;
+  gridAnalysisState.applied = null;
+  gridAnalysisState.busy = false;
+  gridAnalysisState.elapsedMs = 0;
+  gridAnalyzeBtn.disabled = scaleModeSel.value !== 'grid-repair' || uploadedFiles.length === 0;
+  gridCancelBtn.disabled = true;
+  gridApplyBtn.disabled = true;
+  gridAnalysisResult.textContent = message;
+  gridAnalysisResult.className = 'frame-calculation';
+  gridCropResult.textContent = '적용할 격자가 없습니다.';
+  clearGridOverlay();
+  syncGridRunState();
+}
+
+function syncGridFrameModeControls(){
+  const isGrid = scaleModeSel.value === 'grid-repair';
+  const isSheet = getGridFrameMode() === 'sheet';
+  gridFrameSizeContainer.style.display = isGrid && isSheet ? 'block' : 'none';
+  gridFrameWidthInput.disabled = !isGrid || !isSheet || gridAnalysisState.busy;
+  gridFrameHeightInput.disabled = !isGrid || !isSheet || gridAnalysisState.busy;
+}
+
+function getGridPreviewDimensions(){
+  if(uploadedFiles.length === 0) return null;
+  const frameMode = getGridFrameMode();
+  return frameMode === 'sheet'
+    ? { width: Number(gridFrameWidthInput.value), height: Number(gridFrameHeightInput.value) }
+    : { width: uploadedFiles[0].img.width, height: uploadedFiles[0].img.height };
+}
+
+function updateGridCropSummary(grid){
+  const dimensions = getGridPreviewDimensions();
+  if(!dimensions) return;
+  try {
+    const crop = computeGridCrop(dimensions.width, dimensions.height, grid);
+    gridCropResult.textContent = `프레임당 출력 ${crop.outputWidth}×${crop.outputHeight} · 제외 margin X ${crop.x.marginBefore}/${crop.x.marginAfter}px · Y ${crop.y.marginBefore}/${crop.y.marginAfter}px`;
+    gridCropResult.className = 'frame-calculation ' + ((crop.x.marginBefore || crop.x.marginAfter || crop.y.marginBefore || crop.y.marginAfter) ? 'warning' : 'valid');
+  } catch(err){
+    gridCropResult.textContent = err.message;
+    gridCropResult.className = 'frame-calculation error';
+  }
+}
+
+function drawGridAnalysisOverlay(grid){
+  if(uploadedFiles.length === 0 || !gridAnalysisCanvas) return;
+  const frameMode = getGridFrameMode();
+  const image = uploadedFiles[0].img;
+  const width = frameMode === 'sheet' ? Number(gridFrameWidthInput.value) : image.width;
+  const height = frameMode === 'sheet' ? Number(gridFrameHeightInput.value) : image.height;
+  if(!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1) return;
+  gridAnalysisCanvas.width = width;
+  gridAnalysisCanvas.height = height;
+  const ctx = gridAnalysisCanvas.getContext('2d');
+  ctx.clearRect(0, 0, width, height);
+  ctx.drawImage(image, 0, 0, width, height, 0, 0, width, height);
+  const crop = computeGridCrop(width, height, grid);
+  ctx.fillStyle = 'rgba(20, 24, 32, 0.52)';
+  if(crop.x.marginBefore) ctx.fillRect(0, 0, crop.x.marginBefore, height);
+  if(crop.x.marginAfter) ctx.fillRect(crop.x.end, 0, crop.x.marginAfter, height);
+  if(crop.y.marginBefore) ctx.fillRect(0, 0, width, crop.y.marginBefore);
+  if(crop.y.marginAfter) ctx.fillRect(0, crop.y.end, width, crop.y.marginAfter);
+  ctx.lineWidth = Math.max(1, Math.min(width, height) / 256);
+  ctx.strokeStyle = '#ff2da8';
+  ctx.setLineDash([]);
+  for(let x=grid.phaseX; x<=width; x+=grid.sizeX){ ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, height); ctx.stroke(); }
+  ctx.strokeStyle = '#00e5ff';
+  ctx.setLineDash([4, 3]);
+  for(let y=grid.phaseY; y<=height; y+=grid.sizeY){ ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(width, y + 0.5); ctx.stroke(); }
+  ctx.setLineDash([]);
+  gridAnalysisPreview.style.display = 'block';
+  gridAnalysisLegend.style.display = 'flex';
+}
+
+function refreshGridApplyState(){
+  updateGridPhaseLimits();
+  const manual = validateManualGrid(getGridManualValues());
+  if(gridManualLock.checked){
+    gridApplyBtn.disabled = gridAnalysisState.busy || !manual.ok || uploadedFiles.length === 0;
+    if(manual.ok){ updateGridCropSummary(manual.grid); drawGridAnalysisOverlay(manual.grid); }
+    else { gridCropResult.textContent = manual.reason; gridCropResult.className = 'frame-calculation error'; }
+    return;
+  }
+  const result = gridAnalysisState.result;
+  const presentation = getGridAnalysisPresentation(result);
+  gridApplyBtn.disabled = gridAnalysisState.busy || !presentation.autoReady;
+  if(result?.ok){ updateGridCropSummary(result); drawGridAnalysisOverlay(result); }
+}
+
+function getGridAnalysisPresentation(result){
+  if(!result?.ok){
+    return { autoReady: false, className: 'error', suffix: '' };
+  }
+  if(result.maxChunkMs > 100){
+    return {
+      autoReady: false,
+      className: 'error',
+      suffix: ' · main-thread chunk 100ms 초과로 자동 적용을 중단합니다. PERF-001 계측이 필요합니다.'
+    };
+  }
+  if(result.confidence < 0.50){
+    return { autoReady: false, className: 'error', suffix: ' · 격자를 안정적으로 찾지 못했습니다.' };
+  }
+  if(result.confidence < 0.75){
+    return { autoReady: false, className: 'warning', suffix: ' · 확신이 낮습니다. 값을 확인하세요.' };
+  }
+  return { autoReady: true, className: 'valid', suffix: '' };
+}
+
+function cancelGridAnalysisState(state){
+  state.token++;
+  state.busy = false;
+  state.result = null;
+  state.applied = null;
+  state.elapsedMs = 0;
+  return state;
+}
+
+async function sliceGridFrameAsync(raw, startX, startY, width, height, isCancelled){
+  const allocationStarted = performance.now();
+  const data = new Uint8ClampedArray(width * height * 4);
+  let maxChunkMs = performance.now() - allocationStarted;
+  for(let firstRow=0; firstRow<height; firstRow+=64){
+    if(isCancelled()) throw new DOMException('격자 분석이 취소됐습니다.', 'AbortError');
+    const chunkStarted = performance.now();
+    const lastRow = Math.min(height, firstRow + 64);
+    for(let y=firstRow; y<lastRow; y++){
+      const sourceStart = ((startY + y) * raw.width + startX) * 4;
+      data.set(raw.data.subarray(sourceStart, sourceStart + width * 4), y * width * 4);
+    }
+    maxChunkMs = Math.max(maxChunkMs, performance.now() - chunkStarted);
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+  return { frame: { data, width, height }, maxChunkMs };
+}
+
+async function getGridAnalysisFramesAsync(files, frameMode, frameWidth, frameHeight, isCancelled){
+  const frames = [];
+  let maxChunkMs = 0;
+  for(const file of files){
+    if(isCancelled()) throw new DOMException('격자 분석이 취소됐습니다.', 'AbortError');
+    const rawStarted = performance.now();
+    const raw = getRawPixels(file.img);
+    maxChunkMs = Math.max(maxChunkMs, performance.now() - rawStarted);
+    await new Promise(resolve => setTimeout(resolve, 0));
+    if(frameMode === 'sheet'){
+      const columns = raw.width / frameWidth;
+      const rows = raw.height / frameHeight;
+      for(let row=0; row<rows; row++){
+        for(let column=0; column<columns; column++){
+          const sliced = await sliceGridFrameAsync(
+            raw,
+            column * frameWidth,
+            row * frameHeight,
+            frameWidth,
+            frameHeight,
+            isCancelled
+          );
+          frames.push(sliced.frame);
+          maxChunkMs = Math.max(maxChunkMs, sliced.maxChunkMs);
+        }
+      }
+    } else {
+      frames.push(raw);
+    }
+  }
+  return { frames, maxChunkMs };
+}
+
+async function runGridAnalysis(){
+  const frameMode = getGridFrameMode();
+  const frameWidth = Number(gridFrameWidthInput.value);
+  const frameHeight = Number(gridFrameHeightInput.value);
+  const validationError = getGridFrameValidationError(uploadedFiles, frameMode, frameWidth, frameHeight, true);
+  if(validationError){
+    gridAnalysisResult.textContent = validationError;
+    gridAnalysisResult.className = 'frame-calculation error';
+    gridManualLock.checked = true;
+    refreshGridApplyState();
+    return;
+  }
+  const token = ++gridAnalysisState.token;
+  gridAnalysisState.busy = true;
+  gridAnalysisState.result = null;
+  gridAnalysisState.applied = null;
+  gridAnalyzeBtn.disabled = true;
+  gridCancelBtn.disabled = false;
+  gridApplyBtn.disabled = true;
+  gridAnalysisResult.textContent = '격자 분석 중…';
+  gridAnalysisResult.className = 'frame-calculation warning';
+  syncGridFrameModeControls();
+  syncGridRunState();
+  const started = performance.now();
+  try {
+    const prepared = await getGridAnalysisFramesAsync(
+      uploadedFiles,
+      frameMode,
+      frameWidth,
+      frameHeight,
+      () => token !== gridAnalysisState.token
+    );
+    const result = await analyzeGridFramesAsync(
+      prepared.frames,
+      () => token !== gridAnalysisState.token,
+      prepared.maxChunkMs
+    );
+    if(token !== gridAnalysisState.token) return;
+    result.elapsedMs = performance.now() - started;
+    gridAnalysisState.result = result;
+    gridAnalysisState.elapsedMs = result.elapsedMs;
+    if(result.ok){
+      gridSizeXInput.value = String(result.sizeX);
+      gridSizeYInput.value = String(result.sizeY);
+      gridPhaseXInput.value = String(result.phaseX);
+      gridPhaseYInput.value = String(result.phaseY);
+      updateGridPhaseLimits();
+      const confidencePercent = Math.round(result.confidence * 100);
+      const presentation = getGridAnalysisPresentation(result);
+      gridAnalysisResult.textContent = `X ${result.sizeX}px / offset ${result.phaseX} · Y ${result.sizeY}px / offset ${result.phaseY} · 신뢰도 ${confidencePercent}% · ${Math.round(result.elapsedMs)}ms · main-thread max ${Math.round(result.maxChunkMs)}ms${presentation.suffix}`;
+      gridAnalysisResult.className = `frame-calculation ${presentation.className}`;
+    } else {
+      gridAnalysisResult.textContent = `격자를 안정적으로 찾지 못했습니다. ${result.reason}`;
+      gridAnalysisResult.className = 'frame-calculation error';
+    }
+  } catch(err){
+    if(err?.name !== 'AbortError'){
+      gridAnalysisResult.textContent = `격자 분석 실패: ${err.message}`;
+      gridAnalysisResult.className = 'frame-calculation error';
+    }
+  } finally {
+    if(token === gridAnalysisState.token){
+      gridAnalysisState.busy = false;
+      gridAnalyzeBtn.disabled = uploadedFiles.length === 0;
+      gridCancelBtn.disabled = true;
+      syncGridFrameModeControls();
+      refreshGridApplyState();
+      syncGridRunState();
+    }
+  }
+}
+
+function applyGridFromControls(){
+  const manualValues = validateManualGrid(getGridManualValues());
+  let nextGrid;
+  if(gridManualLock.checked){
+    if(!manualValues.ok){ gridCropResult.textContent = manualValues.reason; gridCropResult.className = 'frame-calculation error'; return; }
+    nextGrid = { ...manualValues.grid, source: 'manual', lockedAcrossFrames: true };
+  } else {
+    const result = gridAnalysisState.result;
+    if(!result?.ok || result.confidence < 0.75 || result.maxChunkMs > 100) return;
+    nextGrid = {
+      sizeX: result.sizeX, sizeY: result.sizeY, phaseX: result.phaseX, phaseY: result.phaseY,
+      confidence: result.confidence, source: 'auto', lockedAcrossFrames: true
+    };
+  }
+  const dimensions = getGridPreviewDimensions();
+  if(!dimensions) return;
+  const crop = computeGridCrop(dimensions.width, dimensions.height, nextGrid);
+  if(crop.outputWidth < 1 || crop.outputHeight < 1){
+    gridCropResult.textContent = '전체 셀을 하나도 만들 수 없습니다.';
+    gridCropResult.className = 'frame-calculation error';
+    return;
+  }
+  gridAnalysisState.applied = nextGrid;
+  updateGridCropSummary(nextGrid);
+  drawGridAnalysisOverlay(nextGrid);
+  gridAnalysisResult.textContent += nextGrid.source === 'manual' ? ' · 수동 격자가 잠겼습니다.' : ' · 감지된 격자를 적용했습니다.';
+  syncGridRunState();
+}
+
+function restoreGridSettingsState(settings){
+  gridAnalysisState.token++;
+  gridAnalysisState.result = null;
+  gridAnalysisState.applied = null;
+  gridAnalysisState.busy = false;
+  updateGridPhaseLimits();
+  if(settings?.scaleMode === 'grid-repair' && settings.gridSource === 'manual'){
+    const manual = validateManualGrid({
+      sizeX: Number(settings.gridSizeX), sizeY: Number(settings.gridSizeY),
+      phaseX: Number(settings.gridPhaseX), phaseY: Number(settings.gridPhaseY)
+    });
+    if(manual.ok){
+      gridManualLock.checked = true;
+      gridAnalysisState.applied = { ...manual.grid, source: 'manual', lockedAcrossFrames: true };
+      gridAnalysisResult.textContent = '설정에서 수동 격자를 복원했습니다. 입력 이미지의 margin을 확인하세요.';
+      updateGridCropSummary(gridAnalysisState.applied);
+    }
+  } else if(settings?.scaleMode === 'grid-repair'){
+    gridAnalysisResult.textContent = '자동 격자 설정은 입력별 재분석이 필요합니다.';
+  }
+  refreshGridApplyState();
+  syncGridRunState();
+}
+
 function syncScaleModeControls(){
   const mode = scaleModeSel.value;
   const isSquare = mode === 'square';
   const isFactor = mode === 'factor';
+  const isGridRepair = mode === 'grid-repair';
   const isPreserveSheet = mode === 'preserve-sheet';
   downscaleOptions.style.display = isSquare ? 'block' : 'none';
   factorOptions.style.display = isFactor ? 'block' : 'none';
+  gridRepairOptions.style.display = isGridRepair ? 'block' : 'none';
   preserveSheetOptions.style.display = isPreserveSheet ? 'block' : 'none';
   downscaleOptions.querySelectorAll('select').forEach(select => {
     select.disabled = !isSquare;
@@ -2300,6 +3263,12 @@ function syncScaleModeControls(){
   factorOptions.querySelectorAll('input').forEach(control => {
     control.disabled = !isFactor;
   });
+  gridRepairOptions.querySelectorAll('input').forEach(control => {
+    control.disabled = !isGridRepair || gridAnalysisState.busy;
+  });
+  gridAnalyzeBtn.disabled = !isGridRepair || uploadedFiles.length === 0 || gridAnalysisState.busy;
+  gridCancelBtn.disabled = !isGridRepair || !gridAnalysisState.busy;
+  gridApplyBtn.disabled = !isGridRepair || gridAnalysisState.busy;
   if(isFactor){
     syncFactorFrameModeControls();
     updateFactorCalculation();
@@ -2307,8 +3276,65 @@ function syncScaleModeControls(){
   if(isPreserveSheet){
     updateFrameCalculation();
   }
+  if(isGridRepair){
+    syncGridFrameModeControls();
+    refreshGridApplyState();
+    syncGridRunState();
+  } else {
+    runBtn.disabled = uploadedFiles.length === 0;
+  }
 }
 scaleModeSel.addEventListener('change', syncScaleModeControls);
+
+function updateRepresentativeColorUi(resetWhenHidden = true){
+  const show = Boolean(showExperimentalFeatures?.checked);
+  if(!show && resetWhenHidden && representativeColorSel){
+    representativeColorSel.value = 'mean-srgb';
+  }
+  if(representativeColorField) representativeColorField.style.display = show ? 'block' : 'none';
+  if(representativeColorSel) representativeColorSel.disabled = !show;
+  if(showExperimentalFeatures) showExperimentalFeatures.setAttribute('aria-expanded', show ? 'true' : 'false');
+  if(representativeColorWarning){
+    representativeColorWarning.style.display = show && representativeColorSel?.value !== 'mean-srgb' ? 'block' : 'none';
+  }
+}
+
+showExperimentalFeatures?.addEventListener('change', () => updateRepresentativeColorUi(true));
+representativeColorSel?.addEventListener('change', () => updateRepresentativeColorUi(false));
+updateRepresentativeColorUi(false);
+
+document.querySelectorAll('input[name="gridFrameMode"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    syncGridFrameModeControls();
+    invalidateGridAnalysis('분석 단위가 바뀌었습니다. 격자를 다시 분석하거나 수동 값을 적용하세요.');
+  });
+});
+[gridFrameWidthInput, gridFrameHeightInput].forEach(input => input.addEventListener('input', () => {
+  invalidateGridAnalysis('프레임 크기가 바뀌었습니다. 격자를 다시 분석하거나 수동 값을 적용하세요.');
+}));
+[gridSizeXInput, gridSizeYInput, gridPhaseXInput, gridPhaseYInput].forEach(input => input.addEventListener('input', () => {
+  gridAnalysisState.applied = null;
+  updateGridPhaseLimits();
+  refreshGridApplyState();
+  syncGridRunState();
+}));
+gridManualLock.addEventListener('change', () => {
+  gridAnalysisState.applied = null;
+  refreshGridApplyState();
+  syncGridRunState();
+});
+gridAnalyzeBtn.addEventListener('click', runGridAnalysis);
+gridCancelBtn.addEventListener('click', () => {
+  cancelGridAnalysisState(gridAnalysisState);
+  gridAnalyzeBtn.disabled = uploadedFiles.length === 0;
+  gridCancelBtn.disabled = true;
+  gridAnalysisResult.textContent = '격자 분석을 취소했습니다.';
+  gridAnalysisResult.className = 'frame-calculation warning';
+  syncGridFrameModeControls();
+  refreshGridApplyState();
+  syncGridRunState();
+});
+gridApplyBtn.addEventListener('click', applyGridFromControls);
 
 function syncFactorFrameModeControls(){
   const mode = scaleModeSel.value;
@@ -2528,11 +3554,39 @@ function formatSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
-function syncPaletteControlsState(){
-  paletteControls.style.opacity = paletteEnabledCheck.checked ? '1' : '.4';
-  paletteControls.querySelectorAll('input').forEach(i => i.disabled = !paletteEnabledCheck.checked);
+// ---------- 투명도 처리 모드 / 임계값 제어 ----------
+function updateAlphaModeUi() {
+  const isCoverage = alphaModeCoverageRadio && alphaModeCoverageRadio.checked;
+  if (alphaCoverageWarning) {
+    alphaCoverageWarning.style.display = isCoverage ? 'block' : 'none';
+  }
 }
-paletteEnabledCheck.addEventListener('change', syncPaletteControlsState);
+
+if (alphaModeBinaryRadio) {
+  alphaModeBinaryRadio.addEventListener('change', updateAlphaModeUi);
+}
+if (alphaModeCoverageRadio) {
+  alphaModeCoverageRadio.addEventListener('change', updateAlphaModeUi);
+}
+
+if (alphaThresholdRange && alphaThresholdNum) {
+  alphaThresholdRange.addEventListener('input', () => {
+    alphaThresholdNum.value = alphaThresholdRange.value;
+  });
+  alphaThresholdNum.addEventListener('input', () => {
+    let val = parseInt(alphaThresholdNum.value, 10);
+    if (!Number.isFinite(val)) val = 10;
+    val = Math.max(1, Math.min(254, val));
+    alphaThresholdRange.value = val;
+  });
+  alphaThresholdNum.addEventListener('change', () => {
+    let val = parseInt(alphaThresholdNum.value, 10);
+    if (!Number.isFinite(val) || val < 1) val = 1;
+    else if (val > 254) val = 254;
+    alphaThresholdNum.value = val;
+    alphaThresholdRange.value = val;
+  });
+}
 
 // ---------- 노이즈 정리 켬/끔 ----------
 function syncCleanControlsState(){
@@ -2544,6 +3598,17 @@ cleanEnabledCheck.addEventListener('change', syncCleanControlsState);
 outlineCheck.addEventListener('change', () => {
   outlineOptions.style.display = outlineCheck.checked ? 'block' : 'none';
 });
+
+function compareAnimationFrameOrder(a, b){
+  const nameCmp = String(a?.name || '').localeCompare(String(b?.name || ''), 'ko-KR', {
+    numeric: true,
+    sensitivity: 'base'
+  });
+  if(nameCmp !== 0) return nameCmp;
+  const aIndex = Number.isInteger(a?.addedIndex) ? a.addedIndex : Number.MAX_SAFE_INTEGER;
+  const bIndex = Number.isInteger(b?.addedIndex) ? b.addedIndex : Number.MAX_SAFE_INTEGER;
+  return aIndex - bIndex;
+}
 
 function handleFiles(fileListObj){
   const candidates = Array.from(fileListObj);
@@ -2568,7 +3633,7 @@ function handleFiles(fileListObj){
       rejected.push(`${file.name}: 전체 ${formatSize(MAX_TOTAL_BYTES)} 제한 초과`);
       return;
     }
-    accepted.push(file);
+    accepted.push({ file, addedIndex: nextUploadAddedIndex++ });
     totalBytes += file.size;
   });
 
@@ -2591,7 +3656,7 @@ function handleFiles(fileListObj){
       : `${accepted.length}개 이미지가 안전하게 준비되었습니다.`;
   };
 
-  accepted.forEach(f => {
+  accepted.forEach(({ file: f, addedIndex }) => {
     const reader = new FileReader();
     reader.onload = ev => {
       const img = new Image();
@@ -2608,9 +3673,8 @@ function handleFiles(fileListObj){
           finishOne();
           return;
         }
-        uploadedFiles.push({name: f.name, img, size: f.size});
-        // 파일 이름을 오름차순으로 정렬
-        uploadedFiles.sort((a, b) => a.name.localeCompare(b.name));
+        uploadedFiles.push({name: f.name, img, size: f.size, addedIndex});
+        uploadedFiles.sort(compareAnimationFrameOrder);
         renderFileList();
         finishOne();
       };
@@ -2653,6 +3717,9 @@ function renderFileList(){
   runBtn.disabled = uploadedFiles.length === 0;
   updateFrameCalculation();
   updateFactorCalculation();
+  invalidateGridAnalysis(uploadedFiles.length
+    ? '입력 이미지가 바뀌었습니다. 격자를 분석하거나 수동 값을 적용하세요.'
+    : '먼저 이미지를 업로드하세요.');
 };
 outlineWidthRange.addEventListener('input', () => {
   outlineWidthNum.value = outlineWidthRange.value;
@@ -2710,7 +3777,530 @@ function getRawPixels(img){
   return { data: ctx.getImageData(0, 0, w, h).data, width: w, height: h };
 }
 
-function boxDownscale(img, size, method){
+function normalizeRepresentativeColor(value){
+  return ['mean-srgb', 'mean-linear', 'center', 'median', 'majority'].includes(value)
+    ? value
+    : 'mean-srgb';
+}
+
+function srgbChannelToLinear(value){
+  const channel = Math.max(0, Math.min(255, Number(value) || 0)) / 255;
+  return channel <= 0.04045 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+}
+
+function linearChannelToSrgb(value){
+  const channel = Math.max(0, Math.min(1, Number(value) || 0));
+  const srgb = channel <= 0.0031308
+    ? 12.92 * channel
+    : 1.055 * Math.pow(channel, 1 / 2.4) - 0.055;
+  return Math.round(srgb * 255);
+}
+
+function representativeMedian(values){
+  values.sort((a, b) => a - b);
+  const middle = Math.floor(values.length / 2);
+  return values.length % 2
+    ? values[middle]
+    : Math.round((values[middle - 1] + values[middle]) / 2);
+}
+
+function representativeColorForCell(rgba, width, x0, y0, x1, y1, mode = 'mean-srgb', threshold = 10){
+  const normalizedMode = normalizeRepresentativeColor(mode);
+  const alphaThreshold = Number.isInteger(Number(threshold))
+    ? Math.max(1, Math.min(254, Number(threshold)))
+    : 10;
+  if(!rgba || !Number.isInteger(width) || width < 1 || rgba.length % (width * 4) !== 0){
+    throw new Error('대표색 입력 RGBA와 너비가 유효하지 않습니다.');
+  }
+  const height = rgba.length / (width * 4);
+  if(!Number.isInteger(x0) || !Number.isInteger(y0) || !Number.isInteger(x1) || !Number.isInteger(y1) ||
+      x0 < 0 || y0 < 0 || x1 > width || y1 > height || x0 >= x1 || y0 >= y1){
+    throw new Error('대표색 셀 경계가 유효하지 않습니다.');
+  }
+
+  const centerX = Math.floor((x0 + x1 - 1) / 2);
+  const centerY = Math.floor((y0 + y1 - 1) / 2);
+  let totalAlpha = 0;
+  let sampleCount = 0;
+  let foregroundCount = 0;
+  let weightedR = 0, weightedG = 0, weightedB = 0, weightSum = 0;
+  let centerSample = null;
+  let centerDistance = Infinity;
+  const medianR = [], medianG = [], medianB = [];
+  const majority = new Map();
+  let firstForegroundIndex = 0;
+
+  for(let y=y0; y<y1; y++){
+    for(let x=x0; x<x1; x++){
+      const index = (y * width + x) * 4;
+      const r = rgba[index], g = rgba[index + 1], b = rgba[index + 2], alpha = rgba[index + 3];
+      totalAlpha += alpha;
+      sampleCount++;
+      if(alpha < alphaThreshold) continue;
+      foregroundCount++;
+
+      if(normalizedMode === 'mean-linear'){
+        weightedR += srgbChannelToLinear(r) * alpha;
+        weightedG += srgbChannelToLinear(g) * alpha;
+        weightedB += srgbChannelToLinear(b) * alpha;
+        weightSum += alpha;
+      } else if(normalizedMode === 'mean-srgb'){
+        weightedR += r * alpha;
+        weightedG += g * alpha;
+        weightedB += b * alpha;
+        weightSum += alpha;
+      } else if(normalizedMode === 'center'){
+        const distance = Math.abs(x - centerX) + Math.abs(y - centerY);
+        if(distance < centerDistance){
+          centerDistance = distance;
+          centerSample = [r, g, b];
+        }
+      } else if(normalizedMode === 'median'){
+        medianR.push(r); medianG.push(g); medianB.push(b);
+      } else {
+        const key = `${r},${g},${b}`;
+        const entry = majority.get(key);
+        if(entry){
+          entry.count++;
+          entry.alphaSum += alpha;
+        } else {
+          majority.set(key, { rgb: [r, g, b], count: 1, alphaSum: alpha, first: firstForegroundIndex });
+        }
+        firstForegroundIndex++;
+      }
+    }
+  }
+
+  if(foregroundCount === 0) return [0, 0, 0, 0];
+  const outputAlpha = Math.round(totalAlpha / sampleCount);
+  if(normalizedMode === 'mean-srgb'){
+    return [weightedR / weightSum, weightedG / weightSum, weightedB / weightSum, outputAlpha];
+  }
+  if(normalizedMode === 'mean-linear'){
+    return [
+      linearChannelToSrgb(weightedR / weightSum),
+      linearChannelToSrgb(weightedG / weightSum),
+      linearChannelToSrgb(weightedB / weightSum),
+      outputAlpha
+    ];
+  }
+  if(normalizedMode === 'center') return [...centerSample, outputAlpha];
+  if(normalizedMode === 'median'){
+    return [representativeMedian(medianR), representativeMedian(medianG), representativeMedian(medianB), outputAlpha];
+  }
+
+  let selected = null;
+  for(const entry of majority.values()){
+    if(!selected || entry.count > selected.count ||
+        (entry.count === selected.count && entry.alphaSum > selected.alphaSum) ||
+        (entry.count === selected.count && entry.alphaSum === selected.alphaSum && entry.first < selected.first)){
+      selected = entry;
+    }
+  }
+  return [...selected.rgb, outputAlpha];
+}
+
+function gridClamp01(value){
+  return Math.max(0, Math.min(1, Number(value) || 0));
+}
+
+function gridMedian(values){
+  if(!Array.isArray(values) && !(values instanceof Float64Array)) return 0;
+  if(values.length === 0) return 0;
+  const sorted = Array.from(values).sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+function prepareGridProfile(profile){
+  const peaks = new Float64Array(profile.length);
+  for(let i=0; i<profile.length; i++){
+    const value = Number(profile[i]) || 0;
+    const previous = i > 0 ? Number(profile[i - 1]) || 0 : 0;
+    const next = i + 1 < profile.length ? Number(profile[i + 1]) || 0 : 0;
+    // Sobel step edges occupy two adjacent samples. Map the first local maximum
+    // to the first pixel on the new cell side of the boundary.
+    if(value > 0 && value > previous && value >= next){
+      const boundaryIndex = Math.min(profile.length - 1, i + 1);
+      peaks[boundaryIndex] = Math.max(peaks[boundaryIndex], value);
+    }
+  }
+  const median = gridMedian(peaks);
+  const prepared = new Float64Array(profile.length);
+  let sum = 0;
+  for(let i=0; i<profile.length; i++){
+    const value = Math.max(0, peaks[i] - median);
+    prepared[i] = value;
+    sum += value;
+  }
+  return { profile: prepared, sum, median };
+}
+
+function accumulateGridAlphaMask(rgba, width, height, startY, endY, xProfile, yProfile){
+  let validAlpha = 0;
+  // A full binary-alpha Sobel step contributes two adjacent 4*255 peaks.
+  // Collapse that discarded mask evidence to one boundary sample without
+  // compositing transparent RGB into the luma signal.
+  const alphaBoundaryEvidence = 8 * 255;
+  const firstY = Math.max(0, startY);
+  const lastY = Math.min(height, endY);
+  for(let y=firstY; y<lastY; y++){
+    for(let x=0; x<width; x++){
+      const index = (y * width + x) * 4;
+      const opaque = rgba[index + 3] >= 10;
+      if(opaque) validAlpha++;
+      if(x > 0){
+        const leftOpaque = rgba[index - 1] >= 10;
+        if(opaque !== leftOpaque) xProfile[x - 1] += alphaBoundaryEvidence;
+      }
+      if(y > 0){
+        const aboveOpaque = rgba[index - width * 4 + 3] >= 10;
+        if(opaque !== aboveOpaque) yProfile[y - 1] += alphaBoundaryEvidence;
+      }
+    }
+  }
+  return validAlpha;
+}
+
+function computeSobelGridProfiles(rgba, width, height){
+  if(!rgba || rgba.length !== width * height * 4) throw new Error('RGBA 크기와 이미지 치수가 일치하지 않습니다.');
+  const xProfile = new Float64Array(width);
+  const yProfile = new Float64Array(height);
+  const validAlpha = accumulateGridAlphaMask(rgba, width, height, 0, height, xProfile, yProfile);
+  if(width < 3 || height < 3) return { xProfile, yProfile, validAlpha };
+
+  const lumaAt = index => 0.2126 * rgba[index] + 0.7152 * rgba[index + 1] + 0.0722 * rgba[index + 2];
+  const samples = new Float64Array(9);
+  for(let y=1; y<height-1; y++){
+    for(let x=1; x<width-1; x++){
+      const center = (y * width + x) * 4;
+      if(rgba[center + 3] < 10) continue;
+      const centerLuma = lumaAt(center);
+      let validNeighbors = 0;
+      let sampleIndex = 0;
+      for(let dy=-1; dy<=1; dy++){
+        for(let dx=-1; dx<=1; dx++){
+          const index = ((y + dy) * width + (x + dx)) * 4;
+          if(rgba[index + 3] >= 10){
+            samples[sampleIndex] = lumaAt(index);
+            if(dx !== 0 || dy !== 0) validNeighbors++;
+          } else {
+            samples[sampleIndex] = centerLuma;
+          }
+          sampleIndex++;
+        }
+      }
+      if(validNeighbors < 2) continue;
+      const gx = -samples[0] + samples[2] - 2*samples[3] + 2*samples[5] - samples[6] + samples[8];
+      const gy = -samples[0] - 2*samples[1] - samples[2] + samples[6] + 2*samples[7] + samples[8];
+      xProfile[x] += Math.abs(gx);
+      yProfile[y] += Math.abs(gy);
+    }
+  }
+  return { xProfile, yProfile, validAlpha };
+}
+
+async function computeSobelGridProfilesAsync(rgba, width, height, isCancelled){
+  if(!rgba || rgba.length !== width * height * 4) throw new Error('RGBA 크기와 이미지 치수가 일치하지 않습니다.');
+  const xProfile = new Float64Array(width);
+  const yProfile = new Float64Array(height);
+  let validAlpha = 0;
+  const lumaAt = index => 0.2126 * rgba[index] + 0.7152 * rgba[index + 1] + 0.0722 * rgba[index + 2];
+  const samples = new Float64Array(9);
+  let maxChunkMs = 0;
+  for(let startY=0; startY<height; startY+=64){
+    if(isCancelled()) throw new DOMException('격자 분석이 취소됐습니다.', 'AbortError');
+    const chunkStarted = performance.now();
+    validAlpha += accumulateGridAlphaMask(rgba, width, height, startY, startY + 64, xProfile, yProfile);
+    maxChunkMs = Math.max(maxChunkMs, performance.now() - chunkStarted);
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+  if(width < 3 || height < 3) return { xProfile, yProfile, validAlpha, maxChunkMs };
+  for(let startY=1; startY<height-1; startY+=24){
+    if(isCancelled()) throw new DOMException('격자 분석이 취소됐습니다.', 'AbortError');
+    const chunkStarted = performance.now();
+    const endY = Math.min(height-1, startY + 24);
+    for(let y=startY; y<endY; y++){
+      for(let x=1; x<width-1; x++){
+        const center = (y * width + x) * 4;
+        if(rgba[center + 3] < 10) continue;
+        const centerLuma = lumaAt(center);
+        let validNeighbors = 0;
+        let sampleIndex = 0;
+        for(let dy=-1; dy<=1; dy++){
+          for(let dx=-1; dx<=1; dx++){
+            const index = ((y + dy) * width + (x + dx)) * 4;
+            if(rgba[index + 3] >= 10){
+              samples[sampleIndex] = lumaAt(index);
+              if(dx !== 0 || dy !== 0) validNeighbors++;
+            } else {
+              samples[sampleIndex] = centerLuma;
+            }
+            sampleIndex++;
+          }
+        }
+        if(validNeighbors < 2) continue;
+        const gx = -samples[0] + samples[2] - 2*samples[3] + 2*samples[5] - samples[6] + samples[8];
+        const gy = -samples[0] - 2*samples[1] - samples[2] + samples[6] + 2*samples[7] + samples[8];
+        xProfile[x] += Math.abs(gx);
+        yProfile[y] += Math.abs(gy);
+      }
+    }
+    maxChunkMs = Math.max(maxChunkMs, performance.now() - chunkStarted);
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+  return { xProfile, yProfile, validAlpha, maxChunkMs };
+}
+
+function normalizeGridProfileForAggregate(profile){
+  let sum = 0;
+  for(let i=0; i<profile.length; i++) sum += Math.max(0, Number(profile[i]) || 0);
+  if(sum <= 0) return null;
+  const normalized = new Float64Array(profile.length);
+  for(let i=0; i<profile.length; i++) normalized[i] = Math.max(0, Number(profile[i]) || 0) / sum;
+  return normalized;
+}
+
+function detectGridAxis(profile, axisLength){
+  if(axisLength < 8) return { ok: false, reason: '축 길이가 8px 미만입니다.' };
+  const prepared = prepareGridProfile(profile);
+  if(prepared.sum <= 0) return { ok: false, reason: '경계 profile의 합이 0입니다.' };
+  const maxPeriod = Math.min(32, Math.floor(axisLength / 4));
+  if(maxPeriod < 2) return { ok: false, reason: '분석할 period 범위가 없습니다.' };
+  const scores = [];
+  for(let period=2; period<=maxPeriod; period++){
+    let dot=0, leftEnergy=0, rightEnergy=0;
+    for(let i=0; i<prepared.profile.length-period; i++){
+      const left = prepared.profile[i];
+      const right = prepared.profile[i + period];
+      dot += left * right;
+      leftEnergy += left * left;
+      rightEnergy += right * right;
+    }
+    const correlation = leftEnergy > 0 && rightEnergy > 0 ? dot / Math.sqrt(leftEnergy * rightEnergy) : 0;
+    scores.push({ period, correlation: gridClamp01(correlation) });
+  }
+  scores.sort((a, b) => (b.correlation - a.correlation) || (a.period - b.period));
+  const strongest = scores[0];
+  const fundamentalFloor = (strongest?.correlation || 0) * (2 / 3);
+  // A repeating grid produces strong autocorrelation at integer multiples too.
+  // Resolve that harmonic family to its smallest well-supported divisor.
+  const best = scores
+    .filter(candidate => strongest.period % candidate.period === 0 && candidate.correlation >= fundamentalFloor)
+    .sort((a, b) => a.period - b.period)[0];
+  const second = scores.find(candidate => (
+    candidate.period !== best.period &&
+    candidate.period % best.period !== 0 &&
+    best.period % candidate.period !== 0
+  )) || { correlation: 0, period: null };
+  if(!best || best.correlation <= 0) return { ok: false, reason: '유효한 period 상관을 찾지 못했습니다.' };
+
+  const phaseSupports = new Float64Array(best.period);
+  for(let i=0; i<prepared.profile.length; i++) phaseSupports[i % best.period] += prepared.profile[i];
+  let phase = 0;
+  for(let candidate=1; candidate<phaseSupports.length; candidate++){
+    if(phaseSupports[candidate] > phaseSupports[phase]) phase = candidate;
+  }
+  const phaseSum = Array.from(phaseSupports).reduce((sum, value) => sum + value, 0);
+  const phaseConcentration = phaseSum > 0 ? phaseSupports[phase] / phaseSum : 0;
+  const ambiguity = second.correlation / best.correlation;
+  const confidence = gridClamp01(0.55 * best.correlation + 0.45 * phaseConcentration - 0.25 * ambiguity);
+  return {
+    ok: true,
+    period: best.period,
+    phase,
+    confidence,
+    periodScore: best.correlation,
+    secondPeriod: second.period ?? null,
+    ambiguity,
+    phaseConcentration
+  };
+}
+
+function detectGridFromProfiles(xProfile, yProfile, width, height, validAlpha){
+  if(validAlpha < 64) return { ok: false, confidence: 0, reason: '유효 alpha 픽셀이 64개 미만입니다.' };
+  const x = detectGridAxis(xProfile, width);
+  const y = detectGridAxis(yProfile, height);
+  if(!x.ok || !y.ok){
+    return { ok: false, confidence: 0, reason: !x.ok ? `X축: ${x.reason}` : `Y축: ${y.reason}`, x, y };
+  }
+  return {
+    ok: true,
+    sizeX: x.period,
+    sizeY: y.period,
+    phaseX: x.phase,
+    phaseY: y.phase,
+    confidence: Math.min(x.confidence, y.confidence),
+    x,
+    y,
+    validAlpha
+  };
+}
+
+function aggregateGridProfiles(profileResults){
+  if(!Array.isArray(profileResults) || profileResults.length === 0) return { ok: false, confidence: 0, reason: '분석할 프레임이 없습니다.' };
+  const minWidth = Math.min(...profileResults.map(item => item.xProfile.length));
+  const minHeight = Math.min(...profileResults.map(item => item.yProfile.length));
+  if(minWidth < 8 || minHeight < 8) return { ok: false, confidence: 0, reason: '프레임 축 길이가 8px 미만입니다.' };
+  const xAggregate = new Float64Array(minWidth);
+  const yAggregate = new Float64Array(minHeight);
+  let usedX=0, usedY=0, validAlpha=0;
+  for(const item of profileResults){
+    validAlpha += item.validAlpha || 0;
+    const nx = normalizeGridProfileForAggregate(item.xProfile);
+    const ny = normalizeGridProfileForAggregate(item.yProfile);
+    if(nx){ for(let i=0; i<minWidth; i++) xAggregate[i] += nx[i]; usedX++; }
+    if(ny){ for(let i=0; i<minHeight; i++) yAggregate[i] += ny[i]; usedY++; }
+  }
+  if(usedX === 0 || usedY === 0) return { ok: false, confidence: 0, reason: '경계 profile을 정규화할 수 없습니다.' };
+  const result = detectGridFromProfiles(xAggregate, yAggregate, minWidth, minHeight, validAlpha);
+  result.frameCount = profileResults.length;
+  return result;
+}
+
+function analyzeGridFrames(frames){
+  const profiles = frames.map(frame => computeSobelGridProfiles(frame.data, frame.width, frame.height));
+  return aggregateGridProfiles(profiles);
+}
+
+async function analyzeGridFramesAsync(frames, isCancelled, preprocessMaxChunkMs = 0){
+  const profiles = [];
+  let sobelMaxChunkMs = 0;
+  for(const frame of frames){
+    const profile = await computeSobelGridProfilesAsync(frame.data, frame.width, frame.height, isCancelled);
+    sobelMaxChunkMs = Math.max(sobelMaxChunkMs, profile.maxChunkMs || 0);
+    profiles.push(profile);
+  }
+  const result = aggregateGridProfiles(profiles);
+  const measuredPreprocessMaxChunkMs = Math.max(0, Number(preprocessMaxChunkMs) || 0);
+  result.preprocessMaxChunkMs = measuredPreprocessMaxChunkMs;
+  result.sobelMaxChunkMs = sobelMaxChunkMs;
+  result.maxChunkMs = Math.max(measuredPreprocessMaxChunkMs, sobelMaxChunkMs);
+  return result;
+}
+
+function computeGridAxisCrop(length, period, phase){
+  const p = Number(period), offset = Number(phase);
+  if(!Number.isInteger(length) || length < 1 || !Number.isInteger(p) || p < 2 || p > 32 || !Number.isInteger(offset) || offset < 0 || offset >= p){
+    throw new Error('격자 crop 값이 유효하지 않습니다.');
+  }
+  const cells = Math.floor((length - offset) / p);
+  const end = offset + cells * p;
+  return { length, period: p, phase: offset, start: offset, end, cells, marginBefore: offset, marginAfter: length - end };
+}
+
+function computeGridCrop(width, height, grid){
+  const x = computeGridAxisCrop(width, grid.sizeX, grid.phaseX);
+  const y = computeGridAxisCrop(height, grid.sizeY, grid.phaseY);
+  return { x, y, outputWidth: x.cells, outputHeight: y.cells };
+}
+
+function validateManualGrid(grid){
+  const values = ['sizeX', 'sizeY', 'phaseX', 'phaseY'];
+  for(const key of values) if(!Number.isInteger(Number(grid[key]))) return { ok: false, reason: `${key}는 정수여야 합니다.` };
+  const sizeX = Number(grid.sizeX), sizeY = Number(grid.sizeY), phaseX = Number(grid.phaseX), phaseY = Number(grid.phaseY);
+  if(sizeX < 2 || sizeX > 32 || sizeY < 2 || sizeY > 32) return { ok: false, reason: '픽셀 크기는 2~32 범위여야 합니다.' };
+  if(phaseX < 0 || phaseX >= sizeX || phaseY < 0 || phaseY >= sizeY) return { ok: false, reason: 'offset은 각 픽셀 크기보다 작은 0 이상 정수여야 합니다.' };
+  return { ok: true, grid: { sizeX, sizeY, phaseX, phaseY } };
+}
+
+function createGridProcessingMetadata(appliedGrid, frameMode, frameWidth, frameHeight, downscaled){
+  const gridMetadata = {
+    sizeX: appliedGrid.sizeX,
+    sizeY: appliedGrid.sizeY,
+    phaseX: appliedGrid.phaseX,
+    phaseY: appliedGrid.phaseY,
+    source: appliedGrid.source,
+    lockedAcrossFrames: true,
+    margins: {
+      left: downscaled.gridCrop.x.marginBefore,
+      right: downscaled.gridCrop.x.marginAfter,
+      top: downscaled.gridCrop.y.marginBefore,
+      bottom: downscaled.gridCrop.y.marginAfter
+    }
+  };
+  if(appliedGrid.source === 'auto' && Number.isFinite(appliedGrid.confidence)){
+    gridMetadata.confidence = appliedGrid.confidence;
+  }
+  const processing = {
+    mode: 'grid-repair',
+    frameMode,
+    grid: gridMetadata,
+    logicalWidth: downscaled.w,
+    logicalHeight: downscaled.h
+  };
+  if(frameMode === 'sheet'){
+    processing.frameWidth = frameWidth;
+    processing.frameHeight = frameHeight;
+    processing.frameLogicalWidth = downscaled.frameLogicalW;
+    processing.frameLogicalHeight = downscaled.frameLogicalH;
+  }
+  return processing;
+}
+
+function sliceGridFrame(raw, startX, startY, width, height){
+  const data = new Uint8ClampedArray(width * height * 4);
+  for(let y=0; y<height; y++){
+    const sourceStart = ((startY + y) * raw.width + startX) * 4;
+    data.set(raw.data.subarray(sourceStart, sourceStart + width * 4), y * width * 4);
+  }
+  return { data, width, height };
+}
+
+function gridRepairDownscale(img, grid, frameWidth = null, frameHeight = null, representativeColor = 'mean-srgb', alphaThreshold = 10){
+  const raw = (img && img.data && typeof img.width === 'number' && typeof img.height === 'number') ? img : getRawPixels(img);
+  const manual = validateManualGrid(grid);
+  if(!manual.ok) throw new Error(manual.reason);
+  const isSheet = frameWidth != null && frameHeight != null;
+  const fw = isSheet ? Number(frameWidth) : raw.width;
+  const fh = isSheet ? Number(frameHeight) : raw.height;
+  if(!Number.isInteger(fw) || !Number.isInteger(fh) || fw < 8 || fh < 8 || raw.width % fw !== 0 || raw.height % fh !== 0){
+    throw new Error('격자 복구 시트 프레임 크기가 원본 치수와 나누어떨어지지 않습니다.');
+  }
+  const crop = computeGridCrop(fw, fh, manual.grid);
+  if(crop.outputWidth < 1 || crop.outputHeight < 1) throw new Error('전체 셀을 하나도 만들 수 없습니다. 격자 크기와 offset을 확인하세요.');
+  const columns = raw.width / fw;
+  const rows = raw.height / fh;
+  const outputWidth = columns * crop.outputWidth;
+  const outputHeight = rows * crop.outputHeight;
+  const out = new Uint8ClampedArray(outputWidth * outputHeight * 4);
+
+  for(let frameRow=0; frameRow<rows; frameRow++){
+    for(let frameColumn=0; frameColumn<columns; frameColumn++){
+      const frameX = frameColumn * fw;
+      const frameY = frameRow * fh;
+      for(let cellY=0; cellY<crop.outputHeight; cellY++){
+        const y0 = frameY + crop.y.start + cellY * manual.grid.sizeY;
+        for(let cellX=0; cellX<crop.outputWidth; cellX++){
+          const x0 = frameX + crop.x.start + cellX * manual.grid.sizeX;
+          const targetX = frameColumn * crop.outputWidth + cellX;
+          const targetY = frameRow * crop.outputHeight + cellY;
+          const targetIndex = (targetY * outputWidth + targetX) * 4;
+          out.set(representativeColorForCell(
+            raw.data, raw.width, x0, y0,
+            x0 + manual.grid.sizeX, y0 + manual.grid.sizeY,
+            representativeColor, alphaThreshold
+          ), targetIndex);
+        }
+      }
+    }
+  }
+
+  const result = {
+    data: out,
+    w: outputWidth,
+    h: outputHeight,
+    sourceW: raw.width,
+    sourceH: raw.height,
+    frameLogicalW: crop.outputWidth,
+    frameLogicalH: crop.outputHeight,
+    gridCrop: crop
+  };
+  if(isSheet){ result.frameWidth = fw; result.frameHeight = fh; }
+  return result;
+}
+
+function boxDownscale(img, size, method, representativeColor = 'mean-srgb', alphaThreshold = 10){
   const sw = img.width, sh = img.height;
   const srcCanvas = document.createElement('canvas');
   srcCanvas.width = sw; srcCanvas.height = sh;
@@ -2720,7 +4310,8 @@ function boxDownscale(img, size, method){
 
   const out = new Uint8ClampedArray(size * size * 4);
 
-  if(method === 'nearest'){
+  const representativeMode = normalizeRepresentativeColor(representativeColor);
+  if(method === 'nearest' && representativeMode === 'mean-srgb'){
     for(let ty=0; ty<size; ty++){
       for(let tx=0; tx<size; tx++){
         const sx = Math.min(sw-1, Math.floor((tx+0.5) * sw / size));
@@ -2736,27 +4327,17 @@ function boxDownscale(img, size, method){
     const y0 = Math.floor(ty * sh / size), y1 = Math.max(y0+1, Math.floor((ty+1) * sh / size));
     for(let tx=0; tx<size; tx++){
       const x0 = Math.floor(tx * sw / size), x1 = Math.max(x0+1, Math.floor((tx+1) * sw / size));
-      let rSum=0,gSum=0,bSum=0,aSum=0,count=0;
-      for(let sy=y0; sy<y1; sy++){
-        for(let sx=x0; sx<x1; sx++){
-          const si=(sy*sw+sx)*4;
-          const a = srcData[si+3];
-          rSum += srcData[si]*a; gSum += srcData[si+1]*a; bSum += srcData[si+2]*a;
-          aSum += a; count++;
-        }
-      }
       const ti=(ty*size+tx)*4;
-      if(aSum > 0){
-        out[ti]=rSum/aSum; out[ti+1]=gSum/aSum; out[ti+2]=bSum/aSum; out[ti+3]=Math.round(aSum/count);
-      } else {
-        out[ti]=0; out[ti+1]=0; out[ti+2]=0; out[ti+3]=0;
-      }
+      out.set(representativeColorForCell(
+        srcData, sw, x0, y0, x1, y1,
+        representativeMode, alphaThreshold
+      ), ti);
     }
   }
   return out;
 }
 
-function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize){
+function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize, representativeColor = 'mean-srgb', alphaThreshold = 10){
   const raw = getRawPixels(img);
   const logicalFrameWidth = frameWidth / blockSize;
   const logicalFrameHeight = frameHeight / blockSize;
@@ -2772,27 +4353,11 @@ function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize){
       const localX = (x % logicalFrameWidth) * blockSize;
       const x0 = frameX + localX;
       const y0 = frameY + localY;
-      let rSum=0, gSum=0, bSum=0, aSum=0, count=0;
-      for(let sy=y0; sy<y0+blockSize; sy++){
-        for(let sx=x0; sx<x0+blockSize; sx++){
-          const si=(sy*raw.width+sx)*4;
-          const a = raw.data[si+3];
-          rSum += raw.data[si]*a;
-          gSum += raw.data[si+1]*a;
-          bSum += raw.data[si+2]*a;
-          aSum += a;
-          count++;
-        }
-      }
       const ti=(y*logicalWidth+x)*4;
-      if(aSum > 0){
-        out[ti]=rSum/aSum;
-        out[ti+1]=gSum/aSum;
-        out[ti+2]=bSum/aSum;
-        out[ti+3]=Math.round(aSum/count);
-      } else {
-        out[ti]=0; out[ti+1]=0; out[ti+2]=0; out[ti+3]=0;
-      }
+      out.set(representativeColorForCell(
+        raw.data, raw.width, x0, y0, x0 + blockSize, y0 + blockSize,
+        representativeColor, alphaThreshold
+      ), ti);
     }
   }
 
@@ -2808,7 +4373,7 @@ function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize){
   };
 }
 
-function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null){
+function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null, representativeColor = 'mean-srgb', alphaThreshold = 10){
   const raw = (img && img.data && typeof img.width === 'number' && typeof img.height === 'number')
     ? img
     : getRawPixels(img);
@@ -2832,27 +4397,11 @@ function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null
       const frameX = isSheet ? Math.floor(x / logicalFrameWidth) * fw : 0;
       const localX = isSheet ? (x % logicalFrameWidth) * factorVal : x * factorVal;
       const x0 = frameX + localX;
-      let rSum=0, gSum=0, bSum=0, aSum=0, count=0;
-      for(let sy=y0; sy<y0+factorVal; sy++){
-        for(let sx=x0; sx<x0+factorVal; sx++){
-          const si=(sy*raw.width+sx)*4;
-          const a = raw.data[si+3];
-          rSum += raw.data[si]*a;
-          gSum += raw.data[si+1]*a;
-          bSum += raw.data[si+2]*a;
-          aSum += a;
-          count++;
-        }
-      }
       const ti=(y*logicalWidth+x)*4;
-      if(aSum > 0){
-        out[ti]=rSum/aSum;
-        out[ti+1]=gSum/aSum;
-        out[ti+2]=bSum/aSum;
-        out[ti+3]=Math.round(aSum/count);
-      } else {
-        out[ti]=0; out[ti+1]=0; out[ti+2]=0; out[ti+3]=0;
-      }
+      out.set(representativeColorForCell(
+        raw.data, raw.width, x0, y0, x0 + factorVal, y0 + factorVal,
+        representativeColor, alphaThreshold
+      ), ti);
     }
   }
 
@@ -2882,7 +4431,7 @@ function kmeans(points, k, iterations=10){
   k = Math.min(k, points.length);
   let centers = [];
   for(let i=0;i<k;i++){
-    centers.push(points[Math.floor(i * points.length / k)].slice());
+    centers.push(points[Math.floor(i * points.length / k)].slice(0, 3));
   }
   let assign = new Array(points.length).fill(0);
 
@@ -2899,7 +4448,12 @@ function kmeans(points, k, iterations=10){
     const sums = centers.map(()=>[0,0,0,0]);
     for(let p=0;p<points.length;p++){
       const c=assign[p];
-      sums[c][0]+=points[p][0]; sums[c][1]+=points[p][1]; sums[c][2]+=points[p][2]; sums[c][3]++;
+      const rawWeight = points[p].length > 3 ? Number(points[p][3]) : 1;
+      const weight = Number.isFinite(rawWeight) && rawWeight > 0 ? rawWeight : 1;
+      sums[c][0]+=points[p][0]*weight;
+      sums[c][1]+=points[p][1]*weight;
+      sums[c][2]+=points[p][2]*weight;
+      sums[c][3]+=weight;
     }
     for(let c=0;c<centers.length;c++){
       if(sums[c][3]>0){
@@ -2910,22 +4464,25 @@ function kmeans(points, k, iterations=10){
   return centers.map(c => c.map(Math.round));
 }
 
-function collectOpaquePoints(data, pixelCount, maxSamples = MAX_PALETTE_SAMPLES){
+function collectOpaquePoints(data, pixelCount, maxSamples = MAX_PALETTE_SAMPLES, threshold = 10, alphaWeighted = false){
   const points = [];
   const stride = Math.max(1, Math.ceil(pixelCount / maxSamples));
   for(let i=0; i<pixelCount; i+=stride){
-    if(data[i*4+3] >= 10){
-      points.push([data[i*4], data[i*4+1], data[i*4+2]]);
+    const alpha = data[i*4+3];
+    if(alpha >= threshold){
+      const point = [data[i*4], data[i*4+1], data[i*4+2]];
+      if(alphaWeighted) point.push(alpha / 255);
+      points.push(point);
     }
   }
   return points;
 }
 
-function uniqueColors(data, alpha, n){
+function uniqueColors(data, alpha, n, threshold = 10){
   const seen = new Map();
   const list = [];
   for(let i=0;i<n;i++){
-    if(alpha[i] < 10) continue;
+    if(alpha[i] < threshold) continue;
     const key = data[i*4]+','+data[i*4+1]+','+data[i*4+2];
     if(!seen.has(key)){
       seen.set(key, list.length);
@@ -3178,19 +4735,19 @@ function nearestColorIndex(r,g,b,palette){
   return best;
 }
 
-function cleanIsolated(grid, alpha, w, h, passes){
+function cleanIsolated(grid, alpha, w, h, passes, threshold = 10){
   let result = grid.slice();
   for(let pass=0; pass<passes; pass++){
     const next = result.slice();
     for(let y=0;y<h;y++){
       for(let x=0;x<w;x++){
-        if(alpha[y*w+x] < 10) continue;
+        if(alpha[y*w+x] < threshold) continue;
         const neighbors = [];
         for(let dy=-1; dy<=1; dy++){
           for(let dx=-1; dx<=1; dx++){
             if(dx===0 && dy===0) continue;
             const nx=x+dx, ny=y+dy;
-            if(nx>=0 && nx<w && ny>=0 && ny<h && alpha[ny*w+nx]>=10){
+            if(nx>=0 && nx<w && ny>=0 && ny<h && alpha[ny*w+nx]>=threshold){
               neighbors.push(result[ny*w+nx]);
             }
           }
@@ -3211,7 +4768,7 @@ function cleanIsolated(grid, alpha, w, h, passes){
   return result;
 }
 
-function cleanPreserveSheet(grid, alpha, w, h, frameW, frameH, passes){
+function cleanPreserveSheet(grid, alpha, w, h, frameW, frameH, passes, threshold = 10){
   const result = grid.slice();
   const columns = w / frameW;
   const rows = h / frameH;
@@ -3227,7 +4784,7 @@ function cleanPreserveSheet(grid, alpha, w, h, frameW, frameH, passes){
           frameAlpha[frameI] = alpha[sourceI];
         }
       }
-      const cleaned = cleanIsolated(frameGrid, frameAlpha, frameW, frameH, passes);
+      const cleaned = cleanIsolated(frameGrid, frameAlpha, frameW, frameH, passes, threshold);
       for(let y=0; y<frameH; y++){
         for(let x=0; x<frameW; x++){
           result[(frameY*frameH+y)*w + frameX*frameW+x] = cleaned[y*frameW+x];
@@ -3238,7 +4795,7 @@ function cleanPreserveSheet(grid, alpha, w, h, frameW, frameH, passes){
   return result;
 }
 
-function outlinePreserveSheet(grid, alpha, w, h, frameW, frameH, thickness, shape, outlineColorIdx){
+function outlinePreserveSheet(grid, alpha, w, h, frameW, frameH, thickness, shape, outlineColorIdx, threshold = 10){
   const resultGrid = grid.slice();
   const resultAlpha = alpha.slice();
   const columns = w / frameW;
@@ -3253,7 +4810,7 @@ function outlinePreserveSheet(grid, alpha, w, h, frameW, frameH, thickness, shap
       for(let y=0; y<frameH; y++){
         for(let x=0; x<frameW; x++){
           const globalI = (frameY*frameH+y)*w + frameX*frameW+x;
-          filled[y*frameW+x] = resultAlpha[globalI] >= 10;
+          filled[y*frameW+x] = resultAlpha[globalI] >= threshold;
         }
       }
 
@@ -3306,6 +4863,93 @@ function expandPreserveSheet(grid, alpha, w, h, blockSize, outputW, outputH){
     }
   }
   return {grid: outputGrid, alpha: outputAlpha, w: outputW, h: outputH};
+}
+
+function resolveOutputAlpha(gridValue, alphaValue, alphaMode, threshold){
+  if(gridValue < 0 || alphaValue < threshold) return 0;
+  if(alphaMode === 'coverage'){
+    return Math.max(1, Math.min(255, Math.round(alphaValue)));
+  }
+  return 255;
+}
+
+function buildCoverageAlphaMatrix(grid, alpha, width, height, alphaMode, threshold){
+  if(alphaMode !== 'coverage') return null;
+  const matrix = [];
+  for(let y=0; y<height; y++){
+    const row = new Array(width);
+    for(let x=0; x<width; x++){
+      const index = y*width+x;
+      row[x] = resolveOutputAlpha(grid[index], alpha[index], alphaMode, threshold);
+    }
+    matrix.push(row);
+  }
+  return matrix;
+}
+
+function buildAlphaPolicyArtifacts(grid, alpha, width, height, alphaMode, threshold){
+  const total = width * height;
+  if(!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1 ||
+      !Array.isArray(grid) || !Array.isArray(alpha) || grid.length !== total || alpha.length !== total){
+    throw new Error('알파 정책 산출물의 크기가 올바르지 않습니다.');
+  }
+  const renderedAlpha = new Array(total);
+  for(let index=0; index<total; index++){
+    renderedAlpha[index] = resolveOutputAlpha(grid[index], alpha[index], alphaMode, threshold);
+  }
+  const alphaMatrix = alphaMode === 'coverage'
+    ? Array.from({ length: height }, (_, y) => renderedAlpha.slice(y*width, (y+1)*width))
+    : null;
+  return { renderedAlpha, alphaMatrix };
+}
+
+function estimateCoverageAlphaMatrixJsonBytes(width, height){
+  if(!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1) return Infinity;
+  return 2 + height*2 + width*height*4;
+}
+
+function getJsonByteLength(value){
+  return new TextEncoder().encode(JSON.stringify(value)).byteLength;
+}
+
+function getResultLogStorageIssue(results){
+  if(!Array.isArray(results)) return { name: '알 수 없는 결과', bytes: Infinity, limit: MAX_STORED_RESULT_JSON_BYTES };
+  let totalJsonBytes = 2;
+  let jsonResultCount = 0;
+  for(const result of results){
+    const jsonData = result?.jsonData;
+    if(!jsonData || typeof jsonData !== 'object') continue;
+    if(Array.isArray(jsonData.alpha)){
+      const estimatedAlphaBytes = Number.isFinite(result.coverageAlphaEstimatedBytes)
+        ? result.coverageAlphaEstimatedBytes
+        : estimateCoverageAlphaMatrixJsonBytes(jsonData.width, jsonData.height);
+      if(estimatedAlphaBytes > MAX_STORED_ALPHA_MATRIX_BYTES){
+        return {
+          name: result.name || 'coverage 결과',
+          bytes: estimatedAlphaBytes,
+          limit: MAX_STORED_ALPHA_MATRIX_BYTES,
+          kind: 'alpha-matrix'
+        };
+      }
+    }
+    const jsonBytes = getJsonByteLength(jsonData);
+    totalJsonBytes += jsonBytes + (jsonResultCount > 0 ? 1 : 0);
+    jsonResultCount++;
+    if(totalJsonBytes > MAX_STORED_RESULT_JSON_BYTES){
+      return {
+        name: '전체',
+        bytes: totalJsonBytes,
+        limit: MAX_STORED_RESULT_JSON_BYTES,
+        kind: 'result-json-total'
+      };
+    }
+  }
+  return null;
+}
+
+function getResultPartialAlphaCount(result){
+  const value = result?.alphaDiagnostics?.partialAlphaCount ?? result?.jsonData?.diagnostics?.alpha?.partialAlphaCount;
+  return Number.isInteger(value) && value >= 0 ? value : 0;
 }
 
 function getSelectedNearestScales(){
@@ -3374,7 +5018,132 @@ function updateExportScaleWarnings(){
   }
 });
 
+function computeAlphaDiagnostics(alpha, w, h, frameW, frameH, threshold = 10) {
+  const fW = (frameW && frameW > 0 && frameW <= w) ? frameW : w;
+  const fH = (frameH && frameH > 0 && frameH <= h) ? frameH : h;
+  const cols = Math.floor(w / fW);
+  const rows = Math.floor(h / fH);
+  const diagThreshold = (Number.isInteger(threshold) && threshold >= 1 && threshold <= 254) ? threshold : 10;
+
+  let partialAlphaCount = 0;
+  const totalPixels = w * h;
+  for (let i = 0; i < totalPixels; i++) {
+    const a = alpha[i];
+    if (a > 0 && a < 255) {
+      partialAlphaCount++;
+    }
+  }
+
+  const visited = new Uint8Array(totalPixels);
+  const islands = [];
+  const queueX = new Int32Array(fW * fH);
+  const queueY = new Int32Array(fW * fH);
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const frameIndex = r * cols + c;
+      const startX = c * fW;
+      const endX = startX + fW;
+      const startY = r * fH;
+      const endY = startY + fH;
+      const components = [];
+
+      for (let y = startY; y < endY; y++) {
+        for (let x = startX; x < endX; x++) {
+          const idx = y * w + x;
+          if (visited[idx] || alpha[idx] < diagThreshold) continue;
+
+          let head = 0, tail = 0;
+          queueX[tail] = x;
+          queueY[tail] = y;
+          tail++;
+          visited[idx] = 1;
+
+          let minX = x, maxX = x, minY = y, maxY = y;
+          const compPixels = [{ x, y }];
+          const seedX = x, seedY = y;
+
+          while (head < tail) {
+            const cx = queueX[head];
+            const cy = queueY[head];
+            head++;
+
+            const neighbors = [
+              [cx, cy - 1],
+              [cx, cy + 1],
+              [cx - 1, cy],
+              [cx + 1, cy]
+            ];
+
+            for (let i = 0; i < 4; i++) {
+              const nx = neighbors[i][0];
+              const ny = neighbors[i][1];
+              if (nx >= startX && nx < endX && ny >= startY && ny < endY) {
+                const nidx = ny * w + nx;
+                if (!visited[nidx] && alpha[nidx] >= diagThreshold) {
+                  visited[nidx] = 1;
+                  queueX[tail] = nx;
+                  queueY[tail] = ny;
+                  tail++;
+                  if (nx < minX) minX = nx;
+                  if (nx > maxX) maxX = nx;
+                  if (ny < minY) minY = ny;
+                  if (ny > maxY) maxY = ny;
+                  compPixels.push({ x: nx, y: ny });
+                }
+              }
+            }
+          }
+
+          components.push({
+            frameIndex,
+            area: compPixels.length,
+            seedX,
+            seedY,
+            bbox: {
+              minX,
+              minY,
+              maxX,
+              maxY,
+              width: maxX - minX + 1,
+              height: maxY - minY + 1
+            },
+            pixels: compPixels
+          });
+        }
+      }
+
+      if (components.length > 0) {
+        let largest = components[0];
+        for (let i = 1; i < components.length; i++) {
+          if (components[i].area > largest.area) {
+            largest = components[i];
+          }
+        }
+
+        for (const comp of components) {
+          if (comp !== largest && comp.area <= 4) {
+            islands.push(comp);
+          }
+        }
+      }
+    }
+  }
+
+  const islandCount = islands.length;
+  const islandPixelCount = islands.reduce((acc, isl) => acc + isl.area, 0);
+
+  return {
+    partialAlphaCount,
+    islandCount,
+    islandPixelCount,
+    threshold: diagThreshold,
+    islands
+  };
+}
+
 async function processAll(){
+  if (typeof closeAnimModal === 'function') closeAnimModal(false);
   const scaleMode = scaleModeSel.value;
   const size = parseInt(sizeSel.value, 10);
   const method = methodSel.value;
@@ -3382,13 +5151,23 @@ async function processAll(){
   const factorFrameMode = document.querySelector('input[name="factorFrameMode"]:checked')?.value || 'whole';
   const factorFrameWidth = Number(factorFrameWidthInput.value);
   const factorFrameHeight = Number(factorFrameHeightInput.value);
+  const gridFrameMode = getGridFrameMode();
+  const gridFrameWidth = Number(gridFrameWidthInput.value);
+  const gridFrameHeight = Number(gridFrameHeightInput.value);
+  const appliedGrid = gridAnalysisState.applied ? { ...gridAnalysisState.applied } : null;
   const frameWidth = Number(frameWidthInput.value);
   const frameHeight = Number(frameHeightInput.value);
   const pixelBlockSize = Number(pixelBlockSizeSel.value);
+  const representativeColor = normalizeRepresentativeColor(representativeColorSel?.value || 'mean-srgb');
   const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
   const paletteOn = paletteMode !== 'unlimited';
   const parsedCustom = paletteMode === 'custom' ? parseHexPalette(customPaletteText.value) : { colors: [], hexes: [] };
   const customColors = parsedCustom.colors;
+  const alphaMode = (alphaModeCoverageRadio && alphaModeCoverageRadio.checked) ? 'coverage' : 'binary';
+  let alphaThreshold = alphaThresholdNum ? parseInt(alphaThresholdNum.value, 10) : (alphaThresholdRange ? parseInt(alphaThresholdRange.value, 10) : 10);
+  if (!Number.isInteger(alphaThreshold) || alphaThreshold < 1 || alphaThreshold > 254) {
+    alphaThreshold = 10;
+  }
 
   if (paletteMode === 'custom') {
     if (customColors.length < 2) {
@@ -3419,11 +5198,25 @@ async function processAll(){
       return;
     }
   }
+  if(scaleMode === 'grid-repair'){
+    const validationError = getGridFrameValidationError(uploadedFiles, gridFrameMode, gridFrameWidth, gridFrameHeight, false);
+    if(validationError){ statusEl.textContent = validationError; return; }
+    const validGrid = validateManualGrid(appliedGrid || {});
+    if(!appliedGrid || !validGrid.ok){
+      statusEl.textContent = '격자를 분석·확인한 뒤 [이 격자 적용]을 누르거나 수동 값을 잠그세요.';
+      return;
+    }
+  }
 
+  const gridRepairPixels = scaleMode === 'grid-repair'
+    ? estimateGridRepairPixels(uploadedFiles, appliedGrid, gridFrameMode, gridFrameWidth, gridFrameHeight)
+    : 0;
   const logicalPixels = scaleMode === 'square'
     ? uploadedFiles.length * size * size
     : scaleMode === 'factor'
       ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / factor) * (file.img.height / factor)), 0)
+      : scaleMode === 'grid-repair'
+        ? gridRepairPixels
       : scaleMode === 'preserve-sheet'
         ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / pixelBlockSize) * (file.img.height / pixelBlockSize)), 0)
         : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
@@ -3431,6 +5224,8 @@ async function processAll(){
     ? uploadedFiles.length * size * size
     : scaleMode === 'factor'
       ? uploadedFiles.reduce((sum, file) => sum + ((file.img.width / factor) * (file.img.height / factor)), 0)
+      : scaleMode === 'grid-repair'
+        ? gridRepairPixels
       : uploadedFiles.reduce((sum, file) => sum + (file.img.width * file.img.height), 0);
 
   if(outputPixels > MAX_RAW_PROCESS_PIXELS){
@@ -3448,22 +5243,34 @@ async function processAll(){
 
   const downs = uploadedFiles.map(f => {
     if(scaleMode === 'square'){
-      return { name: f.name, data: boxDownscale(f.img, size, method), w: size, h: size, mode: scaleMode };
+      return { name: f.name, addedIndex: f.addedIndex, data: boxDownscale(f.img, size, method, representativeColor, alphaThreshold), w: size, h: size, mode: scaleMode };
     }
     if(scaleMode === 'factor'){
       const isSheet = factorFrameMode === 'sheet';
       return {
         name: f.name,
-        ...exactFactorDownscale(f.img, factor, isSheet ? factorFrameWidth : null, isSheet ? factorFrameHeight : null),
+        addedIndex: f.addedIndex,
+        ...exactFactorDownscale(f.img, factor, isSheet ? factorFrameWidth : null, isSheet ? factorFrameHeight : null, representativeColor, alphaThreshold),
         mode: scaleMode,
         factorFrameMode
       };
     }
     if(scaleMode === 'preserve-sheet'){
-      return { name: f.name, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize), mode: scaleMode };
+      return { name: f.name, addedIndex: f.addedIndex, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize, representativeColor, alphaThreshold), mode: scaleMode };
+    }
+    if(scaleMode === 'grid-repair'){
+      const isSheet = gridFrameMode === 'sheet';
+      return {
+        name: f.name,
+        addedIndex: f.addedIndex,
+        ...gridRepairDownscale(f.img, appliedGrid, isSheet ? gridFrameWidth : null, isSheet ? gridFrameHeight : null, representativeColor, alphaThreshold),
+        mode: scaleMode,
+        gridFrameMode,
+        appliedGrid: { ...appliedGrid }
+      };
     }
     const raw = getRawPixels(f.img);
-    return { name: f.name, data: raw.data, w: raw.width, h: raw.height, mode: scaleMode, sourceW: raw.width, sourceH: raw.height };
+    return { name: f.name, addedIndex: f.addedIndex, data: raw.data, w: raw.width, h: raw.height, mode: scaleMode, sourceW: raw.width, sourceH: raw.height };
   });
 
   let sharedPalette = null;
@@ -3477,8 +5284,10 @@ async function processAll(){
       const n = d.w*d.h;
       for(let i=0;i<n;i++){
         const a = d.data[i*4+3];
-        if(a>=10 && visitedPixels % stride === 0){
-          allPoints.push([d.data[i*4], d.data[i*4+1], d.data[i*4+2]]);
+        if(a >= alphaThreshold && visitedPixels % stride === 0){
+          const point = [d.data[i*4], d.data[i*4+1], d.data[i*4+2]];
+          if(alphaMode === 'coverage') point.push(a / 255);
+          allPoints.push(point);
         }
         visitedPixels++;
       }
@@ -3500,18 +5309,18 @@ async function processAll(){
 
     if(!palette){
       if(paletteMode === 'auto'){
-        palette = kmeans(collectOpaquePoints(d.data, n), nColors, 10);
+        palette = kmeans(collectOpaquePoints(d.data, n, MAX_PALETTE_SAMPLES, alphaThreshold, alphaMode === 'coverage'), nColors, 10);
       } else if(paletteMode === 'custom'){
         palette = customColors;
       } else {
-        palette = uniqueColors(d.data, alpha, n);
+        palette = uniqueColors(d.data, alpha, n, alphaThreshold);
         exactColorMap = new Map(palette.map((color, index) => [color.join(','), index]));
       }
     }
 
     let grid = new Array(n).fill(-1);
     for(let i=0;i<n;i++){
-      if(alpha[i]>=10){
+      if(alpha[i]>=alphaThreshold){
         if(exactColorMap){
           grid[i] = exactColorMap.get(`${d.data[i*4]},${d.data[i*4+1]},${d.data[i*4+2]}`) ?? -1;
         } else {
@@ -3521,9 +5330,9 @@ async function processAll(){
     }
 
     if(cleanPasses>0){
-      grid = (d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet'))
-        ? cleanPreserveSheet(grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH, cleanPasses)
-        : cleanIsolated(grid, alpha, w, h, cleanPasses);
+      grid = (d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet') || (d.mode === 'grid-repair' && d.gridFrameMode === 'sheet'))
+        ? cleanPreserveSheet(grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH, cleanPasses, alphaThreshold)
+        : cleanIsolated(grid, alpha, w, h, cleanPasses, alphaThreshold);
     }
 
     let finalW = w, finalH = h;
@@ -3549,10 +5358,11 @@ async function processAll(){
         finalPalette.push(oRgb);
       }
 
-      if(d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet')){
+      if(d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet') || (d.mode === 'grid-repair' && d.gridFrameMode === 'sheet')){
         const outlined = outlinePreserveSheet(
           grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH,
-          outlineThickness, outlineShape.value, outlineColorIdx
+          outlineThickness, outlineShape.value, outlineColorIdx,
+          alphaThreshold
         );
         finalGrid = outlined.grid;
         finalAlpha = outlined.alpha;
@@ -3571,7 +5381,7 @@ async function processAll(){
         const offsets4 = [[0,-1],[0,1],[-1,0],[1,0]];
         const offsets8 = [[0,-1],[0,1],[-1,0],[1,0],[-1,-1],[-1,1],[1,-1],[1,1]];
         const offsets = outlineShape.value === '8' ? offsets8 : offsets4;
-        const filled = pAlpha.map(a => a >= 10);
+        const filled = pAlpha.map(a => a >= alphaThreshold);
         for(let t=0; t<outlineThickness; t++){
           const newlyFilled = [];
           for(let y=0;y<padH;y++){
@@ -3606,6 +5416,15 @@ async function processAll(){
       finalH = expanded.h;
     }
 
+    const alphaPolicyArtifacts = buildAlphaPolicyArtifacts(
+      finalGrid,
+      finalAlpha,
+      finalW,
+      finalH,
+      alphaMode,
+      alphaThreshold
+    );
+    const renderedAlpha = alphaPolicyArtifacts.renderedAlpha;
     const canvas = document.createElement('canvas');
     canvas.width = finalW; canvas.height = finalH;
     const ctx = canvas.getContext('2d');
@@ -3613,14 +5432,36 @@ async function processAll(){
     const finalN = finalW*finalH;
     for(let i=0;i<finalN;i++){
       const idx = i*4;
-      if(finalGrid[i]>=0 && finalAlpha[i]>=10){
+      const outputAlpha = renderedAlpha[i];
+      if(outputAlpha > 0){
         const c = finalPalette[finalGrid[i]];
-        imgData.data[idx]=c[0]; imgData.data[idx+1]=c[1]; imgData.data[idx+2]=c[2]; imgData.data[idx+3]=255;
+        imgData.data[idx]=c[0];
+        imgData.data[idx+1]=c[1];
+        imgData.data[idx+2]=c[2];
+        imgData.data[idx+3]=outputAlpha;
       } else {
         imgData.data[idx]=0; imgData.data[idx+1]=0; imgData.data[idx+2]=0; imgData.data[idx+3]=0;
       }
     }
     ctx.putImageData(imgData, 0, 0);
+
+    const isSheetResult = d.mode === 'preserve-sheet' ||
+      (d.mode === 'factor' && d.factorFrameMode === 'sheet') ||
+      (d.mode === 'grid-repair' && d.gridFrameMode === 'sheet');
+    const diagnosticsFrameW = d.mode === 'preserve-sheet'
+      ? frameWidth
+      : isSheetResult ? d.frameLogicalW : finalW;
+    const diagnosticsFrameH = d.mode === 'preserve-sheet'
+      ? frameHeight
+      : isSheetResult ? d.frameLogicalH : finalH;
+    const outputAlphaDiag = computeAlphaDiagnostics(
+      renderedAlpha,
+      finalW,
+      finalH,
+      diagnosticsFrameW,
+      diagnosticsFrameH,
+      alphaThreshold
+    );
 
     const paletteObj = {};
     finalPalette.forEach((c,i) => paletteObj[i] = c);
@@ -3651,17 +5492,26 @@ async function processAll(){
             logicalWidth: d.w,
             logicalHeight: d.h
           };
+    } else if(scaleMode === 'grid-repair'){
+      processing = createGridProcessingMetadata(
+        appliedGrid,
+        gridFrameMode,
+        gridFrameWidth,
+        gridFrameHeight,
+        d
+      );
     } else if(scaleMode === 'preserve-sheet'){
       processing = { mode: 'preserve-sheet', frameWidth, frameHeight, pixelBlockSize };
     } else {
       processing = { mode: 'original' };
     }
+    processing.representativeColor = representativeColor;
 
     let paletteProcessing;
     if(paletteMode === 'custom'){
       const usedIndices = new Set();
       for(let i=0; i<finalGrid.length; i++){
-        if(finalGrid[i] >= 0 && finalGrid[i] < customColors.length && finalAlpha[i] >= 10){
+        if(finalGrid[i] >= 0 && finalGrid[i] < customColors.length && finalAlpha[i] >= alphaThreshold){
           usedIndices.add(finalGrid[i]);
         }
       }
@@ -3684,6 +5534,10 @@ async function processAll(){
       };
     }
     processing.palette = paletteProcessing;
+    processing.alpha = {
+      mode: alphaMode,
+      threshold: alphaThreshold
+    };
 
     const selectedScales = getSelectedNearestScales();
     const jsonData = {
@@ -3693,11 +5547,28 @@ async function processAll(){
       grid: grid2d,
       outline: outlineCheck.checked ? { paletteIndex: outlineColorIdx, shape: outlineShape.value, thickness: outlineThickness } : null,
       processing,
+      diagnostics: {
+        alpha: {
+          partialAlphaCount: outputAlphaDiag.partialAlphaCount,
+          islandCount: outputAlphaDiag.islandCount,
+          islandPixelCount: outputAlphaDiag.islandPixelCount,
+          threshold: outputAlphaDiag.threshold,
+          islands: outputAlphaDiag.islands
+        }
+      },
       exports: {
         native: true,
         nearestScales: selectedScales
       }
     };
+
+    const coverageAlphaEstimatedBytes = alphaMode === 'coverage'
+      ? estimateCoverageAlphaMatrixJsonBytes(finalW, finalH)
+      : 0;
+    const alpha2d = alphaPolicyArtifacts.alphaMatrix;
+    if (alpha2d) {
+      jsonData.alpha = alpha2d;
+    }
 
     const dataUrl = canvas.toDataURL('image/png');
     const pngSize = Math.round(dataUrl.split(',')[1].length * 0.75);
@@ -3708,10 +5579,12 @@ async function processAll(){
       paletteSize: finalPalette.length,
       pngSize,
       dataUrl,
-      addedIndex: lastResults.length,
+      addedIndex: d.addedIndex,
       sourceImage: d.img,
       sourceWidth: d.img ? (d.img.naturalWidth || d.img.width) : finalW,
-      sourceHeight: d.img ? (d.img.naturalHeight || d.img.height) : finalH
+      sourceHeight: d.img ? (d.img.naturalHeight || d.img.height) : finalH,
+      alphaDiagnostics: outputAlphaDiag,
+      coverageAlphaEstimatedBytes
     });
     await new Promise(r=>setTimeout(r,0));
   }
@@ -3731,7 +5604,8 @@ async function processAll(){
       paletteSize: r.paletteSize,
       jsonData: r.jsonData,
       dataUrl: r.dataUrl,
-      pngSize: r.pngSize
+      pngSize: r.pngSize,
+      addedIndex: r.addedIndex
     }));
     const fileNames = uploadedFiles.map(f => f.name);
     const settings = readUiSettings();
@@ -3741,10 +5615,20 @@ async function processAll(){
 
 function renderResults(){
   const sortControls = document.getElementById('sortControls');
+  const animReviewBtn = document.getElementById('animReviewBtn');
+  if (alphaDiagnosticsSummary) {
+    const totalPartialAlpha = lastResults.reduce((sum, r) => sum + getResultPartialAlphaCount(r), 0);
+    alphaDiagnosticsSummary.textContent = `현재 결과에는 부분 알파 ${totalPartialAlpha}개가 있습니다.`;
+  }
   if (lastResults.length > 0) {
     sortControls.style.display = 'flex';
+    if (animReviewBtn && typeof getAvailableAnimationSources === 'function') {
+      const animSources = getAvailableAnimationSources(lastResults);
+      animReviewBtn.style.display = animSources.length > 0 ? 'inline-flex' : 'none';
+    }
   } else {
     sortControls.style.display = 'none';
+    if (animReviewBtn) animReviewBtn.style.display = 'none';
   }
 
   const sortBy = document.getElementById('resultSortBy').value;
@@ -3803,7 +5687,25 @@ function renderResults(){
     dimensions.textContent = `${r.canvas.width}×${r.canvas.height} (${formatSize(r.pngSize)})`;
     const palette = document.createElement('span');
     palette.textContent = `팔레트 ${r.paletteSize}색`;
-    meta.append(dimensions, palette);
+    const representative = document.createElement('span');
+    representative.textContent = `대표색 ${r.jsonData?.processing?.representativeColor || 'mean-srgb'}`;
+    meta.append(dimensions, palette, representative);
+
+    const alphaDiagSpan = document.createElement('span');
+    if (r.jsonData?.diagnostics?.alpha) {
+      const ad = r.jsonData.diagnostics.alpha;
+      if (ad.partialAlphaCount === 0 && ad.islandCount === 0) {
+        alphaDiagSpan.textContent = '부분 알파 없음 · 고립 섬 없음';
+      } else {
+        const parts = [];
+        if (ad.partialAlphaCount > 0) parts.push(`부분 알파 ${ad.partialAlphaCount}`);
+        if (ad.islandCount > 0) parts.push(`작은 섬 ${ad.islandCount}`);
+        alphaDiagSpan.textContent = parts.join(' · ');
+      }
+    } else {
+      alphaDiagSpan.textContent = '알파 진단: 기록 없음';
+    }
+    meta.appendChild(alphaDiagSpan);
 
     const selectedScales = getSelectedNearestScales();
     if (selectedScales.length > 0) {
@@ -3859,14 +5761,7 @@ function renderResults(){
     jsonButton.textContent = 'JSON';
     jsonButton.setAttribute('aria-label', `${r.name} JSON 다운로드`);
     jsonButton.addEventListener('click', () => {
-      const exportJson = {
-        ...r.jsonData,
-        exports: {
-          native: true,
-          nearestScales: selectedScales
-        }
-      };
-      const blob = new Blob([JSON.stringify(exportJson, null, 2)], {type:'application/json'});
+      const blob = new Blob([JSON.stringify(r.jsonData, null, 2)], { type: 'application/json' });
       downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.json`);
     });
     buttons.appendChild(jsonButton);
@@ -3889,6 +5784,7 @@ const modalResultPane = document.getElementById('modalResultPane');
 const modalResultLabel = document.getElementById('modalResultLabel');
 const modalResultCanvasWrap = document.getElementById('modalResultCanvasWrap');
 const modalPixelGrid = document.getElementById('modalPixelGrid');
+const modalAlphaOverlay = document.getElementById('modalAlphaOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalClose = document.getElementById('modalClose');
 const modalModeResult = document.getElementById('modalModeResult');
@@ -3903,6 +5799,7 @@ const modalZoomIn = document.getElementById('modalZoomIn');
 const modalZoomValue = document.getElementById('modalZoomValue');
 const modalViewReset = document.getElementById('modalViewReset');
 const modalGridToggle = document.getElementById('modalGridToggle');
+const modalAlphaDiagToggle = document.getElementById('modalAlphaDiagToggle');
 const modalExpandToggle = document.getElementById('modalExpandToggle');
 const modalFallbackNotice = document.getElementById('modalFallbackNotice');
 
@@ -3916,6 +5813,7 @@ let modalFrameWidth = 0;
 let modalFrameHeight = 0;
 let modalPanState = null;
 let modalGridVisible = false;
+let modalAlphaDiagVisible = false;
 let modalExpanded = false;
 
 function createLazySourceCanvas(sourceImg, resultW, resultH) {
@@ -3950,6 +5848,48 @@ function setModalGridVisible(visible){
   modalGridVisible = visible;
   modalPixelGrid.classList.toggle('visible', visible);
   modalGridToggle.setAttribute('aria-pressed', String(visible));
+}
+
+function setModalAlphaDiagVisible(visible) {
+  modalAlphaDiagVisible = visible;
+  if (modalAlphaDiagToggle) {
+    modalAlphaDiagToggle.setAttribute('aria-pressed', String(visible));
+    modalAlphaDiagToggle.classList.toggle('active', visible);
+  }
+  renderModalAlphaOverlay();
+}
+
+function renderModalAlphaOverlay() {
+  if (!modalAlphaOverlay) return;
+  if (!modalAlphaDiagVisible || !activeModalResult || !activeModalResult.alphaDiagnostics || !activeModalCanvas) {
+    modalAlphaOverlay.style.display = 'none';
+    return;
+  }
+  const ad = activeModalResult.alphaDiagnostics;
+  const islands = ad.islands || [];
+  if (islands.length === 0 && ad.partialAlphaCount === 0) {
+    modalAlphaOverlay.style.display = 'none';
+    return;
+  }
+  modalAlphaOverlay.width = activeModalResult.canvas.width;
+  modalAlphaOverlay.height = activeModalResult.canvas.height;
+  modalAlphaOverlay.style.width = activeModalCanvas.style.width;
+  modalAlphaOverlay.style.height = activeModalCanvas.style.height;
+  modalAlphaOverlay.style.display = 'block';
+
+  const ctx = modalAlphaOverlay.getContext('2d');
+  ctx.clearRect(0, 0, modalAlphaOverlay.width, modalAlphaOverlay.height);
+
+  // Draw island highlights: semi-transparent yellow fill and yellow border box
+  for (const isl of islands) {
+    ctx.fillStyle = 'rgba(255, 235, 59, 0.45)';
+    for (const p of isl.pixels) {
+      ctx.fillRect(p.x, p.y, 1, 1);
+    }
+    ctx.strokeStyle = '#ffd600';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(isl.bbox.minX, isl.bbox.minY, isl.bbox.width, isl.bbox.height);
+  }
 }
 
 function setModalExpanded(expanded, preserveCenter = true){
@@ -4042,6 +5982,11 @@ function setModalScale(nextScale, resetPosition = false){
   modalPixelGrid.style.height = canvasHeight + 'px';
   modalPixelGrid.style.backgroundSize = `${scale}px ${scale}px`;
 
+  if (modalAlphaOverlay) {
+    modalAlphaOverlay.style.width = canvasWidth + 'px';
+    modalAlphaOverlay.style.height = canvasHeight + 'px';
+  }
+
   if (activeModalSourceCanvas) {
     activeModalSourceCanvas.style.width = canvasWidth + 'px';
     activeModalSourceCanvas.style.height = canvasHeight + 'px';
@@ -4087,7 +6032,7 @@ function setModalScale(nextScale, resetPosition = false){
 }
 
 function openModal(r){
-  modalResultCanvasWrap.replaceChildren(modalPixelGrid);
+  modalResultCanvasWrap.replaceChildren(modalPixelGrid, modalAlphaOverlay);
   modalSourceCanvasWrap.replaceChildren();
   activeModalSourceCanvas = null;
 
@@ -4100,6 +6045,23 @@ function openModal(r){
   modalResultCanvasWrap.prepend(big);
   activeModalCanvas = big;
   activeModalResult = r;
+
+  const ad = r.alphaDiagnostics || (r.jsonData?.diagnostics?.alpha ? { ...r.jsonData.diagnostics.alpha, islands: [] } : null);
+  if (modalAlphaDiagToggle) {
+    if (!ad || (ad.islandCount === 0 && ad.partialAlphaCount === 0)) {
+      modalAlphaDiagToggle.disabled = true;
+      modalAlphaDiagToggle.title = '부분 알파 및 고립 섬 없음';
+      modalAlphaDiagToggle.setAttribute('aria-pressed', 'false');
+    } else {
+      modalAlphaDiagToggle.disabled = false;
+      const parts = [];
+      if (ad.partialAlphaCount > 0) parts.push(`부분 알파 ${ad.partialAlphaCount}`);
+      if (ad.islandCount > 0) parts.push(`작은 섬 ${ad.islandCount}`);
+      modalAlphaDiagToggle.title = `알파 진단 표시 (${parts.join(', ')})`;
+      modalAlphaDiagToggle.setAttribute('aria-pressed', 'false');
+    }
+  }
+  setModalAlphaDiagVisible(false);
 
   const hasSource = Boolean(r.sourceImage);
   modalModeSource.disabled = !hasSource;
@@ -4151,6 +6113,7 @@ function closeModal(){
   setModalExpanded(false, false);
   modalCanvasWrap.classList.remove('dragging');
   setModalGridVisible(false);
+  setModalAlphaDiagVisible(false);
 
   if (activeModalSourceCanvas) {
     activeModalSourceCanvas.remove();
@@ -4172,9 +6135,53 @@ function closeModal(){
 modalClose.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
 document.addEventListener('keydown', e => {
-  if (e.key !== 'Escape' || !modalOverlay.classList.contains('open')) return;
-  if (modalExpanded) setModalExpanded(false);
-  else closeModal();
+  const tag = document.activeElement?.tagName?.toLowerCase();
+  const isInput = tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement?.isContentEditable;
+
+  if (animModal && animModal.classList.contains('open')) {
+    if (e.key === 'Tab') {
+      const focusable = Array.from(animModal.querySelectorAll(
+        'button:not([disabled]), select:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(element => element.getClientRects().length > 0);
+      if (focusable.length > 0) {
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && (document.activeElement === first || !animModal.contains(document.activeElement))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (document.activeElement === last || !animModal.contains(document.activeElement))) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+      return;
+    }
+    if (e.key === 'Escape') {
+      if (animExpanded) setAnimExpanded(false);
+      else closeAnimModal();
+      return;
+    }
+    if (!isInput) {
+      if (e.code === 'Space' || e.key === ' ') {
+        e.preventDefault();
+        toggleAnimPlay();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        stepAnimFrame(-1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        stepAnimFrame(1);
+      }
+    }
+    return;
+  }
+
+  if (modalOverlay && modalOverlay.classList.contains('open')) {
+    if (e.key === 'Escape') {
+      if (modalExpanded) setModalExpanded(false);
+      else closeModal();
+    }
+  }
 });
 
 modalModeResult.addEventListener('click', () => setModalViewMode('result'));
@@ -4193,6 +6200,9 @@ modalViewReset.addEventListener('click', () => {
   setModalGridVisible(false);
 });
 modalGridToggle.addEventListener('click', () => setModalGridVisible(!modalGridVisible));
+if (modalAlphaDiagToggle) {
+  modalAlphaDiagToggle.addEventListener('click', () => setModalAlphaDiagVisible(!modalAlphaDiagVisible));
+}
 modalExpandToggle.addEventListener('click', () => setModalExpanded(!modalExpanded));
 
 modalCanvasWrap.addEventListener('pointerdown', e => {
@@ -4230,6 +6240,660 @@ function finishModalPan(e){
 
 modalCanvasWrap.addEventListener('pointerup', finishModalPan);
 modalCanvasWrap.addEventListener('pointercancel', finishModalPan);
+
+// ---------- ANI-001 다중 파일·시트 프레임 애니메이션 검수 ----------
+const animModal = document.getElementById('animModal');
+const animSourceSelect = document.getElementById('animSourceSelect');
+const animClose = document.getElementById('animClose');
+const animCanvasWrap = document.getElementById('animCanvasWrap');
+const animCanvasStage = document.getElementById('animCanvasStage');
+const animCanvas = document.getElementById('animCanvas');
+const animPixelGrid = document.getElementById('animPixelGrid');
+const animPlayPauseBtn = document.getElementById('animPlayPauseBtn');
+const animPrevBtn = document.getElementById('animPrevBtn');
+const animNextBtn = document.getElementById('animNextBtn');
+const animLoopBtn = document.getElementById('animLoopBtn');
+const animFpsRange = document.getElementById('animFpsRange');
+const animFpsNumber = document.getElementById('animFpsNumber');
+const animFrameLabel = document.getElementById('animFrameLabel');
+const animZoom1x = document.getElementById('animZoom1x');
+const animZoom2x = document.getElementById('animZoom2x');
+const animZoom8x = document.getElementById('animZoom8x');
+const animGridToggle = document.getElementById('animGridToggle');
+const animBgCycleBtn = document.getElementById('animBgCycleBtn');
+const animExpandToggle = document.getElementById('animExpandToggle');
+const animChipPalette = document.getElementById('animChipPalette');
+const animChipGrid = document.getElementById('animChipGrid');
+const animChipDither = document.getElementById('animChipDither');
+const animNotice = document.getElementById('animNotice');
+const animReviewBtn = document.getElementById('animReviewBtn');
+
+let animSources = [];
+let activeAnimSource = null;
+let animCurrentFrameIdx = 0;
+let animIsPlaying = false;
+let animFps = 8;
+let animIsLoop = true;
+let animScale = 1;
+let animInitialScale = 1;
+let animRafId = null;
+let animLastTimestamp = 0;
+let animAccumulator = 0;
+let animGridVisible = false;
+let animExpanded = false;
+let animPanState = null;
+let animReturnFocus = null;
+
+function getMultiFileAnimationFrames(results) {
+  if (!results || results.length < 2) return null;
+  const sorted = results.slice().sort(compareAnimationFrameOrder);
+
+  const maxW = Math.max(...sorted.map(r => r.canvas.width));
+  const maxH = Math.max(...sorted.map(r => r.canvas.height));
+
+  const frames = sorted.map((r, i) => ({
+    index: i,
+    name: r.name,
+    canvas: r.canvas,
+    w: r.canvas.width,
+    h: r.canvas.height,
+    offsetX: Math.floor((maxW - r.canvas.width) / 2),
+    offsetY: Math.floor((maxH - r.canvas.height) / 2)
+  }));
+
+  return {
+    type: 'multi-file',
+    title: `전체 파일 시퀀스 (${frames.length}개)`,
+    viewportW: maxW,
+    viewportH: maxH,
+    frames
+  };
+}
+
+function getSheetAnimationFrames(result) {
+  if (!result || !result.jsonData || !result.jsonData.processing) return null;
+  const proc = result.jsonData.processing;
+  let frameW = 0, frameH = 0;
+
+  if (proc.mode === 'factor' && proc.frameMode === 'sheet') {
+    frameW = proc.frameLogicalWidth;
+    frameH = proc.frameLogicalHeight;
+  } else if (proc.mode === 'grid-repair' && proc.frameMode === 'sheet') {
+    frameW = proc.frameLogicalWidth;
+    frameH = proc.frameLogicalHeight;
+  } else if (proc.mode === 'preserve-sheet') {
+    frameW = proc.frameWidth;
+    frameH = proc.frameHeight;
+  }
+
+  if (!frameW || !frameH || frameW <= 0 || frameH <= 0) return null;
+  const totalW = result.canvas.width;
+  const totalH = result.canvas.height;
+  if (totalW % frameW !== 0 || totalH % frameH !== 0) return null;
+
+  const cols = Math.floor(totalW / frameW);
+  const rows = Math.floor(totalH / frameH);
+  const frameCount = cols * rows;
+  if (frameCount <= 1) return null;
+  if (frameCount > 256) {
+    return {
+      type: 'sheet',
+      name: result.name,
+      addedIndex: result.addedIndex,
+      title: `${result.name} (${frameCount}프레임)`,
+      error: `프레임 수(${frameCount}개)가 최대 허용치(256개)를 초과합니다.`
+    };
+  }
+
+  const frames = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      frames.push({
+        index: r * cols + c,
+        name: `${result.name} [#${r * cols + c + 1}]`,
+        sourceCanvas: result.canvas,
+        srcX: c * frameW,
+        srcY: r * frameH,
+        w: frameW,
+        h: frameH,
+        offsetX: 0,
+        offsetY: 0
+      });
+    }
+  }
+
+  return {
+    type: 'sheet',
+    name: result.name,
+    addedIndex: result.addedIndex,
+    title: `${result.name} (${frames.length}프레임)`,
+    viewportW: frameW,
+    viewportH: frameH,
+    frames
+  };
+}
+
+function getAvailableAnimationSources(results) {
+  if (!results || results.length === 0) return [];
+  const sources = [];
+  const multi = getMultiFileAnimationFrames(results);
+  if (multi) sources.push(multi);
+
+  for (const r of results) {
+    const sheet = getSheetAnimationFrames(r);
+    if (sheet) sources.push(sheet);
+  }
+  return sources;
+}
+
+function getAnimSourceWarningText(sources, selectedSource) {
+  if (selectedSource?.error) return selectedSource.error;
+  if (!Array.isArray(sources)) return '';
+  return sources
+    .filter(source => source?.error)
+    .map(source => `재생 제외 — ${source.name || source.title}: ${source.error}`)
+    .join('\n');
+}
+
+function findAnimSourceResult(sourceItem, allResults) {
+  if (!sourceItem || sourceItem.type !== 'sheet' || !Array.isArray(allResults)) return null;
+  if (Number.isInteger(sourceItem.addedIndex)) {
+    const exactMatch = allResults.find(result => (
+      result.name === sourceItem.name && result.addedIndex === sourceItem.addedIndex
+    ));
+    if (exactMatch) return exactMatch;
+  }
+  return allResults.find(result => result.name === sourceItem.name) || null;
+}
+
+function getAnimDitherStatus(sourceItem, allResults) {
+  const sheetResult = sourceItem.type === 'sheet'
+    ? findAnimSourceResult(sourceItem, allResults)
+    : null;
+  const relevantResults = sourceItem.type === 'sheet'
+    ? (sheetResult ? [sheetResult] : [])
+    : allResults;
+  if (relevantResults.length === 0) {
+    return { label: '디더링: 확인 불가', active: false, warn: false };
+  }
+
+  const states = relevantResults.map(result => {
+    const processing = result?.jsonData?.processing;
+    const rawValue = processing?.dithering ?? processing?.dither;
+    if (rawValue === undefined || rawValue === null || rawValue === '') return 'unknown';
+    if (rawValue === false) return 'off';
+    if (rawValue === true) return 'on';
+    const normalized = String(rawValue).trim().toLocaleLowerCase('en-US');
+    if (normalized === 'none' || normalized === 'off' || normalized === 'disabled' || normalized === 'false') return 'off';
+    return 'on';
+  });
+
+  if (states.some(state => state === 'unknown')) {
+    return { label: '디더링: 확인 불가', active: false, warn: false };
+  }
+  if (states.every(state => state === 'off')) {
+    return { label: '디더링: 꺼짐', active: true, warn: false };
+  }
+  return { label: '디더링: 켜짐', active: false, warn: true };
+}
+
+function evaluateAnimPolicy(sourceItem, allResults) {
+  let paletteStatus = { label: '공유 팔레트: 확인 불가', active: false, warn: false };
+  let gridStatus = { label: '격자 잠금: 확인 불가', active: false, warn: false };
+  const ditherStatus = getAnimDitherStatus(sourceItem, allResults);
+
+  if (sourceItem.type === 'multi-file') {
+    const firstProc = allResults[0]?.jsonData?.processing;
+    if (firstProc?.palette) {
+      if (firstProc.palette.mode === 'custom') {
+        paletteStatus = { label: '공유 팔레트: 직접 지정', active: true, warn: false };
+      } else if (firstProc.palette.mode === 'auto' && firstProc.palette.shared) {
+        paletteStatus = { label: '공유 팔레트: 켜짐', active: true, warn: false };
+      } else if (firstProc.palette.mode === 'unlimited') {
+        paletteStatus = { label: '팔레트: 제한 없음', active: false, warn: true };
+      } else {
+        paletteStatus = { label: '공유 팔레트: 꺼짐 (개별)', active: false, warn: true };
+      }
+    }
+    if (firstProc?.mode === 'grid-repair' && firstProc.grid?.lockedAcrossFrames === true) {
+      gridStatus = { label: '격자 잠금: 켜짐', active: true, warn: false };
+    } else if (firstProc?.mode === 'factor' || firstProc?.mode === 'preserve-sheet') {
+      gridStatus = { label: '격자 잠금: 켜짐', active: true, warn: false };
+    } else if (firstProc?.mode === 'square') {
+      gridStatus = { label: '격자 잠금: 꺼짐 (정사각)', active: false, warn: true };
+    }
+  } else if (sourceItem.type === 'sheet') {
+    const res = findAnimSourceResult(sourceItem, allResults);
+    const proc = res?.jsonData?.processing;
+    if (proc?.palette) {
+      if (proc.palette.mode === 'custom') {
+        paletteStatus = { label: '팔레트: 직접 지정', active: true, warn: false };
+      } else if (proc.palette.mode === 'auto') {
+        paletteStatus = { label: '팔레트: 시트 단일', active: true, warn: false };
+      } else {
+        paletteStatus = { label: '팔레트: 제한 없음', active: false, warn: false };
+      }
+    }
+    gridStatus = { label: '시트 프레임 격자: 잠금', active: true, warn: false };
+  }
+
+  return { paletteStatus, gridStatus, ditherStatus };
+}
+
+function updateAnimPolicyChips(sourceItem) {
+  if (!sourceItem) return;
+  const { paletteStatus, gridStatus, ditherStatus } = evaluateAnimPolicy(sourceItem, lastResults);
+
+  if (animChipPalette) {
+    animChipPalette.textContent = paletteStatus.label;
+    animChipPalette.className = 'anim-chip' + (paletteStatus.active ? ' active' : '') + (paletteStatus.warn ? ' warn' : '');
+  }
+  if (animChipGrid) {
+    animChipGrid.textContent = gridStatus.label;
+    animChipGrid.className = 'anim-chip' + (gridStatus.active ? ' active' : '') + (gridStatus.warn ? ' warn' : '');
+  }
+  if (animChipDither) {
+    animChipDither.textContent = ditherStatus.label;
+    animChipDither.className = 'anim-chip' + (ditherStatus.active ? ' active' : '') + (ditherStatus.warn ? ' warn' : '');
+  }
+}
+
+function setAnimControlsDisabled(disabled) {
+  const shouldDisable = Boolean(disabled);
+  [
+    animPlayPauseBtn,
+    animPrevBtn,
+    animNextBtn,
+    animLoopBtn,
+    animFpsRange,
+    animFpsNumber,
+    animZoom1x,
+    animZoom2x,
+    animZoom8x,
+    animGridToggle,
+    animBgCycleBtn,
+    animExpandToggle
+  ].forEach(control => {
+    if (control) control.disabled = shouldDisable;
+  });
+}
+
+function selectAnimSource(index) {
+  if (!animSources[index]) return false;
+  const src = animSources[index];
+  activeAnimSource = src;
+  animCurrentFrameIdx = 0;
+  animAccumulator = 0;
+  animLastTimestamp = performance.now();
+
+  const noticeText = getAnimSourceWarningText(animSources, src);
+  if (animNotice) {
+    animNotice.textContent = noticeText;
+    animNotice.style.display = noticeText ? 'block' : 'none';
+  }
+
+  if (src.error) {
+    setAnimPlaying(false);
+    setAnimControlsDisabled(true);
+    if (animFrameLabel) animFrameLabel.textContent = '—';
+    if (animCanvas) {
+      const ctx = animCanvas.getContext('2d');
+      if (ctx) ctx.clearRect(0, 0, animCanvas.width, animCanvas.height);
+    }
+    return false;
+  }
+  setAnimControlsDisabled(false);
+
+  updateAnimPolicyChips(src);
+
+  const modalChromeHeight = window.innerWidth <= 620 ? 250 : 200;
+  const maxDisplayWidth = Math.max(src.viewportW, window.innerWidth * 0.7);
+  const maxDisplayHeight = Math.max(src.viewportH, (window.innerHeight * 0.9) - modalChromeHeight);
+  animInitialScale = Math.min(24, Math.max(1, Math.floor(Math.min(
+    maxDisplayWidth / src.viewportW,
+    maxDisplayHeight / src.viewportH
+  ))));
+
+  setAnimScale(animInitialScale, true);
+  renderAnimFrame();
+  return true;
+}
+
+function renderAnimFrame() {
+  if (!activeAnimSource || !activeAnimSource.frames || activeAnimSource.frames.length === 0) return;
+  const frame = activeAnimSource.frames[animCurrentFrameIdx];
+  if (!frame) return;
+
+  animCanvas.width = activeAnimSource.viewportW;
+  animCanvas.height = activeAnimSource.viewportH;
+  const ctx = animCanvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.clearRect(0, 0, animCanvas.width, animCanvas.height);
+
+  if (activeAnimSource.type === 'multi-file') {
+    ctx.drawImage(frame.canvas, frame.offsetX, frame.offsetY);
+  } else if (activeAnimSource.type === 'sheet') {
+    ctx.drawImage(frame.sourceCanvas, frame.srcX, frame.srcY, frame.w, frame.h, 0, 0, frame.w, frame.h);
+  }
+
+  if (animFrameLabel) {
+    animFrameLabel.textContent = `${animCurrentFrameIdx + 1} / ${activeAnimSource.frames.length}`;
+  }
+}
+
+function animLoop(now) {
+  if (!animIsPlaying || !activeAnimSource || !activeAnimSource.frames || activeAnimSource.frames.length === 0) {
+    animRafId = null;
+    return;
+  }
+  const elapsed = now - animLastTimestamp;
+  animLastTimestamp = now;
+  const frameDuration = 1000 / animFps;
+  animAccumulator += elapsed;
+
+  let advanced = false;
+  while (animAccumulator >= frameDuration) {
+    animAccumulator -= frameDuration;
+    if (animCurrentFrameIdx + 1 < activeAnimSource.frames.length) {
+      animCurrentFrameIdx++;
+      advanced = true;
+    } else if (animIsLoop) {
+      animCurrentFrameIdx = 0;
+      advanced = true;
+    } else {
+      setAnimPlaying(false);
+      advanced = true;
+      break;
+    }
+  }
+
+  if (advanced) {
+    renderAnimFrame();
+  }
+
+  if (animIsPlaying) {
+    animRafId = requestAnimationFrame(animLoop);
+  } else {
+    animRafId = null;
+  }
+}
+
+function setAnimPlaying(playing) {
+  animIsPlaying = playing;
+  if (animPlayPauseBtn) {
+    animPlayPauseBtn.setAttribute('aria-pressed', String(playing));
+    animPlayPauseBtn.textContent = playing ? '❚❚ 일시정지' : '▶ 재생';
+  }
+  if (animFrameLabel) {
+    animFrameLabel.setAttribute('aria-live', playing ? 'off' : 'polite');
+  }
+  if (playing) {
+    animLastTimestamp = performance.now();
+    animAccumulator = 0;
+    if (!animRafId) {
+      animRafId = requestAnimationFrame(animLoop);
+    }
+  } else {
+    if (animRafId) {
+      cancelAnimationFrame(animRafId);
+      animRafId = null;
+    }
+  }
+}
+
+function toggleAnimPlay() {
+  if (!activeAnimSource || !activeAnimSource.frames || activeAnimSource.frames.length === 0) return;
+  setAnimPlaying(!animIsPlaying);
+}
+
+function stepAnimFrame(delta) {
+  if (!activeAnimSource || !activeAnimSource.frames || activeAnimSource.frames.length === 0) return;
+  setAnimPlaying(false);
+  const total = activeAnimSource.frames.length;
+  animCurrentFrameIdx = (animCurrentFrameIdx + delta + total) % total;
+  renderAnimFrame();
+}
+
+function setAnimFps(fps) {
+  const safeFps = Math.max(1, Math.min(30, Math.round(fps) || 8));
+  animFps = safeFps;
+  if (animFpsRange) animFpsRange.value = String(safeFps);
+  if (animFpsNumber) animFpsNumber.value = String(safeFps);
+}
+
+function setAnimLoop(loop) {
+  animIsLoop = Boolean(loop);
+  if (animLoopBtn) {
+    animLoopBtn.setAttribute('aria-pressed', String(animIsLoop));
+    animLoopBtn.classList.toggle('active', animIsLoop);
+    animLoopBtn.textContent = animIsLoop ? '반복 켜짐' : '반복 꺼짐';
+  }
+}
+
+function updateAnimQuickZoomButtons(scale) {
+  const qBtns = [
+    { el: animZoom1x, zoom: 1 },
+    { el: animZoom2x, zoom: 2 },
+    { el: animZoom8x, zoom: 8 }
+  ];
+  qBtns.forEach(({ el, zoom }) => {
+    if (!el) return;
+    const isPressed = scale === zoom;
+    el.setAttribute('aria-pressed', String(isPressed));
+  });
+}
+
+function setAnimScale(nextScale, resetPosition = false) {
+  if (!activeAnimSource || !activeAnimSource.viewportW) return;
+  const scale = Math.max(1, Math.min(24, Math.round(nextScale) || 1));
+  animScale = scale;
+
+  const canvasWidth = activeAnimSource.viewportW * scale;
+  const canvasHeight = activeAnimSource.viewportH * scale;
+
+  animCanvas.style.width = canvasWidth + 'px';
+  animCanvas.style.height = canvasHeight + 'px';
+  animPixelGrid.style.width = canvasWidth + 'px';
+  animPixelGrid.style.height = canvasHeight + 'px';
+  animPixelGrid.style.backgroundSize = `${scale}px ${scale}px`;
+
+  const frameWidth = activeAnimSource.viewportW * animInitialScale;
+  const frameHeight = activeAnimSource.viewportH * animInitialScale;
+  animCanvasWrap.style.width = frameWidth + 'px';
+  animCanvasWrap.style.height = frameHeight + 'px';
+
+  const stageWidth = Math.max(frameWidth, canvasWidth + 32);
+  const stageHeight = Math.max(frameHeight, canvasHeight + 32);
+  animCanvasStage.style.width = stageWidth + 'px';
+  animCanvasStage.style.height = stageHeight + 'px';
+
+  updateAnimQuickZoomButtons(scale);
+
+  if (resetPosition) {
+    animCanvasWrap.scrollLeft = Math.max(0, (stageWidth / 2) - (animCanvasWrap.clientWidth / 2));
+    animCanvasWrap.scrollTop = Math.max(0, (stageHeight / 2) - (animCanvasWrap.clientHeight / 2));
+  }
+}
+
+function setAnimGridVisible(visible) {
+  animGridVisible = visible;
+  animPixelGrid.classList.toggle('visible', visible);
+  animGridToggle.setAttribute('aria-pressed', String(visible));
+}
+
+function setAnimExpanded(expanded, preserveCenter = true) {
+  const prevW = Math.max(1, animCanvasStage.offsetWidth);
+  const prevH = Math.max(1, animCanvasStage.offsetHeight);
+  const ratioX = preserveCenter ? (animCanvasWrap.scrollLeft + (animCanvasWrap.clientWidth / 2)) / prevW : 0.5;
+  const ratioY = preserveCenter ? (animCanvasWrap.scrollTop + (animCanvasWrap.clientHeight / 2)) / prevH : 0.5;
+
+  animExpanded = expanded;
+  animModal.classList.toggle('expanded', expanded);
+  animExpandToggle.setAttribute('aria-pressed', String(expanded));
+  animExpandToggle.setAttribute('aria-label', expanded ? '기본 크기로 보기' : '페이지 안에서 넓게 보기');
+  animExpandToggle.title = expanded ? '기본 크기로 보기' : '페이지 안에서 넓게 보기';
+
+  if (!activeAnimSource || !preserveCenter) return;
+  requestAnimationFrame(() => {
+    const stageW = Math.max(1, animCanvasStage.offsetWidth);
+    const stageH = Math.max(1, animCanvasStage.offsetHeight);
+    animCanvasWrap.scrollLeft = Math.max(0, (ratioX * stageW) - (animCanvasWrap.clientWidth / 2));
+    animCanvasWrap.scrollTop = Math.max(0, (ratioY * stageH) - (animCanvasWrap.clientHeight / 2));
+  });
+}
+
+function openAnimModal(initialSourceIdx = 0) {
+  animSources = getAvailableAnimationSources(lastResults);
+  if (animSources.length === 0) return;
+  animReturnFocus = document.activeElement && typeof document.activeElement.focus === 'function'
+    ? document.activeElement
+    : null;
+
+  animSourceSelect.replaceChildren();
+  animSources.forEach((src, idx) => {
+    const opt = document.createElement('option');
+    opt.value = String(idx);
+    if (src.error) {
+      opt.textContent = `${src.title} — 재생 불가: ${src.error}`;
+      opt.title = src.error;
+      opt.disabled = true;
+    } else {
+      opt.textContent = src.title;
+    }
+    animSourceSelect.appendChild(opt);
+  });
+
+  const validIdx = animSources.findIndex((s, i) => i >= initialSourceIdx && !s.error);
+  const chosenIdx = validIdx >= 0 ? validIdx : 0;
+  animSourceSelect.value = String(chosenIdx);
+  const sourceReady = selectAnimSource(chosenIdx);
+
+  const prefersReducedMotion = Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  animModal.classList.add('open');
+  applyPreviewBg();
+  setAnimExpanded(false, false);
+  setAnimGridVisible(false);
+  setAnimFps(8);
+  setAnimLoop(true);
+  setAnimPlaying(sourceReady && !prefersReducedMotion);
+  animSourceSelect.focus();
+}
+
+function closeAnimModal(restoreFocus = true) {
+  const returnFocus = animReturnFocus;
+  setAnimPlaying(false);
+  animModal.classList.remove('open');
+  setAnimExpanded(false, false);
+  setAnimGridVisible(false);
+  animCanvasWrap.classList.remove('dragging');
+  animPanState = null;
+  activeAnimSource = null;
+  animSources = [];
+  animReturnFocus = null;
+  if (restoreFocus && returnFocus && returnFocus.isConnected && typeof returnFocus.focus === 'function') {
+    returnFocus.focus();
+  }
+}
+
+if (animReviewBtn) {
+  animReviewBtn.addEventListener('click', () => openAnimModal(0));
+}
+if (animClose) {
+  animClose.addEventListener('click', () => closeAnimModal());
+}
+if (animModal) {
+  animModal.addEventListener('click', e => { if (e.target === animModal) closeAnimModal(); });
+}
+if (animPlayPauseBtn) {
+  animPlayPauseBtn.addEventListener('click', toggleAnimPlay);
+}
+if (animPrevBtn) {
+  animPrevBtn.addEventListener('click', () => stepAnimFrame(-1));
+}
+if (animNextBtn) {
+  animNextBtn.addEventListener('click', () => stepAnimFrame(1));
+}
+if (animLoopBtn) {
+  animLoopBtn.addEventListener('click', () => setAnimLoop(!animIsLoop));
+}
+if (animFpsRange) {
+  animFpsRange.addEventListener('input', () => setAnimFps(Number(animFpsRange.value)));
+}
+if (animFpsNumber) {
+  animFpsNumber.addEventListener('input', () => setAnimFps(Number(animFpsNumber.value)));
+}
+if (animZoom1x) {
+  animZoom1x.addEventListener('click', () => setAnimScale(1));
+}
+if (animZoom2x) {
+  animZoom2x.addEventListener('click', () => setAnimScale(2));
+}
+if (animZoom8x) {
+  animZoom8x.addEventListener('click', () => setAnimScale(8));
+}
+if (animGridToggle) {
+  animGridToggle.addEventListener('click', () => setAnimGridVisible(!animGridVisible));
+}
+if (animBgCycleBtn) {
+  animBgCycleBtn.addEventListener('click', cyclePreviewBg);
+}
+if (animExpandToggle) {
+  animExpandToggle.addEventListener('click', () => setAnimExpanded(!animExpanded));
+}
+if (animSourceSelect) {
+  animSourceSelect.addEventListener('change', () => selectAnimSource(Number(animSourceSelect.value)));
+}
+
+if (animCanvasWrap) {
+  animCanvasWrap.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || (
+      animCanvasWrap.scrollWidth <= animCanvasWrap.clientWidth &&
+      animCanvasWrap.scrollHeight <= animCanvasWrap.clientHeight
+    )) return;
+    animPanState = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      scrollLeft: animCanvasWrap.scrollLeft,
+      scrollTop: animCanvasWrap.scrollTop
+    };
+    animCanvasWrap.setPointerCapture(e.pointerId);
+    animCanvasWrap.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  animCanvasWrap.addEventListener('pointermove', e => {
+    if (!animPanState || animPanState.pointerId !== e.pointerId) return;
+    animCanvasWrap.scrollLeft = animPanState.scrollLeft - (e.clientX - animPanState.startX);
+    animCanvasWrap.scrollTop = animPanState.scrollTop - (e.clientY - animPanState.startY);
+    e.preventDefault();
+  });
+
+  function finishAnimPan(e) {
+    if (!animPanState || animPanState.pointerId !== e.pointerId) return;
+    if (animCanvasWrap.hasPointerCapture(e.pointerId)) {
+      animCanvasWrap.releasePointerCapture(e.pointerId);
+    }
+    animPanState = null;
+    animCanvasWrap.classList.remove('dragging');
+  }
+
+  animCanvasWrap.addEventListener('pointerup', finishAnimPan);
+  animCanvasWrap.addEventListener('pointercancel', finishAnimPan);
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden' && animIsPlaying) {
+    setAnimPlaying(false);
+  }
+});
+
+window.addEventListener('blur', () => {
+  if (animIsPlaying) {
+    setAnimPlaying(false);
+  }
+});
 
 function dimsLabel(canvas){
   return canvas.width === canvas.height ? `${canvas.width}px` : `${canvas.width}x${canvas.height}`;

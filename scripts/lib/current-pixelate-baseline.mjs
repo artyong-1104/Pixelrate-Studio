@@ -5,6 +5,11 @@ import { encodePng, sha256, stableStringify } from './pixel-fixtures.mjs';
 import { extractInlineFunctions } from './extract-inline-function.mjs';
 
 const BASELINE_FUNCTIONS = Object.freeze([
+  'normalizeRepresentativeColor',
+  'srgbChannelToLinear',
+  'linearChannelToSrgb',
+  'representativeMedian',
+  'representativeColorForCell',
   'boxDownscale',
   'preserveSheetDownscale',
   'kmeans',

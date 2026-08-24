@@ -1,6 +1,6 @@
 # Pixelate Studio 개선 진행 대시보드
 
-기준일: 2026-08-14 (KST)
+기준일: 2026-08-23 (KST)
 
 이 디렉터리는 외부 소스 연구를 실제 구현 단위로 전환한 명세 패키지다. 구현자는 한 번에 한 항목만 선택하고, 해당 명세의 수용 기준과 증거 요구를 모두 만족한 뒤 다음 항목으로 이동한다.
 
@@ -9,8 +9,8 @@
 | 구분 | 완료 | 전체 | 진행률 |
 |---|---:|---:|---:|
 | 명세 작성 | 15 | 15 | 100% |
-| 구현 | 6 | 15 | 40.0% |
-| QA | 6 | 15 | 40.0% |
+| 구현 | 11 | 15 | 73.3% |
+| QA | 11 | 15 | 73.3% |
 
 ## 상태 정의
 
@@ -36,14 +36,14 @@
 | CFG-001 | versioned 설정 JSON·preset | SOURCE-BACKED + ENGINEERING-INFERENCE | P1 | QLT-001 | Luna xhigh | `DONE` | 완료 | [열기](items/cfg-001-settings-presets.md) | [검사·보고서](../evidence/cfg-001/README.md) |
 | UX-001 | 1×/2×/8× 및 원본/결과 A/B | SOURCE-BACKED | P1 | GEO-001 | Luna xhigh | `DONE` | 완료 | [열기](items/ux-001-actual-size-ab-preview.md) | [검사·보고서](../evidence/ux-001/README.md) |
 | PAL-001 | custom palette 입력·미리보기 | SOURCE-BACKED | P1 | QLT-001, CFG-001 | Luna xhigh | `DONE` | 완료 | [열기](items/pal-001-custom-palette.md) | [검사·보고서](../evidence/pal-001/README.md) |
-| ALP-001 | 고채도 배경과 alpha island 진단 | SOURCE-BACKED + ENGINEERING-INFERENCE | P1 | QLT-001 | Luna xhigh | `READY` | 미실행 | [열기](items/alp-001-alpha-diagnostics.md) | — |
-| ANI-001 | 다중 파일·시트 애니메이션 검수 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | UX-001 | Luna xhigh + Sol 검토 | `READY` | 미실행 | [열기](items/ani-001-animation-review.md) | — |
-| GRID-001 | Sobel grid period/phase 감지 | SOURCE-BACKED + EXPERIMENTAL | P2 | QLT-001, GEO-001 | Sol xhigh | `READY` | 미실행 | [열기](items/grid-001-grid-detection.md) | — |
-| ALP-002 | binary/coverage alpha 정책 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | QLT-001, CFG-001, ALP-001 | Luna xhigh + Sol 검토 | `NOT_STARTED` | 미실행 | [열기](items/alp-002-alpha-policy.md) | — |
-| CELL-001 | 셀 대표색 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, GEO-001 | Sol xhigh | `READY` | 미실행 | [열기](items/cell-001-representative-colors.md) | — |
+| ALP-001 | 고채도 배경과 alpha island 진단 | SOURCE-BACKED + ENGINEERING-INFERENCE | P1 | QLT-001 | Luna xhigh | `DONE` | 완료 | [열기](items/alp-001-alpha-diagnostics.md) | [검사·보고서](../evidence/alp-001/README.md) |
+| ANI-001 | 다중 파일·시트 애니메이션 검수 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | UX-001 | Luna xhigh + Sol 검토 | `DONE` | 완료 — 혼합 회귀·전체 회귀·독립 Sol xhigh 재검토 통과 | [열기](items/ani-001-animation-review.md) | [검사·보고서](../evidence/ani-001/README.md), [Sol 최종 재검토](../evidence/ani-001/sol-xhigh-rereview-2026-08-21.md) |
+| GRID-001 | Sobel grid period/phase 감지 | SOURCE-BACKED + EXPERIMENTAL | P2 | QLT-001, GEO-001 | Sol xhigh | `DONE` | 완료 — algorithm v2 자동·localhost 브라우저 QA·증거 무결성·독립 Sol xhigh 최종 검토 통과 | [열기](items/grid-001-grid-detection.md) | [검사·QA 보고서](../evidence/grid-001/README.md), [Sol 최종 검토](../evidence/grid-001/sol-xhigh-final-review-2026-08-23.md) |
+| ALP-002 | binary/coverage alpha 정책 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | QLT-001, CFG-001, ALP-001 | Luna xhigh + Sol 검토 | `DONE` | 완료 — 보완 자동 회귀·fresh localhost 브라우저 QA·decoder-backed 캡처 무결성·독립 Sol xhigh 재검토 통과 | [열기](items/alp-002-alpha-policy.md) | [검사·보고서](../evidence/alp-002/README.md), [Sol 최종 재검토](../evidence/alp-002/sol-xhigh-rereview-2026-08-23.md) |
+| CELL-001 | 셀 대표색 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, GEO-001 | Sol xhigh | `DONE` | 완료 — exact·결정성·기준선·QLT A/B·localhost 데스크톱/모바일/설정/실제 크기 QA 통과, 후보는 실험 영역 유지 | [열기](items/cell-001-representative-colors.md) | [검사·A/B·브라우저 QA 보고서](../evidence/cell-001/README.md) |
 | PAL-002 | 지각 팔레트·샘플링 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001 | Sol xhigh | `READY` | 미실행 | [열기](items/pal-002-palette-algorithms.md) | — |
 | DIT-001 | 정지 이미지 ordered dithering | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001, CFG-001 | Luna xhigh + Sol 검토 | `READY` | 미실행 | [열기](items/dit-001-ordered-dithering.md) | — |
-| EDGE-001 | Weber/line-aware/selout | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, CELL-001 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/edge-001-line-aware-selout.md) | — |
+| EDGE-001 | Weber/line-aware/selout | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, CELL-001 | Sol xhigh | `READY` | 미실행 | [열기](items/edge-001-line-aware-selout.md) | — |
 | PERF-001 | 계측, Worker, 조건부 WASM | ENGINEERING-INFERENCE | P3 | QLT-001 및 대상 알고리즘 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/perf-001-worker-wasm.md) | — |
 
 ## 공통 문서

@@ -6,6 +6,53 @@ Entries are grouped by version and change type.
 
 Korean version: [CHANGELOG.ko.md](./CHANGELOG.ko.md)
 
+## [Unreleased]
+
+### Added
+
+- Added CELL-001 experimental cell representative selection with deterministic alpha-aware `mean-srgb`, linear-light mean, center, per-channel median, and exact-RGB majority candidates. Non-default candidates remain behind `Show experimental features`, round-trip through settings JSON, and are recorded in result metadata without changing the default preset.
+- Added an `AI Pixel Grid Repair (Experimental)` mode (GRID-001) with alpha-masked Sobel profiles, 2–32px X/Y period and phase detection, confidence reporting, and a 75% auto-apply gate.
+- GRID-001 algorithm v2 adds binary-alpha topology evidence for sparse 4×4 clean pixel art, end-to-end main-thread chunk measurement across canvas reads, sheet slicing, alpha scans, and Sobel, plus fail-closed evidence checks.
+- Added manual X/Y grid locking, excluded-margin overlays, normalized whole-image/multi-file/sprite-sheet frame analysis, and one grid locked across the complete sequence.
+- Added alpha-weighted sRGB cell representatives, full-cell-only output, additive `processing.grid` metadata, a 4M automatic-analysis cap, and cancellable chunked processing.
+
+### Validation
+
+- CELL-001 passed exact-value/tie-break/threshold/1×/route/determinism tests, preserved both default visual hashes and all 12 QLT fixtures, and completed fresh localhost desktop/mobile/settings/actual-size QA. No candidate met the cross-fixture adoption gate, so `mean-srgb` remains the default and no experimental candidate was promoted to a preset.
+- Passed automated isolated clean 3/4/8px grid, ±1px wobble, photo-like false-positive, sheet aggregation, determinism, and 4M performance gates. Sparse-edge `clean-pixel-art` safely remains below the auto-apply confidence gate and requires a manual grid, so the item stays `NEEDS_REVIEW` pending real-browser QA and an independent Sol xhigh review.
+
+## [1.8.0] - 2026-08-19
+
+### Added
+
+- Added Animation Review modal (`#animModal`) for multi-file sequences and sprite sheet frames (ANI-001).
+- Automatically exposed `애니메이션 검수` button in results toolbar when multiple results or sprite sheet results exist.
+- Supported multi-file sequences sorted by uploaded filename ascending (with upload index tie-break) and sprite sheet frame extraction (row-major order with 256 frame upper limit).
+- Added variable 1~30 FPS playback (default 8 FPS), loop toggle, previous/next step controls, and 1×/2×/8× quick zoom buttons.
+- Added keyboard shortcuts: `Space` (play/pause), `←`/`→` (step frames), `B` (cycle preview background), `Esc` (close modal), safely disabled when focusing form fields.
+- Displayed animation policy status chips (`#animPolicyChips`) for shared palette, grid locking, and dithering stability.
+- Honored `prefers-reduced-motion: reduce` by defaulting to paused state, and guaranteed complete animation frame cancellation and cleanup on close, tab switch, or background execution.
+
+### Fixed
+
+- Removed an obsolete palette-checkbox event binding that aborted the entire application during startup.
+- Fixed desktop and mobile animation text controls that were compressed into the 32px icon-button width.
+- Added dialog semantics, focus trapping/restoration, and suppression of per-frame live announcements while playback is active.
+- Preserved upload-order `addedIndex` through results and logs, and report missing dithering metadata as unknown instead of assuming dithering is off.
+- Strengthened ANI checks to execute functions extracted from the application and to withhold `DONE` when browser or ten-minute playback evidence is missing.
+
+## [1.7.0] - 2026-08-19
+
+### Added
+
+- Added 7 preview background options: checkerboard (`checker`), white (`white`), black (`black`), high-saturation green (`green`, `#00FF00`), magenta (`magenta`, `#FF00FF`), cyan (`cyan`, `#00FFFF`), and custom color (`custom`, `#RRGGBB`) (ALP-001).
+- Added `배경 (B)` toolbar/modal buttons and global `B` shortcut for rapid background cycling (automatically bypassed when focusing input, textarea, select, or contentEditable elements).
+- Implemented high-performance pure diagnostic function `computeAlphaDiagnostics` operating on pre-cleanup pre-outline logical alpha channels.
+- Added 4-neighbor connected component analysis for small isolated foreground islands (area $\le 4$) and partial alpha pixel counts ($0 < \alpha < 255$) with strict sprite-sheet frame boundary isolation.
+- Displayed alpha diagnostics summary in result card metadata (`부분 알파 N · 작은 섬 M` / `부분 알파 없음 · 고립 섬 없음` / `알파 진단: 기록 없음`).
+- Added modal `알파 진단` toggle button and interactive overlay canvas (`#modalAlphaOverlay`) highlighting island pixels with semi-transparent yellow rectangles and bounding boxes.
+- Emitted `diagnostics.alpha` (`partialAlphaCount`, `islandCount`, `islandPixelCount`, `threshold`) in export JSON envelopes.
+
 ## [1.6.0] - 2026-08-19
 
 ### Added

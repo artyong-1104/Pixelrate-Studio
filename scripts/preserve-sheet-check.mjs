@@ -16,6 +16,11 @@ assert.equal(
 
 const functionNames = [
   'normalizeScaleMode',
+  'normalizeRepresentativeColor',
+  'srgbChannelToLinear',
+  'linearChannelToSrgb',
+  'representativeMedian',
+  'representativeColorForCell',
   'getFrameLayout',
   'getPreserveSheetValidationError',
   'preserveSheetDownscale',
@@ -28,6 +33,7 @@ const functionNames = [
 ];
 const context = vm.createContext({
   Array,
+  Map,
   Math,
   Number,
   parseInt,

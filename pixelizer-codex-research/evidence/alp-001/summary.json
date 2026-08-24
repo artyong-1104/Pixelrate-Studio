@@ -1,0 +1,102 @@
+{
+  "specId": "ALP-001",
+  "title": "고채도 배경과 alpha edge/island 진단",
+  "status": "DONE",
+  "generatedAt": "2026-08-19T05:49:39.901Z",
+  "csp": {
+    "sha256": "bcKIJsYtnz/LwcEQI+8aWufr1BhpRGrQZO8UYIMlIM4=",
+    "synchronizedFiles": [
+      "pixelate_studio.html",
+      "SECURITY.md",
+      "vercel.json"
+    ]
+  },
+  "previewBackgrounds": {
+    "supported": [
+      "checker",
+      "white",
+      "black",
+      "green",
+      "magenta",
+      "cyan",
+      "custom"
+    ],
+    "cycleShortcut": "B",
+    "storageKey": "previewBg",
+    "customStorageKey": "previewCustomBg",
+    "customHexValidation": "^#[0-9a-fA-F]{6}$"
+  },
+  "diagnosticsEvaluation": {
+    "singleFrame": {
+      "dimensions": "16×16",
+      "partialAlphaCount": 4,
+      "islandCount": 2,
+      "islandPixelCount": 4,
+      "threshold": 10,
+      "islands": [
+        {
+          "area": 1,
+          "bbox": {
+            "minX": 1,
+            "minY": 1,
+            "maxX": 1,
+            "maxY": 1,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "area": 3,
+          "bbox": {
+            "minX": 1,
+            "minY": 14,
+            "maxX": 2,
+            "maxY": 15,
+            "width": 2,
+            "height": 2
+          }
+        }
+      ]
+    },
+    "spriteSheet": {
+      "dimensions": "32×16",
+      "frameDimensions": "16×16 (2 frames)",
+      "partialAlphaCount": 0,
+      "islandCount": 2,
+      "islandPixelCount": 3,
+      "threshold": 10,
+      "islands": [
+        {
+          "frameIndex": 0,
+          "area": 2,
+          "bbox": {
+            "minX": 1,
+            "minY": 1,
+            "maxX": 1,
+            "maxY": 2,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "frameIndex": 1,
+          "area": 1,
+          "bbox": {
+            "minX": 30,
+            "minY": 14,
+            "maxX": 30,
+            "maxY": 14,
+            "width": 1,
+            "height": 1
+          }
+        }
+      ]
+    }
+  },
+  "testSummary": {
+    "securityCheck": "PASS",
+    "alphaUnitCheck": "PASS (5 tests)",
+    "alphaUiCheck": "PASS (DOM interaction & shortcut checks)",
+    "visualQualityHarness": "PASS (12/12 deterministic)"
+  }
+}

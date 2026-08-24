@@ -1,0 +1,15 @@
+{
+  "format": "pixelate-studio-settings",
+  "version": 1,
+  "createdAt": "2026-08-23T00:00:00.000Z",
+  "settings": {
+    "scaleMode": "factor",
+    "factor": 4,
+    "representativeColor": "majority",
+    "paletteMode": "unlimited",
+    "cleanEnabled": false,
+    "outline": false,
+    "alphaMode": "binary",
+    "alphaThreshold": 10
+  }
+}

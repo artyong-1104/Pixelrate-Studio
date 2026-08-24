@@ -5,8 +5,8 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | DONE |
+| QA 상태 | 완료 — 자동 회귀·A/B 보고서·localhost 데스크톱/모바일/설정/실제 크기 검수 통과 |
 | 우선순위 | P3 |
 | 근거 분류 | SOURCE-BACKED + EXPERIMENTAL |
 | 구현 모델 | Sol xhigh |
@@ -119,3 +119,12 @@ candidate matrix report, actual-size blind 기록, runtime, default hash를 연�
 - 알고리즘 순서가 palette 단계와 충돌하면 임의 reorder하지 않고 상위 pipeline 명세를 검토한다.
 - 후보별 결과가 지표와 사람 선호에서 상충하면 Sol max로 분석하되 기본값은 유지한다.
 
+## 18. 구현·검증 기록
+
+- 구현 완료일: 2026-08-23 (KST)
+- 구현 범위: 다섯 대표색 순수 함수, square/factor/grid-repair/preserve-sheet 경로 연결, 실험 UI, versioned 설정, 결과 카드와 `processing.representativeColor` 메타데이터.
+- 호환 결과: 기본 `mean-srgb`의 current-square/current-preserve-sheet 기준선 해시와 QLT 12개 fixture가 유지됐다. `original`의 1×1 cell은 모든 후보에서 입력 RGBA와 동일하다.
+- 실험 결론: 기본값은 `mean-srgb`로 유지한다. `mean-linear`, `center`, `median`, `majority`는 지정 fixture 전체의 채택 임계값을 충족하지 못해 preset으로 승격하지 않고 `실험 기능 표시` 아래에만 둔다.
+- 자동 검사: `node scripts/cell001-check.mjs`, `node scripts/cell001-ui-check.mjs`, `node scripts/generate-cell001-evidence.mjs`, `node scripts/visual-quality-check.mjs`, `node scripts/settings-check.mjs`, `node scripts/security-check.mjs` 및 전체 `scripts/*check.mjs` 통과.
+- 브라우저 QA: `http://localhost:8765/pixelate_studio.html?qa=cell001-20260823`에서 기본 숨김, 후보 경고, center/majority 결과 메타데이터, 1×/8×, 설정 복원, 390×844 모바일 가로 넘침 0, 콘솔 오류 0을 확인했다.
+- 증거: [CELL-001 검사·A/B·브라우저 QA 보고서](../../evidence/cell-001/README.md), [자동 결과 JSON](../../evidence/cell-001/automated-results.json), [브라우저 QA JSON](../../evidence/cell-001/qa-results.json).

@@ -1,0 +1,288 @@
+{
+  "specId": "ANI-001",
+  "title": "다중 파일·시트 프레임 애니메이션 검수",
+  "status": "DONE",
+  "generatedAt": "2026-08-21T05:23:58.390Z",
+  "automatedChecks": {
+    "implementationFunctionsExecuted": true,
+    "command": "node scripts/animation-check.mjs",
+    "uiCommand": "node scripts/ani001-ui-check.mjs",
+    "cspSha256": "A4Yxg91UtdTaaWeOdEnhtI2kIIF0/e0MTKvQFniVzOI="
+  },
+  "extractedResults": {
+    "multiFile": {
+      "sortedFrameNames": [
+        "walk_01.png",
+        "walk_02.png",
+        "walk_03.png"
+      ],
+      "viewport": {
+        "width": 32,
+        "height": 32
+      },
+      "offsets": [
+        {
+          "name": "walk_01.png",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "name": "walk_02.png",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "walk_03.png",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "policy": {
+        "paletteStatus": {
+          "label": "공유 팔레트: 켜짐",
+          "active": true,
+          "warn": false
+        },
+        "gridStatus": {
+          "label": "격자 잠금: 켜짐",
+          "active": true,
+          "warn": false
+        },
+        "ditherStatus": {
+          "label": "디더링: 확인 불가",
+          "active": false,
+          "warn": false
+        }
+      }
+    },
+    "sheet": {
+      "frameCount": 8,
+      "viewport": {
+        "width": 32,
+        "height": 32
+      },
+      "firstCoordinates": [
+        {
+          "index": 0,
+          "srcX": 0,
+          "srcY": 0
+        },
+        {
+          "index": 1,
+          "srcX": 32,
+          "srcY": 0
+        },
+        {
+          "index": 2,
+          "srcX": 64,
+          "srcY": 0
+        },
+        {
+          "index": 3,
+          "srcX": 96,
+          "srcY": 0
+        }
+      ],
+      "policy": {
+        "paletteStatus": {
+          "label": "팔레트: 직접 지정",
+          "active": true,
+          "warn": false
+        },
+        "gridStatus": {
+          "label": "시트 프레임 격자: 잠금",
+          "active": true,
+          "warn": false
+        },
+        "ditherStatus": {
+          "label": "디더링: 확인 불가",
+          "active": false,
+          "warn": false
+        }
+      }
+    }
+  },
+  "manualChecks": {
+    "desktopLayout": true,
+    "mobileLayout": true,
+    "focusAndKeyboard": true,
+    "sheetPlayback": true,
+    "reducedMotion": true,
+    "lifecycleCleanup": true,
+    "tenMinuteLoop": true,
+    "captures": true,
+    "repairRegression": true,
+    "requiredReview": true
+  },
+  "qa": {
+    "specId": "ANI-001",
+    "testedAt": "2026-08-19T08:59:00.000Z",
+    "browser": "Codex in-app browser",
+    "testedUrl": "http://127.0.0.1:8137/pixelate_studio.html",
+    "finalCspSha256": "A4Yxg91UtdTaaWeOdEnhtI2kIIF0/e0MTKvQFniVzOI=",
+    "directApp": {
+      "loaded": true,
+      "multiFileCount": 16,
+      "modalOpened": true,
+      "consoleErrorCount": 0
+    },
+    "desktop": {
+      "viewportWidth": 1280,
+      "layoutPass": true,
+      "playButtonWidth": 81.8359375,
+      "loopButtonWidth": 68.5859375,
+      "backgroundButtonWidth": 61.25,
+      "controlsHeight": 28,
+      "overlapObserved": false
+    },
+    "mobile": {
+      "viewportWidth": 390,
+      "layoutPass": true,
+      "documentScrollWidth": 382,
+      "playButtonWidth": 81.8359375,
+      "loopButtonWidth": 68.5859375,
+      "backgroundButtonWidth": 61.25,
+      "overlapObserved": false
+    },
+    "accessibility": {
+      "dialogRole": "dialog",
+      "ariaModal": true,
+      "initialFocusId": "animSourceSelect",
+      "focusTrapPass": true,
+      "shiftTabFromFirstFocusId": "animExpandToggle",
+      "tabFromLastFocusId": "animSourceSelect",
+      "focusRestorePass": true,
+      "restoredFocusId": "animReviewBtn",
+      "playingFrameLiveMode": "off",
+      "pausedFrameLiveMode": "polite"
+    },
+    "keyboard": {
+      "pass": true,
+      "spacePausedAt": "10 / 16",
+      "arrowRightResult": "11 / 16",
+      "arrowLeftResult": "10 / 16",
+      "backgroundBefore": "bg-green",
+      "backgroundAfterOneBPress": "bg-magenta"
+    },
+    "playback": {
+      "fpsChecked": [
+        1,
+        8,
+        30
+      ],
+      "oneFpsObserved": "1 / 16",
+      "loopOffFinalState": "16 / 16",
+      "loopOffPaused": true,
+      "quickZoomCssPixels": {
+        "1x": [
+          64,
+          64
+        ],
+        "2x": [
+          128,
+          128
+        ],
+        "8x": [
+          512,
+          512
+        ]
+      },
+      "backingCanvasPixels": [
+        64,
+        64
+      ]
+    },
+    "sheet": {
+      "pass": true,
+      "source": "sprite-sheet.png",
+      "frameGeometry": [
+        32,
+        32
+      ],
+      "frameCount": 32,
+      "order": "row-major",
+      "policyDitherLabel": "디더링: 확인 불가"
+    },
+    "reducedMotion": {
+      "pass": true,
+      "initialPressed": false,
+      "initialFrame": "1 / 2",
+      "frameAfter500ms": "1 / 2"
+    },
+    "lifecycle": {
+      "closeCleanupPass": true,
+      "frameAfterCloseStable": true,
+      "hiddenCleanupPass": true,
+      "hiddenPressed": false,
+      "hiddenFrameAfter350ms": "1 / 2"
+    },
+    "tenMinuteLoop": {
+      "durationMs": 611086,
+      "fps": 8,
+      "frameCount": 16,
+      "canvasCountBefore": 18,
+      "canvasCountAfter": 18,
+      "canvasCountStable": true,
+      "modalCanvasCountBefore": 1,
+      "modalCanvasCountAfter": 1,
+      "modalCanvasCountStable": true,
+      "playingAtEnd": true,
+      "timerFunctionUnchangedByFinalNonTimerEdits": true
+    },
+    "visualCaptures": [
+      "desktop-multi-modal.jpg",
+      "mobile-multi-modal.jpg",
+      "desktop-sheet-modal.jpg"
+    ],
+    "instrumentationNotes": [
+      {
+        "surface": "iframe-only test wrapper",
+        "message": "MutationObserver.observe received a non-Node target",
+        "classification": "browser test instrumentation",
+        "basis": "The application source has no MutationObserver reference and the direct application path completed with zero console errors."
+      }
+    ],
+    "repairRegression": {
+      "verifiedAt": "2026-08-21T04:46:46Z",
+      "browser": "Codex in-app browser",
+      "testedUrl": "http://127.0.0.1:8765/pixelate_studio.html?v=ani001-mixed-20260821",
+      "oversizedSheetControlsPass": true,
+      "oversizedSheetNotice": "프레임 수(257개)가 최대 허용치(256개)를 초과합니다.",
+      "oversizedSheetPressed": false,
+      "oversizedSheetFrameLabel": "—",
+      "oversizedSheetDisabledControls": [
+        "play",
+        "previous",
+        "next",
+        "loop",
+        "fps-range",
+        "fps-number",
+        "zoom",
+        "grid",
+        "background",
+        "expand"
+      ],
+      "sameNamePolicyPass": true,
+      "disabledShortcutPass": true,
+      "normalPlaybackPass": true,
+      "normalPlaybackObserved": "2 / 2 → 1 / 2",
+      "normalPlaybackPressedAfterClose": false,
+      "mixedReasonPass": true,
+      "mixedReasonNotice": "재생 제외 — ani001-mixed-oversized-257.png: 프레임 수(257개)가 최대 허용치(256개)를 초과합니다.",
+      "mixedDisabledOptionIncludesReason": true,
+      "mixedDisabledOptionText": "ani001-mixed-oversized-257.png (257프레임) — 재생 불가: 프레임 수(257개)가 최대 허용치(256개)를 초과합니다.",
+      "mixedKeyboardPass": true,
+      "mixedPlaybackObserved": "2 / 2 → 1 / 2",
+      "mixedNormalSheetPlaybackPass": true,
+      "mixedNoticePersistsOnNormalSheet": true,
+      "consoleErrorCount": 0
+    },
+    "requiredReview": {
+      "model": "Sol xhigh",
+      "result": "PASS",
+      "reviewedAt": "2026-08-21T05:22:00.000Z",
+      "report": "sol-xhigh-rereview-2026-08-21.md",
+      "reason": "Independent final re-review approved the mixed 257-frame warning fix, regression coverage, CSP synchronization, and evidence gate."
+    }
+  }
+}

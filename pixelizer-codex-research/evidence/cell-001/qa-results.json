@@ -1,0 +1,89 @@
+{
+  "implementationId": "CELL-001",
+  "status": "PASS",
+  "performedAt": "2026-08-23T07:03:37Z",
+  "target": "http://localhost:8765/pixelate_studio.html?qa=cell001-20260823",
+  "browser": "Codex in-app browser",
+  "defaultHidden": {
+    "pass": true,
+    "details": {
+      "toggleChecked": false,
+      "ariaExpanded": "false",
+      "fieldDisplay": "none",
+      "selectDisabled": true,
+      "selectValue": "mean-srgb",
+      "horizontalOverflow": 0
+    }
+  },
+  "candidateWarning": {
+    "pass": true,
+    "candidate": "center",
+    "text": "실험 기능이며 작은 특징이 사라지거나 밝기가 달라질 수 있습니다."
+  },
+  "resultMetadata": {
+    "pass": true,
+    "centerCard": "대표색 center",
+    "majorityCard": "대표색 majority",
+    "centerOutput": "16x16, 150 bytes, 2 colors",
+    "majorityOutput": "16x16, 123 bytes, 1 color"
+  },
+  "settingsRoundTrip": {
+    "pass": true,
+    "exportFeedback": "현재 설정이 pixelate-studio-settings-v1.json 파일로 내보내졌습니다.",
+    "importFeedback": "설정 파일이 성공적으로 적용되었습니다.",
+    "restored": {
+      "representativeColor": "majority",
+      "showExperimentalFeatures": true,
+      "scaleMode": "factor",
+      "factor": 4,
+      "paletteMode": "unlimited",
+      "cleanEnabled": false
+    }
+  },
+  "mobile": {
+    "pass": true,
+    "viewport": [390, 844],
+    "capturedPixels": [382, 827],
+    "horizontalOverflow": 0,
+    "resultMetadataVisible": true
+  },
+  "keyboard": {
+    "pass": true,
+    "focusTargets": [
+      "showExperimentalFeatures",
+      "representativeColor"
+    ],
+    "nativeControls": [
+      "input[type=checkbox]",
+      "select"
+    ],
+    "note": "두 native control이 브라우저 포커스를 받고 레이블과 연결됨을 확인했으며 후보 선택 후 경고 갱신을 검증했다."
+  },
+  "actualSizeReview": {
+    "pass": true,
+    "oneX": {
+      "canvasPixels": [16, 16],
+      "cssPixels": [16, 16],
+      "zoomLabel": "1배"
+    },
+    "eightX": {
+      "zoomLabel": "8배",
+      "ariaPressed": "true",
+      "centeredFeatureSurvival": 1,
+      "offcenterFeatureSurvival": 0
+    }
+  },
+  "consoleErrors": [],
+  "captures": [
+    "browser-default-hidden.png",
+    "browser-center-8x.png",
+    "browser-mobile-majority.png",
+    "browser-settings-roundtrip.png"
+  ],
+  "captureSha256": {
+    "browser-default-hidden.png": "ded133bdd1623033a3a25c9c2d77e300efbb2854b2ae2cdfa4e513662fc1ca89",
+    "browser-center-8x.png": "5240f88e8649f6e1236fa2696ac5761fba6eb706a36a08126a4d9c5f6f8a53f6",
+    "browser-mobile-majority.png": "3ccc471b027dedece7ec87bbf1c908d2ce4fb1e258f3b9c694c94fd07f0f85c6",
+    "browser-settings-roundtrip.png": "b251d1d772c533b625d3185683adae0051f44e5d98fd190079f1158aceac1fcf"
+  }
+}

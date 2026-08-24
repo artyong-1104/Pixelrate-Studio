@@ -5,8 +5,8 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | DONE |
+| QA 상태 | DONE — 혼합 회귀·전체 회귀·독립 Sol xhigh 최종 재검토 통과 |
 | 우선순위 | P2 |
 | 근거 분류 | SOURCE-BACKED + ENGINEERING-INFERENCE |
 | 구현 모델 | Luna xhigh |
@@ -114,3 +114,50 @@ multi-file/sheet loop 캡처, order fixture, 10분 메모리/timer 기록, Sol �
 
 - frame geometry가 여러 처리 mode에서 일관된 metadata로 표현되지 않으면 임의 추론하지 말고 GEO-001/OUT-001 schema 수정 제안을 보고한다.
 - long playback에서 leak나 timing drift를 재현하지만 해결하지 못하면 Sol xhigh로 즉시 상향한다.
+
+## 17. 2026-08-19 실패 수정 및 재검증 기록
+
+- 제거된 팔레트 체크박스에 이벤트를 연결하던 시작 시점 예외를 제거했다.
+- 재생·반복·배경 텍스트 버튼을 고정 32px 아이콘 규격에서 분리하고 1280px·390px에서 겹침이 없음을 확인했다.
+- dialog semantics, 초기 포커스, Tab/Shift+Tab trap, 닫기 후 트리거 포커스 복귀를 구현했다. 재생 중 frame status는 `aria-live="off"`, 일시정지 상태는 `polite`로 전환한다.
+- 동일 파일명은 업로드 승인 시 기록한 `addedIndex`로 안정 정렬하며, 이 값을 처리 결과와 내부 로그 복원 경로까지 유지한다.
+- 디더링 metadata가 없으면 `꺼짐`으로 추정하지 않고 `확인 불가`로 표시한다. `false/none`, 활성 알고리즘, metadata 누락을 실제 함수 테스트에서 각각 검증했다.
+- 16-frame multi-file, 32-frame sheet, 1/8/30fps, loop off, 1×/2×/8×, mobile, keyboard, reduced-motion, hidden/close cleanup을 브라우저에서 확인했다.
+- 8fps로 611,086ms 재생한 뒤 전체 canvas는 18→18, animation modal canvas는 1→1로 유지됐다.
+- 자동 검사와 브라우저 측정값·캡처는 [ANI-001 증거 보고서](../../evidence/ani-001/README.md)에 기록했다.
+- 지정된 독립 `Sol xhigh` 검토가 남아 있으므로 대시보드 상태는 `NEEDS_REVIEW`이며, 그 전에는 `DONE`으로 올리지 않는다.
+
+## 18. 2026-08-21 최종 검토 실패 항목 개선 기록
+
+- 256프레임을 초과한 시트가 경고 후 다시 재생 상태로 바뀌던 문제를 수정했다. 오류 소스에서는 재생·이전·다음·반복·FPS·배율·격자·배경·확장 제어를 비활성화하고 frame label을 `—`로 초기화한다.
+- 오류 모달에서 비활성화된 배경 제어를 `B` 단축키로 우회할 수 없도록 차단했다. `Space`·방향키도 frame 부재 guard를 유지한다.
+- 동일 파일명의 시트가 다른 결과의 palette·dithering metadata를 읽던 문제를 수정했다. sheet source가 `addedIndex`를 보존하며 metadata 조회는 `name + addedIndex`를 우선 사용하고 legacy source만 이름 fallback을 사용한다.
+- 실제 함수 테스트에 257프레임 오류 제어 상태와 동일 이름·상이한 metadata 결과를 추가했다. 최종 CSP 수정본을 브라우저에서 확인했으며 오류 경로·정상 재생·닫기 cleanup·콘솔 0건을 [ANI-001 증거 보고서](../../evidence/ani-001/README.md)에 기록했다.
+- 수정된 인라인 스크립트의 CSP SHA-256을 HTML, `SECURITY.md`, `vercel.json`에 동기화했다.
+- 단독 오류 경로의 경계 회귀는 통과했지만, 독립 `Sol xhigh` 검토에서 정상 결과와 257프레임 초과 시트가 함께 있는 혼합 작업의 사유 표시 누락이 발견됐다. 수정·회귀 검사·재검토 전까지 `NEEDS_REVIEW`를 유지한다.
+
+## 19. 2026-08-21 독립 Sol xhigh 검토 결과
+
+- 최종 판정: `FAIL / CHANGES_REQUESTED`.
+- 차단 결함: `257프레임 초과 시트 + 정상 결과`를 함께 처리하면 초과 시트 옵션이 비활성화되어 선택할 수 없고, 제한 사유도 표시되지 않는다.
+- 필수 수정: 오류 소스를 선택 가능하게 유지해 오류 상태로 진입시키거나, 비활성 옵션의 표시 텍스트에 전체 제한 사유를 포함한다.
+- 필수 회귀: 위 혼합 입력에서 사유가 실제로 노출되는지 자동 검사와 브라우저 QA에 추가한다.
+- 통과 범위: frame ordering, sheet cut, timer cleanup, policy, accessibility, CSP, 기존 회귀.
+- 상세 근거: [독립 Sol xhigh 검토 보고서](../../evidence/ani-001/sol-xhigh-review-2026-08-21.md).
+
+## 20. 2026-08-21 혼합 입력 실패 항목 수정·재검증
+
+- 정상 재생 소스와 257프레임 초과 시트가 함께 있을 때, 재생을 계속하면서 제외된 시트 파일명과 257/256프레임 제한 사유를 지속적으로 표시한다.
+- 비활성화된 초과 시트 옵션에도 전체 제한 사유를 포함해, 옵션을 선택할 수 없는 상태에서도 원인을 확인할 수 있다.
+- 자동 검사에 정상+초과 시트 혼합 입력의 제한 사유 노출을 추가했다.
+- 실제 브라우저에서 혼합 입력의 제한 사유, 비활성 옵션, `Space`·방향키·`B`, 정상 파일·정상 시트 재생, 초과 시트 단독 제어 비활성화를 확인했으며 콘솔 로그는 0건이었다.
+- 인라인 JavaScript 변경으로 새 CSP SHA-256을 HTML, `SECURITY.md`, `vercel.json`에 동기화했다.
+- 이 시점에서 이전 Sol xhigh 검토가 요구한 수정과 회귀는 완료했지만, 유효한 `Sol xhigh` 재검토 증거가 남아 있어 `NEEDS_REVIEW`를 유지했다.
+
+## 21. 2026-08-21 독립 Sol xhigh 최종 재검토
+
+- 최종 판정: `PASS / APPROVE`.
+- 이전 FAIL 원인인 정상 결과 + 257프레임 초과 시트 혼합 입력에서 제외 파일명과 257/256 제한 사유가 notice와 비활성 option에 유지되는 것을 확인했다.
+- 전체 `scripts/*check.mjs`, JSON 파싱, CSP 동기화, `git diff --check`, 증거 게이트를 통과했다.
+- 재검토의 LOW 우려를 반영해 `mixedNormalSheetPlaybackPass`, `mixedNoticePersistsOnNormalSheet`, 비활 option 사유, 콘솔 오류 0건을 증거 생성기의 필수 게이트로 강화했다.
+- 최종 근거: [독립 Sol xhigh 재검토 보고서](../../evidence/ani-001/sol-xhigh-rereview-2026-08-21.md).
