@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-scbQuBLH8V4KWjBs8NX0JfJshO1j/Uc5q9HE/EebSws='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-6JT0GRgVk20l2zaN1z5ToQeN6O5hwJSjXlBVFsVvWSE='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
 <!--
 <!-- Inactive historical CSP declarations:
 Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
@@ -825,6 +825,7 @@ Legacy hash declaration:
             <select id="presetSelect" style="flex:1;" aria-label="프리셋 선택">
               <option value="default">기본값 (정사각 64px, 팔레트 16색, 노이즈정리 1회)</option>
               <option value="animation-safe">애니메이션 안전 (공유 팔레트, 노이즈정리 1회, 외곽선 해제)</option>
+              <option value="oklab-animation-stable">OKLab 애니메이션 안정 (16색 공유 팔레트, 프레임 색상 흔들림 억제)</option>
               <option value="preserve-sheet">시트 규격 유지 (원본 64×64 프레임, 4px 블록)</option>
             </select>
             <button type="button" class="primary" id="applyPresetBtn" style="padding:6px 12px; font-size:12px; margin-top:0; white-space:nowrap;">적용</button>
@@ -1050,7 +1051,7 @@ Legacy hash declaration:
 
                 <div class="field" style="margin-top:14px;">
                   <label class="toggle">
-                    <input type="checkbox" id="showExperimentalFeatures" aria-controls="representativeColorField" aria-expanded="false">
+                    <input type="checkbox" id="showExperimentalFeatures" aria-controls="representativeColorField paletteExperimentField" aria-expanded="false">
                     실험 기능 표시
                   </label>
                 </div>
@@ -1144,6 +1145,41 @@ Legacy hash declaration:
                     <span class="help-container">
                       <button class="help-btn" type="button" data-help="체크하면 업로드한 모든 이미지가 하나의 공통 팔레트를 사용합니다. 직접 지정 팔레트 사용 시에는 항상 공유 팔레트가 적용됩니다.">?</button>
                     </span>
+                  </div>
+                </div>
+
+                <div class="field" id="paletteExperimentField" style="display:none; border-left:2px solid var(--line); padding-left:11px;">
+                  <div class="field-header">
+                    <label for="paletteAlgorithm">팔레트 생성</label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="현재 sRGB K-means가 호환 기준선입니다. 검증된 OKLab 16색 애니메이션 조합만 별도 opt-in 프리셋으로 제공하며 기본값과 다른 기존 프리셋은 바꾸지 않습니다.">?</button>
+                    </span>
+                  </div>
+                  <select id="paletteAlgorithm" disabled aria-describedby="paletteExperimentStatus">
+                    <option value="kmeans-srgb" selected>현재 K-means (기본)</option>
+                    <option value="kmeans-oklab">OKLab K-means</option>
+                    <option value="median-cut">MedianCut</option>
+                  </select>
+
+                  <div class="field" style="margin-top:10px; margin-bottom:0;">
+                    <label for="paletteSampling">샘플 가중</label>
+                    <select id="paletteSampling" disabled aria-describedby="paletteExperimentStatus">
+                      <option value="pixel" selected>전체 픽셀 비례 (기본)</option>
+                      <option value="image-balanced">이미지별 균등</option>
+                      <option value="reference">참조 이미지</option>
+                    </select>
+                  </div>
+
+                  <div class="field" id="paletteReferenceField" style="display:none; margin-top:10px; margin-bottom:0;">
+                    <label for="paletteReference">참조 이미지 파일명</label>
+                    <select id="paletteReference" disabled aria-describedby="paletteReferenceError">
+                      <option value="">참조 이미지를 선택하세요</option>
+                    </select>
+                    <div id="paletteReferenceError" class="frame-size-note" role="status" aria-live="polite" style="display:none; color:var(--danger); margin-top:6px;"></div>
+                  </div>
+
+                  <div id="paletteExperimentStatus" class="frame-size-note" role="status" aria-live="polite" style="margin-top:8px; color:var(--ink-dim); background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
+                    실험 기능입니다. 기본 팔레트는 유지되며 검증된 OKLab 16색 애니메이션 조합만 별도 프리셋으로 제공됩니다.
                   </div>
                 </div>
               </div>
@@ -1621,6 +1657,13 @@ const customPaletteWarning = document.getElementById('customPaletteWarning');
 const customPaletteChips = document.getElementById('customPaletteChips');
 const paletteSharedField = document.getElementById('paletteSharedField');
 const sharedCheck = document.getElementById('shared');
+const paletteExperimentField = document.getElementById('paletteExperimentField');
+const paletteAlgorithmSel = document.getElementById('paletteAlgorithm');
+const paletteSamplingSel = document.getElementById('paletteSampling');
+const paletteReferenceField = document.getElementById('paletteReferenceField');
+const paletteReferenceSel = document.getElementById('paletteReference');
+const paletteReferenceError = document.getElementById('paletteReferenceError');
+const paletteExperimentStatus = document.getElementById('paletteExperimentStatus');
 
 const alphaModeBinaryRadio = document.getElementById('alphaModeBinary');
 const alphaModeCoverageRadio = document.getElementById('alphaModeCoverage');
@@ -2023,6 +2066,9 @@ const DEFAULT_SETTINGS = Object.freeze({
   pixelBlockSize: 4,
   representativeColor: 'mean-srgb',
   paletteMode: 'auto',
+  paletteAlgorithm: 'kmeans-srgb',
+  paletteSampling: 'pixel',
+  paletteReference: null,
   customPalette: [],
   paletteEnabled: true,
   colors: 16,
@@ -2043,6 +2089,17 @@ const PRESETS = Object.freeze({
     ...DEFAULT_SETTINGS
   },
   'animation-safe': {
+    shared: true,
+    cleanEnabled: true,
+    cleanPasses: 1,
+    outline: false
+  },
+  'oklab-animation-stable': {
+    paletteMode: 'auto',
+    paletteAlgorithm: 'kmeans-oklab',
+    paletteSampling: 'pixel',
+    paletteReference: null,
+    colors: 16,
     shared: true,
     cleanEnabled: true,
     cleanPasses: 1,
@@ -2092,6 +2149,12 @@ function getSettingsSummary(s) {
     const colorsCount = s.colors ?? s.colorsNum ?? 16;
     parts.push(`팔레트:${colorsCount}색`);
   }
+  const paletteAlgorithm = s.paletteAlgorithm || 'kmeans-srgb';
+  const paletteSampling = s.paletteSampling || 'pixel';
+  if (s.paletteMode === 'auto' && (paletteAlgorithm !== 'kmeans-srgb' || paletteSampling !== 'pixel')) {
+    const reference = paletteSampling === 'reference' && s.paletteReference ? `:${s.paletteReference}` : '';
+    parts.push(`팔레트실험:${paletteAlgorithm}/${paletteSampling}${reference}`);
+  }
   const cleanPassesCount = s.cleanPasses ?? s.cleanNum ?? (s.cleanEnabled ? 1 : 0);
   if (cleanPassesCount > 0 && (s.cleanEnabled ?? true)) {
     parts.push(`정리:${cleanPassesCount}회`);
@@ -2126,6 +2189,9 @@ function readUiSettings() {
   const pixelBlockSize = pixelBlockSizeSel ? parseInt(pixelBlockSizeSel.value, 10) : 4;
   const representativeColor = representativeColorSel ? representativeColorSel.value : 'mean-srgb';
   const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
+  const paletteAlgorithm = paletteAlgorithmSel ? paletteAlgorithmSel.value : 'kmeans-srgb';
+  const paletteSampling = paletteSamplingSel ? paletteSamplingSel.value : 'pixel';
+  const paletteReference = paletteReferenceSel?.value || null;
   const parsedCustom = customPaletteText ? parseHexPalette(customPaletteText.value) : { hexes: [] };
   const customPalette = parsedCustom.hexes;
   const colors = paletteMode === 'custom'
@@ -2163,6 +2229,9 @@ function readUiSettings() {
     pixelBlockSize,
     representativeColor,
     paletteMode,
+    paletteAlgorithm,
+    paletteSampling,
+    paletteReference,
     customPalette,
     paletteEnabled,
     colors,
@@ -2192,7 +2261,8 @@ function normalizeSettings(input, source = 'envelope') {
     'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
     'gridFrameMode', 'gridFrameWidth', 'gridFrameHeight', 'gridSizeX', 'gridSizeY',
     'gridPhaseX', 'gridPhaseY', 'gridSource', 'gridLockedAcrossFrames',
-    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode', 'customPalette',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode',
+    'paletteAlgorithm', 'paletteSampling', 'paletteReference', 'customPalette',
     'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
     'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
     'alphaMode', 'alphaThreshold',
@@ -2340,6 +2410,31 @@ function normalizeSettings(input, source = 'envelope') {
     result.paletteMode = input.paletteEnabled ? 'auto' : 'unlimited';
   }
 
+  if ('paletteAlgorithm' in input) {
+    if (!['kmeans-srgb', 'kmeans-oklab', 'median-cut'].includes(input.paletteAlgorithm)) {
+      throw new Error(`유효하지 않은 paletteAlgorithm 값: ${input.paletteAlgorithm}`);
+    }
+    result.paletteAlgorithm = input.paletteAlgorithm;
+  }
+
+  if ('paletteSampling' in input) {
+    if (!['pixel', 'image-balanced', 'reference'].includes(input.paletteSampling)) {
+      throw new Error(`유효하지 않은 paletteSampling 값: ${input.paletteSampling}`);
+    }
+    result.paletteSampling = input.paletteSampling;
+  }
+
+  if ('paletteReference' in input) {
+    if (input.paletteReference === null) {
+      result.paletteReference = null;
+    } else if (typeof input.paletteReference !== 'string' || input.paletteReference.length < 1 ||
+        input.paletteReference.length > 255 || /[\u0000-\u001f\u007f/\\]/.test(input.paletteReference)) {
+      throw new Error('paletteReference는 1~255자의 안전한 파일명 또는 null이어야 합니다.');
+    } else {
+      result.paletteReference = input.paletteReference;
+    }
+  }
+
   if ('customPalette' in input) {
     if (!Array.isArray(input.customPalette)) {
       throw new Error('customPalette는 배열이어야 합니다.');
@@ -2381,6 +2476,9 @@ function normalizeSettings(input, source = 'envelope') {
       throw new Error(`shared는 boolean이어야 합니다: ${input.shared}`);
     }
     result.shared = input.shared;
+  }
+  if (result.paletteSampling === 'image-balanced' && result.shared === false) {
+    throw new Error('paletteSampling=image-balanced는 공유 팔레트를 켠 경우에만 사용할 수 있습니다.');
   }
 
   if ('cleanEnabled' in input) {
@@ -2530,6 +2628,9 @@ const SETTING_LABELS = Object.freeze({
   pixelBlockSize: '블록 크기',
   representativeColor: '셀 대표색',
   paletteMode: '팔레트 방식',
+  paletteAlgorithm: '팔레트 생성 알고리즘',
+  paletteSampling: '팔레트 샘플 가중',
+  paletteReference: '팔레트 참조 이미지',
   customPalette: '직접 지정 팔레트',
   paletteEnabled: '팔레트 제한 사용',
   colors: '팔레트 색상 수',
@@ -2567,6 +2668,15 @@ function formatSettingValue(key, val) {
     const map = { auto: '자동 생성 (K-means)', custom: '직접 지정 (Custom Palette)', unlimited: '제한 없음 (원본 색상)' };
     return map[val] || val;
   }
+  if (key === 'paletteAlgorithm') {
+    const map = { 'kmeans-srgb': '현재 K-means (기본)', 'kmeans-oklab': 'OKLab K-means', 'median-cut': 'MedianCut' };
+    return map[val] || val;
+  }
+  if (key === 'paletteSampling') {
+    const map = { pixel: '전체 픽셀 비례 (기본)', 'image-balanced': '이미지별 균등', reference: '참조 이미지' };
+    return map[val] || val;
+  }
+  if (key === 'paletteReference') return val || '선택 안 함';
   if (key === 'customPalette') {
     return Array.isArray(val) ? `${val.length}색` : '0색';
   }
@@ -2588,7 +2698,8 @@ function diffSettings(current, next) {
     'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
     'gridFrameMode', 'gridFrameWidth', 'gridFrameHeight', 'gridSizeX', 'gridSizeY',
     'gridPhaseX', 'gridPhaseY', 'gridSource', 'gridLockedAcrossFrames',
-    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode', 'customPalette',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode',
+    'paletteAlgorithm', 'paletteSampling', 'paletteReference', 'customPalette',
     'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
     'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
     'alphaMode', 'alphaThreshold'
@@ -2655,9 +2766,13 @@ function applyUiSettings(settings) {
   }
   if (settings.representativeColor) {
     representativeColorSel.value = settings.representativeColor;
-    showExperimentalFeatures.checked = settings.representativeColor !== 'mean-srgb';
   }
-  updateRepresentativeColorUi(false);
+  if (settings.paletteAlgorithm) paletteAlgorithmSel.value = settings.paletteAlgorithm;
+  if (settings.paletteSampling) paletteSamplingSel.value = settings.paletteSampling;
+  if ('paletteReference' in settings) updatePaletteReferenceOptions(settings.paletteReference || '');
+  showExperimentalFeatures.checked = (settings.representativeColor || 'mean-srgb') !== 'mean-srgb' ||
+    (settings.paletteAlgorithm || 'kmeans-srgb') !== 'kmeans-srgb' ||
+    (settings.paletteSampling || 'pixel') !== 'pixel';
   if (settings.paletteMode) {
     paletteModeSel.value = settings.paletteMode;
   } else if (settings.paletteEnabled !== undefined) {
@@ -2666,9 +2781,6 @@ function applyUiSettings(settings) {
   if (Array.isArray(settings.customPalette)) {
     customPaletteText.value = settings.customPalette.join('\n');
   }
-  updatePaletteModeUi();
-  renderCustomPalettePreview();
-
   if (settings.colors !== undefined) {
     colorsRange.value = settings.colors;
     colorsNum.value = settings.colors;
@@ -2676,6 +2788,9 @@ function applyUiSettings(settings) {
   if (settings.shared !== undefined) {
     sharedCheck.checked = settings.shared;
   }
+  updateRepresentativeColorUi(false);
+  updatePaletteModeUi();
+  renderCustomPalettePreview();
   if (settings.cleanEnabled !== undefined) {
     cleanEnabledCheck.checked = settings.cleanEnabled;
     cleanEnabledCheck.dispatchEvent(new Event('change'));
@@ -3299,9 +3414,14 @@ function updateRepresentativeColorUi(resetWhenHidden = true){
   }
 }
 
-showExperimentalFeatures?.addEventListener('change', () => updateRepresentativeColorUi(true));
+function updateExperimentalFeaturesUi(resetWhenHidden = true){
+  updateRepresentativeColorUi(resetWhenHidden);
+  updatePaletteExperimentUi(resetWhenHidden);
+}
+
+showExperimentalFeatures?.addEventListener('change', () => updateExperimentalFeaturesUi(true));
 representativeColorSel?.addEventListener('change', () => updateRepresentativeColorUi(false));
-updateRepresentativeColorUi(false);
+updateExperimentalFeaturesUi(false);
 
 document.querySelectorAll('input[name="gridFrameMode"]').forEach(radio => {
   radio.addEventListener('change', () => {
@@ -3715,6 +3835,8 @@ function renderFileList(){
     });
   });
   runBtn.disabled = uploadedFiles.length === 0;
+  updatePaletteReferenceOptions();
+  updatePaletteExperimentUi(false);
   updateFrameCalculation();
   updateFactorCalculation();
   invalidateGridAnalysis(uploadedFiles.length
@@ -4464,6 +4586,385 @@ function kmeans(points, k, iterations=10){
   return centers.map(c => c.map(Math.round));
 }
 
+function palettePointWeight(point){
+  const rawWeight = point.length > 3 ? Number(point[3]) : 1;
+  return Number.isFinite(rawWeight) && rawWeight > 0 ? rawWeight : 1;
+}
+
+function limitPalettePoints(points){
+  if(points.length <= MAX_PALETTE_SAMPLES) return points;
+  const stride = points.length / MAX_PALETTE_SAMPLES;
+  return Array.from({length: MAX_PALETTE_SAMPLES}, (_, i) => points[Math.floor(i * stride)]);
+}
+
+function srgbChannelToLinear(value){
+  const channel = Math.max(0, Math.min(255, Number(value))) / 255;
+  return channel <= 0.04045 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+}
+
+function linearChannelToSrgb(value){
+  const channel = Math.max(0, Math.min(1, Number(value)));
+  const srgb = channel <= 0.0031308
+    ? 12.92 * channel
+    : 1.055 * Math.pow(channel, 1 / 2.4) - 0.055;
+  return Math.round(Math.max(0, Math.min(1, srgb)) * 255);
+}
+
+function srgbToOklab(r, g, b){
+  const lr = srgbChannelToLinear(r);
+  const lg = srgbChannelToLinear(g);
+  const lb = srgbChannelToLinear(b);
+  const l = 0.4122214708*lr + 0.5363325363*lg + 0.0514459929*lb;
+  const m = 0.2119034982*lr + 0.6806995451*lg + 0.1073969566*lb;
+  const s = 0.0883024619*lr + 0.2817188376*lg + 0.6299787005*lb;
+  const lRoot = Math.cbrt(l);
+  const mRoot = Math.cbrt(m);
+  const sRoot = Math.cbrt(s);
+  return [
+    0.2104542553*lRoot + 0.7936177850*mRoot - 0.0040720468*sRoot,
+    1.9779984951*lRoot - 2.4285922050*mRoot + 0.4505937099*sRoot,
+    0.0259040371*lRoot + 0.7827717662*mRoot - 0.8086757660*sRoot
+  ];
+}
+
+function oklabToSrgb(L, a, b){
+  const lRoot = L + 0.3963377774*a + 0.2158037573*b;
+  const mRoot = L - 0.1055613458*a - 0.0638541728*b;
+  const sRoot = L - 0.0894841775*a - 1.2914855480*b;
+  const l = lRoot*lRoot*lRoot;
+  const m = mRoot*mRoot*mRoot;
+  const s = sRoot*sRoot*sRoot;
+  return [
+    linearChannelToSrgb(4.0767416621*l - 3.3077115913*m + 0.2309699292*s),
+    linearChannelToSrgb(-1.2684380046*l + 2.6097574011*m - 0.3413193965*s),
+    linearChannelToSrgb(-0.0041960863*l - 0.7034186147*m + 1.7076147010*s)
+  ];
+}
+
+function dedupeAndBackfillPalette(colors, points, requestedSize){
+  const stats = new Map();
+  points.forEach((point, index) => {
+    const rgb = [Math.round(point[0]), Math.round(point[1]), Math.round(point[2])];
+    const key = rgb.join(',');
+    const current = stats.get(key);
+    if(current){
+      current.count++;
+      current.weight += palettePointWeight(point);
+    } else {
+      stats.set(key, { color: rgb, count: 1, weight: palettePointWeight(point), firstIndex: index });
+    }
+  });
+  const targetSize = Math.min(requestedSize, stats.size);
+  const palette = [];
+  const selected = new Set();
+  for(const color of colors){
+    const rounded = color.map(value => Math.max(0, Math.min(255, Math.round(value))));
+    const key = rounded.join(',');
+    if(!selected.has(key)){
+      selected.add(key);
+      palette.push(rounded);
+      if(palette.length >= targetSize) return palette;
+    }
+  }
+  const fallback = [...stats.values()].sort((left, right) =>
+    right.count - left.count || right.weight - left.weight || left.firstIndex - right.firstIndex
+  );
+  for(const item of fallback){
+    const key = item.color.join(',');
+    if(selected.has(key)) continue;
+    selected.add(key);
+    palette.push(item.color);
+    if(palette.length >= targetSize) break;
+  }
+  return palette;
+}
+
+function kmeansOklab(points, k, iterations=10){
+  points = limitPalettePoints(points);
+  if(points.length === 0) return [];
+  k = Math.min(k, points.length);
+  const labs = points.map(point => [...srgbToOklab(point[0], point[1], point[2]), palettePointWeight(point)]);
+  let centers = [];
+  for(let i=0; i<k; i++) centers.push(labs[Math.floor(i * labs.length / k)].slice(0, 3));
+  const assignments = new Array(labs.length).fill(0);
+  for(let iteration=0; iteration<iterations; iteration++){
+    for(let pointIndex=0; pointIndex<labs.length; pointIndex++){
+      let best = 0;
+      let bestDistance = Infinity;
+      for(let centerIndex=0; centerIndex<centers.length; centerIndex++){
+        const dL = labs[pointIndex][0] - centers[centerIndex][0];
+        const da = labs[pointIndex][1] - centers[centerIndex][1];
+        const db = labs[pointIndex][2] - centers[centerIndex][2];
+        const distance = dL*dL + da*da + db*db;
+        if(distance < bestDistance){ bestDistance = distance; best = centerIndex; }
+      }
+      assignments[pointIndex] = best;
+    }
+    const sums = centers.map(() => [0, 0, 0, 0]);
+    for(let pointIndex=0; pointIndex<labs.length; pointIndex++){
+      const cluster = assignments[pointIndex];
+      const weight = labs[pointIndex][3];
+      sums[cluster][0] += labs[pointIndex][0] * weight;
+      sums[cluster][1] += labs[pointIndex][1] * weight;
+      sums[cluster][2] += labs[pointIndex][2] * weight;
+      sums[cluster][3] += weight;
+    }
+    for(let centerIndex=0; centerIndex<centers.length; centerIndex++){
+      if(sums[centerIndex][3] > 0){
+        centers[centerIndex] = [
+          sums[centerIndex][0] / sums[centerIndex][3],
+          sums[centerIndex][1] / sums[centerIndex][3],
+          sums[centerIndex][2] / sums[centerIndex][3]
+        ];
+      }
+    }
+  }
+  return dedupeAndBackfillPalette(
+    centers.map(center => oklabToSrgb(center[0], center[1], center[2])),
+    points,
+    k
+  );
+}
+
+function getMedianCutBoxInfo(items){
+  const min = [Infinity, Infinity, Infinity];
+  const max = [-Infinity, -Infinity, -Infinity];
+  for(const item of items){
+    for(let channel=0; channel<3; channel++){
+      min[channel] = Math.min(min[channel], item.color[channel]);
+      max[channel] = Math.max(max[channel], item.color[channel]);
+    }
+  }
+  const ranges = max.map((value, channel) => value - min[channel]);
+  const maxRange = Math.max(...ranges);
+  return {
+    splitChannel: ranges.indexOf(maxRange),
+    maxRange,
+    population: items.length,
+    firstIndex: Math.min(...items.map(item => item.index))
+  };
+}
+
+function medianCut(points, k){
+  points = limitPalettePoints(points);
+  if(points.length === 0) return [];
+  const items = points.map((point, index) => ({
+    color: [Math.round(point[0]), Math.round(point[1]), Math.round(point[2])],
+    weight: palettePointWeight(point),
+    index
+  }));
+  const uniqueCount = new Set(items.map(item => item.color.join(','))).size;
+  const targetSize = Math.min(k, uniqueCount);
+  const boxes = [items];
+  while(boxes.length < targetSize){
+    const candidates = boxes.map((box, boxIndex) => ({ box, boxIndex, info: getMedianCutBoxInfo(box) }))
+      .filter(candidate => candidate.box.length > 1 && candidate.info.maxRange > 0)
+      .sort((left, right) =>
+        right.info.maxRange - left.info.maxRange ||
+        right.info.population - left.info.population ||
+        left.info.firstIndex - right.info.firstIndex ||
+        left.boxIndex - right.boxIndex
+      );
+    if(candidates.length === 0) break;
+    const selected = candidates[0];
+    const channel = selected.info.splitChannel;
+    const sorted = selected.box.slice().sort((left, right) =>
+      left.color[channel] - right.color[channel] || left.index - right.index
+    );
+    const splitIndex = Math.floor(sorted.length / 2);
+    if(splitIndex < 1 || splitIndex >= sorted.length) break;
+    boxes.splice(selected.boxIndex, 1, sorted.slice(0, splitIndex), sorted.slice(splitIndex));
+  }
+  const representatives = boxes.map(box => {
+    const sums = [0, 0, 0, 0];
+    for(const item of box){
+      sums[0] += item.color[0] * item.weight;
+      sums[1] += item.color[1] * item.weight;
+      sums[2] += item.color[2] * item.weight;
+      sums[3] += item.weight;
+    }
+    return [
+      Math.round(sums[0] / sums[3]),
+      Math.round(sums[1] / sums[3]),
+      Math.round(sums[2] / sums[3])
+    ];
+  });
+  return dedupeAndBackfillPalette(representatives, points, targetSize);
+}
+
+function generatePaletteFromPoints(points, colorCount, algorithm, iterations=10){
+  if(algorithm === 'kmeans-oklab') return kmeansOklab(points, colorCount, iterations);
+  if(algorithm === 'median-cut') return medianCut(points, colorCount);
+  return kmeans(points, colorCount, iterations);
+}
+
+function collectPaletteSamples(downs, sampling='pixel', referenceName=null, maxSamples=MAX_PALETTE_SAMPLES, threshold=10, alphaWeighted=false){
+  if(!Array.isArray(downs) || downs.length === 0 || maxSamples < 1) return [];
+  const appendSamples = (target, down, quota) => {
+    if(quota < 1) return;
+    const count = down.w * down.h;
+    const stride = Math.max(1, Math.ceil(count / quota));
+    for(let index=0; index<count && target.length<quota; index+=stride){
+      const alpha = down.data[index*4+3];
+      if(alpha < threshold) continue;
+      const point = [down.data[index*4], down.data[index*4+1], down.data[index*4+2]];
+      if(alphaWeighted) point.push(alpha / 255);
+      target.push(point);
+    }
+  };
+  if(sampling === 'reference'){
+    const matches = downs.filter(down => down.name === referenceName);
+    if(matches.length !== 1) return [];
+    const points = [];
+    appendSamples(points, matches[0], maxSamples);
+    return points;
+  }
+  if(sampling === 'image-balanced'){
+    const ordered = downs.slice().sort((left, right) =>
+      (left.name < right.name ? -1 : left.name > right.name ? 1 : 0) || left.addedIndex - right.addedIndex
+    );
+    const baseQuota = Math.floor(maxSamples / ordered.length);
+    let remainder = maxSamples - baseQuota * ordered.length;
+    const points = [];
+    for(const down of ordered){
+      const quota = baseQuota + (remainder > 0 ? 1 : 0);
+      if(remainder > 0) remainder--;
+      const filePoints = [];
+      appendSamples(filePoints, down, quota);
+      points.push(...filePoints);
+    }
+    return points.slice(0, maxSamples);
+  }
+  const totalPixels = downs.reduce((sum, down) => sum + down.w*down.h, 0);
+  const stride = Math.max(1, Math.ceil(totalPixels / maxSamples));
+  const points = [];
+  let visitedPixels = 0;
+  for(const down of downs){
+    const count = down.w*down.h;
+    for(let index=0; index<count; index++){
+      const alpha = down.data[index*4+3];
+      if(alpha >= threshold && visitedPixels % stride === 0){
+        const point = [down.data[index*4], down.data[index*4+1], down.data[index*4+2]];
+        if(alphaWeighted) point.push(alpha / 255);
+        points.push(point);
+      }
+      visitedPixels++;
+    }
+  }
+  return points;
+}
+
+function getPaletteReferenceValidation(files, sampling, referenceName){
+  if(sampling !== 'reference') return { ok: true, file: null, error: null };
+  if(!referenceName) return { ok: false, file: null, error: '참조 이미지를 선택하세요.' };
+  const matches = files.filter(file => file.name === referenceName);
+  if(matches.length === 0){
+    return { ok: false, file: null, error: `참조 이미지 '${referenceName}'가 업로드 목록에 없습니다.` };
+  }
+  if(matches.length > 1){
+    return { ok: false, file: null, error: `같은 파일명 '${referenceName}'이 ${matches.length}개입니다. 파일명을 바꾼 뒤 다시 업로드하세요.` };
+  }
+  return { ok: true, file: matches[0], error: null };
+}
+
+function buildAutoPalette(downs, colorCount, algorithm, sampling, referenceName, threshold, alphaWeighted){
+  const points = collectPaletteSamples(downs, sampling, referenceName, MAX_PALETTE_SAMPLES, threshold, alphaWeighted);
+  const startHeap = typeof performance !== 'undefined' && performance.memory ? performance.memory.usedJSHeapSize : null;
+  const startTime = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+  const palette = generatePaletteFromPoints(points, colorCount, algorithm, 10);
+  const endTime = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+  const endHeap = typeof performance !== 'undefined' && performance.memory ? performance.memory.usedJSHeapSize : null;
+  return {
+    palette,
+    sampleCount: points.length,
+    iterations: algorithm === 'median-cut' ? 0 : 10,
+    runtimeMs: Number((endTime - startTime).toFixed(3)),
+    heapDeltaBytes: startHeap === null || endHeap === null ? null : endHeap - startHeap
+  };
+}
+
+function nearestOklabIndex(lab, paletteLabs){
+  let best = 0;
+  let bestDistance = Infinity;
+  for(let index=0; index<paletteLabs.length; index++){
+    const dL = lab[0] - paletteLabs[index][0];
+    const da = lab[1] - paletteLabs[index][1];
+    const db = lab[2] - paletteLabs[index][2];
+    const distance = dL*dL + da*da + db*db;
+    if(distance < bestDistance){ bestDistance = distance; best = index; }
+  }
+  return best;
+}
+
+function mapPixelsToPalette(data, alpha, pixelCount, palette, algorithm='kmeans-srgb', threshold=10, previousGrid=null, temporalEpsilon=0){
+  const grid = new Array(pixelCount).fill(-1);
+  const slotCounts = new Array(palette.length).fill(0);
+  const paletteLabs = palette.map(color => srgbToOklab(color[0], color[1], color[2]));
+  const canStabilize = algorithm === 'kmeans-oklab' && Number.isFinite(temporalEpsilon) && temporalEpsilon > 0 &&
+    previousGrid && previousGrid.length === pixelCount;
+  const metricStride = Math.max(1, Math.ceil(pixelCount / MAX_PALETTE_SAMPLES));
+  const sampledErrors = [];
+  let errorSum = 0;
+  let temporalHeldCount = 0;
+  for(let index=0; index<pixelCount; index++){
+    if(alpha[index] < threshold || palette.length === 0) continue;
+    let sourceLab = null;
+    let paletteIndex;
+    if(algorithm === 'kmeans-oklab'){
+      sourceLab = srgbToOklab(data[index*4], data[index*4+1], data[index*4+2]);
+      paletteIndex = nearestOklabIndex(sourceLab, paletteLabs);
+    } else {
+      paletteIndex = nearestColorIndex(data[index*4], data[index*4+1], data[index*4+2], palette);
+    }
+    if(canStabilize){
+      const previousIndex = previousGrid[index];
+      if(Number.isInteger(previousIndex) && previousIndex >= 0 && previousIndex < paletteLabs.length && previousIndex !== paletteIndex){
+        sourceLab ||= srgbToOklab(data[index*4], data[index*4+1], data[index*4+2]);
+        const bestTarget = paletteLabs[paletteIndex];
+        const previousTarget = paletteLabs[previousIndex];
+        const bestDistanceSquared =
+          (sourceLab[0]-bestTarget[0])**2 + (sourceLab[1]-bestTarget[1])**2 + (sourceLab[2]-bestTarget[2])**2;
+        const previousDistanceSquared =
+          (sourceLab[0]-previousTarget[0])**2 + (sourceLab[1]-previousTarget[1])**2 + (sourceLab[2]-previousTarget[2])**2;
+        if(previousDistanceSquared <= bestDistanceSquared + temporalEpsilon){
+          paletteIndex = previousIndex;
+          temporalHeldCount++;
+        }
+      }
+    }
+    grid[index] = paletteIndex;
+    slotCounts[paletteIndex]++;
+    if(index % metricStride === 0){
+      sourceLab ||= srgbToOklab(data[index*4], data[index*4+1], data[index*4+2]);
+      const targetLab = paletteLabs[paletteIndex];
+      const error = Math.hypot(
+        sourceLab[0] - targetLab[0],
+        sourceLab[1] - targetLab[1],
+        sourceLab[2] - targetLab[2]
+      );
+      sampledErrors.push(error);
+      errorSum += error;
+    }
+  }
+  const sortedErrors = sampledErrors.slice().sort((left, right) => left - right);
+  const percentileIndex = sortedErrors.length ? Math.min(sortedErrors.length - 1, Math.ceil(sortedErrors.length * 0.95) - 1) : 0;
+  const roundMetric = value => Number(value.toFixed(6));
+  return {
+    grid,
+    slotCounts,
+    slotUsage: slotCounts.filter(count => count > 0).length,
+    temporalStabilityApplied: Boolean(canStabilize),
+    temporalEpsilon: canStabilize ? temporalEpsilon : 0,
+    temporalHeldCount,
+    error: {
+      mean: roundMetric(sampledErrors.length ? errorSum / sampledErrors.length : 0),
+      p95: roundMetric(sortedErrors.length ? sortedErrors[percentileIndex] : 0),
+      max: roundMetric(sortedErrors.length ? sortedErrors[sortedErrors.length - 1] : 0),
+      sampleCount: sampledErrors.length
+    }
+  };
+}
+
 function collectOpaquePoints(data, pixelCount, maxSamples = MAX_PALETTE_SAMPLES, threshold = 10, alphaWeighted = false){
   const points = [];
   const stride = Math.max(1, Math.ceil(pixelCount / maxSamples));
@@ -4680,6 +5181,86 @@ function updatePaletteModeUi() {
     if (paletteSharedField) paletteSharedField.style.display = 'none';
     if (sharedCheck) sharedCheck.disabled = true;
   }
+  updatePaletteExperimentUi(false);
+}
+
+function updatePaletteReferenceOptions(preferredValue = null){
+  if(!paletteReferenceSel) return;
+  const desired = preferredValue === null ? paletteReferenceSel.value : preferredValue;
+  const counts = new Map();
+  for(const file of uploadedFiles){
+    const current = counts.get(file.name) || { count: 0, firstIndex: file.addedIndex };
+    current.count++;
+    current.firstIndex = Math.min(current.firstIndex, file.addedIndex);
+    counts.set(file.name, current);
+  }
+  const names = [...counts.keys()].sort((left, right) =>
+    left < right ? -1 : left > right ? 1 : counts.get(left).firstIndex - counts.get(right).firstIndex
+  );
+  paletteReferenceSel.replaceChildren();
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '참조 이미지를 선택하세요';
+  paletteReferenceSel.appendChild(placeholder);
+  for(const name of names){
+    const option = document.createElement('option');
+    option.value = name;
+    const duplicateCount = counts.get(name).count;
+    option.textContent = duplicateCount > 1 ? `${name} (동일 이름 ${duplicateCount}개 — 사용 불가)` : name;
+    paletteReferenceSel.appendChild(option);
+  }
+  if(desired && !counts.has(desired)){
+    const missing = document.createElement('option');
+    missing.value = desired;
+    missing.textContent = `${desired} (누락)`;
+    paletteReferenceSel.appendChild(missing);
+  }
+  paletteReferenceSel.value = desired || '';
+}
+
+function updatePaletteExperimentUi(resetWhenHidden = true){
+  if(!paletteExperimentField) return;
+  const show = Boolean(showExperimentalFeatures?.checked);
+  if(!show && resetWhenHidden){
+    if(paletteAlgorithmSel) paletteAlgorithmSel.value = 'kmeans-srgb';
+    if(paletteSamplingSel) paletteSamplingSel.value = 'pixel';
+    if(paletteReferenceSel) paletteReferenceSel.value = '';
+  }
+  paletteExperimentField.style.display = show ? 'block' : 'none';
+  const autoMode = paletteModeSel?.value === 'auto';
+  const controlsEnabled = show && autoMode;
+  if(paletteAlgorithmSel) paletteAlgorithmSel.disabled = !controlsEnabled;
+  if(paletteSamplingSel) paletteSamplingSel.disabled = !controlsEnabled;
+  const balancedOption = paletteSamplingSel?.querySelector('option[value="image-balanced"]');
+  const balancedAllowed = Boolean(sharedCheck?.checked) && uploadedFiles.length > 1;
+  if(balancedOption) balancedOption.disabled = !balancedAllowed;
+  if(paletteSamplingSel?.value === 'image-balanced' && !balancedAllowed){
+    paletteSamplingSel.value = 'pixel';
+  }
+  const referenceMode = paletteSamplingSel?.value === 'reference';
+  if(paletteReferenceField) paletteReferenceField.style.display = show && referenceMode ? 'block' : 'none';
+  if(paletteReferenceSel) paletteReferenceSel.disabled = !controlsEnabled || !referenceMode;
+  const referenceValidation = getPaletteReferenceValidation(
+    uploadedFiles,
+    referenceMode ? 'reference' : 'pixel',
+    paletteReferenceSel?.value || null
+  );
+  if(paletteReferenceError){
+    paletteReferenceError.textContent = controlsEnabled && referenceMode && !referenceValidation.ok
+      ? referenceValidation.error
+      : '';
+    paletteReferenceError.style.display = paletteReferenceError.textContent ? 'block' : 'none';
+  }
+  if(paletteExperimentStatus){
+    if(!autoMode){
+      paletteExperimentStatus.textContent = '직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.';
+    } else if(!balancedAllowed && uploadedFiles.length > 0){
+      paletteExperimentStatus.textContent = '이미지별 균등은 이미지 2개 이상과 공유 팔레트가 필요합니다. 후보는 기본값·프리셋에 자동 반영되지 않습니다.';
+    } else {
+      paletteExperimentStatus.textContent = '실험 기능입니다. 기본 팔레트는 유지되며 검증된 OKLab 16색 애니메이션 조합만 별도 프리셋으로 제공됩니다.';
+    }
+  }
+  if(showExperimentalFeatures) showExperimentalFeatures.setAttribute('aria-expanded', show ? 'true' : 'false');
 }
 
 function renderCustomPalettePreview() {
@@ -5160,6 +5741,9 @@ async function processAll(){
   const pixelBlockSize = Number(pixelBlockSizeSel.value);
   const representativeColor = normalizeRepresentativeColor(representativeColorSel?.value || 'mean-srgb');
   const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
+  const paletteAlgorithm = paletteAlgorithmSel?.value || 'kmeans-srgb';
+  const paletteSampling = paletteSamplingSel?.value || 'pixel';
+  const paletteReference = paletteReferenceSel?.value || null;
   const paletteOn = paletteMode !== 'unlimited';
   const parsedCustom = paletteMode === 'custom' ? parseHexPalette(customPaletteText.value) : { colors: [], hexes: [] };
   const customColors = parsedCustom.colors;
@@ -5183,6 +5767,18 @@ async function processAll(){
   const nColors = paletteMode === 'custom' ? customColors.length : currentColors();
   const cleanPasses = cleanEnabledCheck.checked ? currentClean() : 0;
   const shared = paletteMode === 'custom' ? true : (sharedCheck.checked && uploadedFiles.length > 1 && paletteOn);
+  const effectiveShared = shared || (paletteMode === 'auto' && paletteSampling === 'reference');
+
+  if(paletteMode === 'auto' && paletteSampling === 'image-balanced' && !shared){
+    statusEl.textContent = '이미지별 균등 샘플링은 이미지 2개 이상과 공유 팔레트를 켠 경우에만 사용할 수 있습니다.';
+    return;
+  }
+  const referenceValidation = getPaletteReferenceValidation(uploadedFiles, paletteSampling, paletteReference);
+  if(paletteMode === 'auto' && !referenceValidation.ok){
+    statusEl.textContent = referenceValidation.error;
+    updatePaletteExperimentUi(false);
+    return;
+  }
 
   if(scaleMode === 'factor'){
     const validationError = getFactorValidationError(uploadedFiles, factor, factorFrameMode, factorFrameWidth, factorFrameHeight);
@@ -5274,26 +5870,52 @@ async function processAll(){
   });
 
   let sharedPalette = null;
+  let sharedPaletteBuild = null;
   if(paletteMode === 'custom'){
     sharedPalette = customColors;
-  } else if(shared){
-    const allPoints = [];
-    const stride = Math.max(1, Math.ceil(logicalPixels / MAX_PALETTE_SAMPLES));
-    let visitedPixels = 0;
-    downs.forEach(d => {
-      const n = d.w*d.h;
-      for(let i=0;i<n;i++){
-        const a = d.data[i*4+3];
-        if(a >= alphaThreshold && visitedPixels % stride === 0){
-          const point = [d.data[i*4], d.data[i*4+1], d.data[i*4+2]];
-          if(alphaMode === 'coverage') point.push(a / 255);
-          allPoints.push(point);
-        }
-        visitedPixels++;
-      }
-    });
-    sharedPalette = kmeans(allPoints, nColors, 10);
+  } else if(paletteMode === 'auto' && effectiveShared){
+    sharedPaletteBuild = buildAutoPalette(
+      downs,
+      nColors,
+      paletteAlgorithm,
+      paletteSampling,
+      paletteReference,
+      alphaThreshold,
+      alphaMode === 'coverage'
+    );
+    sharedPalette = sharedPaletteBuild.palette;
     await new Promise(r=>setTimeout(r,0));
+  }
+
+  const temporalPaletteMappings = new Map();
+  const temporalStabilityEnabled = paletteMode === 'auto' && paletteAlgorithm === 'kmeans-oklab' &&
+    Boolean(sharedPalette) && downs.length > 1;
+  if(temporalStabilityEnabled){
+    const orderedDowns = downs.slice().sort(compareAnimationFrameOrder);
+    let previousGrid = null;
+    let previousWidth = null;
+    let previousHeight = null;
+    for(const sequenceFrame of orderedDowns){
+      const sequenceAlpha = Array.from(
+        { length: sequenceFrame.w * sequenceFrame.h },
+        (_, index) => sequenceFrame.data[index*4+3]
+      );
+      const sameGeometry = previousWidth === sequenceFrame.w && previousHeight === sequenceFrame.h;
+      const mapping = mapPixelsToPalette(
+        sequenceFrame.data,
+        sequenceAlpha,
+        sequenceFrame.w * sequenceFrame.h,
+        sharedPalette,
+        paletteAlgorithm,
+        alphaThreshold,
+        sameGeometry ? previousGrid : null,
+        sameGeometry ? 0.00025 : 0
+      );
+      temporalPaletteMappings.set(sequenceFrame, mapping);
+      previousGrid = mapping.grid;
+      previousWidth = sequenceFrame.w;
+      previousHeight = sequenceFrame.h;
+    }
   }
 
   lastResults = [];
@@ -5303,13 +5925,23 @@ async function processAll(){
   for(const d of downs){
     const w = d.w, h = d.h, n = w*h;
     let palette = sharedPalette;
+    let paletteBuild = sharedPaletteBuild;
     let exactColorMap = null;
     const alpha = new Array(n);
     for(let i=0;i<n;i++) alpha[i] = d.data[i*4+3];
 
     if(!palette){
       if(paletteMode === 'auto'){
-        palette = kmeans(collectOpaquePoints(d.data, n, MAX_PALETTE_SAMPLES, alphaThreshold, alphaMode === 'coverage'), nColors, 10);
+        paletteBuild = buildAutoPalette(
+          [d],
+          nColors,
+          paletteAlgorithm,
+          'pixel',
+          null,
+          alphaThreshold,
+          alphaMode === 'coverage'
+        );
+        palette = paletteBuild.palette;
       } else if(paletteMode === 'custom'){
         palette = customColors;
       } else {
@@ -5319,14 +5951,23 @@ async function processAll(){
     }
 
     let grid = new Array(n).fill(-1);
-    for(let i=0;i<n;i++){
-      if(alpha[i]>=alphaThreshold){
-        if(exactColorMap){
+    let paletteMapping = null;
+    if(exactColorMap){
+      for(let i=0;i<n;i++){
+        if(alpha[i] >= alphaThreshold){
           grid[i] = exactColorMap.get(`${d.data[i*4]},${d.data[i*4+1]},${d.data[i*4+2]}`) ?? -1;
-        } else {
-          grid[i] = palette.length ? nearestColorIndex(d.data[i*4], d.data[i*4+1], d.data[i*4+2], palette) : -1;
         }
       }
+    } else {
+      paletteMapping = temporalPaletteMappings.get(d) || mapPixelsToPalette(
+        d.data,
+        alpha,
+        n,
+        palette,
+        paletteMode === 'auto' ? paletteAlgorithm : 'kmeans-srgb',
+        alphaThreshold
+      );
+      grid = paletteMapping.grid;
     }
 
     if(cleanPasses>0){
@@ -5530,7 +6171,24 @@ async function processAll(){
       paletteProcessing = {
         mode: 'auto',
         colors: palette.length,
-        shared: shared
+        shared: effectiveShared,
+        algorithm: paletteAlgorithm,
+        sampling: paletteSampling,
+        reference: paletteSampling === 'reference' ? paletteReference : null,
+        sampleCount: paletteBuild?.sampleCount || 0,
+        iterations: paletteBuild?.iterations ?? (paletteAlgorithm === 'median-cut' ? 0 : 10),
+        distance: paletteAlgorithm === 'kmeans-oklab' ? 'oklab' : 'srgb',
+        temporalStability: {
+          enabled: paletteMapping?.temporalStabilityApplied === true,
+          epsilon: paletteMapping?.temporalEpsilon || 0,
+          heldPixels: paletteMapping?.temporalHeldCount || 0
+        },
+        error: paletteMapping?.error || { mean: 0, p95: 0, max: 0, sampleCount: 0 },
+        slotUsage: paletteMapping?.slotUsage || 0,
+        slotCounts: paletteMapping?.slotCounts || [],
+        runtimeMs: paletteBuild?.runtimeMs ?? 0,
+        heapDeltaBytes: paletteBuild?.heapDeltaBytes ?? null,
+        experimental: paletteAlgorithm !== 'kmeans-srgb' || paletteSampling !== 'pixel'
       };
     }
     processing.palette = paletteProcessing;
@@ -5690,6 +6348,16 @@ function renderResults(){
     const representative = document.createElement('span');
     representative.textContent = `대표색 ${r.jsonData?.processing?.representativeColor || 'mean-srgb'}`;
     meta.append(dimensions, palette, representative);
+    const paletteMeta = r.jsonData?.processing?.palette;
+    if(paletteMeta?.mode === 'auto' && paletteMeta.error){
+      const experiment = document.createElement('span');
+      const referenceText = paletteMeta.reference ? ` · 참조 ${paletteMeta.reference}` : '';
+      const temporalText = paletteMeta.temporalStability?.enabled
+        ? ` · 프레임 안정화 ${paletteMeta.temporalStability.heldPixels}px`
+        : '';
+      experiment.textContent = `${paletteMeta.algorithm}/${paletteMeta.sampling}${referenceText} · OKLab 오차 평균 ${paletteMeta.error.mean.toFixed(4)} · P95 ${paletteMeta.error.p95.toFixed(4)} · 최대 ${paletteMeta.error.max.toFixed(4)}${temporalText}`;
+      meta.appendChild(experiment);
+    }
 
     const alphaDiagSpan = document.createElement('span');
     if (r.jsonData?.diagnostics?.alpha) {
@@ -7075,6 +7743,11 @@ if (paletteModeSel) {
   });
 }
 
+sharedCheck?.addEventListener('change', () => updatePaletteExperimentUi(false));
+paletteAlgorithmSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
+paletteSamplingSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
+paletteReferenceSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
+
 if (customPaletteText) {
   customPaletteText.addEventListener('input', () => {
     renderCustomPalettePreview();
@@ -7165,6 +7838,7 @@ initDB().then(() => {
 });
 
 // 초기 팔레트 UI 동기화
+updatePaletteReferenceOptions();
 updatePaletteModeUi();
 renderCustomPalettePreview();
 

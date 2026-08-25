@@ -101,7 +101,8 @@ const context = vm.createContext({
   sharedCheck: domElements.shared,
   colorsRange: domElements.colors,
   colorsNum: domElements.colorsNum,
-  scaleModeSel: domElements.scaleMode
+  scaleModeSel: domElements.scaleMode,
+  updatePaletteExperimentUi: () => {}
 });
 
 const scriptContent = `

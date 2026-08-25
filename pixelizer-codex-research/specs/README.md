@@ -1,6 +1,6 @@
 # Pixelate Studio 개선 진행 대시보드
 
-기준일: 2026-08-23 (KST)
+기준일: 2026-08-25 (KST)
 
 이 디렉터리는 외부 소스 연구를 실제 구현 단위로 전환한 명세 패키지다. 구현자는 한 번에 한 항목만 선택하고, 해당 명세의 수용 기준과 증거 요구를 모두 만족한 뒤 다음 항목으로 이동한다.
 
@@ -41,7 +41,7 @@
 | GRID-001 | Sobel grid period/phase 감지 | SOURCE-BACKED + EXPERIMENTAL | P2 | QLT-001, GEO-001 | Sol xhigh | `DONE` | 완료 — algorithm v2 자동·localhost 브라우저 QA·증거 무결성·독립 Sol xhigh 최종 검토 통과 | [열기](items/grid-001-grid-detection.md) | [검사·QA 보고서](../evidence/grid-001/README.md), [Sol 최종 검토](../evidence/grid-001/sol-xhigh-final-review-2026-08-23.md) |
 | ALP-002 | binary/coverage alpha 정책 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | QLT-001, CFG-001, ALP-001 | Luna xhigh + Sol 검토 | `DONE` | 완료 — 보완 자동 회귀·fresh localhost 브라우저 QA·decoder-backed 캡처 무결성·독립 Sol xhigh 재검토 통과 | [열기](items/alp-002-alpha-policy.md) | [검사·보고서](../evidence/alp-002/README.md), [Sol 최종 재검토](../evidence/alp-002/sol-xhigh-rereview-2026-08-23.md) |
 | CELL-001 | 셀 대표색 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, GEO-001 | Sol xhigh | `DONE` | 완료 — exact·결정성·기준선·QLT A/B·localhost 데스크톱/모바일/설정/실제 크기 QA 통과, 후보는 실험 영역 유지 | [열기](items/cell-001-representative-colors.md) | [검사·A/B·브라우저 QA 보고서](../evidence/cell-001/README.md) |
-| PAL-002 | 지각 팔레트·샘플링 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001 | Sol xhigh | `READY` | 미실행 | [열기](items/pal-002-palette-algorithms.md) | — |
+| PAL-002 | 지각 팔레트·샘플링 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001 | Sol xhigh | `IN_PROGRESS` | 독립 Sol xhigh 재검토 FAIL — 승격 대상 16색 조합의 temporal variance가 36.9232% 악화되어 10% 상한 위반; 조합별 gate와 temporal 정책 보완 필요 | [열기](items/pal-002-palette-algorithms.md) | [matrix·브라우저 QA·판정 보고서](../evidence/pal-002/README.md), [요약 JSON](../evidence/pal-002/summary.json), [Sol xhigh 독립 재검토](../evidence/pal-002/sol-xhigh-independent-rereview-2026-08-25.md) |
 | DIT-001 | 정지 이미지 ordered dithering | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001, CFG-001 | Luna xhigh + Sol 검토 | `READY` | 미실행 | [열기](items/dit-001-ordered-dithering.md) | — |
 | EDGE-001 | Weber/line-aware/selout | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, CELL-001 | Sol xhigh | `READY` | 미실행 | [열기](items/edge-001-line-aware-selout.md) | — |
 | PERF-001 | 계측, Worker, 조건부 WASM | ENGINEERING-INFERENCE | P3 | QLT-001 및 대상 알고리즘 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/perf-001-worker-wasm.md) | — |
@@ -60,3 +60,5 @@
 3. 증거 열에는 최소한 테스트 명령·결과, 브라우저 캡처 또는 보고서, 관련 커밋이나 diff 링크를 기록한다.
 4. 실험 항목은 명세의 채택 임계값을 넘지 못하면 `DONE`이 아니라 실험 종료 결과와 함께 `DEFERRED`로 이동한다.
 5. 실패를 숨기지 않는다. 중단 조건이 발생하면 `BLOCKED`와 원인·재현 입력·추천 모델을 기록한다.
+
+PAL-002 독립 재검토에서 8/16/32/64색 전체 평균이 승격 대상인 16색 조합의 실패를 숨기는 집계 결함을 확인했다. 16색 temporal index variance는 baseline `0.273684`에서 OKLab `0.374737`로 `36.9232%` 악화되어 명세의 10% 상한을 위반한다. 조합별 eligibility, 16색 negative test, 정량 결과에 결합된 manual gate와 temporal 정책을 보완한 후 재검토해야 한다.

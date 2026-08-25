@@ -7,7 +7,7 @@ import { extractInlineFunction } from './lib/extract-inline-function.mjs';
 const root = path.resolve(import.meta.dirname, '..');
 const html = fs.readFileSync(path.resolve(root, 'pixelate_studio.html'), 'utf8');
 
-assert.match(html, /id="showExperimentalFeatures"[^>]+aria-controls="representativeColorField"[^>]+aria-expanded="false"/);
+assert.match(html, /id="showExperimentalFeatures"[^>]+aria-controls="[^"]*representativeColorField[^"]*"[^>]+aria-expanded="false"/);
 assert.match(html, /id="representativeColor" disabled aria-describedby="representativeColorWarning"/);
 assert.match(html, /실험 기능이며 작은 특징이 사라지거나 밝기가 달라질 수 있습니다\./);
 assert.match(html, /processing\.representativeColor = representativeColor;/, 'result JSON must record representative ID');
@@ -56,7 +56,7 @@ context.updateRepresentativeColorUi(false);
 assert.equal(representativeColorWarning.style.display, 'none', 'default representative must not show the risk warning');
 
 const applyUiSettings = extractInlineFunction(html, 'applyUiSettings');
-assert.match(applyUiSettings, /showExperimentalFeatures\.checked = settings\.representativeColor !== 'mean-srgb'/);
+assert.match(applyUiSettings, /showExperimentalFeatures\.checked = \(settings\.representativeColor \|\| 'mean-srgb'\) !== 'mean-srgb'/);
 assert.match(applyUiSettings, /updateRepresentativeColorUi\(false\)/);
 
 console.log('CELL-001 experimental UI, settings visibility, route wiring, warning, and metadata checks passed.');

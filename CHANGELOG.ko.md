@@ -10,6 +10,7 @@ Pixelate Studio의 주요 변경 사항을 기록합니다.
 
 ### 추가
 
+- PAL-002 실험용 팔레트 생성·샘플링 기능 추가: deterministic OKLab K-means, MedianCut, 이미지별 균등·참조 이미지 sampling을 `실험 기능 표시` 아래 제공하고 설정 JSON 및 결과 `processing.palette` 메타데이터에 기록한다. OKLab 다중 프레임에는 결정적인 이전 index 유지 규칙을 적용하고, 기준을 통과한 16색 공유 조합을 `OKLab 애니메이션 안정` opt-in preset으로 제공한다. 참조 파일 누락·동일 filename 중복은 자동 대체 없이 실행을 차단한다.
 - CELL-001 실험용 셀 대표색 선택 기능 추가: alpha-aware `mean-srgb`, 선형광 평균, 중앙 샘플, 채널별 중앙값, exact-RGB 최빈색을 결정적으로 계산한다. 비기본 후보는 `실험 기능 표시` 안에만 유지하고 설정 JSON 왕복과 결과 메타데이터 기록을 지원하며 기본 preset은 변경하지 않는다.
 - `AI 픽셀 격자 복구 (실험)` 모드 추가 (GRID-001): alpha-masked Sobel profile, 2~32px X/Y 주기·offset 감지, confidence 표시 및 75% 자동 적용 게이트.
 - GRID-001 algorithm v2에서 binary alpha topology를 격자 증거로 추가해 희소한 4×4 clean pixel art 감지를 수정하고, canvas read·sheet slicing·alpha scan·Sobel의 전체 main-thread chunk 계측과 fail-closed 증거 검사를 추가.
@@ -18,6 +19,7 @@ Pixelate Studio의 주요 변경 사항을 기록합니다.
 
 ### 검증
 
+- PAL-002의 안정화된 OKLab K-means가 48행 matrix에서 평균 OKLab 오차 27% 이상 개선, temporal 악화 10% 이하, feature 무회귀, runtime 3× 이하와 결정성 기준을 통과했다. localhost 16프레임 제품 변환·20-cell 실제 크기·390×844 모바일 QA도 통과했으며 기존 `kmeans-srgb/pixel` 기본값은 유지한다. 변경 후 독립 Sol xhigh 검토 전 상태는 `NEEDS_REVIEW`다.
 - CELL-001 exact 값·tie-break·threshold·1×·경로·결정성 검사를 통과하고 기본 시각 해시 2개와 QLT fixture 12개를 유지했으며, fresh localhost 데스크톱·모바일·설정·실제 크기 QA를 완료했다. 전체 fixture 채택 게이트를 넘은 후보가 없어 `mean-srgb` 기본값을 유지하고 실험 후보를 preset으로 승격하지 않았다.
 - 분리된 clean 3/4/8px grid, ±1px wobble, photo-like false-positive, 시트 집계, 결정성 및 4M 성능 자동 게이트 통과. 희소 경계 `clean-pixel-art`는 낮은 신뢰도로 자동 적용을 차단하고 수동 격자를 요구하는 알려진 한계가 있어, 실제 브라우저 QA와 독립 Sol xhigh 재검토 전까지 `NEEDS_REVIEW` 상태 유지.
 

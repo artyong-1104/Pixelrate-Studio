@@ -1,0 +1,302 @@
+{
+  "implementationId": "PAL-002",
+  "status": "PASS",
+  "performedAt": "2026-08-25T04:00:00Z",
+  "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-temporal-original-20260825",
+  "browser": "Codex in-app browser",
+  "applicationScriptSha256": "e894f4191815936d25db368dd73e53a1078de8ee61c094a35e505516c56f5921",
+  "revalidation": {
+    "performedAt": "2026-08-24T17:14:24Z",
+    "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-final-20260825",
+    "defaultState": {
+      "experimentalCheckboxChecked": false,
+      "experimentalControlsHidden": true,
+      "paletteAlgorithm": "kmeans-srgb",
+      "paletteSampling": "pixel",
+      "pass": true
+    },
+    "experimentalState": {
+      "experimentalCheckboxChecked": true,
+      "experimentalControlsVisible": true,
+      "algorithmEnabled": true,
+      "samplingEnabled": true,
+      "status": "실험 기능입니다. 기본 팔레트와 preset은 변경되지 않습니다.",
+      "pass": true
+    },
+    "referenceWithoutFile": {
+      "algorithm": "kmeans-oklab",
+      "sampling": "reference",
+      "message": "참조 이미지를 선택하세요.",
+      "executionBlocked": true,
+      "pass": true
+    },
+    "modeCompatibility": {
+      "customControlsDisabled": true,
+      "unlimitedControlsDisabled": true,
+      "status": "직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.",
+      "pass": true
+    },
+    "consoleErrors": [],
+    "pass": true
+  },
+  "actualSizeMatrix": {
+    "performedAt": "2026-08-25T04:00:00Z",
+    "target": "http://localhost:8765/pixelizer-codex-research/evidence/pal-002/browser-manual-matrix.html?group=animation&compact=1",
+    "manifest": "browser-manual-matrix.json",
+    "manifestSha256": "042c3a0bf79ff7ea128e46a5f53f3daf5fb75e769378837649188324d16acf1b",
+    "actualSizeScale": 1,
+    "cellCount": 20,
+    "groups": [
+      {
+        "id": "gradient",
+        "variants": ["baseline", "oklab", "median"],
+        "cells": [
+          {"colors": 8, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_SMOOTHER_BUT_OTHER_GATES_FAIL", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 16, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_SMOOTHER_BUT_OTHER_GATES_FAIL", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 32, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_SMOOTHER_BUT_OTHER_GATES_FAIL", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 64, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_SMOOTHER_BUT_OTHER_GATES_FAIL", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true}
+        ]
+      },
+      {
+        "id": "sprite",
+        "variants": ["baseline", "oklab", "median"],
+        "cells": [
+          {"colors": 8, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_EYE_CONTRAST_REGRESSION", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 16, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_EYE_CONTRAST_REGRESSION", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 32, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_EYE_CONTRAST_REGRESSION", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 64, "actualSizeChecked": true, "featureVerdict": "MEDIAN_CUT_EYE_CONTRAST_REGRESSION", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true}
+        ]
+      },
+      {
+        "id": "photo",
+        "variants": ["baseline", "oklab", "median"],
+        "cells": [
+          {"colors": 8, "actualSizeChecked": true, "featureVerdict": "MAJOR_REGIONS_SURVIVE_NO_UNIVERSAL_WIN", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 16, "actualSizeChecked": true, "featureVerdict": "MAJOR_REGIONS_SURVIVE_NO_UNIVERSAL_WIN", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 32, "actualSizeChecked": true, "featureVerdict": "MAJOR_REGIONS_SURVIVE_NO_UNIVERSAL_WIN", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 64, "actualSizeChecked": true, "featureVerdict": "MAJOR_REGIONS_SURVIVE_NO_UNIVERSAL_WIN", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true}
+        ]
+      },
+      {
+        "id": "large-small",
+        "variants": ["baseline", "balanced", "reference"],
+        "cells": [
+          {"colors": 8, "actualSizeChecked": true, "featureVerdict": "BALANCED_RESCUES_CHARACTER_REFERENCE_DAMAGES_BACKGROUND", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 16, "actualSizeChecked": true, "featureVerdict": "BALANCED_PRESERVES_CHARACTER_REFERENCE_DAMAGES_BACKGROUND", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 32, "actualSizeChecked": true, "featureVerdict": "BALANCED_PRESERVES_CHARACTER_REFERENCE_DAMAGES_BACKGROUND", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 64, "actualSizeChecked": true, "featureVerdict": "BALANCED_PRESERVES_CHARACTER_REFERENCE_DAMAGES_BACKGROUND", "flickerVerdict": "NOT_APPLICABLE", "candidatePromotionSupported": false, "pass": true}
+        ]
+      },
+      {
+        "id": "animation",
+        "variants": ["baseline", "oklab", "median"],
+        "cells": [
+          {"colors": 8, "actualSizeChecked": true, "featureVerdict": "HUE_GAIN_TEMPORAL_GATE_PASS", "flickerVerdict": "NO_VISIBLE_STATIC_REGION_FLICKER", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 16, "actualSizeChecked": true, "featureVerdict": "HUE_GAIN_TEMPORAL_GATE_PASS", "flickerVerdict": "NO_VISIBLE_STATIC_REGION_FLICKER", "candidatePromotionSupported": true, "pass": true},
+          {"colors": 32, "actualSizeChecked": true, "featureVerdict": "MAJOR_SHAPES_STABLE_METRIC_GATE_CONTROLS", "flickerVerdict": "NO_MAJOR_SHAPE_BREAK", "candidatePromotionSupported": false, "pass": true},
+          {"colors": 64, "actualSizeChecked": true, "featureVerdict": "MAJOR_SHAPES_STABLE_METRIC_GATE_CONTROLS", "flickerVerdict": "NO_MAJOR_SHAPE_BREAK", "candidatePromotionSupported": false, "pass": true}
+        ]
+      }
+    ],
+    "representativeCaptures": [
+      "browser-manual-gradient.jpg",
+      "browser-manual-gradient-median.jpg",
+      "browser-manual-photo.jpg",
+      "browser-manual-large-small.jpg",
+      "browser-manual-animation-stable.jpg",
+      "browser-manual-animation-stable-next.jpg"
+    ],
+    "captureSha256": {
+      "browser-manual-gradient.jpg": "ae1f095186b491caaf530ee2292a81df2359dd089706ddc2bf3b87ce289f00ea",
+      "browser-manual-gradient-median.jpg": "e09a80a18c2bc1697f905b5ebb6aebb5bfff491a0010c41807700366388af8e0",
+      "browser-manual-photo.jpg": "a0c8d69f34322991c220d9d3932057aaa484815e93cc43266193dab22ba49e31",
+      "browser-manual-large-small.jpg": "4e13587432f18ee9784495c81a66f6c2967f16928522bfec6436e12d12b4be0e",
+      "browser-manual-animation-stable.jpg": "f49964f2055d444a9fd161517071f4aea73b931f401640da1ff2fbae0f64f730",
+      "browser-manual-animation-stable-next.jpg": "b358b5b4b9330f9bc196a097160b22d42ef01dc5cfd58f456f409910417a7f53"
+    },
+    "consoleErrors": [],
+    "pass": true
+  },
+  "desktop": {
+    "pass": true,
+    "baseline": {
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "processedImages": 3,
+      "resultMetadataVisible": true
+    },
+    "oklabBalanced": {
+      "algorithm": "kmeans-oklab",
+      "sampling": "image-balanced",
+      "processedImages": 3,
+      "cleanPixelArtMeanError": 0.0164,
+      "gradientMeanError": 0.0292,
+      "photoLikeMeanError": 0.0372,
+      "resultMetadataVisible": true
+    },
+    "medianCutBalanced": {
+      "algorithm": "median-cut",
+      "sampling": "image-balanced",
+      "processedImages": 4,
+      "settingsRestoredFromJson": true,
+      "resultMetadataVisible": true
+    },
+    "customAndUnlimitedDisabled": true,
+    "imageBalancedSharedOff": {
+      "disabled": true,
+      "resetTo": "pixel",
+      "reasonVisible": true
+    },
+    "pass": true
+  },
+  "temporalStableProduct": {
+    "performedAt": "2026-08-25T04:00:00Z",
+    "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-temporal-original-20260825",
+    "preset": "oklab-animation-stable",
+    "algorithm": "kmeans-oklab",
+    "sampling": "pixel",
+    "colors": 16,
+    "shared": true,
+    "processedImages": 16,
+    "temporalMetadataVisibleFrames": 15,
+    "heldPixelFrames": 5,
+    "totalHeldPixels": 180,
+    "temporalEpsilon": 0.00025,
+    "consoleErrors": [],
+    "pass": true
+  },
+  "referenceValidation": {
+    "validReference": {
+      "name": "clean-pixel-art.png",
+      "processedImages": 3,
+      "metadataVisible": true
+    },
+    "missingReference": {
+      "message": "참조 이미지 'clean-pixel-art.png'가 업로드 목록에 없습니다.",
+      "executionBlocked": true,
+      "automaticFallback": false
+    },
+    "duplicateReference": {
+      "count": 2,
+      "message": "같은 파일명 'clean-pixel-art.png'이 2개입니다. 파일명을 바꾼 뒤 다시 업로드하세요.",
+      "executionBlocked": true
+    },
+    "pass": true
+  },
+  "settingsRoundTrip": {
+    "exportFeedback": "현재 설정이 pixelate-studio-settings-v1.json 파일로 내보내졌습니다.",
+    "importFeedback": "설정 파일이 성공적으로 적용되었습니다.",
+    "fixture": "settings-median-cut-balanced-v1.json",
+    "restored": {
+      "paletteAlgorithm": "median-cut",
+      "paletteSampling": "image-balanced",
+      "paletteReference": null,
+      "shared": true,
+      "cleanEnabled": false
+    },
+    "pass": true
+  },
+  "defaultCompatibility": {
+    "paletteMode": "auto",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteSampling": "pixel",
+    "paletteReference": null,
+    "colors": 16,
+    "shared": true,
+    "cleanEnabled": true,
+    "experimentalControlsHidden": true,
+    "pass": true
+  },
+  "blindPreference": {
+    "completed": true,
+    "fixture": "photo-like.png",
+    "paletteSize": 16,
+    "sampling": "pixel",
+    "view": "160x160 label-free result-only crop",
+    "labelsHidden": true,
+    "comparisonOrderRandomized": true,
+    "sourceCaptures": [
+      "browser-blind-baseline.jpg",
+      "browser-blind-oklab.jpg"
+    ],
+    "captures": [
+      "browser-blind-a.jpg",
+      "browser-blind-b.jpg"
+    ],
+    "crop": {
+      "width": 160,
+      "height": 160,
+      "sourceRect": {
+        "x": 552,
+        "y": 248,
+        "width": 160,
+        "height": 160
+      }
+    },
+    "mappingRevealedAfterVerdict": true,
+    "mapping": {
+      "A": "kmeans-oklab",
+      "B": "kmeans-srgb"
+    },
+    "candidateAlgorithm": "kmeans-oklab",
+    "result": "tie",
+    "preferencePercentForCandidate": 50,
+    "reviewer": "independent Sol xhigh",
+    "confidence": 0.84,
+    "validForEvaluation": true,
+    "validForPromotion": false,
+    "limitation": null,
+    "pass": true
+  },
+  "keyboard": {
+    "nativeControls": [
+      "input[type=checkbox]",
+      "select"
+    ],
+    "algorithmFocusVisible": true,
+    "algorithmOutline": "rgb(0, 95, 204) auto 1px",
+    "pass": true
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "capturedPixels": [382, 827],
+    "documentScrollWidth": 382,
+    "horizontalOverflow": false,
+    "algorithm": "kmeans-oklab",
+    "sampling": "pixel",
+    "preset": "oklab-animation-stable",
+    "runEnabled": true,
+    "resultMetadataVisible": true,
+    "pass": true
+  },
+  "consoleErrors": [],
+  "captures": [
+    "browser-algorithm-ab.jpg",
+    "browser-reference-error.jpg",
+    "browser-mobile.jpg",
+    "browser-oklab-stable-product.jpg",
+    "browser-oklab-stable-mobile.jpg",
+    "browser-blind-baseline.jpg",
+    "browser-blind-oklab.jpg",
+    "browser-blind-a.jpg",
+    "browser-blind-b.jpg"
+  ],
+  "captureSha256": {
+    "browser-algorithm-ab.jpg": "2fdfdaa3e918da37612c9cffe9021367a20f142eaf2e7205172241e2921b624e",
+    "browser-reference-error.jpg": "f3266da6cde9638318e22924ff4ec8ebf4178662a6c87434a1f395974a3ecb5e",
+    "browser-mobile.jpg": "586deccaa539ea14bf840b44c762e2435570b6af295f99a775ed74ca1e728b65",
+    "browser-oklab-stable-product.jpg": "1bd108f80bd0dd21e753e2674f35418d2fc074419c2ae9d219119719aea609ff",
+    "browser-oklab-stable-mobile.jpg": "676a668a406d8091e969f8d4feae056cf63c30fc7e8d305d4d49d0f65bc3b1bf",
+    "browser-blind-baseline.jpg": "95c911639b82eebecb9ea291517c17c1ed48ad99fdea37b51f4930fc3dc03c04",
+    "browser-blind-oklab.jpg": "f39febc7cb31817e75f1d1fe8610a56de7a7d92cd08faee4edfc0ac20967d3ca",
+    "browser-blind-a.jpg": "ee10121a34f436e56a897a723397250d1e899a8a35a2f7c3bc8913bbb225e19c",
+    "browser-blind-b.jpg": "b0be03168e82c962553939bb5b310a0e5ba0dcfeb23f8317a961e80c16c44121"
+  },
+  "requiredReview": {
+    "model": "Sol xhigh",
+    "result": "FAIL",
+    "reviewedAt": "2026-08-25",
+    "report": "sol-xhigh-independent-rereview-2026-08-25.md",
+    "reportSha256": "c74bac3027ce9804b487f8dc1e02e489faa06d79757566209c18451c8c9cc6da"
+  }
+}

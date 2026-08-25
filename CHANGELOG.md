@@ -10,6 +10,7 @@ Korean version: [CHANGELOG.ko.md](./CHANGELOG.ko.md)
 
 ### Added
 
+- Added PAL-002 experimental palette generation and sampling: deterministic OKLab K-means, MedianCut, image-balanced sampling, and reference-image sampling behind `Show experimental features`, with settings JSON and `processing.palette` metadata support. Multi-frame OKLab mapping applies a deterministic previous-index retention rule, and the qualifying shared 16-color combination is available as the opt-in `OKLab animation stable` preset. Missing or duplicate reference filenames fail closed without automatic replacement.
 - Added CELL-001 experimental cell representative selection with deterministic alpha-aware `mean-srgb`, linear-light mean, center, per-channel median, and exact-RGB majority candidates. Non-default candidates remain behind `Show experimental features`, round-trip through settings JSON, and are recorded in result metadata without changing the default preset.
 - Added an `AI Pixel Grid Repair (Experimental)` mode (GRID-001) with alpha-masked Sobel profiles, 2–32px X/Y period and phase detection, confidence reporting, and a 75% auto-apply gate.
 - GRID-001 algorithm v2 adds binary-alpha topology evidence for sparse 4×4 clean pixel art, end-to-end main-thread chunk measurement across canvas reads, sheet slicing, alpha scans, and Sobel, plus fail-closed evidence checks.
@@ -18,6 +19,7 @@ Korean version: [CHANGELOG.ko.md](./CHANGELOG.ko.md)
 
 ### Validation
 
+- Stabilized PAL-002 OKLab K-means passed the 48-row matrix with more than 27% mean OKLab-error improvement, temporal regression below 10%, no feature regression, runtime below 3×, and deterministic output. Localhost 16-frame product, 20-cell actual-size, and 390×844 mobile QA also passed while the existing `kmeans-srgb/pixel` default remains unchanged. The item is `NEEDS_REVIEW` until a new independent Sol xhigh review is bound to the changed application hash.
 - CELL-001 passed exact-value/tie-break/threshold/1×/route/determinism tests, preserved both default visual hashes and all 12 QLT fixtures, and completed fresh localhost desktop/mobile/settings/actual-size QA. No candidate met the cross-fixture adoption gate, so `mean-srgb` remains the default and no experimental candidate was promoted to a preset.
 - Passed automated isolated clean 3/4/8px grid, ±1px wobble, photo-like false-positive, sheet aggregation, determinism, and 4M performance gates. Sparse-edge `clean-pixel-art` safely remains below the auto-apply confidence gate and requires a manual grid, so the item stays `NEEDS_REVIEW` pending real-browser QA and an independent Sol xhigh review.
 

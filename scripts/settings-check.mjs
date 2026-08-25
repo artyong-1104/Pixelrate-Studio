@@ -17,6 +17,9 @@ assert.match(html, /id="presetDiffBox"/, 'presetDiffBox element must exist');
 assert.match(html, /id="settingsFeedback"/, 'settingsFeedback element must exist');
 assert.match(html, /id="showExperimentalFeatures"/, 'CELL-001 experimental feature toggle must exist');
 assert.match(html, /id="representativeColor"/, 'CELL-001 representative select must exist');
+assert.match(html, /id="paletteAlgorithm"/, 'PAL-002 palette algorithm select must exist');
+assert.match(html, /id="paletteSampling"/, 'PAL-002 palette sampling select must exist');
+assert.match(html, /id="paletteReference"/, 'PAL-002 palette reference select must exist');
 for (const id of ['mean-srgb', 'mean-linear', 'center', 'median', 'majority']) {
   assert.match(html, new RegExp(`value="${id}"`), `CELL-001 option ${id} must exist`);
 }
@@ -93,6 +96,9 @@ const DEFAULT_SETTINGS = Object.freeze({
   pixelBlockSize: 4,
   representativeColor: 'mean-srgb',
   paletteMode: 'auto',
+  paletteAlgorithm: 'kmeans-srgb',
+  paletteSampling: 'pixel',
+  paletteReference: null,
   customPalette: [],
   paletteEnabled: true,
   colors: 16,
@@ -111,6 +117,17 @@ const DEFAULT_SETTINGS = Object.freeze({
 const PRESETS = Object.freeze({
   default: { ...DEFAULT_SETTINGS },
   'animation-safe': {
+    shared: true,
+    cleanEnabled: true,
+    cleanPasses: 1,
+    outline: false
+  },
+  'oklab-animation-stable': {
+    paletteMode: 'auto',
+    paletteAlgorithm: 'kmeans-oklab',
+    paletteSampling: 'pixel',
+    paletteReference: null,
+    colors: 16,
     shared: true,
     cleanEnabled: true,
     cleanPasses: 1,
@@ -144,6 +161,9 @@ const SETTING_LABELS = Object.freeze({
   pixelBlockSize: '블록 크기',
   representativeColor: '셀 대표색',
   paletteMode: '팔레트 방식',
+  paletteAlgorithm: '팔레트 생성 알고리즘',
+  paletteSampling: '팔레트 샘플 가중',
+  paletteReference: '팔레트 참조 이미지',
   customPalette: '직접 지정 팔레트',
   paletteEnabled: '팔레트 제한 사용',
   colors: '팔레트 색상 수',
@@ -182,6 +202,9 @@ const {
   diffSettings
 } = context.api;
 
+assert.equal(PRESETS['oklab-animation-stable'].paletteAlgorithm, 'kmeans-oklab');
+assert.equal(PRESETS['oklab-animation-stable'].shared, true);
+
 // 3. Test Default Settings Round Trip
 const defaultEnvelope = {
   format: 'pixelate-studio-settings',
@@ -217,6 +240,9 @@ const customSettings = {
   pixelBlockSize: 8,
   representativeColor: 'majority',
   paletteMode: 'auto',
+  paletteAlgorithm: 'kmeans-oklab',
+  paletteSampling: 'reference',
+  paletteReference: 'hero.png',
   customPalette: [],
   paletteEnabled: true,
   colors: 32,
@@ -406,8 +432,31 @@ assert.throws(
   /유효하지 않은 representativeColor 값/,
   'Unknown representativeColor must be rejected'
 );
+assert.throws(
+  () => normalizeSettings({ paletteAlgorithm: 'octree' }),
+  /유효하지 않은 paletteAlgorithm 값/,
+  'Unknown paletteAlgorithm must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ paletteSampling: 'random' }),
+  /유효하지 않은 paletteSampling 값/,
+  'Unknown paletteSampling must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ paletteReference: '../hero.png' }),
+  /paletteReference는 1~255자의 안전한 파일명/,
+  'Unsafe paletteReference paths must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ paletteSampling: 'image-balanced', shared: false }),
+  /공유 팔레트를 켠 경우에만/,
+  'Image-balanced sampling without a shared palette must be rejected'
+);
 const normalizedLegacyRepresentative = normalizeSettings({ scaleMode: 'factor', factor: 4 });
 assert.equal(normalizedLegacyRepresentative.settings.representativeColor, 'mean-srgb', 'Legacy settings must default to mean-srgb');
+assert.equal(normalizedLegacyRepresentative.settings.paletteAlgorithm, 'kmeans-srgb', 'Legacy settings must default to baseline palette algorithm');
+assert.equal(normalizedLegacyRepresentative.settings.paletteSampling, 'pixel', 'Legacy settings must default to pixel-proportional sampling');
+assert.equal(normalizedLegacyRepresentative.settings.paletteReference, null, 'Legacy settings must default to no palette reference');
 
 // 6.5 Prototype Pollution Prevention
 assert.throws(

@@ -105,7 +105,7 @@ assert.match(html, /const alphaDiagnosticsSummary = document\.getElementById\('a
 // 7.1 Production-path wiring (do not accept a test-only reimplementation)
 assert.match(
   html,
-  /collectOpaquePoints\(d\.data, n, MAX_PALETTE_SAMPLES, alphaThreshold, alphaMode === 'coverage'\)/,
+  /buildAutoPalette\([\s\S]*?alphaThreshold,[\s\S]*?alphaMode === 'coverage'[\s\S]*?\)/,
   'Coverage auto palette must request alpha-weighted samples in the production path'
 );
 assert.match(

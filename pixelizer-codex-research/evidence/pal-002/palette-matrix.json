@@ -1,0 +1,3675 @@
+{
+  "matrix": [
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 1.349916,
+      "generationRuntimeMs": 76.658917,
+      "runtimeMs": 78.008833,
+      "heapDeltaBytes": 4012968,
+      "paletteSha256": "8b41ed33a472f7af19086482ff7af370e81a94176993ac28d5d0a2b99653c2dd",
+      "deterministic": true,
+      "error": {
+        "mean": 0.054122,
+        "p95": 0.119235,
+        "max": 0.133137,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.054122,
+            "p95": 0.119235,
+            "max": 0.133137,
+            "sampleCount": 16384
+          },
+          "slotUsage": 7
+        }
+      ],
+      "averageSlotUsage": 7,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.494959,
+      "generationRuntimeMs": 92.01825,
+      "runtimeMs": 92.513209,
+      "heapDeltaBytes": 381224,
+      "paletteSha256": "4f65019650188f4fe3a6174f02413ba5264cc3f4252a8c4dd3f5bdbdf4870596",
+      "deterministic": true,
+      "error": {
+        "mean": 0.063578,
+        "p95": 0.139609,
+        "max": 0.157881,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.063578,
+            "p95": 0.139609,
+            "max": 0.157881,
+            "sampleCount": 16384
+          },
+          "slotUsage": 8
+        }
+      ],
+      "averageSlotUsage": 8,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.955375,
+      "generationRuntimeMs": 76.954458,
+      "runtimeMs": 77.909833,
+      "heapDeltaBytes": 2193728,
+      "paletteSha256": "dd541bc26812b802c8d6ce185cf606944e574f91bc345ec9b8e2c2560401a85b",
+      "deterministic": true,
+      "error": {
+        "mean": 0.029143,
+        "p95": 0.057775,
+        "max": 0.173042,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.029143,
+            "p95": 0.057775,
+            "max": 0.173042,
+            "sampleCount": 16384
+          },
+          "slotUsage": 8
+        }
+      ],
+      "averageSlotUsage": 8,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 1.557333,
+      "generationRuntimeMs": 65.014875,
+      "runtimeMs": 66.572208,
+      "heapDeltaBytes": 2326944,
+      "paletteSha256": "cf85efdac13af64a8274126a129fa64b91e8d60ed193c4774f73972da41ac425",
+      "deterministic": true,
+      "error": {
+        "mean": 0.054122,
+        "p95": 0.119235,
+        "max": 0.133137,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.054122,
+            "p95": 0.119235,
+            "max": 0.133137,
+            "sampleCount": 16384
+          },
+          "slotUsage": 7
+        }
+      ],
+      "averageSlotUsage": 7,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 1.136834,
+      "generationRuntimeMs": 57.483375,
+      "runtimeMs": 58.620209,
+      "heapDeltaBytes": 658208,
+      "paletteSha256": "c0e20ac0e7f4041fe2471e31ce06dd930e086e057e0d9b674b1c8e20392a8975",
+      "deterministic": true,
+      "error": {
+        "mean": 0.06308,
+        "p95": 0.139609,
+        "max": 0.157881,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.06308,
+            "p95": 0.139609,
+            "max": 0.157881,
+            "sampleCount": 16384
+          },
+          "slotUsage": 16
+        }
+      ],
+      "averageSlotUsage": 16,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.403458,
+      "generationRuntimeMs": 137.046167,
+      "runtimeMs": 137.449625,
+      "heapDeltaBytes": -36274056,
+      "paletteSha256": "37bf481c76a4496d89042d62051f137a52af1aa048969576b8bf4c3486658bf5",
+      "deterministic": true,
+      "error": {
+        "mean": 0.014936,
+        "p95": 0.029349,
+        "max": 0.134409,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.014936,
+            "p95": 0.029349,
+            "max": 0.134409,
+            "sampleCount": 16384
+          },
+          "slotUsage": 16
+        }
+      ],
+      "averageSlotUsage": 16,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.349375,
+      "generationRuntimeMs": 84.947583,
+      "runtimeMs": 85.296958,
+      "heapDeltaBytes": 3725848,
+      "paletteSha256": "2be288a14a8a02aa1770765180539e957865963933f1f12a34689ac59749d67f",
+      "deterministic": true,
+      "error": {
+        "mean": 0.054122,
+        "p95": 0.119235,
+        "max": 0.133137,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.054122,
+            "p95": 0.119235,
+            "max": 0.133137,
+            "sampleCount": 16384
+          },
+          "slotUsage": 7
+        }
+      ],
+      "averageSlotUsage": 7,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.261875,
+      "generationRuntimeMs": 83.630917,
+      "runtimeMs": 83.892792,
+      "heapDeltaBytes": 2326536,
+      "paletteSha256": "5c334da7262666dc216b202d5b6b14ffa325cb67f498b53a5289489339f3457e",
+      "deterministic": true,
+      "error": {
+        "mean": 0.059243,
+        "p95": 0.139609,
+        "max": 0.157881,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.059243,
+            "p95": 0.139609,
+            "max": 0.157881,
+            "sampleCount": 16384
+          },
+          "slotUsage": 32
+        }
+      ],
+      "averageSlotUsage": 32,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.340625,
+      "generationRuntimeMs": 256.77125,
+      "runtimeMs": 257.111875,
+      "heapDeltaBytes": -19879912,
+      "paletteSha256": "33aa8a72677a4f722da8f0fdbb41b0d1774b3a0918d9bda47200ebe7ed58292f",
+      "deterministic": true,
+      "error": {
+        "mean": 0.007708,
+        "p95": 0.015316,
+        "max": 0.106681,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.007708,
+            "p95": 0.015316,
+            "max": 0.106681,
+            "sampleCount": 16384
+          },
+          "slotUsage": 32
+        }
+      ],
+      "averageSlotUsage": 32,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.362375,
+      "generationRuntimeMs": 93.620542,
+      "runtimeMs": 93.982917,
+      "heapDeltaBytes": 5242520,
+      "paletteSha256": "72768cdc1e0589d8149d82fff48e9c9eded1d76b0ff13e165f855892f61aba71",
+      "deterministic": true,
+      "error": {
+        "mean": 0.054122,
+        "p95": 0.119235,
+        "max": 0.133137,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.054122,
+            "p95": 0.119235,
+            "max": 0.133137,
+            "sampleCount": 16384
+          },
+          "slotUsage": 7
+        }
+      ],
+      "averageSlotUsage": 7,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.321625,
+      "generationRuntimeMs": 88.276583,
+      "runtimeMs": 88.598208,
+      "heapDeltaBytes": 15892752,
+      "paletteSha256": "7e397ea6b9eb3fda8c0959f6b2e43cb2e6ece3a5f512e8c3630e032ec5c283be",
+      "deterministic": true,
+      "error": {
+        "mean": 0.052089,
+        "p95": 0.139609,
+        "max": 0.157881,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.052089,
+            "p95": 0.139609,
+            "max": 0.157881,
+            "sampleCount": 16384
+          },
+          "slotUsage": 64
+        }
+      ],
+      "averageSlotUsage": 64,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "gradient-gray",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 16384,
+      "samplingRuntimeMs": 0.433959,
+      "generationRuntimeMs": 502.34425,
+      "runtimeMs": 502.778209,
+      "heapDeltaBytes": 21049752,
+      "paletteSha256": "d48f37bcd3d0e93a95da84103a70f12681a81d774cc3913ff0b3a8e3774be10c",
+      "deterministic": true,
+      "error": {
+        "mean": 0.003998,
+        "p95": 0.00823,
+        "max": 0.084673,
+        "sampleCount": 16384
+      },
+      "perImage": [
+        {
+          "name": "gradient-gray.png",
+          "error": {
+            "mean": 0.003998,
+            "p95": 0.00823,
+            "max": 0.084673,
+            "sampleCount": 16384
+          },
+          "slotUsage": 64
+        }
+      ],
+      "averageSlotUsage": 64,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.105209,
+      "generationRuntimeMs": 6.210083,
+      "runtimeMs": 6.315292,
+      "heapDeltaBytes": 395304,
+      "paletteSha256": "2b65bbc0a60937f29ffc110cb73fc5e696f04495162720bbdb0dd171d13e39df",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.109959,
+      "generationRuntimeMs": 31.825083,
+      "runtimeMs": 31.935042,
+      "heapDeltaBytes": 19540232,
+      "paletteSha256": "7cd5d3243c6a190cace82836488826049968cf81b8ab8f42c3441823575221ae",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.089083,
+      "generationRuntimeMs": 7.308417,
+      "runtimeMs": 7.3975,
+      "heapDeltaBytes": 1809480,
+      "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
+      "deterministic": true,
+      "error": {
+        "mean": 0.007617,
+        "p95": 0.029509,
+        "max": 0.28142,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0.007617,
+            "p95": 0.029509,
+            "max": 0.28142,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.08275,
+      "generationRuntimeMs": 7.762417,
+      "runtimeMs": 7.845167,
+      "heapDeltaBytes": 399976,
+      "paletteSha256": "787126718962b4ff2440508d0b15f8868c69cf0250f4f0913c8658fe2f221c26",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.128791,
+      "generationRuntimeMs": 10.933542,
+      "runtimeMs": 11.062333,
+      "heapDeltaBytes": 3710512,
+      "paletteSha256": "7cd5d3243c6a190cace82836488826049968cf81b8ab8f42c3441823575221ae",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.093917,
+      "generationRuntimeMs": 7.407541,
+      "runtimeMs": 7.501458,
+      "heapDeltaBytes": 1814784,
+      "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
+      "deterministic": true,
+      "error": {
+        "mean": 0.007617,
+        "p95": 0.029509,
+        "max": 0.28142,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0.007617,
+            "p95": 0.029509,
+            "max": 0.28142,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.070916,
+      "generationRuntimeMs": 10.9265,
+      "runtimeMs": 10.997416,
+      "heapDeltaBytes": 387200,
+      "paletteSha256": "e1dbddbe9b53fe0375a88e45a0a24d6f19580ba4c9cb25feef0d157458d042f6",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.1095,
+      "generationRuntimeMs": 12.188916,
+      "runtimeMs": 12.298416,
+      "heapDeltaBytes": 3609416,
+      "paletteSha256": "602e831a71b9b46bd5ece626a8db2f64df1a3eb9baa9c42eaaaf9efbfad47b62",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.084459,
+      "generationRuntimeMs": 7.336083,
+      "runtimeMs": 7.420542,
+      "heapDeltaBytes": 1811664,
+      "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
+      "deterministic": true,
+      "error": {
+        "mean": 0.007617,
+        "p95": 0.029509,
+        "max": 0.28142,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0.007617,
+            "p95": 0.029509,
+            "max": 0.28142,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.079542,
+      "generationRuntimeMs": 37.957208,
+      "runtimeMs": 38.03675,
+      "heapDeltaBytes": -13719088,
+      "paletteSha256": "7f223c5b7a52f2488ddd6344d10c74edd62d1849b18434b3060f7c6a54ccd9c7",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.075334,
+      "generationRuntimeMs": 15.227625,
+      "runtimeMs": 15.302959,
+      "heapDeltaBytes": 3824512,
+      "paletteSha256": "602e831a71b9b46bd5ece626a8db2f64df1a3eb9baa9c42eaaaf9efbfad47b62",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "clean-pixel-art",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 4,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.093375,
+      "generationRuntimeMs": 7.339667,
+      "runtimeMs": 7.433042,
+      "heapDeltaBytes": 1816040,
+      "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
+      "deterministic": true,
+      "error": {
+        "mean": 0.007617,
+        "p95": 0.029509,
+        "max": 0.28142,
+        "sampleCount": 3104
+      },
+      "perImage": [
+        {
+          "name": "clean-pixel-art.png",
+          "error": {
+            "mean": 0.007617,
+            "p95": 0.029509,
+            "max": 0.28142,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.962875,
+      "generationRuntimeMs": 119.653875,
+      "runtimeMs": 120.61675,
+      "heapDeltaBytes": 12304920,
+      "paletteSha256": "cc36355b936a5de92ac26d1c2ad63b00123fc005e1c5d13c05332267d2dc8ac0",
+      "deterministic": true,
+      "error": {
+        "mean": 0.045875,
+        "p95": 0.086461,
+        "max": 0.132539,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.045875,
+            "p95": 0.086461,
+            "max": 0.132539,
+            "sampleCount": 49152
+          },
+          "slotUsage": 8
+        }
+      ],
+      "averageSlotUsage": 8,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 1.122875,
+      "generationRuntimeMs": 181.732958,
+      "runtimeMs": 182.855833,
+      "heapDeltaBytes": -45802760,
+      "paletteSha256": "3e6e8669ef511222c5619f6b2f3532c1f51a30a34678b2e2f63e59cefd8fbc1f",
+      "deterministic": true,
+      "error": {
+        "mean": 0.039052,
+        "p95": 0.06384,
+        "max": 0.104088,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.039052,
+            "p95": 0.06384,
+            "max": 0.104088,
+            "sampleCount": 49152
+          },
+          "slotUsage": 8
+        }
+      ],
+      "averageSlotUsage": 8,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.701667,
+      "generationRuntimeMs": 257.726125,
+      "runtimeMs": 258.427792,
+      "heapDeltaBytes": 11357312,
+      "paletteSha256": "8b10cb5d26ac18211095e14da85c652f2c5476cdc8ac186a7370a37d869e943f",
+      "deterministic": true,
+      "error": {
+        "mean": 0.045199,
+        "p95": 0.081684,
+        "max": 0.116274,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.045199,
+            "p95": 0.081684,
+            "max": 0.116274,
+            "sampleCount": 49152
+          },
+          "slotUsage": 8
+        }
+      ],
+      "averageSlotUsage": 8,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 1.041333,
+      "generationRuntimeMs": 133.37925,
+      "runtimeMs": 134.420583,
+      "heapDeltaBytes": -5786880,
+      "paletteSha256": "d1f0bf74601c9d41eadba5d53a3ef80ecd1975c9e1fafaf1e1dfaeb08d5eb441",
+      "deterministic": true,
+      "error": {
+        "mean": 0.031307,
+        "p95": 0.062384,
+        "max": 0.120934,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.031307,
+            "p95": 0.062384,
+            "max": 0.120934,
+            "sampleCount": 49152
+          },
+          "slotUsage": 16
+        }
+      ],
+      "averageSlotUsage": 16,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.911792,
+      "generationRuntimeMs": 189.422083,
+      "runtimeMs": 190.333875,
+      "heapDeltaBytes": 31198816,
+      "paletteSha256": "6f6f877716ba1e190e84c0aefbca8346d21a25c6316c5c53bb413db9fe57ead5",
+      "deterministic": true,
+      "error": {
+        "mean": 0.028045,
+        "p95": 0.049185,
+        "max": 0.078536,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.028045,
+            "p95": 0.049185,
+            "max": 0.078536,
+            "sampleCount": 49152
+          },
+          "slotUsage": 16
+        }
+      ],
+      "averageSlotUsage": 16,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.505375,
+      "generationRuntimeMs": 454.638834,
+      "runtimeMs": 455.144209,
+      "heapDeltaBytes": 49271600,
+      "paletteSha256": "07581a6d70ef205b89b2e13f1e131b0e1d271aa4ff829b786e56d2adf46ebf75",
+      "deterministic": true,
+      "error": {
+        "mean": 0.031442,
+        "p95": 0.057328,
+        "max": 0.095299,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.031442,
+            "p95": 0.057328,
+            "max": 0.095299,
+            "sampleCount": 49152
+          },
+          "slotUsage": 16
+        }
+      ],
+      "averageSlotUsage": 16,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.722375,
+      "generationRuntimeMs": 186.984416,
+      "runtimeMs": 187.706791,
+      "heapDeltaBytes": 14603048,
+      "paletteSha256": "2b96ba149534d753e0b76b8be31703c1f0bfb51bab2bc19e807e1a3cac2bb240",
+      "deterministic": true,
+      "error": {
+        "mean": 0.024375,
+        "p95": 0.050189,
+        "max": 0.086517,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.024375,
+            "p95": 0.050189,
+            "max": 0.086517,
+            "sampleCount": 49152
+          },
+          "slotUsage": 32
+        }
+      ],
+      "averageSlotUsage": 32,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.844875,
+      "generationRuntimeMs": 222.086291,
+      "runtimeMs": 222.931166,
+      "heapDeltaBytes": 2430272,
+      "paletteSha256": "3ae9f2cbc7c95a5c77f924cf60f552e490f4cc3cb75c5f993f7569e7ebdc77ed",
+      "deterministic": true,
+      "error": {
+        "mean": 0.021614,
+        "p95": 0.038709,
+        "max": 0.074871,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.021614,
+            "p95": 0.038709,
+            "max": 0.074871,
+            "sampleCount": 49152
+          },
+          "slotUsage": 32
+        }
+      ],
+      "averageSlotUsage": 32,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.520292,
+      "generationRuntimeMs": 847.019833,
+      "runtimeMs": 847.540125,
+      "heapDeltaBytes": -89865872,
+      "paletteSha256": "84c48ef61fed02afb35f7e855173a7b61d9693298564af16c3919a16cef41f60",
+      "deterministic": true,
+      "error": {
+        "mean": 0.023265,
+        "p95": 0.04094,
+        "max": 0.092997,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.023265,
+            "p95": 0.04094,
+            "max": 0.092997,
+            "sampleCount": 49152
+          },
+          "slotUsage": 32
+        }
+      ],
+      "averageSlotUsage": 32,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.581167,
+      "generationRuntimeMs": 295.182875,
+      "runtimeMs": 295.764042,
+      "heapDeltaBytes": -13938080,
+      "paletteSha256": "e5f27b6c3fc98c1e1a994e96b8543565d684b4860c1da32a6133ed19c99f4bfb",
+      "deterministic": true,
+      "error": {
+        "mean": 0.022327,
+        "p95": 0.047942,
+        "max": 0.077102,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.022327,
+            "p95": 0.047942,
+            "max": 0.077102,
+            "sampleCount": 49152
+          },
+          "slotUsage": 64
+        }
+      ],
+      "averageSlotUsage": 64,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.629583,
+      "generationRuntimeMs": 288.609959,
+      "runtimeMs": 289.239542,
+      "heapDeltaBytes": -17985264,
+      "paletteSha256": "5fb490ac793d2238cab09563a3e3a0e43ee758786f4c143b33c97c840347db6c",
+      "deterministic": true,
+      "error": {
+        "mean": 0.01697,
+        "p95": 0.029772,
+        "max": 0.050953,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.01697,
+            "p95": 0.029772,
+            "max": 0.050953,
+            "sampleCount": 49152
+          },
+          "slotUsage": 64
+        }
+      ],
+      "averageSlotUsage": 64,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "photo-like",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 49152,
+      "samplingRuntimeMs": 0.517875,
+      "generationRuntimeMs": 1607.910167,
+      "runtimeMs": 1608.428042,
+      "heapDeltaBytes": -46931088,
+      "paletteSha256": "9e20a3a91c03d20fb587ef1234393da46724bd8b7dddee70b27bb89d9a0dbfb9",
+      "deterministic": true,
+      "error": {
+        "mean": 0.018209,
+        "p95": 0.033886,
+        "max": 0.061823,
+        "sampleCount": 49152
+      },
+      "perImage": [
+        {
+          "name": "photo-like.png",
+          "error": {
+            "mean": 0.018209,
+            "p95": 0.033886,
+            "max": 0.061823,
+            "sampleCount": 49152
+          },
+          "slotUsage": 64
+        }
+      ],
+      "averageSlotUsage": 64,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.113208,
+      "generationRuntimeMs": 2.668167,
+      "runtimeMs": 2.781375,
+      "heapDeltaBytes": 347480,
+      "paletteSha256": "717e4898c86a57e78d29c30ddf46f78d667c6215c742509e6cc287a5dc44d985",
+      "deterministic": true,
+      "error": {
+        "mean": 0.077715,
+        "p95": 0.288871,
+        "max": 0.288871,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0.10117,
+            "p95": 0.288871,
+            "max": 0.288871,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.098465,
+            "p95": 0.276549,
+            "max": 0.276549,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0.095691,
+            "p95": 0.263909,
+            "max": 0.263909,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.092836,
+            "p95": 0.250903,
+            "max": 0.250903,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0.089891,
+            "p95": 0.237487,
+            "max": 0.237487,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.086847,
+            "p95": 0.223621,
+            "max": 0.223621,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0.083698,
+            "p95": 0.209277,
+            "max": 0.209277,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.080439,
+            "p95": 0.194432,
+            "max": 0.194432,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0.07707,
+            "p95": 0.179081,
+            "max": 0.179081,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.073591,
+            "p95": 0.163232,
+            "max": 0.163232,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.070009,
+            "p95": 0.146913,
+            "max": 0.146913,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.066333,
+            "p95": 0.13017,
+            "max": 0.13017,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.06258,
+            "p95": 0.113072,
+            "max": 0.113072,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.05877,
+            "p95": 0.096758,
+            "max": 0.096758,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.054932,
+            "p95": 0.096758,
+            "max": 0.096758,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.051113,
+            "p95": 0.096758,
+            "max": 0.096758,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        }
+      ],
+      "averageSlotUsage": 2,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.273684
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.129,
+      "generationRuntimeMs": 6.27725,
+      "runtimeMs": 6.40625,
+      "heapDeltaBytes": 5151008,
+      "paletteSha256": "75bc1bc518601fb1bc3ddfc09173eee6fe97d1a963c5d5f994a54c5f77958145",
+      "deterministic": true,
+      "error": {
+        "mean": 0.01092,
+        "p95": 0.109546,
+        "max": 0.109546,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.003075,
+            "p95": 0.01401,
+            "max": 0.01401,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.00314,
+            "p95": 0.014304,
+            "max": 0.014304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.003242,
+            "p95": 0.014767,
+            "max": 0.014767,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0.006545,
+            "p95": 0.029814,
+            "max": 0.029814,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.009913,
+            "p95": 0.045159,
+            "max": 0.045159,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0.013349,
+            "p95": 0.060814,
+            "max": 0.060814,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.016853,
+            "p95": 0.076776,
+            "max": 0.076776,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.020421,
+            "p95": 0.09303,
+            "max": 0.09303,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.024047,
+            "p95": 0.109546,
+            "max": 0.109546,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.023984,
+            "p95": 0.109258,
+            "max": 0.109258,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.020363,
+            "p95": 0.092766,
+            "max": 0.092766,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.016714,
+            "p95": 0.07614,
+            "max": 0.07614,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.013077,
+            "p95": 0.059574,
+            "max": 0.059574,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 72,
+      "temporalIndexVariance": 0.311579
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 8,
+      "colorsReturned": 8,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.125,
+      "generationRuntimeMs": 5.56325,
+      "runtimeMs": 5.68825,
+      "heapDeltaBytes": 873704,
+      "paletteSha256": "044214d30f9c269943e57a5cd858d81c1c014ea6254a4d50488812cfd0cf6ba3",
+      "deterministic": true,
+      "error": {
+        "mean": 0.009016,
+        "p95": 0.119192,
+        "max": 0.119192,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.002475,
+            "p95": 0.011273,
+            "max": 0.011273,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0.000633,
+            "p95": 0.002882,
+            "max": 0.002882,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.003772,
+            "p95": 0.017184,
+            "max": 0.017184,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0.003866,
+            "p95": 0.017614,
+            "max": 0.017614,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.00063,
+            "p95": 0.002868,
+            "max": 0.002868,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0.002692,
+            "p95": 0.012263,
+            "max": 0.012263,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.00064,
+            "p95": 0.002916,
+            "max": 0.002916,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0.004082,
+            "p95": 0.018597,
+            "max": 0.018597,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.007611,
+            "p95": 0.034671,
+            "max": 0.034671,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.011213,
+            "p95": 0.051081,
+            "max": 0.051081,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.014881,
+            "p95": 0.067793,
+            "max": 0.067793,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.018606,
+            "p95": 0.08476,
+            "max": 0.08476,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.022372,
+            "p95": 0.101918,
+            "max": 0.101918,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.026164,
+            "p95": 0.119192,
+            "max": 0.119192,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.024622,
+            "p95": 0.112169,
+            "max": 0.112169,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.324211
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.113,
+      "generationRuntimeMs": 3.316708,
+      "runtimeMs": 3.429708,
+      "heapDeltaBytes": 356264,
+      "paletteSha256": "a4d3b3c620d0c48387e2cd17b1de677e73ce512052a611cb1a4409f50256b5e8",
+      "deterministic": true,
+      "error": {
+        "mean": 0.077715,
+        "p95": 0.288871,
+        "max": 0.288871,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0.10117,
+            "p95": 0.288871,
+            "max": 0.288871,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.098465,
+            "p95": 0.276549,
+            "max": 0.276549,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0.095691,
+            "p95": 0.263909,
+            "max": 0.263909,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.092836,
+            "p95": 0.250903,
+            "max": 0.250903,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0.089891,
+            "p95": 0.237487,
+            "max": 0.237487,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.086847,
+            "p95": 0.223621,
+            "max": 0.223621,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0.083698,
+            "p95": 0.209277,
+            "max": 0.209277,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.080439,
+            "p95": 0.194432,
+            "max": 0.194432,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0.07707,
+            "p95": 0.179081,
+            "max": 0.179081,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.073591,
+            "p95": 0.163232,
+            "max": 0.163232,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.070009,
+            "p95": 0.146913,
+            "max": 0.146913,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.066333,
+            "p95": 0.13017,
+            "max": 0.13017,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.06258,
+            "p95": 0.113072,
+            "max": 0.113072,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.05877,
+            "p95": 0.096758,
+            "max": 0.096758,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.054932,
+            "p95": 0.096758,
+            "max": 0.096758,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.051113,
+            "p95": 0.096758,
+            "max": 0.096758,
+            "sampleCount": 164
+          },
+          "slotUsage": 2
+        }
+      ],
+      "averageSlotUsage": 2,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.273684
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.11075,
+      "generationRuntimeMs": 4.737875,
+      "runtimeMs": 4.848625,
+      "heapDeltaBytes": 1661328,
+      "paletteSha256": "cd853eee20b64ce60f21688331595034e1ce60079a95513d4c52a58c3a5c119f",
+      "deterministic": true,
+      "error": {
+        "mean": 0.002243,
+        "p95": 0.052635,
+        "max": 0.052635,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.003075,
+            "p95": 0.01401,
+            "max": 0.01401,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.00314,
+            "p95": 0.014304,
+            "max": 0.014304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.003242,
+            "p95": 0.014767,
+            "max": 0.014767,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.003379,
+            "p95": 0.015391,
+            "max": 0.015391,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.003818,
+            "p95": 0.017395,
+            "max": 0.017395,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.007676,
+            "p95": 0.03497,
+            "max": 0.03497,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.011554,
+            "p95": 0.052635,
+            "max": 0.052635,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 144,
+      "temporalIndexVariance": 0.374737
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.110958,
+      "generationRuntimeMs": 10.467375,
+      "runtimeMs": 10.578333,
+      "heapDeltaBytes": 1095680,
+      "paletteSha256": "c62169ab9727a331e7d28db727eb5c7e7684d8f6abeeff8008143eef15743ec1",
+      "deterministic": true,
+      "error": {
+        "mean": 0.001455,
+        "p95": 0.020433,
+        "max": 0.020433,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0.002692,
+            "p95": 0.012263,
+            "max": 0.012263,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0.003457,
+            "p95": 0.015747,
+            "max": 0.015747,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.002834,
+            "p95": 0.012912,
+            "max": 0.012912,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.000794,
+            "p95": 0.003616,
+            "max": 0.003616,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.004485,
+            "p95": 0.020433,
+            "max": 0.020433,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.004474,
+            "p95": 0.02038,
+            "max": 0.02038,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.000667,
+            "p95": 0.00304,
+            "max": 0.00304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.00322,
+            "p95": 0.01467,
+            "max": 0.01467,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.000662,
+            "p95": 0.003014,
+            "max": 0.003014,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.4
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 32,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.11625,
+      "generationRuntimeMs": 4.689959,
+      "runtimeMs": 4.806209,
+      "heapDeltaBytes": 269560,
+      "paletteSha256": "77d7984635e69f2a8cec703fba98dfc981ef81347e6e24bc3ad5011bc3d35ee7",
+      "deterministic": true,
+      "error": {
+        "mean": 0.000244,
+        "p95": 0.00986,
+        "max": 0.00986,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.00174,
+            "p95": 0.007927,
+            "max": 0.007927,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.002164,
+            "p95": 0.00986,
+            "max": 0.00986,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.450526
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 18,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.116333,
+      "generationRuntimeMs": 5.320333,
+      "runtimeMs": 5.436666,
+      "heapDeltaBytes": 2715632,
+      "paletteSha256": "bf6be2b840e4b701537e80826aa8233dcfe6ed012189713ebe12c0aa5569811a",
+      "deterministic": true,
+      "error": {
+        "mean": 0.001045,
+        "p95": 0.017703,
+        "max": 0.017703,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.003075,
+            "p95": 0.01401,
+            "max": 0.01401,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.00314,
+            "p95": 0.014304,
+            "max": 0.014304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.003242,
+            "p95": 0.014767,
+            "max": 0.014767,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.003379,
+            "p95": 0.015391,
+            "max": 0.015391,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.003886,
+            "p95": 0.017703,
+            "max": 0.017703,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 180,
+      "temporalIndexVariance": 0.4
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 32,
+      "colorsReturned": 18,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.123958,
+      "generationRuntimeMs": 11.7925,
+      "runtimeMs": 11.916458,
+      "heapDeltaBytes": 1154384,
+      "paletteSha256": "4c1a73d5d237a51e5a50ea469c69e91a0158a93128ade661fcacfc051e4afbf9",
+      "deterministic": true,
+      "error": {
+        "mean": 0.001071,
+        "p95": 0.020433,
+        "max": 0.020433,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.002834,
+            "p95": 0.012912,
+            "max": 0.012912,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.000794,
+            "p95": 0.003616,
+            "max": 0.003616,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.004485,
+            "p95": 0.020433,
+            "max": 0.020433,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.004474,
+            "p95": 0.02038,
+            "max": 0.02038,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.000667,
+            "p95": 0.00304,
+            "max": 0.00304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.00322,
+            "p95": 0.01467,
+            "max": 0.01467,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.000662,
+            "p95": 0.003014,
+            "max": 0.003014,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.412632
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 64,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.112459,
+      "generationRuntimeMs": 7.584458,
+      "runtimeMs": 7.696917,
+      "heapDeltaBytes": 212536,
+      "paletteSha256": "48a3f9eb35166a8946f9f37365e931c1f6fdc3ed34fe5947630a456d5ad7a153",
+      "deterministic": true,
+      "error": {
+        "mean": 0,
+        "p95": 0,
+        "max": 0,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.463158
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 18,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.112459,
+      "generationRuntimeMs": 6.616333,
+      "runtimeMs": 6.728792,
+      "heapDeltaBytes": 1826896,
+      "paletteSha256": "abfff8c3ad30ab2c44c875637c72b9aa2a5c9ec9aa6f3e50c96cae800f1dd3b8",
+      "deterministic": true,
+      "error": {
+        "mean": 0.000802,
+        "p95": 0.015391,
+        "max": 0.015391,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0.003075,
+            "p95": 0.01401,
+            "max": 0.01401,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0.00314,
+            "p95": 0.014304,
+            "max": 0.014304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0.003242,
+            "p95": 0.014767,
+            "max": 0.014767,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0.003379,
+            "p95": 0.015391,
+            "max": 0.015391,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 144,
+      "temporalIndexVariance": 0.412632
+    },
+    {
+      "fixture": "animation-16",
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colorsRequested": 64,
+      "colorsReturned": 18,
+      "sampleCount": 1312,
+      "samplingRuntimeMs": 0.115292,
+      "generationRuntimeMs": 11.713542,
+      "runtimeMs": 11.828834,
+      "heapDeltaBytes": 1128016,
+      "paletteSha256": "4c1a73d5d237a51e5a50ea469c69e91a0158a93128ade661fcacfc051e4afbf9",
+      "deterministic": true,
+      "error": {
+        "mean": 0.001071,
+        "p95": 0.020433,
+        "max": 0.020433,
+        "sampleCount": 2624
+      },
+      "perImage": [
+        {
+          "name": "animation-16-00.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-01.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-02.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-03.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-04.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-05.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-06.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-07.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-08.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-09.png",
+          "error": {
+            "mean": 0.002834,
+            "p95": 0.012912,
+            "max": 0.012912,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-10.png",
+          "error": {
+            "mean": 0.000794,
+            "p95": 0.003616,
+            "max": 0.003616,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-11.png",
+          "error": {
+            "mean": 0.004485,
+            "p95": 0.020433,
+            "max": 0.020433,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-12.png",
+          "error": {
+            "mean": 0.004474,
+            "p95": 0.02038,
+            "max": 0.02038,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-13.png",
+          "error": {
+            "mean": 0.000667,
+            "p95": 0.00304,
+            "max": 0.00304,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-14.png",
+          "error": {
+            "mean": 0.00322,
+            "p95": 0.01467,
+            "max": 0.01467,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        },
+        {
+          "name": "animation-16-15.png",
+          "error": {
+            "mean": 0.000662,
+            "p95": 0.003014,
+            "max": 0.003014,
+            "sampleCount": 164
+          },
+          "slotUsage": 3
+        }
+      ],
+      "averageSlotUsage": 3,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.412632
+    }
+  ],
+  "samplingMatrix": [
+    {
+      "algorithm": "kmeans-srgb",
+      "sampling": "pixel",
+      "reference": null,
+      "corpus": {
+        "background": [
+          512,
+          256
+        ],
+        "character": [
+          128,
+          128
+        ]
+      },
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 44726,
+      "samplingRuntimeMs": 1.583125,
+      "generationRuntimeMs": 123.5685,
+      "runtimeMs": 125.151625,
+      "heapDeltaBytes": 23917616,
+      "paletteSha256": "dfa10ef271d540c7efc38bf8ebda9d112a7df92378081e41b8df6425eb7aedad",
+      "deterministic": true,
+      "error": {
+        "mean": 0.016928,
+        "p95": 0.116667,
+        "max": 0.116667,
+        "sampleCount": 46795
+      },
+      "perImage": [
+        {
+          "name": "background.png",
+          "error": {
+            "mean": 0.016052,
+            "p95": 0.030112,
+            "max": 0.114918,
+            "sampleCount": 43691
+          },
+          "slotUsage": 15
+        },
+        {
+          "name": "character.png",
+          "error": {
+            "mean": 0.029265,
+            "p95": 0.116667,
+            "max": 0.116667,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 9.5,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.997925,
+      "temporalEvaluation": {
+        "fixture": "animation-16",
+        "reference": null,
+        "sampleCount": 1312,
+        "paletteSha256": "a4d3b3c620d0c48387e2cd17b1de677e73ce512052a611cb1a4409f50256b5e8",
+        "deterministic": true,
+        "temporalIndexVariance": 0.273684
+      }
+    },
+    {
+      "algorithm": "kmeans-srgb",
+      "sampling": "image-balanced",
+      "reference": null,
+      "corpus": {
+        "background": [
+          512,
+          256
+        ],
+        "character": [
+          128,
+          128
+        ]
+      },
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 24950,
+      "samplingRuntimeMs": 1.254709,
+      "generationRuntimeMs": 70.200416,
+      "runtimeMs": 71.455125,
+      "heapDeltaBytes": 16539936,
+      "paletteSha256": "97b5480d3f7eb1f351a88a51db2570a3b8ff3a02691e0526b9ad5bd02c1b94b9",
+      "deterministic": true,
+      "error": {
+        "mean": 0.016557,
+        "p95": 0.032849,
+        "max": 0.122119,
+        "sampleCount": 46795
+      },
+      "perImage": [
+        {
+          "name": "background.png",
+          "error": {
+            "mean": 0.01731,
+            "p95": 0.032849,
+            "max": 0.122119,
+            "sampleCount": 43691
+          },
+          "slotUsage": 14
+        },
+        {
+          "name": "character.png",
+          "error": {
+            "mean": 0.00596,
+            "p95": 0.029627,
+            "max": 0.044795,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 9,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 1,
+      "temporalEvaluation": {
+        "fixture": "animation-16",
+        "reference": null,
+        "sampleCount": 1312,
+        "paletteSha256": "a4d3b3c620d0c48387e2cd17b1de677e73ce512052a611cb1a4409f50256b5e8",
+        "deterministic": true,
+        "temporalIndexVariance": 0.273684
+      }
+    },
+    {
+      "algorithm": "kmeans-srgb",
+      "sampling": "reference",
+      "reference": "character.png",
+      "corpus": {
+        "background": [
+          512,
+          256
+        ],
+        "character": [
+          128,
+          128
+        ]
+      },
+      "colorsRequested": 16,
+      "colorsReturned": 16,
+      "sampleCount": 3104,
+      "samplingRuntimeMs": 0.57175,
+      "generationRuntimeMs": 7.904333,
+      "runtimeMs": 8.476083,
+      "heapDeltaBytes": 456616,
+      "paletteSha256": "787126718962b4ff2440508d0b15f8868c69cf0250f4f0913c8658fe2f221c26",
+      "deterministic": true,
+      "error": {
+        "mean": 0.111508,
+        "p95": 0.20048,
+        "max": 0.334947,
+        "sampleCount": 46795
+      },
+      "perImage": [
+        {
+          "name": "background.png",
+          "error": {
+            "mean": 0.11943,
+            "p95": 0.20048,
+            "max": 0.334947,
+            "sampleCount": 43691
+          },
+          "slotUsage": 4
+        },
+        {
+          "name": "character.png",
+          "error": {
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
+            "sampleCount": 3104
+          },
+          "slotUsage": 4
+        }
+      ],
+      "averageSlotUsage": 4,
+      "temporalHeldCount": 0,
+      "temporalIndexVariance": 0.951782,
+      "temporalEvaluation": {
+        "fixture": "animation-16",
+        "reference": "animation-16-00.png",
+        "sampleCount": 164,
+        "paletteSha256": "0e583fe251bbe047e9126ea6a7ad12462ef2413b77e87024de381a45effe70da",
+        "deterministic": true,
+        "temporalIndexVariance": 0.286316
+      }
+    }
+  ]
+}
