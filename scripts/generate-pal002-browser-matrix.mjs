@@ -3,6 +3,9 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { extractInlineFunction } from './lib/extract-inline-function.mjs';
 import {
+  PAL002_OKLAB_TEMPORAL_EPSILON,
+} from './lib/pal002-evaluation.mjs';
+import {
   encodePng,
   generateCorpus,
   sha256,
@@ -161,7 +164,7 @@ for(const group of groups){
       let previousGrid = null;
       for(const down of group.downs){
         const stabilize = group.id === 'animation' && variant.algorithm === 'kmeans-oklab' && previousGrid !== null;
-        const frame = renderMapped(down, palette, variant.algorithm, previousGrid, stabilize ? 0.00025 : 0);
+        const frame = renderMapped(down, palette, variant.algorithm, previousGrid, stabilize ? PAL002_OKLAB_TEMPORAL_EPSILON : 0);
         rendered.push(frame);
         previousGrid = frame.grid;
       }
@@ -189,7 +192,7 @@ for(const group of groups){
 
 const manifest = {
   implementationId: 'PAL-002',
-  oklabTemporalEpsilon: 0.00025,
+  oklabTemporalEpsilon: PAL002_OKLAB_TEMPORAL_EPSILON,
   fixtureSeed: FIXTURE_SEED,
   generatorVersion: GENERATOR_VERSION,
   actualSizeScale: 1,

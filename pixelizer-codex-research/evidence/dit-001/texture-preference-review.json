@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "fixture": "texture-checker",
+  "zoom": 1,
+  "baselineCapture": "browser-texture-off-1x.png",
+  "reviewer": "Codex manual localhost browser QA",
+  "evaluatedAt": "2026-08-26T15:20:00+09:00",
+  "criteria": {
+    "textureNoiseReviewed": true,
+    "edgeLegibilityReviewed": true
+  },
+  "evaluations": [
+    {
+      "candidateId": "bayer2-75",
+      "decision": "ACCEPTABLE",
+      "zoom": 1,
+      "capture": "browser-texture-bayer2-75-1x.png",
+      "rationale": "1× 배율에서 경계 무늬와 반복 구조가 분명하고 추가 노이즈 증가가 두드러지지 않았다."
+    },
+    {
+      "candidateId": "bayer2-100",
+      "decision": "ACCEPTABLE",
+      "zoom": 1,
+      "capture": "browser-texture-bayer2-100-1x.png",
+      "rationale": "1× 배율에서 고강도 디더링 노이즈가 증가하지 않았고 텍스처 경계와 색 구분이 유지됬다."
+    },
+    {
+      "candidateId": "bayer4-75",
+      "decision": "ACCEPTABLE",
+      "zoom": 1,
+      "capture": "browser-texture-bayer4-75-1x.png",
+      "rationale": "1× 배율에서 무늬 원점이 고르게 유지되고 경계 구조 및 반복 파손의 가도가 낮아지 않았다."
+    },
+    {
+      "candidateId": "bayer4-100",
+      "decision": "ACCEPTABLE",
+      "zoom": 1,
+      "capture": "browser-texture-bayer4-100-1x.png",
+      "rationale": "1× 배율에서 강한 무늬가 있진하게 증가하지 않았고 경계 주변의 자세와 색 구분이 모두 유지됬다."
+    }
+  ]
+}

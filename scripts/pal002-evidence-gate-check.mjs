@@ -48,19 +48,22 @@ try {
   const actualQaPath = path.resolve(sourceDir, 'qa-results.json');
   if(fs.existsSync(actualQaPath)){
     const actualQa = JSON.parse(fs.readFileSync(actualQaPath, 'utf8'));
-    const manual = evaluatePal002ManualMatrixEvidence(actualQa, sourceDir);
+    const promotionGate = { promotionCellIds: ['animation-16'] };
+    const manual = evaluatePal002ManualMatrixEvidence(actualQa, sourceDir, promotionGate);
     assert.equal(manual.pass, true, 'actual-size 20-cell browser matrix must pass');
     assert.equal(manual.cellCount, 20);
     assert.equal(manual.assetCount, 240);
     const missingCell = structuredClone(actualQa);
     missingCell.actualSizeMatrix.groups[0].cells.pop();
-    assert.equal(evaluatePal002ManualMatrixEvidence(missingCell, sourceDir).pass, false);
+    assert.equal(evaluatePal002ManualMatrixEvidence(missingCell, sourceDir, promotionGate).pass, false);
     const duplicateGroup = structuredClone(actualQa);
     duplicateGroup.actualSizeMatrix.groups[1].id = duplicateGroup.actualSizeMatrix.groups[0].id;
-    assert.equal(evaluatePal002ManualMatrixEvidence(duplicateGroup, sourceDir).pass, false);
+    assert.equal(evaluatePal002ManualMatrixEvidence(duplicateGroup, sourceDir, promotionGate).pass, false);
     const badManifestHash = structuredClone(actualQa);
     badManifestHash.actualSizeMatrix.manifestSha256 = '0'.repeat(64);
-    assert.equal(evaluatePal002ManualMatrixEvidence(badManifestHash, sourceDir).pass, false);
+    assert.equal(evaluatePal002ManualMatrixEvidence(badManifestHash, sourceDir, promotionGate).pass, false);
+    assert.equal(evaluatePal002ManualMatrixEvidence(actualQa, sourceDir, { promotionCellIds: [] }).pass, false,
+      'manual promotion evidence must fail when quantitative eligibility does not name animation-16');
   }
 
   const target = 'browser-algorithm-ab.jpg';

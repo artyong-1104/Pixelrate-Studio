@@ -1,3 +1,5 @@
+export const PAL002_OKLAB_TEMPORAL_EPSILON = 0.005;
+
 export function relativeChangePercent(candidate, baseline){
   if(!Number.isFinite(candidate) || !Number.isFinite(baseline) || candidate < 0 || baseline < 0) return null;
   if(baseline === 0) return candidate === 0 ? 0 : null;
@@ -28,6 +30,59 @@ export function candidateEligible({
     (Number.isFinite(blindPreferencePercent) && blindPreferencePercent >= 60);
   return deterministic === true && qualityPass && Number.isFinite(runtimeRatio) && runtimeRatio <= 3 &&
     featureRegressionPass === true && temporalRegressionPass === true;
+}
+
+export function summarizeCandidateCombination({
+  algorithm,
+  sampling,
+  colors,
+  candidateMean,
+  baselineMean,
+  candidateRuntimeMs,
+  baselineRuntimeMs,
+  candidateFeature,
+  baselineFeature,
+  candidateTemporal,
+  baselineTemporal,
+  blindPreferencePercent = 0,
+  deterministic
+}){
+  const improvementPercent = relativeImprovementPercent(candidateMean, baselineMean);
+  const runtimeRatio = Number.isFinite(candidateRuntimeMs) && Number.isFinite(baselineRuntimeMs) && baselineRuntimeMs > 0
+    ? candidateRuntimeMs / baselineRuntimeMs
+    : null;
+  const featureChangePercent = relativeChangePercent(candidateFeature, baselineFeature);
+  const temporalChangePercent = relativeChangePercent(candidateTemporal, baselineTemporal);
+  const featureRegressionPass = regressionWithinLimit(candidateFeature, baselineFeature, 10);
+  const temporalRegressionPass = regressionWithinLimit(candidateTemporal, baselineTemporal, 10);
+  const eligibleByAutomatedMetrics = candidateEligible({
+    improvementPercent,
+    blindPreferencePercent,
+    runtimeRatio,
+    featureRegressionPass,
+    temporalRegressionPass,
+    deterministic
+  });
+  return {
+    algorithm,
+    sampling,
+    colors,
+    candidateMean,
+    baselineMean,
+    improvementPercent,
+    runtimeRatio,
+    candidateFeature,
+    baselineFeature,
+    featureChangePercent,
+    featureRegressionPass,
+    candidateTemporal,
+    baselineTemporal,
+    temporalChangePercent,
+    temporalRegressionPass,
+    blindPreferencePercent,
+    deterministic,
+    eligibleByAutomatedMetrics
+  };
 }
 
 export function samplingCorpusValid({

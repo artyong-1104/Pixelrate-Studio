@@ -1,0 +1,496 @@
+{
+  "item": "DIT-001",
+  "testedAt": "2026-08-26T15:20:00+09:00",
+  "target": "http://127.0.0.1:8000/pixelate_studio.html?qa=dit001-remediation-20260826",
+  "status": "PASS",
+  "desktop": {
+    "defaultHiddenOff": true,
+    "gradientTransformPass": true,
+    "resultMetadataPass": true,
+    "staticVisualPass": true,
+    "unlimitedDisabledPass": true,
+    "animationPresetOffPass": true,
+    "inactiveFrameModeWarningPass": true,
+    "scaleFrameWarningTransitionsPass": true,
+    "warningTransitions": {
+      "originalHidden": true,
+      "originalToPreserveSheet": true,
+      "preserveSheetToOriginal": true,
+      "factorWholeHidden": true,
+      "factorWholeToSheet": true,
+      "factorSheetToWhole": true,
+      "inactiveFactorSheetHidden": true,
+      "gridWholeHidden": true,
+      "gridWholeToSheet": true,
+      "gridSheetToWhole": true
+    },
+    "zoomCoverage": [
+      1,
+      2,
+      8
+    ],
+    "fixtureCoverage": [
+      "gradient-gray",
+      "clean-pixel-art",
+      "alpha-edge",
+      "texture-checker"
+    ],
+    "measurements": {
+      "defaultPolicy": {
+        "ditherMode": "off",
+        "ditherDisabled": true,
+        "experimentalFieldHidden": true
+      },
+      "gradient": {
+        "fixture": "gradient-gray",
+        "processed": true,
+        "resultMetadata": "디더링 bayer2(50%)",
+        "outputWidth": 256,
+        "outputHeight": 64
+      },
+      "unlimited": {
+        "ditherDisabled": true,
+        "warningHidden": true,
+        "status": "제한 없음 모드에서는 팔레트 생성 및 디더링 실험을 사용할 수 없습니다."
+      },
+      "animationPreset": {
+        "diff": [
+          "노이즈 필터 사용: 꺼짐 → 켜짐",
+          "노이즈 필터 반복 횟수: 0회 → 1회",
+          "디더링: Bayer 4×4 → 사용 안 함 (기본)"
+        ],
+        "appliedDitherMode": "off"
+      }
+    }
+  },
+  "animation": {
+    "fixture": "animation-16",
+    "frameCount": 16,
+    "fps8Pass": true,
+    "fps12Pass": true,
+    "zoom8Pass": true,
+    "fixedOriginPass": true,
+    "measurements": {
+      "fps8Visible": 8,
+      "fps12Visible": 12,
+      "zoom8AriaPressed": true,
+      "ditherStatus": "켜짐",
+      "staticRegionChangedPixelRatioMaximum": 0
+    }
+  },
+  "mobile": {
+    "viewportWidth": 390,
+    "viewportHeight": 844,
+    "documentScrollWidth": 382,
+    "layoutPass": true,
+    "measurements": {
+      "modalLeft": 15.5,
+      "modalRight": 366.5,
+      "modalWidth": 351,
+      "modalOpen": true
+    }
+  },
+  "consoleErrorCount": 0,
+  "consoleWarningCount": 0,
+  "captures": [
+    "browser-gradient-1x.png",
+    "browser-gradient-2x.png",
+    "browser-gradient-8x.png",
+    "browser-clean-1x.png",
+    "browser-clean-2x.png",
+    "browser-clean-8x.png",
+    "browser-alpha-outline-1x.png",
+    "browser-alpha-outline-2x.png",
+    "browser-alpha-outline-8x.png",
+    "browser-texture-off-1x.png",
+    "browser-texture-bayer2-75-1x.png",
+    "browser-texture-bayer2-100-1x.png",
+    "browser-texture-bayer4-75-1x.png",
+    "browser-texture-bayer4-100-1x.png",
+    "browser-animation-8x8fps.png",
+    "browser-animation-8x12fps.png",
+    "browser-mobile-animation-8x12fps.png"
+  ],
+  "captureSha256": {
+    "browser-gradient-1x.png": "bccab9d3ef835406c383a21a1bbf695f743673c0d8f2da3e72e7aa0509f32b4a",
+    "browser-gradient-2x.png": "48251e203d2557de123d7733df48665642185b27fd8142fc7689f3b3896843c6",
+    "browser-gradient-8x.png": "24f6fdfa3ee28b82e221713bf48066a02d4142c11ea6411394241ed7a2aea514",
+    "browser-clean-1x.png": "4535872d345ac8d145cef0de71590ef8bef8be23d6965a8d1e3fe35f3c2b7856",
+    "browser-clean-2x.png": "6d65490315e70def1f5f3f04df2bddcbdf9d879be421be7f450a4988e92f0834",
+    "browser-clean-8x.png": "f90ccb2c2a0d89160b3ed4599a229374a06db1b56cdf9128c4c339cd853ecfdf",
+    "browser-alpha-outline-1x.png": "8b44b8cfea6a79c7b53a94c43fd11d99971f4e8dd5320e5393c9b5ca4a7524b7",
+    "browser-alpha-outline-2x.png": "5c1b27f3270b9bde05f1bbef6d79de22714e8752f5f1fdab1a760f6ed332f69d",
+    "browser-alpha-outline-8x.png": "ef17a4659bf859e82b02b9cfc874a61eb2a97c21888022ae918d11380a974b20",
+    "browser-texture-off-1x.png": "9b4f2c612e6bb0c16fc47f8e404b17b362a67e400bd9fdf5cb181656f985262a",
+    "browser-texture-bayer2-75-1x.png": "eb8eac55ec748eebdc9cdaa6c9e4815296526efed34edbff509f0f18c17a3f20",
+    "browser-texture-bayer2-100-1x.png": "5221b0ee7f98a98b15a30ea918c9ad52958ed8a2c2eeb5530be52c30ec810932",
+    "browser-texture-bayer4-75-1x.png": "eb2402700a55fad8057e26e98b7b1db1c2f9847f5c7b9359ef88104902bfdf9a",
+    "browser-texture-bayer4-100-1x.png": "9ddb8ceb0e9ea6bad9c38c4ad029e723445c8f6eb0f4d407abcce264edc1205f",
+    "browser-animation-8x8fps.png": "cf572fff44cf0371b3a86ed2ea30d4dc79a437632c7e79560816935a13762f7d",
+    "browser-animation-8x12fps.png": "8d13449f0a7f20dbedb05f10d6f2072fea40ca4f383efb58cd63e1f5482d0748",
+    "browser-mobile-animation-8x12fps.png": "9600916a2ffe1a6181aef8f1417bf3250b04a8085312f71b2a818c181359c8b8"
+  },
+  "captureDetails": {
+    "browser-gradient-1x.png": {
+      "kind": "static",
+      "fixture": "gradient-gray",
+      "zoom": 1,
+      "ditherMode": "bayer2",
+      "strength": 50,
+      "settingsFile": "browser-settings-bayer2-50.json",
+      "outline": false,
+      "resultAsset": "browser-result-assets/gradient-bayer2-50.png",
+      "resultSha256": "24f6fdfa3ee28b82e221713bf48066a02d4142c11ea6411394241ed7a2aea514"
+    },
+    "browser-gradient-2x.png": {
+      "kind": "static",
+      "fixture": "gradient-gray",
+      "zoom": 2,
+      "ditherMode": "bayer2",
+      "strength": 50,
+      "settingsFile": "browser-settings-bayer2-50.json",
+      "outline": false,
+      "resultAsset": "browser-result-assets/gradient-bayer2-50.png",
+      "resultSha256": "24f6fdfa3ee28b82e221713bf48066a02d4142c11ea6411394241ed7a2aea514"
+    },
+    "browser-gradient-8x.png": {
+      "kind": "static",
+      "fixture": "gradient-gray",
+      "zoom": 8,
+      "ditherMode": "bayer2",
+      "strength": 50,
+      "settingsFile": "browser-settings-bayer2-50.json",
+      "outline": false,
+      "resultAsset": "browser-result-assets/gradient-bayer2-50.png",
+      "resultSha256": "24f6fdfa3ee28b82e221713bf48066a02d4142c11ea6411394241ed7a2aea514"
+    },
+    "browser-clean-1x.png": {
+      "kind": "static",
+      "fixture": "clean-pixel-art",
+      "zoom": 1,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "outline": false,
+      "resultAsset": "browser-result-assets/clean-bayer4-75.png",
+      "resultSha256": "f90ccb2c2a0d89160b3ed4599a229374a06db1b56cdf9128c4c339cd853ecfdf"
+    },
+    "browser-clean-2x.png": {
+      "kind": "static",
+      "fixture": "clean-pixel-art",
+      "zoom": 2,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "outline": false,
+      "resultAsset": "browser-result-assets/clean-bayer4-75.png",
+      "resultSha256": "f90ccb2c2a0d89160b3ed4599a229374a06db1b56cdf9128c4c339cd853ecfdf"
+    },
+    "browser-clean-8x.png": {
+      "kind": "static",
+      "fixture": "clean-pixel-art",
+      "zoom": 8,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "outline": false,
+      "resultAsset": "browser-result-assets/clean-bayer4-75.png",
+      "resultSha256": "f90ccb2c2a0d89160b3ed4599a229374a06db1b56cdf9128c4c339cd853ecfdf"
+    },
+    "browser-alpha-outline-1x.png": {
+      "kind": "static",
+      "fixture": "alpha-edge",
+      "zoom": 1,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75-outline.json",
+      "outline": true,
+      "resultAsset": "browser-result-assets/alpha-outline-bayer4-75.png",
+      "resultSha256": "ef17a4659bf859e82b02b9cfc874a61eb2a97c21888022ae918d11380a974b20"
+    },
+    "browser-alpha-outline-2x.png": {
+      "kind": "static",
+      "fixture": "alpha-edge",
+      "zoom": 2,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75-outline.json",
+      "outline": true,
+      "resultAsset": "browser-result-assets/alpha-outline-bayer4-75.png",
+      "resultSha256": "ef17a4659bf859e82b02b9cfc874a61eb2a97c21888022ae918d11380a974b20"
+    },
+    "browser-alpha-outline-8x.png": {
+      "kind": "static",
+      "fixture": "alpha-edge",
+      "zoom": 8,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75-outline.json",
+      "outline": true,
+      "resultAsset": "browser-result-assets/alpha-outline-bayer4-75.png",
+      "resultSha256": "ef17a4659bf859e82b02b9cfc874a61eb2a97c21888022ae918d11380a974b20"
+    },
+    "browser-texture-off-1x.png": {
+      "kind": "texture-preference",
+      "fixture": "texture-checker",
+      "zoom": 1,
+      "ditherMode": "off",
+      "strength": 50,
+      "settingsFile": "browser-settings-off.json",
+      "outline": false,
+      "candidateId": "off",
+      "resultAsset": "browser-result-assets/texture-off.png",
+      "resultSha256": "9b4f2c612e6bb0c16fc47f8e404b17b362a67e400bd9fdf5cb181656f985262a"
+    },
+    "browser-texture-bayer2-75-1x.png": {
+      "kind": "texture-preference",
+      "fixture": "texture-checker",
+      "zoom": 1,
+      "ditherMode": "bayer2",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer2-75.json",
+      "outline": false,
+      "candidateId": "bayer2-75",
+      "resultAsset": "browser-result-assets/texture-bayer2-75.png",
+      "resultSha256": "eb8eac55ec748eebdc9cdaa6c9e4815296526efed34edbff509f0f18c17a3f20"
+    },
+    "browser-texture-bayer2-100-1x.png": {
+      "kind": "texture-preference",
+      "fixture": "texture-checker",
+      "zoom": 1,
+      "ditherMode": "bayer2",
+      "strength": 100,
+      "settingsFile": "browser-settings-bayer2-100.json",
+      "outline": false,
+      "candidateId": "bayer2-100",
+      "resultAsset": "browser-result-assets/texture-bayer2-100.png",
+      "resultSha256": "5221b0ee7f98a98b15a30ea918c9ad52958ed8a2c2eeb5530be52c30ec810932"
+    },
+    "browser-texture-bayer4-75-1x.png": {
+      "kind": "texture-preference",
+      "fixture": "texture-checker",
+      "zoom": 1,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "outline": false,
+      "candidateId": "bayer4-75",
+      "resultAsset": "browser-result-assets/texture-bayer4-75.png",
+      "resultSha256": "eb2402700a55fad8057e26e98b7b1db1c2f9847f5c7b9359ef88104902bfdf9a"
+    },
+    "browser-texture-bayer4-100-1x.png": {
+      "kind": "texture-preference",
+      "fixture": "texture-checker",
+      "zoom": 1,
+      "ditherMode": "bayer4",
+      "strength": 100,
+      "settingsFile": "browser-settings-bayer4-100.json",
+      "outline": false,
+      "candidateId": "bayer4-100",
+      "resultAsset": "browser-result-assets/texture-bayer4-100.png",
+      "resultSha256": "9ddb8ceb0e9ea6bad9c38c4ad029e723445c8f6eb0f4d407abcce264edc1205f"
+    },
+    "browser-animation-8x8fps.png": {
+      "kind": "animation",
+      "fixture": "animation-16",
+      "zoom": 8,
+      "fps": 8,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "frameAssets": [
+        "browser-result-assets/animation-bayer4-75-00.png",
+        "browser-result-assets/animation-bayer4-75-01.png",
+        "browser-result-assets/animation-bayer4-75-02.png",
+        "browser-result-assets/animation-bayer4-75-03.png",
+        "browser-result-assets/animation-bayer4-75-04.png",
+        "browser-result-assets/animation-bayer4-75-05.png",
+        "browser-result-assets/animation-bayer4-75-06.png",
+        "browser-result-assets/animation-bayer4-75-07.png",
+        "browser-result-assets/animation-bayer4-75-08.png",
+        "browser-result-assets/animation-bayer4-75-09.png",
+        "browser-result-assets/animation-bayer4-75-10.png",
+        "browser-result-assets/animation-bayer4-75-11.png",
+        "browser-result-assets/animation-bayer4-75-12.png",
+        "browser-result-assets/animation-bayer4-75-13.png",
+        "browser-result-assets/animation-bayer4-75-14.png",
+        "browser-result-assets/animation-bayer4-75-15.png"
+      ],
+      "frameAssetSha256": {
+        "browser-result-assets/animation-bayer4-75-00.png": "aa1a709611e0a0549ca00e2186b62b61625166f4e9d7189afc3cf2db5dcf6004",
+        "browser-result-assets/animation-bayer4-75-01.png": "7f88d3012363185383d1be6946822cab0608b35703c4a4211a15feff75a5a32e",
+        "browser-result-assets/animation-bayer4-75-02.png": "062e2fe790331275270f20197160ff157e7818f412a24d82db1256018c376711",
+        "browser-result-assets/animation-bayer4-75-03.png": "9f2719f50661f8c4ae98afa02cc915b7d8ceb367c2a4ce4e4ab7b531bfc7e52a",
+        "browser-result-assets/animation-bayer4-75-04.png": "f3713c7f3372755461f2b5a6dcedf06ddb75f05d32dc7712336db13d45066ff4",
+        "browser-result-assets/animation-bayer4-75-05.png": "2b84e70b4b93c57f9f1161e1268f2bd9d696ae53a31989f20d2614dc2bc77bb5",
+        "browser-result-assets/animation-bayer4-75-06.png": "2521e0b0bc4529b70ca037a10c3696521f8f3ec2aa971b45c44b66c29492363e",
+        "browser-result-assets/animation-bayer4-75-07.png": "3ac4126de71e98df6ae7f7f7edaeab7d3e2afb83244b4e07775089d205f26d36",
+        "browser-result-assets/animation-bayer4-75-08.png": "582170dfab53df306a11155889938323b4b71b9ed4f967060a73574722326cbd",
+        "browser-result-assets/animation-bayer4-75-09.png": "015f591b4ae90841529516df8122cbc4e7939c2a24475346c8b3189c34fee303",
+        "browser-result-assets/animation-bayer4-75-10.png": "38914adfc574800fc6fe762969e2eed71f4ff463239243b584eb94e15449110b",
+        "browser-result-assets/animation-bayer4-75-11.png": "5b523615d39d8b77d89b98acf054565be3cea723792cf20ff86e65043bf2c869",
+        "browser-result-assets/animation-bayer4-75-12.png": "c7888eccb93639de86c9cb9d63204f0991c23959c427a220882114e1024da878",
+        "browser-result-assets/animation-bayer4-75-13.png": "d45917730dea5d450274389b7b17628906e41becb5ba3fc2175908e8f3b1ecf8",
+        "browser-result-assets/animation-bayer4-75-14.png": "09a6a33848ba22fbe3839750f47060d33cd3e75f52691c29dbaf866725da54af",
+        "browser-result-assets/animation-bayer4-75-15.png": "25795beb63dbd327fa20e37234afbe22f924aba0ac4da0a160ab92a984a6bb0c"
+      },
+      "sampledFrameIndexes": [
+        0,
+        4,
+        8,
+        12
+      ]
+    },
+    "browser-animation-8x12fps.png": {
+      "kind": "animation",
+      "fixture": "animation-16",
+      "zoom": 8,
+      "fps": 12,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "frameAssets": [
+        "browser-result-assets/animation-bayer4-75-00.png",
+        "browser-result-assets/animation-bayer4-75-01.png",
+        "browser-result-assets/animation-bayer4-75-02.png",
+        "browser-result-assets/animation-bayer4-75-03.png",
+        "browser-result-assets/animation-bayer4-75-04.png",
+        "browser-result-assets/animation-bayer4-75-05.png",
+        "browser-result-assets/animation-bayer4-75-06.png",
+        "browser-result-assets/animation-bayer4-75-07.png",
+        "browser-result-assets/animation-bayer4-75-08.png",
+        "browser-result-assets/animation-bayer4-75-09.png",
+        "browser-result-assets/animation-bayer4-75-10.png",
+        "browser-result-assets/animation-bayer4-75-11.png",
+        "browser-result-assets/animation-bayer4-75-12.png",
+        "browser-result-assets/animation-bayer4-75-13.png",
+        "browser-result-assets/animation-bayer4-75-14.png",
+        "browser-result-assets/animation-bayer4-75-15.png"
+      ],
+      "frameAssetSha256": {
+        "browser-result-assets/animation-bayer4-75-00.png": "aa1a709611e0a0549ca00e2186b62b61625166f4e9d7189afc3cf2db5dcf6004",
+        "browser-result-assets/animation-bayer4-75-01.png": "7f88d3012363185383d1be6946822cab0608b35703c4a4211a15feff75a5a32e",
+        "browser-result-assets/animation-bayer4-75-02.png": "062e2fe790331275270f20197160ff157e7818f412a24d82db1256018c376711",
+        "browser-result-assets/animation-bayer4-75-03.png": "9f2719f50661f8c4ae98afa02cc915b7d8ceb367c2a4ce4e4ab7b531bfc7e52a",
+        "browser-result-assets/animation-bayer4-75-04.png": "f3713c7f3372755461f2b5a6dcedf06ddb75f05d32dc7712336db13d45066ff4",
+        "browser-result-assets/animation-bayer4-75-05.png": "2b84e70b4b93c57f9f1161e1268f2bd9d696ae53a31989f20d2614dc2bc77bb5",
+        "browser-result-assets/animation-bayer4-75-06.png": "2521e0b0bc4529b70ca037a10c3696521f8f3ec2aa971b45c44b66c29492363e",
+        "browser-result-assets/animation-bayer4-75-07.png": "3ac4126de71e98df6ae7f7f7edaeab7d3e2afb83244b4e07775089d205f26d36",
+        "browser-result-assets/animation-bayer4-75-08.png": "582170dfab53df306a11155889938323b4b71b9ed4f967060a73574722326cbd",
+        "browser-result-assets/animation-bayer4-75-09.png": "015f591b4ae90841529516df8122cbc4e7939c2a24475346c8b3189c34fee303",
+        "browser-result-assets/animation-bayer4-75-10.png": "38914adfc574800fc6fe762969e2eed71f4ff463239243b584eb94e15449110b",
+        "browser-result-assets/animation-bayer4-75-11.png": "5b523615d39d8b77d89b98acf054565be3cea723792cf20ff86e65043bf2c869",
+        "browser-result-assets/animation-bayer4-75-12.png": "c7888eccb93639de86c9cb9d63204f0991c23959c427a220882114e1024da878",
+        "browser-result-assets/animation-bayer4-75-13.png": "d45917730dea5d450274389b7b17628906e41becb5ba3fc2175908e8f3b1ecf8",
+        "browser-result-assets/animation-bayer4-75-14.png": "09a6a33848ba22fbe3839750f47060d33cd3e75f52691c29dbaf866725da54af",
+        "browser-result-assets/animation-bayer4-75-15.png": "25795beb63dbd327fa20e37234afbe22f924aba0ac4da0a160ab92a984a6bb0c"
+      },
+      "sampledFrameIndexes": [
+        0,
+        4,
+        8,
+        12
+      ]
+    },
+    "browser-mobile-animation-8x12fps.png": {
+      "kind": "animation",
+      "fixture": "animation-16",
+      "zoom": 8,
+      "fps": 12,
+      "ditherMode": "bayer4",
+      "strength": 75,
+      "settingsFile": "browser-settings-bayer4-75.json",
+      "frameAssets": [
+        "browser-result-assets/animation-bayer4-75-00.png",
+        "browser-result-assets/animation-bayer4-75-01.png",
+        "browser-result-assets/animation-bayer4-75-02.png",
+        "browser-result-assets/animation-bayer4-75-03.png",
+        "browser-result-assets/animation-bayer4-75-04.png",
+        "browser-result-assets/animation-bayer4-75-05.png",
+        "browser-result-assets/animation-bayer4-75-06.png",
+        "browser-result-assets/animation-bayer4-75-07.png",
+        "browser-result-assets/animation-bayer4-75-08.png",
+        "browser-result-assets/animation-bayer4-75-09.png",
+        "browser-result-assets/animation-bayer4-75-10.png",
+        "browser-result-assets/animation-bayer4-75-11.png",
+        "browser-result-assets/animation-bayer4-75-12.png",
+        "browser-result-assets/animation-bayer4-75-13.png",
+        "browser-result-assets/animation-bayer4-75-14.png",
+        "browser-result-assets/animation-bayer4-75-15.png"
+      ],
+      "frameAssetSha256": {
+        "browser-result-assets/animation-bayer4-75-00.png": "aa1a709611e0a0549ca00e2186b62b61625166f4e9d7189afc3cf2db5dcf6004",
+        "browser-result-assets/animation-bayer4-75-01.png": "7f88d3012363185383d1be6946822cab0608b35703c4a4211a15feff75a5a32e",
+        "browser-result-assets/animation-bayer4-75-02.png": "062e2fe790331275270f20197160ff157e7818f412a24d82db1256018c376711",
+        "browser-result-assets/animation-bayer4-75-03.png": "9f2719f50661f8c4ae98afa02cc915b7d8ceb367c2a4ce4e4ab7b531bfc7e52a",
+        "browser-result-assets/animation-bayer4-75-04.png": "f3713c7f3372755461f2b5a6dcedf06ddb75f05d32dc7712336db13d45066ff4",
+        "browser-result-assets/animation-bayer4-75-05.png": "2b84e70b4b93c57f9f1161e1268f2bd9d696ae53a31989f20d2614dc2bc77bb5",
+        "browser-result-assets/animation-bayer4-75-06.png": "2521e0b0bc4529b70ca037a10c3696521f8f3ec2aa971b45c44b66c29492363e",
+        "browser-result-assets/animation-bayer4-75-07.png": "3ac4126de71e98df6ae7f7f7edaeab7d3e2afb83244b4e07775089d205f26d36",
+        "browser-result-assets/animation-bayer4-75-08.png": "582170dfab53df306a11155889938323b4b71b9ed4f967060a73574722326cbd",
+        "browser-result-assets/animation-bayer4-75-09.png": "015f591b4ae90841529516df8122cbc4e7939c2a24475346c8b3189c34fee303",
+        "browser-result-assets/animation-bayer4-75-10.png": "38914adfc574800fc6fe762969e2eed71f4ff463239243b584eb94e15449110b",
+        "browser-result-assets/animation-bayer4-75-11.png": "5b523615d39d8b77d89b98acf054565be3cea723792cf20ff86e65043bf2c869",
+        "browser-result-assets/animation-bayer4-75-12.png": "c7888eccb93639de86c9cb9d63204f0991c23959c427a220882114e1024da878",
+        "browser-result-assets/animation-bayer4-75-13.png": "d45917730dea5d450274389b7b17628906e41becb5ba3fc2175908e8f3b1ecf8",
+        "browser-result-assets/animation-bayer4-75-14.png": "09a6a33848ba22fbe3839750f47060d33cd3e75f52691c29dbaf866725da54af",
+        "browser-result-assets/animation-bayer4-75-15.png": "25795beb63dbd327fa20e37234afbe22f924aba0ac4da0a160ab92a984a6bb0c"
+      },
+      "sampledFrameIndexes": [
+        0,
+        4,
+        8,
+        12
+      ]
+    }
+  },
+  "texturePreference": {
+    "status": "PASS",
+    "fixture": "texture-checker",
+    "zoom": 1,
+    "baselineCapture": "browser-texture-off-1x.png",
+    "reviewer": "Codex manual localhost browser QA",
+    "evaluatedAt": "2026-08-26T15:20:00+09:00",
+    "criteria": {
+      "textureNoiseReviewed": true,
+      "edgeLegibilityReviewed": true
+    },
+    "evaluations": [
+      {
+        "candidateId": "bayer2-75",
+        "decision": "ACCEPTABLE",
+        "zoom": 1,
+        "capture": "browser-texture-bayer2-75-1x.png",
+        "rationale": "1× 배율에서 경계 무늬와 반복 구조가 분명하고 추가 노이즈 증가가 두드러지지 않았다."
+      },
+      {
+        "candidateId": "bayer2-100",
+        "decision": "ACCEPTABLE",
+        "zoom": 1,
+        "capture": "browser-texture-bayer2-100-1x.png",
+        "rationale": "1× 배율에서 고강도 디더링 노이즈가 증가하지 않았고 텍스처 경계와 색 구분이 유지됬다."
+      },
+      {
+        "candidateId": "bayer4-75",
+        "decision": "ACCEPTABLE",
+        "zoom": 1,
+        "capture": "browser-texture-bayer4-75-1x.png",
+        "rationale": "1× 배율에서 무늬 원점이 고르게 유지되고 경계 구조 및 반복 파손의 가도가 낮아지 않았다."
+      },
+      {
+        "candidateId": "bayer4-100",
+        "decision": "ACCEPTABLE",
+        "zoom": 1,
+        "capture": "browser-texture-bayer4-100-1x.png",
+        "rationale": "1× 배율에서 강한 무늬가 있진하게 증가하지 않았고 경계 주변의 자세와 색 구분이 모두 유지됬다."
+      }
+    ]
+  },
+  "requiredReview": {
+    "model": "Sol xhigh",
+    "result": "PASS",
+    "report": "sol-xhigh-independent-rereview-2026-08-27.md",
+    "reportSha256": "9f1f0e6afd43f65e60d8da476f81578d497c6e8cce031ce08f4bfe12fa73b70a",
+    "reason": "구현자·브라우저 QA 실행자와 분리된 Sol xhigh 재검토자가 명세·코드·브라우저 증거·전체 회귀를 독립 검증해 FINAL_VERDICT: PASS를 기록했습니다."
+  }
+}

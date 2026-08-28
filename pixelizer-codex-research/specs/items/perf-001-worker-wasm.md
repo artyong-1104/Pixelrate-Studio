@@ -5,8 +5,8 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | DONE |
+| QA 상태 | 완료 — 기준선·Worker 수용·취소·실패·모바일·전체 회귀 통과 |
 | 우선순위 | P3 |
 | 근거 분류 | ENGINEERING-INFERENCE |
 | 구현 모델 | Sol xhigh |
@@ -137,7 +137,12 @@ WASM PoC는 동일 QLT API와 byte-identical output, local pinned binary, source
 
 ## 16. 완료 증거
 
-baseline/worker 비교 report, performance trace, hash, cancel 영상, CSP 검사, WASM 결정 기록을 연결한다.
+- baseline/Worker 비교: [benchmark-report.json](../../evidence/perf-001/benchmark-report.json)
+- QLT fixture provenance·파생 PNG hash: [browser fixture manifest](../../evidence/perf-001/browser-fixtures/manifest.json)
+- performance trace: [Chrome Trace Event Format 34-event trace](../../evidence/perf-001/performance-trace.json)
+- main/Worker·앱·fixture·캡처 SHA-256와 브라우저 계측: [browser-qa.json](../../evidence/perf-001/browser-qa.json)
+- cancel 영상: [4M ready→map→cleanup→cancel 5초 MP4](../../evidence/perf-001/browser-cancel-4m.mp4), [5-frame contact sheet](../../evidence/perf-001/browser-cancel-4m-contact-sheet.jpg)
+- CSP·Worker 보안 검사와 WASM 미진입 판정: [검사·브라우저 QA 보고서](../../evidence/perf-001/README.md)
 
 ## 17. Luna/상위 모델 실행 지시문
 
@@ -150,3 +155,15 @@ baseline/worker 비교 report, performance trace, hash, cancel 영상, CSP 검�
 - Worker 결과가 브라우저별로 byte-identical하지 않으면 최적화를 중단한다.
 - CSP·로컬 파일 배포에서 Worker를 안정적으로 로드할 수 없으면 inline Blob 우회를 만들지 않고 보안 검토를 요청한다.
 - WASM이 필요해지면 Sol max 검토와 별도 license/build 명세 없이는 진행하지 않는다.
+
+## 19. 완료 기록
+
+- 완료일: 2026-08-28 (KST)
+- 기준선: QLT-001 seed `20260814`, generator v1 `texture-checker`를 원점 반복 타일링한 256K·1M·4M RGBA 입력으로 `map` stage를 cold 1회·warm 5회 계측했다. 원본·파생 RGBA·PNG hash를 manifest와 gate가 재생성 대조하며, 1M main warm 5/5가 100ms를 넘어 Worker gate를 통과했다.
+- Worker 수용: 모든 fixture의 RGBA·palette·result JSON hash가 main-thread와 일치했다. 4M warm median은 `1621.943ms`→`529.432ms`, 최대 Worker chunk는 `5.703ms`였다.
+- 취소·상태: 4M click 취소는 앱 내부 계측 `12.6ms`, 부분 결과 0개였다. 취소 직후 새 `processId=2`로 재실행해 stale 결과가 적용되지 않음을 확인했다. Google Chrome에서는 production iframe의 native 취소 버튼을 `Space`로 활성화해 `1.8ms`, 결과 0, 버튼 상태 복구를 확인했다.
+- 영상·trace: 4M·cleanup 20회의 ready→map 0%→cleanup 0%→취소 전이를 5초 H.264 MP4로 기록했다. 256K·1M·4M 브라우저 stage 계측은 QLT provenance를 포함한 Chrome Trace Event Format 34개 event로 연결했다.
+- 브라우저: 256K·1M·4M 완료, 결과↔작업 로그 탭 이동 중 4M 지속, 390×844 모바일, Worker 503 실패 경로를 실제 localhost에서 검증했다. 일반 경로 console error/warning은 0개였다.
+- WASM: 대상 `map` 4M Worker warm median `529.432ms`, peak 추정 `37,748,800 bytes`로 2초·256MiB 진입 gate 모두 미달이다. production WASM은 추가하지 않았다.
+- 전체 회귀: 모든 `scripts/*-check.mjs`, `security-check.mjs`, `preserve-sheet-check.mjs`, `git diff --check`가 통과했다. PERF의 chunked 경로를 예전 synchronous 호출 문자열로만 검사하던 ALP-002·EDGE-001·PAL-002 정적 검사는 현재 실제 호출 경로를 검사하도록 갱신했다.
+- 증거: [검사·브라우저 QA 보고서](../../evidence/perf-001/README.md), [기준선·Worker 비교](../../evidence/perf-001/benchmark-report.json), [performance trace](../../evidence/perf-001/performance-trace.json), [cancel MP4](../../evidence/perf-001/browser-cancel-4m.mp4), [브라우저 QA·무결성](../../evidence/perf-001/browser-qa.json)

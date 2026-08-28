@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "itemId": "PERF-001",
+  "generatedAt": "2026-08-28T02:22:21.800Z",
+  "environment": {
+    "runtime": "v26.4.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "timing": "node perf_hooks; browser QA recorded separately"
+  },
+  "protocol": {
+    "coldRuns": 1,
+    "warmRuns": 5,
+    "stages": [
+      "decode",
+      "downscale",
+      "grid",
+      "palette",
+      "map",
+      "cleanup",
+      "outline",
+      "export"
+    ],
+    "selectedPureStage": "map",
+    "fixtureProvenance": {
+      "harness": "QLT-001",
+      "sourceFixtureId": "texture-checker",
+      "sourceWidth": 192,
+      "sourceHeight": 128,
+      "fixtureSeed": 20260814,
+      "generatorVersion": 1,
+      "sourceRgbaSha256": "6f78d9eb4191da5b41648b61b0d09b978c5e995aa0bc1799e4d0faa3e2c12c51",
+      "derivation": "repeat-tile from source origin (0,0); no resampling or color conversion"
+    }
+  },
+  "gate": {
+    "workerRequired": true,
+    "reason": "1M warm runs over 100ms: 5/5",
+    "threshold": "same 1M warm fixture exceeds 100ms in at least 3/5 runs"
+  },
+  "acceptance": {
+    "hashesMatch": true,
+    "mainThreadChunkBelow50ms": true,
+    "workerWallWithin20Percent": true,
+    "cancelUnder100ms": "covered-by scripts/perf001-check.mjs and browser QA",
+    "passed": true
+  },
+  "wasmDecision": {
+    "worker4MMedianMs": 529.432,
+    "worker4MPeakBytes": 37748800,
+    "gateTriggered": false,
+    "decision": "Do not adopt WASM; the JS Worker remains below both 4M gates."
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "256K",
+        "width": 512,
+        "height": 512,
+        "pixels": 262144,
+        "rgbaBytes": 1048576,
+        "rgbaSha256": "ba3a932122a60519cb624f71f04d40f81cbe37dc1c19d03af27d33e8fd876de4",
+        "sourceFixtureId": "texture-checker"
+      },
+      "algorithm": {
+        "palette": "fixed-16",
+        "mapping": "kmeans-srgb",
+        "dither": "off",
+        "alphaThreshold": 10
+      },
+      "baseline": {
+        "coldMs": 180.802,
+        "warmMs": [
+          178.938,
+          185.493,
+          187.349,
+          172.904,
+          172.87
+        ],
+        "medianMs": 178.938,
+        "p95Ms": 187.349,
+        "synchronousStageOver100msCount": 5,
+        "estimatedPeakBytes": 2359360
+      },
+      "worker": {
+        "coldMs": 101.339,
+        "warmMs": [
+          101.32,
+          115.076,
+          98.605,
+          99.422,
+          97.358
+        ],
+        "medianMs": 99.422,
+        "p95Ms": 115.076,
+        "wallTimeChangePercent": -44.438,
+        "maxChunkMs": 5.059,
+        "estimatedPeakBytes": 2359360
+      },
+      "equality": {
+        "allRunsMatch": true,
+        "hashes": {
+          "rgba": "d31d98b1bb15afefda99e0a8aa6110e2ca8a46ee1befc3d5a13d783500088b64",
+          "palette": "3df1d358e0e110933b6237f01ce9bf43172765b25336b0a762f400c1384889cc",
+          "resultJson": "a58584875ce029118b45915bc13ecc5b9b49b2585907c3859cdc4b3bd173ee69"
+        }
+      }
+    },
+    {
+      "fixture": {
+        "id": "1M",
+        "width": 1024,
+        "height": 1024,
+        "pixels": 1048576,
+        "rgbaBytes": 4194304,
+        "rgbaSha256": "2a0e6e682fd13c97441a58ab5f38f7e46f9a2d48a972b60ac4d711ed672d3495",
+        "sourceFixtureId": "texture-checker"
+      },
+      "algorithm": {
+        "palette": "fixed-16",
+        "mapping": "kmeans-srgb",
+        "dither": "off",
+        "alphaThreshold": 10
+      },
+      "baseline": {
+        "coldMs": 477.409,
+        "warmMs": [
+          485.305,
+          475.809,
+          468.344,
+          479.929,
+          483.368
+        ],
+        "medianMs": 479.929,
+        "p95Ms": 485.305,
+        "synchronousStageOver100msCount": 5,
+        "estimatedPeakBytes": 9437248
+      },
+      "worker": {
+        "coldMs": 186.922,
+        "warmMs": [
+          187.552,
+          188.516,
+          194.719,
+          186.388,
+          192.998
+        ],
+        "medianMs": 188.516,
+        "p95Ms": 194.719,
+        "wallTimeChangePercent": -60.72,
+        "maxChunkMs": 6.24,
+        "estimatedPeakBytes": 9437248
+      },
+      "equality": {
+        "allRunsMatch": true,
+        "hashes": {
+          "rgba": "edfc53d235f36647733399bd88e5da1e67360bbaa2714f3bce008ba754228c27",
+          "palette": "3df1d358e0e110933b6237f01ce9bf43172765b25336b0a762f400c1384889cc",
+          "resultJson": "0c6ccec8473f8fda776a33f4ebc0fbd9fd3714ef9e98506df8dbdbfa8e482b6a"
+        }
+      }
+    },
+    {
+      "fixture": {
+        "id": "4M",
+        "width": 2048,
+        "height": 2048,
+        "pixels": 4194304,
+        "rgbaBytes": 16777216,
+        "rgbaSha256": "04bcb61b83b79d9e455f2f1aa09414b69c05eea65e858f55ccbc8a4c9af4ad20",
+        "sourceFixtureId": "texture-checker"
+      },
+      "algorithm": {
+        "palette": "fixed-16",
+        "mapping": "kmeans-srgb",
+        "dither": "off",
+        "alphaThreshold": 10
+      },
+      "baseline": {
+        "coldMs": 1653.793,
+        "warmMs": [
+          1621.943,
+          1638.823,
+          1626.616,
+          1619.561,
+          1600.107
+        ],
+        "medianMs": 1621.943,
+        "p95Ms": 1638.823,
+        "synchronousStageOver100msCount": 5,
+        "estimatedPeakBytes": 37748800
+      },
+      "worker": {
+        "coldMs": 541.912,
+        "warmMs": [
+          529.432,
+          555.478,
+          596.93,
+          509.857,
+          511.288
+        ],
+        "medianMs": 529.432,
+        "p95Ms": 596.93,
+        "wallTimeChangePercent": -67.358,
+        "maxChunkMs": 5.703,
+        "estimatedPeakBytes": 37748800
+      },
+      "equality": {
+        "allRunsMatch": true,
+        "hashes": {
+          "rgba": "b144bd9c6961aaf355638f059a90d540b90157cb81600daabc0211f9885136cf",
+          "palette": "3df1d358e0e110933b6237f01ce9bf43172765b25336b0a762f400c1384889cc",
+          "resultJson": "414938c5827ede016a760ed2449cd525c4cd43c3a156c5179a7cd635590f8971"
+        }
+      }
+    }
+  ]
+}

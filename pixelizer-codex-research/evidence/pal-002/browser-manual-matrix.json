@@ -976,19 +976,19 @@
               "src": "browser-manual-assets/animation-8-oklab-01.png"
             },
             {
-              "sha256": "fe04e79bbaf8b4febec828fe7e56378a786c952d7815c201c6d0586750882dbc",
+              "sha256": "7001b876ec7d6f30741325553f43a539cbbc32c939d1bea84b5d464a502f72f8",
               "src": "browser-manual-assets/animation-8-oklab-02.png"
             },
             {
-              "sha256": "1458ec9c0862238beeb2db032f0b7f4e93055c1e3e6cb4252a4fb845ac275a53",
+              "sha256": "45c47bde72a9f71201f317f3996c72a02f354b65724a999a9808fc8f8c5eac4d",
               "src": "browser-manual-assets/animation-8-oklab-03.png"
             },
             {
-              "sha256": "f600210bb6c24fd951510a9e9ea0eb87f3dfb89c8e0120c84efb4faf462e43a3",
+              "sha256": "fdc4add8cb30bbda175c4ff65fc97de41889764d2145a63144122022604f1a2a",
               "src": "browser-manual-assets/animation-8-oklab-04.png"
             },
             {
-              "sha256": "b340ea9fdae488526e9e78764849ea93c6879c4aa9f2c2f71cddcbf47420fe35",
+              "sha256": "af0685de243bc2d1690d2c511d33b62097c80e33472d75caf4a5fca5c842ebd7",
               "src": "browser-manual-assets/animation-8-oklab-05.png"
             },
             {
@@ -1016,7 +1016,7 @@
               "src": "browser-manual-assets/animation-8-oklab-11.png"
             },
             {
-              "sha256": "fc191e2bd770a03d1227ead187b89b59ff151651f87ec26419def0834287666a",
+              "sha256": "fff4c1622f964f6cc8d3b77da689f3897f8f45f8b315da82d52d5a39af052d36",
               "src": "browser-manual-assets/animation-8-oklab-12.png"
             },
             {
@@ -1035,7 +1035,7 @@
           "height": 64,
           "id": "oklab",
           "label": "OKLab K-means / pixel",
-          "meanError": 0.01092,
+          "meanError": 0.013483,
           "paletteSize": 8,
           "sampleCount": 1312,
           "width": 64
@@ -1211,35 +1211,35 @@
               "src": "browser-manual-assets/animation-16-oklab-01.png"
             },
             {
-              "sha256": "fe04e79bbaf8b4febec828fe7e56378a786c952d7815c201c6d0586750882dbc",
+              "sha256": "7001b876ec7d6f30741325553f43a539cbbc32c939d1bea84b5d464a502f72f8",
               "src": "browser-manual-assets/animation-16-oklab-02.png"
             },
             {
-              "sha256": "1458ec9c0862238beeb2db032f0b7f4e93055c1e3e6cb4252a4fb845ac275a53",
+              "sha256": "45c47bde72a9f71201f317f3996c72a02f354b65724a999a9808fc8f8c5eac4d",
               "src": "browser-manual-assets/animation-16-oklab-03.png"
             },
             {
-              "sha256": "f600210bb6c24fd951510a9e9ea0eb87f3dfb89c8e0120c84efb4faf462e43a3",
+              "sha256": "fdc4add8cb30bbda175c4ff65fc97de41889764d2145a63144122022604f1a2a",
               "src": "browser-manual-assets/animation-16-oklab-04.png"
             },
             {
-              "sha256": "b340ea9fdae488526e9e78764849ea93c6879c4aa9f2c2f71cddcbf47420fe35",
+              "sha256": "db3d9ad7afaab1729783806c6f24d14fef007a83987cf639e0d834d2d8e6f57a",
               "src": "browser-manual-assets/animation-16-oklab-05.png"
             },
             {
-              "sha256": "f440092e214f6c94c4b82b34d9241ce00594bc7b3305b2d00056c940c51a255e",
+              "sha256": "871343e9eb6d11c5d7bf59233aa8f3a7711e31d4cd99c4c86141c54792bb9988",
               "src": "browser-manual-assets/animation-16-oklab-06.png"
             },
             {
-              "sha256": "97e4fdad57b0f09fffbf028a7d7334c8694c827d6b8574a3a5ba6f59d093f52a",
+              "sha256": "f6e49a3a109c8bfd142f59419ff8b5892bd9b8f9451c1d0d746e4b58c23455cf",
               "src": "browser-manual-assets/animation-16-oklab-07.png"
             },
             {
-              "sha256": "b5dc1eb4b555d75061ef66353498b460abce790d811c6ae414ba29594cbe7e34",
+              "sha256": "e819ec169c10319cf4428bdf49a57d9881caa8b9f148bd1795f46af184c0f7ff",
               "src": "browser-manual-assets/animation-16-oklab-08.png"
             },
             {
-              "sha256": "b8af7132050b31f1e2161e5c5e460ac7795a26934e9395ef3b6c9d8498cbba85",
+              "sha256": "d6399eaff37ca24c0fa2875db8bd32619143ea6d11c23579b4f670f25c7cb5ef",
               "src": "browser-manual-assets/animation-16-oklab-09.png"
             },
             {
@@ -1247,30 +1247,30 @@
               "src": "browser-manual-assets/animation-16-oklab-10.png"
             },
             {
-              "sha256": "6237b79d0fc9be57a6bfafe4180bd4fad571b95384a04126a84b76400662f115",
+              "sha256": "75fea156e22c250a12596f1737911151b061651f7149af349024e7d24ba92f56",
               "src": "browser-manual-assets/animation-16-oklab-11.png"
             },
             {
-              "sha256": "a2e49ad00e59d5bc6a07ca2c2e3a59040dd67aff9c8d4a376a51236a0fb82b03",
+              "sha256": "d085f76481dda996d3fc785ec391a156cb12a40263e28b4e5e716e53adba807c",
               "src": "browser-manual-assets/animation-16-oklab-12.png"
             },
             {
-              "sha256": "3ccc10337c618b558bd85f9a3c99c7cb1eb9517936b19e7967b77d498715d1da",
+              "sha256": "e550bd9baf7a39745aa709adbe88db0745a273fa1adfffb2419501bc0af1780a",
               "src": "browser-manual-assets/animation-16-oklab-13.png"
             },
             {
-              "sha256": "4a0a5e0859171d464d4fc7dbf59e9887a4c79e27c2253a87ed5a9f4a027f2660",
+              "sha256": "2395962ba389f5c6fbb928f8d5d2ecfd02ddf1d9579bf2599bbea4b875600e1d",
               "src": "browser-manual-assets/animation-16-oklab-14.png"
             },
             {
-              "sha256": "84c6605148c84d62572212e562eb81d0c01e717d1763739b904c11d153ba4a40",
+              "sha256": "88641f8d72d836d81de973ab365a6572440a80b6af94bcd95f68ba5c5c813f0a",
               "src": "browser-manual-assets/animation-16-oklab-15.png"
             }
           ],
           "height": 64,
           "id": "oklab",
           "label": "OKLab K-means / pixel",
-          "meanError": 0.002243,
+          "meanError": 0.00758,
           "paletteSize": 16,
           "sampleCount": 1312,
           "width": 64
@@ -1446,35 +1446,35 @@
               "src": "browser-manual-assets/animation-32-oklab-01.png"
             },
             {
-              "sha256": "fe04e79bbaf8b4febec828fe7e56378a786c952d7815c201c6d0586750882dbc",
+              "sha256": "7001b876ec7d6f30741325553f43a539cbbc32c939d1bea84b5d464a502f72f8",
               "src": "browser-manual-assets/animation-32-oklab-02.png"
             },
             {
-              "sha256": "1458ec9c0862238beeb2db032f0b7f4e93055c1e3e6cb4252a4fb845ac275a53",
+              "sha256": "45c47bde72a9f71201f317f3996c72a02f354b65724a999a9808fc8f8c5eac4d",
               "src": "browser-manual-assets/animation-32-oklab-03.png"
             },
             {
-              "sha256": "f600210bb6c24fd951510a9e9ea0eb87f3dfb89c8e0120c84efb4faf462e43a3",
+              "sha256": "fdc4add8cb30bbda175c4ff65fc97de41889764d2145a63144122022604f1a2a",
               "src": "browser-manual-assets/animation-32-oklab-04.png"
             },
             {
-              "sha256": "b340ea9fdae488526e9e78764849ea93c6879c4aa9f2c2f71cddcbf47420fe35",
+              "sha256": "db3d9ad7afaab1729783806c6f24d14fef007a83987cf639e0d834d2d8e6f57a",
               "src": "browser-manual-assets/animation-32-oklab-05.png"
             },
             {
-              "sha256": "f440092e214f6c94c4b82b34d9241ce00594bc7b3305b2d00056c940c51a255e",
+              "sha256": "871343e9eb6d11c5d7bf59233aa8f3a7711e31d4cd99c4c86141c54792bb9988",
               "src": "browser-manual-assets/animation-32-oklab-06.png"
             },
             {
-              "sha256": "97e4fdad57b0f09fffbf028a7d7334c8694c827d6b8574a3a5ba6f59d093f52a",
+              "sha256": "f6e49a3a109c8bfd142f59419ff8b5892bd9b8f9451c1d0d746e4b58c23455cf",
               "src": "browser-manual-assets/animation-32-oklab-07.png"
             },
             {
-              "sha256": "b5dc1eb4b555d75061ef66353498b460abce790d811c6ae414ba29594cbe7e34",
+              "sha256": "e819ec169c10319cf4428bdf49a57d9881caa8b9f148bd1795f46af184c0f7ff",
               "src": "browser-manual-assets/animation-32-oklab-08.png"
             },
             {
-              "sha256": "b8af7132050b31f1e2161e5c5e460ac7795a26934e9395ef3b6c9d8498cbba85",
+              "sha256": "d6399eaff37ca24c0fa2875db8bd32619143ea6d11c23579b4f670f25c7cb5ef",
               "src": "browser-manual-assets/animation-32-oklab-09.png"
             },
             {
@@ -1482,30 +1482,30 @@
               "src": "browser-manual-assets/animation-32-oklab-10.png"
             },
             {
-              "sha256": "6237b79d0fc9be57a6bfafe4180bd4fad571b95384a04126a84b76400662f115",
+              "sha256": "75fea156e22c250a12596f1737911151b061651f7149af349024e7d24ba92f56",
               "src": "browser-manual-assets/animation-32-oklab-11.png"
             },
             {
-              "sha256": "a2e49ad00e59d5bc6a07ca2c2e3a59040dd67aff9c8d4a376a51236a0fb82b03",
+              "sha256": "d085f76481dda996d3fc785ec391a156cb12a40263e28b4e5e716e53adba807c",
               "src": "browser-manual-assets/animation-32-oklab-12.png"
             },
             {
-              "sha256": "0183ba3ff811a17b17b78c60a3cf0af9bb03970de836b3596b9ec27690f0124e",
+              "sha256": "e550bd9baf7a39745aa709adbe88db0745a273fa1adfffb2419501bc0af1780a",
               "src": "browser-manual-assets/animation-32-oklab-13.png"
             },
             {
-              "sha256": "39cbb58332b5ca596356f827485f9ff16ad8133666585f7ddf8c9721b92ca374",
+              "sha256": "2395962ba389f5c6fbb928f8d5d2ecfd02ddf1d9579bf2599bbea4b875600e1d",
               "src": "browser-manual-assets/animation-32-oklab-14.png"
             },
             {
-              "sha256": "e021e8d2d6ebfab40e25c9635148447c8e110f9d94422bacaccc69c0c0743241",
+              "sha256": "7d3dfb8cc1c0a7595fd61e43816aaab56549f4375ac2245d54d0978767758a76",
               "src": "browser-manual-assets/animation-32-oklab-15.png"
             }
           ],
           "height": 64,
           "id": "oklab",
           "label": "OKLab K-means / pixel",
-          "meanError": 0.001045,
+          "meanError": 0.00653,
           "paletteSize": 18,
           "sampleCount": 1312,
           "width": 64
@@ -1681,35 +1681,35 @@
               "src": "browser-manual-assets/animation-64-oklab-01.png"
             },
             {
-              "sha256": "fe04e79bbaf8b4febec828fe7e56378a786c952d7815c201c6d0586750882dbc",
+              "sha256": "7001b876ec7d6f30741325553f43a539cbbc32c939d1bea84b5d464a502f72f8",
               "src": "browser-manual-assets/animation-64-oklab-02.png"
             },
             {
-              "sha256": "1458ec9c0862238beeb2db032f0b7f4e93055c1e3e6cb4252a4fb845ac275a53",
+              "sha256": "45c47bde72a9f71201f317f3996c72a02f354b65724a999a9808fc8f8c5eac4d",
               "src": "browser-manual-assets/animation-64-oklab-03.png"
             },
             {
-              "sha256": "f600210bb6c24fd951510a9e9ea0eb87f3dfb89c8e0120c84efb4faf462e43a3",
+              "sha256": "fdc4add8cb30bbda175c4ff65fc97de41889764d2145a63144122022604f1a2a",
               "src": "browser-manual-assets/animation-64-oklab-04.png"
             },
             {
-              "sha256": "b340ea9fdae488526e9e78764849ea93c6879c4aa9f2c2f71cddcbf47420fe35",
+              "sha256": "db3d9ad7afaab1729783806c6f24d14fef007a83987cf639e0d834d2d8e6f57a",
               "src": "browser-manual-assets/animation-64-oklab-05.png"
             },
             {
-              "sha256": "f440092e214f6c94c4b82b34d9241ce00594bc7b3305b2d00056c940c51a255e",
+              "sha256": "871343e9eb6d11c5d7bf59233aa8f3a7711e31d4cd99c4c86141c54792bb9988",
               "src": "browser-manual-assets/animation-64-oklab-06.png"
             },
             {
-              "sha256": "97e4fdad57b0f09fffbf028a7d7334c8694c827d6b8574a3a5ba6f59d093f52a",
+              "sha256": "f6e49a3a109c8bfd142f59419ff8b5892bd9b8f9451c1d0d746e4b58c23455cf",
               "src": "browser-manual-assets/animation-64-oklab-07.png"
             },
             {
-              "sha256": "b5dc1eb4b555d75061ef66353498b460abce790d811c6ae414ba29594cbe7e34",
+              "sha256": "e819ec169c10319cf4428bdf49a57d9881caa8b9f148bd1795f46af184c0f7ff",
               "src": "browser-manual-assets/animation-64-oklab-08.png"
             },
             {
-              "sha256": "b8af7132050b31f1e2161e5c5e460ac7795a26934e9395ef3b6c9d8498cbba85",
+              "sha256": "d6399eaff37ca24c0fa2875db8bd32619143ea6d11c23579b4f670f25c7cb5ef",
               "src": "browser-manual-assets/animation-64-oklab-09.png"
             },
             {
@@ -1717,19 +1717,19 @@
               "src": "browser-manual-assets/animation-64-oklab-10.png"
             },
             {
-              "sha256": "6237b79d0fc9be57a6bfafe4180bd4fad571b95384a04126a84b76400662f115",
+              "sha256": "75fea156e22c250a12596f1737911151b061651f7149af349024e7d24ba92f56",
               "src": "browser-manual-assets/animation-64-oklab-11.png"
             },
             {
-              "sha256": "a2e49ad00e59d5bc6a07ca2c2e3a59040dd67aff9c8d4a376a51236a0fb82b03",
+              "sha256": "d085f76481dda996d3fc785ec391a156cb12a40263e28b4e5e716e53adba807c",
               "src": "browser-manual-assets/animation-64-oklab-12.png"
             },
             {
-              "sha256": "0183ba3ff811a17b17b78c60a3cf0af9bb03970de836b3596b9ec27690f0124e",
+              "sha256": "e550bd9baf7a39745aa709adbe88db0745a273fa1adfffb2419501bc0af1780a",
               "src": "browser-manual-assets/animation-64-oklab-13.png"
             },
             {
-              "sha256": "39cbb58332b5ca596356f827485f9ff16ad8133666585f7ddf8c9721b92ca374",
+              "sha256": "2395962ba389f5c6fbb928f8d5d2ecfd02ddf1d9579bf2599bbea4b875600e1d",
               "src": "browser-manual-assets/animation-64-oklab-14.png"
             },
             {
@@ -1740,7 +1740,7 @@
           "height": 64,
           "id": "oklab",
           "label": "OKLab K-means / pixel",
-          "meanError": 0.000802,
+          "meanError": 0.006394,
           "paletteSize": 18,
           "sampleCount": 1312,
           "width": 64
@@ -1839,6 +1839,6 @@
   "fixtureSeed": 20260814,
   "generatorVersion": 1,
   "implementationId": "PAL-002",
-  "oklabTemporalEpsilon": 0.00025
+  "oklabTemporalEpsilon": 0.005
 }
 

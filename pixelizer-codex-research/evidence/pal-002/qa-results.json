@@ -1,13 +1,13 @@
 {
   "implementationId": "PAL-002",
   "status": "PASS",
-  "performedAt": "2026-08-25T04:00:00Z",
-  "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-temporal-original-20260825",
+  "performedAt": "2026-08-25T14:53:26Z",
+  "target": "http://localhost:8000/pixelate_studio.html?qa=pal002-final-20260825",
   "browser": "Codex in-app browser",
-  "applicationScriptSha256": "e894f4191815936d25db368dd73e53a1078de8ee61c094a35e505516c56f5921",
+  "applicationScriptSha256": "d78b1aae6b296215659b3085ddaf966d0b7941e0593be891bd726c44e3ffcb6c",
   "revalidation": {
-    "performedAt": "2026-08-24T17:14:24Z",
-    "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-final-20260825",
+    "performedAt": "2026-08-25T14:53:26Z",
+    "target": "http://localhost:8000/pixelate_studio.html?qa=pal002-revalidation-20260825",
     "defaultState": {
       "experimentalCheckboxChecked": false,
       "experimentalControlsHidden": true,
@@ -20,30 +20,30 @@
       "experimentalControlsVisible": true,
       "algorithmEnabled": true,
       "samplingEnabled": true,
-      "status": "실험 기능입니다. 기본 팔레트와 preset은 변경되지 않습니다.",
+      "status": "실험 기능입니다. 기본 팔레트는 유지되며 검증된 OKLab 16색 애니메이션 조합만 별도 프리셋으로 제공됩니다.",
       "pass": true
     },
     "referenceWithoutFile": {
       "algorithm": "kmeans-oklab",
       "sampling": "reference",
-      "message": "참조 이미지를 선택하세요.",
+      "message": "참조 이미지를 선택하세요.",
       "executionBlocked": true,
       "pass": true
     },
     "modeCompatibility": {
       "customControlsDisabled": true,
       "unlimitedControlsDisabled": true,
-      "status": "직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.",
+      "status": "직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.",
       "pass": true
     },
     "consoleErrors": [],
     "pass": true
   },
   "actualSizeMatrix": {
-    "performedAt": "2026-08-25T04:00:00Z",
-    "target": "http://localhost:8765/pixelizer-codex-research/evidence/pal-002/browser-manual-matrix.html?group=animation&compact=1",
+    "performedAt": "2026-08-25T14:53:26Z",
+    "target": "http://localhost:8000/pixelizer-codex-research/evidence/pal-002/browser-manual-matrix.html?qa=pal002-final-20260825",
     "manifest": "browser-manual-matrix.json",
-    "manifestSha256": "042c3a0bf79ff7ea128e46a5f53f3daf5fb75e769378837649188324d16acf1b",
+    "manifestSha256": "f7d677c1c45941f1d237d345a9c40a6321e1fa0aa341d22439641c16f15891be",
     "actualSizeScale": 1,
     "cellCount": 20,
     "groups": [
@@ -111,8 +111,8 @@
       "browser-manual-gradient-median.jpg": "e09a80a18c2bc1697f905b5ebb6aebb5bfff491a0010c41807700366388af8e0",
       "browser-manual-photo.jpg": "a0c8d69f34322991c220d9d3932057aaa484815e93cc43266193dab22ba49e31",
       "browser-manual-large-small.jpg": "4e13587432f18ee9784495c81a66f6c2967f16928522bfec6436e12d12b4be0e",
-      "browser-manual-animation-stable.jpg": "f49964f2055d444a9fd161517071f4aea73b931f401640da1ff2fbae0f64f730",
-      "browser-manual-animation-stable-next.jpg": "b358b5b4b9330f9bc196a097160b22d42ef01dc5cfd58f456f409910417a7f53"
+      "browser-manual-animation-stable.jpg": "699b42f0c085a85bf6fc5e609c9a48c096ba32867c2f39e6ecdaa7b2a8d45803",
+      "browser-manual-animation-stable-next.jpg": "077f7cadc3efd65174f815e4bcae461d92eaa31de1297faf02691c852f7c79b1"
     },
     "consoleErrors": [],
     "pass": true
@@ -150,8 +150,8 @@
     "pass": true
   },
   "temporalStableProduct": {
-    "performedAt": "2026-08-25T04:00:00Z",
-    "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-temporal-original-20260825",
+    "performedAt": "2026-08-25T14:53:26Z",
+    "target": "http://localhost:8000/pixelate_studio.html?qa=pal002-final-20260825",
     "preset": "oklab-animation-stable",
     "algorithm": "kmeans-oklab",
     "sampling": "pixel",
@@ -159,9 +159,13 @@
     "shared": true,
     "processedImages": 16,
     "temporalMetadataVisibleFrames": 15,
-    "heldPixelFrames": 5,
-    "totalHeldPixels": 180,
-    "temporalEpsilon": 0.00025,
+    "heldPixelFrames": 13,
+    "totalHeldPixels": 468,
+    "temporalEpsilon": 0.005,
+    "baselineTemporalVariance": 0.273684,
+    "candidateTemporalVariance": 0.298947,
+    "temporalChangePercent": 9.230719,
+    "temporalRegressionPass": true,
     "consoleErrors": [],
     "pass": true
   },
@@ -259,7 +263,7 @@
   },
   "mobile": {
     "viewport": [390, 844],
-    "capturedPixels": [382, 827],
+    "capturedPixels": [382, 9110],
     "documentScrollWidth": 382,
     "horizontalOverflow": false,
     "algorithm": "kmeans-oklab",
@@ -285,8 +289,8 @@
     "browser-algorithm-ab.jpg": "2fdfdaa3e918da37612c9cffe9021367a20f142eaf2e7205172241e2921b624e",
     "browser-reference-error.jpg": "f3266da6cde9638318e22924ff4ec8ebf4178662a6c87434a1f395974a3ecb5e",
     "browser-mobile.jpg": "586deccaa539ea14bf840b44c762e2435570b6af295f99a775ed74ca1e728b65",
-    "browser-oklab-stable-product.jpg": "1bd108f80bd0dd21e753e2674f35418d2fc074419c2ae9d219119719aea609ff",
-    "browser-oklab-stable-mobile.jpg": "676a668a406d8091e969f8d4feae056cf63c30fc7e8d305d4d49d0f65bc3b1bf",
+    "browser-oklab-stable-product.jpg": "fe9fdf629474ac6c3c743e969b3eb9bf1d66feaa85633e578d121717cfeaa3a9",
+    "browser-oklab-stable-mobile.jpg": "c6dc72b1f09cbc616bd651b763d8fd4937777bc5d819507670797d643cee3f46",
     "browser-blind-baseline.jpg": "95c911639b82eebecb9ea291517c17c1ed48ad99fdea37b51f4930fc3dc03c04",
     "browser-blind-oklab.jpg": "f39febc7cb31817e75f1d1fe8610a56de7a7d92cd08faee4edfc0ac20967d3ca",
     "browser-blind-a.jpg": "ee10121a34f436e56a897a723397250d1e899a8a35a2f7c3bc8913bbb225e19c",
@@ -294,9 +298,9 @@
   },
   "requiredReview": {
     "model": "Sol xhigh",
-    "result": "FAIL",
-    "reviewedAt": "2026-08-25",
-    "report": "sol-xhigh-independent-rereview-2026-08-25.md",
-    "reportSha256": "c74bac3027ce9804b487f8dc1e02e489faa06d79757566209c18451c8c9cc6da"
+    "result": "PASS",
+    "reviewedAt": "2026-08-26",
+    "report": "sol-xhigh-final-rereview-2026-08-26.md",
+    "reportSha256": "65c849ffc00d546d277f3e39c893cc3b720125b1e3d68ba53823a79c650c17be"
   }
 }

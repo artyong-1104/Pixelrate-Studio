@@ -7,6 +7,7 @@ const html = readFileSync(resolve(root, 'pixelate_studio.html'), 'utf8');
 const securityGuide = readFileSync(resolve(root, 'SECURITY.md'), 'utf8');
 const vercelConfig = JSON.parse(readFileSync(resolve(root, 'vercel.json'), 'utf8'));
 const jszip = readFileSync(resolve(root, 'vendor/jszip.min.js'));
+const pixelateWorker = readFileSync(resolve(root, 'pixelate-worker.js'), 'utf8');
 const failures = [];
 
 function check(condition, message) {
@@ -20,6 +21,7 @@ const csp = html.match(
 check(csp.includes("default-src 'none'"), "CSP must start from default-src 'none'");
 check(csp.includes("script-src 'self'"), "CSP must restrict scripts to this project");
 check(csp.includes("connect-src 'none'"), "CSP must block runtime network connections");
+check(csp.includes("worker-src 'self'"), "CSP must allow only the same-origin PERF-001 worker");
 check(csp.includes("object-src 'none'"), "CSP must block plugin objects");
 check(csp.includes("base-uri 'none'"), "CSP must block base URL injection");
 check(csp.includes("form-action 'none'"), "CSP must block form submission");
@@ -88,6 +90,16 @@ check(
   !/\bfetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon\s*\(/.test(html),
   'Unexpected runtime network API found',
 );
+check(!/https?:\/\//i.test(pixelateWorker), 'Worker must not reference remote HTTP resources');
+check(
+  !/\b(?:importScripts|fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon)\s*\(/.test(pixelateWorker),
+  'Worker must not import remote code or use runtime network APIs',
+);
+try {
+  new Function(pixelateWorker);
+} catch (error) {
+  failures.push(`Worker JavaScript syntax error: ${error.message}`);
+}
 check(!/accept=["']image\/\*["']/i.test(html), 'File input must use an explicit raster image allowlist');
 check(/const MAX_FILE_COUNT = \d+;/.test(html), 'File count limit is required');
 check(/const MAX_FILE_BYTES = \d+ \* 1024 \* 1024;/.test(html), 'Per-file byte limit is required');
@@ -112,5 +124,5 @@ if (failures.length) {
   failures.forEach(failure => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
-  console.log('Security checks passed (CSP, integrity, unsafe sinks, network APIs, input limits, storage opt-in).');
+  console.log('Security checks passed (CSP, local Worker, integrity, unsafe sinks, network APIs, input limits, storage opt-in).');
 }

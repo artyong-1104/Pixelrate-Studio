@@ -1,7 +1,7 @@
 {
   "implementationId": "PAL-002",
-  "status": "IN_PROGRESS",
-  "generatedAt": "2026-08-25T04:54:08.760Z",
+  "status": "DONE",
+  "generatedAt": "2026-08-25T15:02:30.055Z",
   "baseline": {
     "algorithm": "kmeans-srgb",
     "sampling": "pixel",
@@ -20,10 +20,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 1.349916,
-      "generationRuntimeMs": 76.658917,
-      "runtimeMs": 78.008833,
-      "heapDeltaBytes": 4012968,
+      "samplingRuntimeMs": 1.564333,
+      "generationRuntimeMs": 77.415959,
+      "runtimeMs": 78.980292,
+      "heapDeltaBytes": 1414720,
       "paletteSha256": "8b41ed33a472f7af19086482ff7af370e81a94176993ac28d5d0a2b99653c2dd",
       "deterministic": true,
       "error": {
@@ -55,10 +55,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.494959,
-      "generationRuntimeMs": 92.01825,
-      "runtimeMs": 92.513209,
-      "heapDeltaBytes": 381224,
+      "samplingRuntimeMs": 0.229417,
+      "generationRuntimeMs": 85.055541,
+      "runtimeMs": 85.284958,
+      "heapDeltaBytes": 7944744,
       "paletteSha256": "4f65019650188f4fe3a6174f02413ba5264cc3f4252a8c4dd3f5bdbdf4870596",
       "deterministic": true,
       "error": {
@@ -90,10 +90,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.955375,
-      "generationRuntimeMs": 76.954458,
-      "runtimeMs": 77.909833,
-      "heapDeltaBytes": 2193728,
+      "samplingRuntimeMs": 1.031209,
+      "generationRuntimeMs": 77.740916,
+      "runtimeMs": 78.772125,
+      "heapDeltaBytes": 4746344,
       "paletteSha256": "dd541bc26812b802c8d6ce185cf606944e574f91bc345ec9b8e2c2560401a85b",
       "deterministic": true,
       "error": {
@@ -125,10 +125,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 1.557333,
-      "generationRuntimeMs": 65.014875,
-      "runtimeMs": 66.572208,
-      "heapDeltaBytes": 2326944,
+      "samplingRuntimeMs": 1.682666,
+      "generationRuntimeMs": 64.224334,
+      "runtimeMs": 65.907,
+      "heapDeltaBytes": 429872,
       "paletteSha256": "cf85efdac13af64a8274126a129fa64b91e8d60ed193c4774f73972da41ac425",
       "deterministic": true,
       "error": {
@@ -160,10 +160,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 1.136834,
-      "generationRuntimeMs": 57.483375,
-      "runtimeMs": 58.620209,
-      "heapDeltaBytes": 658208,
+      "samplingRuntimeMs": 1.16375,
+      "generationRuntimeMs": 56.022916,
+      "runtimeMs": 57.186666,
+      "heapDeltaBytes": 3304080,
       "paletteSha256": "c0e20ac0e7f4041fe2471e31ce06dd930e086e057e0d9b674b1c8e20392a8975",
       "deterministic": true,
       "error": {
@@ -195,10 +195,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.403458,
-      "generationRuntimeMs": 137.046167,
-      "runtimeMs": 137.449625,
-      "heapDeltaBytes": -36274056,
+      "samplingRuntimeMs": 0.32025,
+      "generationRuntimeMs": 134.701416,
+      "runtimeMs": 135.021666,
+      "heapDeltaBytes": 12719856,
       "paletteSha256": "37bf481c76a4496d89042d62051f137a52af1aa048969576b8bf4c3486658bf5",
       "deterministic": true,
       "error": {
@@ -230,10 +230,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.349375,
-      "generationRuntimeMs": 84.947583,
-      "runtimeMs": 85.296958,
-      "heapDeltaBytes": 3725848,
+      "samplingRuntimeMs": 0.2995,
+      "generationRuntimeMs": 85.915083,
+      "runtimeMs": 86.214583,
+      "heapDeltaBytes": 3771088,
       "paletteSha256": "2be288a14a8a02aa1770765180539e957865963933f1f12a34689ac59749d67f",
       "deterministic": true,
       "error": {
@@ -265,10 +265,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.261875,
-      "generationRuntimeMs": 83.630917,
-      "runtimeMs": 83.892792,
-      "heapDeltaBytes": 2326536,
+      "samplingRuntimeMs": 0.407334,
+      "generationRuntimeMs": 64.475875,
+      "runtimeMs": 64.883209,
+      "heapDeltaBytes": 17313464,
       "paletteSha256": "5c334da7262666dc216b202d5b6b14ffa325cb67f498b53a5289489339f3457e",
       "deterministic": true,
       "error": {
@@ -300,10 +300,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.340625,
-      "generationRuntimeMs": 256.77125,
-      "runtimeMs": 257.111875,
-      "heapDeltaBytes": -19879912,
+      "samplingRuntimeMs": 0.349875,
+      "generationRuntimeMs": 257.805416,
+      "runtimeMs": 258.155291,
+      "heapDeltaBytes": -11510816,
       "paletteSha256": "33aa8a72677a4f722da8f0fdbb41b0d1774b3a0918d9bda47200ebe7ed58292f",
       "deterministic": true,
       "error": {
@@ -335,10 +335,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.362375,
-      "generationRuntimeMs": 93.620542,
-      "runtimeMs": 93.982917,
-      "heapDeltaBytes": 5242520,
+      "samplingRuntimeMs": 0.296916,
+      "generationRuntimeMs": 93.076792,
+      "runtimeMs": 93.373708,
+      "heapDeltaBytes": 5294496,
       "paletteSha256": "72768cdc1e0589d8149d82fff48e9c9eded1d76b0ff13e165f855892f61aba71",
       "deterministic": true,
       "error": {
@@ -370,10 +370,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.321625,
-      "generationRuntimeMs": 88.276583,
-      "runtimeMs": 88.598208,
-      "heapDeltaBytes": 15892752,
+      "samplingRuntimeMs": 0.249417,
+      "generationRuntimeMs": 91.552041,
+      "runtimeMs": 91.801458,
+      "heapDeltaBytes": -227352,
       "paletteSha256": "7e397ea6b9eb3fda8c0959f6b2e43cb2e6ece3a5f512e8c3630e032ec5c283be",
       "deterministic": true,
       "error": {
@@ -405,10 +405,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 16384,
-      "samplingRuntimeMs": 0.433959,
-      "generationRuntimeMs": 502.34425,
-      "runtimeMs": 502.778209,
-      "heapDeltaBytes": 21049752,
+      "samplingRuntimeMs": 0.197208,
+      "generationRuntimeMs": 504.552708,
+      "runtimeMs": 504.749916,
+      "heapDeltaBytes": 22731072,
       "paletteSha256": "d48f37bcd3d0e93a95da84103a70f12681a81d774cc3913ff0b3a8e3774be10c",
       "deterministic": true,
       "error": {
@@ -440,10 +440,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.105209,
-      "generationRuntimeMs": 6.210083,
-      "runtimeMs": 6.315292,
-      "heapDeltaBytes": 395304,
+      "samplingRuntimeMs": 0.082709,
+      "generationRuntimeMs": 6.101333,
+      "runtimeMs": 6.184042,
+      "heapDeltaBytes": 395296,
       "paletteSha256": "2b65bbc0a60937f29ffc110cb73fc5e696f04495162720bbdb0dd171d13e39df",
       "deterministic": true,
       "error": {
@@ -475,10 +475,10 @@
       "colorsRequested": 8,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.109959,
-      "generationRuntimeMs": 31.825083,
-      "runtimeMs": 31.935042,
-      "heapDeltaBytes": 19540232,
+      "samplingRuntimeMs": 0.099083,
+      "generationRuntimeMs": 10.1295,
+      "runtimeMs": 10.228583,
+      "heapDeltaBytes": 3050912,
       "paletteSha256": "7cd5d3243c6a190cace82836488826049968cf81b8ab8f42c3441823575221ae",
       "deterministic": true,
       "error": {
@@ -510,10 +510,10 @@
       "colorsRequested": 8,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.089083,
-      "generationRuntimeMs": 7.308417,
-      "runtimeMs": 7.3975,
-      "heapDeltaBytes": 1809480,
+      "samplingRuntimeMs": 0.061917,
+      "generationRuntimeMs": 7.185833,
+      "runtimeMs": 7.24775,
+      "heapDeltaBytes": 1972144,
       "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
       "deterministic": true,
       "error": {
@@ -545,9 +545,9 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.08275,
-      "generationRuntimeMs": 7.762417,
-      "runtimeMs": 7.845167,
+      "samplingRuntimeMs": 0.065042,
+      "generationRuntimeMs": 7.747333,
+      "runtimeMs": 7.812375,
       "heapDeltaBytes": 399976,
       "paletteSha256": "787126718962b4ff2440508d0b15f8868c69cf0250f4f0913c8658fe2f221c26",
       "deterministic": true,
@@ -580,10 +580,10 @@
       "colorsRequested": 16,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.128791,
-      "generationRuntimeMs": 10.933542,
-      "runtimeMs": 11.062333,
-      "heapDeltaBytes": 3710512,
+      "samplingRuntimeMs": 0.051167,
+      "generationRuntimeMs": 32.032917,
+      "runtimeMs": 32.084084,
+      "heapDeltaBytes": -16245696,
       "paletteSha256": "7cd5d3243c6a190cace82836488826049968cf81b8ab8f42c3441823575221ae",
       "deterministic": true,
       "error": {
@@ -615,10 +615,10 @@
       "colorsRequested": 16,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.093917,
-      "generationRuntimeMs": 7.407541,
-      "runtimeMs": 7.501458,
-      "heapDeltaBytes": 1814784,
+      "samplingRuntimeMs": 0.062208,
+      "generationRuntimeMs": 7.282375,
+      "runtimeMs": 7.344583,
+      "heapDeltaBytes": 1935376,
       "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
       "deterministic": true,
       "error": {
@@ -650,10 +650,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.070916,
-      "generationRuntimeMs": 10.9265,
-      "runtimeMs": 10.997416,
-      "heapDeltaBytes": 387200,
+      "samplingRuntimeMs": 0.054292,
+      "generationRuntimeMs": 10.845375,
+      "runtimeMs": 10.899667,
+      "heapDeltaBytes": 377416,
       "paletteSha256": "e1dbddbe9b53fe0375a88e45a0a24d6f19580ba4c9cb25feef0d157458d042f6",
       "deterministic": true,
       "error": {
@@ -685,10 +685,10 @@
       "colorsRequested": 32,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.1095,
-      "generationRuntimeMs": 12.188916,
-      "runtimeMs": 12.298416,
-      "heapDeltaBytes": 3609416,
+      "samplingRuntimeMs": 0.066625,
+      "generationRuntimeMs": 12.289084,
+      "runtimeMs": 12.355709,
+      "heapDeltaBytes": 3606528,
       "paletteSha256": "602e831a71b9b46bd5ece626a8db2f64df1a3eb9baa9c42eaaaf9efbfad47b62",
       "deterministic": true,
       "error": {
@@ -720,10 +720,10 @@
       "colorsRequested": 32,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.084459,
-      "generationRuntimeMs": 7.336083,
-      "runtimeMs": 7.420542,
-      "heapDeltaBytes": 1811664,
+      "samplingRuntimeMs": 0.061875,
+      "generationRuntimeMs": 7.217791,
+      "runtimeMs": 7.279666,
+      "heapDeltaBytes": 1948512,
       "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
       "deterministic": true,
       "error": {
@@ -755,10 +755,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.079542,
-      "generationRuntimeMs": 37.957208,
-      "runtimeMs": 38.03675,
-      "heapDeltaBytes": -13719088,
+      "samplingRuntimeMs": 0.067125,
+      "generationRuntimeMs": 38.073125,
+      "runtimeMs": 38.14025,
+      "heapDeltaBytes": -13652344,
       "paletteSha256": "7f223c5b7a52f2488ddd6344d10c74edd62d1849b18434b3060f7c6a54ccd9c7",
       "deterministic": true,
       "error": {
@@ -790,10 +790,10 @@
       "colorsRequested": 64,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.075334,
-      "generationRuntimeMs": 15.227625,
-      "runtimeMs": 15.302959,
-      "heapDeltaBytes": 3824512,
+      "samplingRuntimeMs": 0.064667,
+      "generationRuntimeMs": 15.135167,
+      "runtimeMs": 15.199834,
+      "heapDeltaBytes": 3843368,
       "paletteSha256": "602e831a71b9b46bd5ece626a8db2f64df1a3eb9baa9c42eaaaf9efbfad47b62",
       "deterministic": true,
       "error": {
@@ -825,10 +825,10 @@
       "colorsRequested": 64,
       "colorsReturned": 4,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.093375,
-      "generationRuntimeMs": 7.339667,
-      "runtimeMs": 7.433042,
-      "heapDeltaBytes": 1816040,
+      "samplingRuntimeMs": 0.062083,
+      "generationRuntimeMs": 7.318042,
+      "runtimeMs": 7.380125,
+      "heapDeltaBytes": 1968904,
       "paletteSha256": "4f051d0b7c57fe506927a741a2e7fd00990efd3380c5876ec58937b54778f6fb",
       "deterministic": true,
       "error": {
@@ -860,10 +860,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.962875,
-      "generationRuntimeMs": 119.653875,
-      "runtimeMs": 120.61675,
-      "heapDeltaBytes": 12304920,
+      "samplingRuntimeMs": 0.721125,
+      "generationRuntimeMs": 118.69,
+      "runtimeMs": 119.411125,
+      "heapDeltaBytes": 12256600,
       "paletteSha256": "cc36355b936a5de92ac26d1c2ad63b00123fc005e1c5d13c05332267d2dc8ac0",
       "deterministic": true,
       "error": {
@@ -895,10 +895,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 1.122875,
-      "generationRuntimeMs": 181.732958,
-      "runtimeMs": 182.855833,
-      "heapDeltaBytes": -45802760,
+      "samplingRuntimeMs": 1.086,
+      "generationRuntimeMs": 185.274792,
+      "runtimeMs": 186.360792,
+      "heapDeltaBytes": 42653664,
       "paletteSha256": "3e6e8669ef511222c5619f6b2f3532c1f51a30a34678b2e2f63e59cefd8fbc1f",
       "deterministic": true,
       "error": {
@@ -930,10 +930,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.701667,
-      "generationRuntimeMs": 257.726125,
-      "runtimeMs": 258.427792,
-      "heapDeltaBytes": 11357312,
+      "samplingRuntimeMs": 0.565,
+      "generationRuntimeMs": 258.364084,
+      "runtimeMs": 258.929084,
+      "heapDeltaBytes": 43828584,
       "paletteSha256": "8b10cb5d26ac18211095e14da85c652f2c5476cdc8ac186a7370a37d869e943f",
       "deterministic": true,
       "error": {
@@ -965,10 +965,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 1.041333,
-      "generationRuntimeMs": 133.37925,
-      "runtimeMs": 134.420583,
-      "heapDeltaBytes": -5786880,
+      "samplingRuntimeMs": 0.562792,
+      "generationRuntimeMs": 131.858375,
+      "runtimeMs": 132.421167,
+      "heapDeltaBytes": -7196160,
       "paletteSha256": "d1f0bf74601c9d41eadba5d53a3ef80ecd1975c9e1fafaf1e1dfaeb08d5eb441",
       "deterministic": true,
       "error": {
@@ -1000,10 +1000,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.911792,
-      "generationRuntimeMs": 189.422083,
-      "runtimeMs": 190.333875,
-      "heapDeltaBytes": 31198816,
+      "samplingRuntimeMs": 0.489459,
+      "generationRuntimeMs": 189.69075,
+      "runtimeMs": 190.180209,
+      "heapDeltaBytes": 31310192,
       "paletteSha256": "6f6f877716ba1e190e84c0aefbca8346d21a25c6316c5c53bb413db9fe57ead5",
       "deterministic": true,
       "error": {
@@ -1035,10 +1035,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.505375,
-      "generationRuntimeMs": 454.638834,
-      "runtimeMs": 455.144209,
-      "heapDeltaBytes": 49271600,
+      "samplingRuntimeMs": 0.504083,
+      "generationRuntimeMs": 449.517292,
+      "runtimeMs": 450.021375,
+      "heapDeltaBytes": 49037056,
       "paletteSha256": "07581a6d70ef205b89b2e13f1e131b0e1d271aa4ff829b786e56d2adf46ebf75",
       "deterministic": true,
       "error": {
@@ -1070,10 +1070,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.722375,
-      "generationRuntimeMs": 186.984416,
-      "runtimeMs": 187.706791,
-      "heapDeltaBytes": 14603048,
+      "samplingRuntimeMs": 0.494625,
+      "generationRuntimeMs": 186.7875,
+      "runtimeMs": 187.282125,
+      "heapDeltaBytes": 11593880,
       "paletteSha256": "2b96ba149534d753e0b76b8be31703c1f0bfb51bab2bc19e807e1a3cac2bb240",
       "deterministic": true,
       "error": {
@@ -1105,10 +1105,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.844875,
-      "generationRuntimeMs": 222.086291,
-      "runtimeMs": 222.931166,
-      "heapDeltaBytes": 2430272,
+      "samplingRuntimeMs": 0.592084,
+      "generationRuntimeMs": 216.039083,
+      "runtimeMs": 216.631167,
+      "heapDeltaBytes": 35890384,
       "paletteSha256": "3ae9f2cbc7c95a5c77f924cf60f552e490f4cc3cb75c5f993f7569e7ebdc77ed",
       "deterministic": true,
       "error": {
@@ -1140,10 +1140,10 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.520292,
-      "generationRuntimeMs": 847.019833,
-      "runtimeMs": 847.540125,
-      "heapDeltaBytes": -89865872,
+      "samplingRuntimeMs": 0.839042,
+      "generationRuntimeMs": 834.753375,
+      "runtimeMs": 835.592417,
+      "heapDeltaBytes": 19099640,
       "paletteSha256": "84c48ef61fed02afb35f7e855173a7b61d9693298564af16c3919a16cef41f60",
       "deterministic": true,
       "error": {
@@ -1175,10 +1175,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.581167,
-      "generationRuntimeMs": 295.182875,
-      "runtimeMs": 295.764042,
-      "heapDeltaBytes": -13938080,
+      "samplingRuntimeMs": 1.109875,
+      "generationRuntimeMs": 294.811541,
+      "runtimeMs": 295.921416,
+      "heapDeltaBytes": 9200304,
       "paletteSha256": "e5f27b6c3fc98c1e1a994e96b8543565d684b4860c1da32a6133ed19c99f4bfb",
       "deterministic": true,
       "error": {
@@ -1210,10 +1210,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.629583,
-      "generationRuntimeMs": 288.609959,
-      "runtimeMs": 289.239542,
-      "heapDeltaBytes": -17985264,
+      "samplingRuntimeMs": 4.597708,
+      "generationRuntimeMs": 282.15625,
+      "runtimeMs": 286.753958,
+      "heapDeltaBytes": 29782584,
       "paletteSha256": "5fb490ac793d2238cab09563a3e3a0e43ee758786f4c143b33c97c840347db6c",
       "deterministic": true,
       "error": {
@@ -1245,10 +1245,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 49152,
-      "samplingRuntimeMs": 0.517875,
-      "generationRuntimeMs": 1607.910167,
-      "runtimeMs": 1608.428042,
-      "heapDeltaBytes": -46931088,
+      "samplingRuntimeMs": 1.366167,
+      "generationRuntimeMs": 1613.539542,
+      "runtimeMs": 1614.905709,
+      "heapDeltaBytes": -53082328,
       "paletteSha256": "9e20a3a91c03d20fb587ef1234393da46724bd8b7dddee70b27bb89d9a0dbfb9",
       "deterministic": true,
       "error": {
@@ -1280,10 +1280,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.113208,
-      "generationRuntimeMs": 2.668167,
-      "runtimeMs": 2.781375,
-      "heapDeltaBytes": 347480,
+      "samplingRuntimeMs": 0.984959,
+      "generationRuntimeMs": 2.642041,
+      "runtimeMs": 3.627,
+      "heapDeltaBytes": 367704,
       "paletteSha256": "717e4898c86a57e78d29c30ddf46f78d667c6215c742509e6cc287a5dc44d985",
       "deterministic": true,
       "error": {
@@ -1465,16 +1465,16 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.129,
-      "generationRuntimeMs": 6.27725,
-      "runtimeMs": 6.40625,
-      "heapDeltaBytes": 5151008,
+      "samplingRuntimeMs": 0.13925,
+      "generationRuntimeMs": 6.276458,
+      "runtimeMs": 6.415708,
+      "heapDeltaBytes": 5159320,
       "paletteSha256": "75bc1bc518601fb1bc3ddfc09173eee6fe97d1a963c5d5f994a54c5f77958145",
       "deterministic": true,
       "error": {
-        "mean": 0.01092,
-        "p95": 0.109546,
-        "max": 0.109546,
+        "mean": 0.013483,
+        "p95": 0.12628,
+        "max": 0.12628,
         "sampleCount": 2624
       },
       "perImage": [
@@ -1501,9 +1501,9 @@
         {
           "name": "animation-16-02.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.006176,
+            "p95": 0.028136,
+            "max": 0.028136,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -1511,9 +1511,9 @@
         {
           "name": "animation-16-03.png",
           "error": {
-            "mean": 0.00314,
-            "p95": 0.014304,
-            "max": 0.014304,
+            "mean": 0.009308,
+            "p95": 0.042405,
+            "max": 0.042405,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -1521,9 +1521,9 @@
         {
           "name": "animation-16-04.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.012478,
+            "p95": 0.056844,
+            "max": 0.056844,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -1531,9 +1531,9 @@
         {
           "name": "animation-16-05.png",
           "error": {
-            "mean": 0.003242,
-            "p95": 0.014767,
-            "max": 0.014767,
+            "mean": 0.01569,
+            "p95": 0.071478,
+            "max": 0.071478,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -1601,9 +1601,9 @@
         {
           "name": "animation-16-12.png",
           "error": {
-            "mean": 0.023984,
-            "p95": 0.109258,
-            "max": 0.109258,
+            "mean": 0.02772,
+            "p95": 0.12628,
+            "max": 0.12628,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -1640,8 +1640,8 @@
         }
       ],
       "averageSlotUsage": 3,
-      "temporalHeldCount": 72,
-      "temporalIndexVariance": 0.311579
+      "temporalHeldCount": 216,
+      "temporalIndexVariance": 0.298947
     },
     {
       "fixture": "animation-16",
@@ -1650,10 +1650,10 @@
       "colorsRequested": 8,
       "colorsReturned": 8,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.125,
-      "generationRuntimeMs": 5.56325,
-      "runtimeMs": 5.68825,
-      "heapDeltaBytes": 873704,
+      "samplingRuntimeMs": 0.133667,
+      "generationRuntimeMs": 5.601625,
+      "runtimeMs": 5.735292,
+      "heapDeltaBytes": 875896,
       "paletteSha256": "044214d30f9c269943e57a5cd858d81c1c014ea6254a4d50488812cfd0cf6ba3",
       "deterministic": true,
       "error": {
@@ -1835,10 +1835,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.113,
-      "generationRuntimeMs": 3.316708,
-      "runtimeMs": 3.429708,
-      "heapDeltaBytes": 356264,
+      "samplingRuntimeMs": 0.131833,
+      "generationRuntimeMs": 3.30125,
+      "runtimeMs": 3.433083,
+      "heapDeltaBytes": 352272,
       "paletteSha256": "a4d3b3c620d0c48387e2cd17b1de677e73ce512052a611cb1a4409f50256b5e8",
       "deterministic": true,
       "error": {
@@ -2020,16 +2020,16 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.11075,
-      "generationRuntimeMs": 4.737875,
-      "runtimeMs": 4.848625,
-      "heapDeltaBytes": 1661328,
+      "samplingRuntimeMs": 0.140833,
+      "generationRuntimeMs": 4.772125,
+      "runtimeMs": 4.912958,
+      "heapDeltaBytes": 1667808,
       "paletteSha256": "cd853eee20b64ce60f21688331595034e1ce60079a95513d4c52a58c3a5c119f",
       "deterministic": true,
       "error": {
-        "mean": 0.002243,
-        "p95": 0.052635,
-        "max": 0.052635,
+        "mean": 0.00758,
+        "p95": 0.086391,
+        "max": 0.086391,
         "sampleCount": 2624
       },
       "perImage": [
@@ -2056,9 +2056,9 @@
         {
           "name": "animation-16-02.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.006176,
+            "p95": 0.028136,
+            "max": 0.028136,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2066,9 +2066,9 @@
         {
           "name": "animation-16-03.png",
           "error": {
-            "mean": 0.00314,
-            "p95": 0.014304,
-            "max": 0.014304,
+            "mean": 0.009308,
+            "p95": 0.042405,
+            "max": 0.042405,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2076,9 +2076,9 @@
         {
           "name": "animation-16-04.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.012478,
+            "p95": 0.056844,
+            "max": 0.056844,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2086,9 +2086,9 @@
         {
           "name": "animation-16-05.png",
           "error": {
-            "mean": 0.003242,
-            "p95": 0.014767,
-            "max": 0.014767,
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2096,9 +2096,9 @@
         {
           "name": "animation-16-06.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.003306,
+            "p95": 0.015062,
+            "max": 0.015062,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2106,9 +2106,9 @@
         {
           "name": "animation-16-07.png",
           "error": {
-            "mean": 0.003379,
-            "p95": 0.015391,
-            "max": 0.015391,
+            "mean": 0.006681,
+            "p95": 0.030438,
+            "max": 0.030438,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2116,9 +2116,9 @@
         {
           "name": "animation-16-08.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.010128,
+            "p95": 0.046138,
+            "max": 0.046138,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2126,9 +2126,9 @@
         {
           "name": "animation-16-09.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.013645,
+            "p95": 0.062161,
+            "max": 0.062161,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2146,9 +2146,9 @@
         {
           "name": "animation-16-11.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.003694,
+            "p95": 0.016827,
+            "max": 0.016827,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2156,9 +2156,9 @@
         {
           "name": "animation-16-12.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.007453,
+            "p95": 0.033951,
+            "max": 0.033951,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2166,9 +2166,9 @@
         {
           "name": "animation-16-13.png",
           "error": {
-            "mean": 0.003818,
-            "p95": 0.017395,
-            "max": 0.017395,
+            "mean": 0.011262,
+            "p95": 0.051306,
+            "max": 0.051306,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2176,9 +2176,9 @@
         {
           "name": "animation-16-14.png",
           "error": {
-            "mean": 0.007676,
-            "p95": 0.03497,
-            "max": 0.03497,
+            "mean": 0.015106,
+            "p95": 0.068815,
+            "max": 0.068815,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2186,17 +2186,17 @@
         {
           "name": "animation-16-15.png",
           "error": {
-            "mean": 0.011554,
-            "p95": 0.052635,
-            "max": 0.052635,
+            "mean": 0.018964,
+            "p95": 0.086391,
+            "max": 0.086391,
             "sampleCount": 164
           },
           "slotUsage": 3
         }
       ],
       "averageSlotUsage": 3,
-      "temporalHeldCount": 144,
-      "temporalIndexVariance": 0.374737
+      "temporalHeldCount": 468,
+      "temporalIndexVariance": 0.298947
     },
     {
       "fixture": "animation-16",
@@ -2205,10 +2205,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.110958,
-      "generationRuntimeMs": 10.467375,
-      "runtimeMs": 10.578333,
-      "heapDeltaBytes": 1095680,
+      "samplingRuntimeMs": 0.110458,
+      "generationRuntimeMs": 10.589375,
+      "runtimeMs": 10.699833,
+      "heapDeltaBytes": 1095992,
       "paletteSha256": "c62169ab9727a331e7d28db727eb5c7e7684d8f6abeeff8008143eef15743ec1",
       "deterministic": true,
       "error": {
@@ -2390,9 +2390,9 @@
       "colorsRequested": 32,
       "colorsReturned": 32,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.11625,
-      "generationRuntimeMs": 4.689959,
-      "runtimeMs": 4.806209,
+      "samplingRuntimeMs": 0.107292,
+      "generationRuntimeMs": 4.972041,
+      "runtimeMs": 5.079333,
       "heapDeltaBytes": 269560,
       "paletteSha256": "77d7984635e69f2a8cec703fba98dfc981ef81347e6e24bc3ad5011bc3d35ee7",
       "deterministic": true,
@@ -2575,16 +2575,16 @@
       "colorsRequested": 32,
       "colorsReturned": 18,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.116333,
-      "generationRuntimeMs": 5.320333,
-      "runtimeMs": 5.436666,
-      "heapDeltaBytes": 2715632,
+      "samplingRuntimeMs": 0.123042,
+      "generationRuntimeMs": 5.455333,
+      "runtimeMs": 5.578375,
+      "heapDeltaBytes": 2723784,
       "paletteSha256": "bf6be2b840e4b701537e80826aa8233dcfe6ed012189713ebe12c0aa5569811a",
       "deterministic": true,
       "error": {
-        "mean": 0.001045,
-        "p95": 0.017703,
-        "max": 0.017703,
+        "mean": 0.00653,
+        "p95": 0.068815,
+        "max": 0.068815,
         "sampleCount": 2624
       },
       "perImage": [
@@ -2611,9 +2611,9 @@
         {
           "name": "animation-16-02.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.006176,
+            "p95": 0.028136,
+            "max": 0.028136,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2621,9 +2621,9 @@
         {
           "name": "animation-16-03.png",
           "error": {
-            "mean": 0.00314,
-            "p95": 0.014304,
-            "max": 0.014304,
+            "mean": 0.009308,
+            "p95": 0.042405,
+            "max": 0.042405,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2631,9 +2631,9 @@
         {
           "name": "animation-16-04.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.012478,
+            "p95": 0.056844,
+            "max": 0.056844,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2641,9 +2641,9 @@
         {
           "name": "animation-16-05.png",
           "error": {
-            "mean": 0.003242,
-            "p95": 0.014767,
-            "max": 0.014767,
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2651,9 +2651,9 @@
         {
           "name": "animation-16-06.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.003306,
+            "p95": 0.015062,
+            "max": 0.015062,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2661,9 +2661,9 @@
         {
           "name": "animation-16-07.png",
           "error": {
-            "mean": 0.003379,
-            "p95": 0.015391,
-            "max": 0.015391,
+            "mean": 0.006681,
+            "p95": 0.030438,
+            "max": 0.030438,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2671,9 +2671,9 @@
         {
           "name": "animation-16-08.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.010128,
+            "p95": 0.046138,
+            "max": 0.046138,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2681,9 +2681,9 @@
         {
           "name": "animation-16-09.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.013645,
+            "p95": 0.062161,
+            "max": 0.062161,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2701,9 +2701,9 @@
         {
           "name": "animation-16-11.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.003694,
+            "p95": 0.016827,
+            "max": 0.016827,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2711,9 +2711,9 @@
         {
           "name": "animation-16-12.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.007453,
+            "p95": 0.033951,
+            "max": 0.033951,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2721,9 +2721,9 @@
         {
           "name": "animation-16-13.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.011262,
+            "p95": 0.051306,
+            "max": 0.051306,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2731,9 +2731,9 @@
         {
           "name": "animation-16-14.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.015106,
+            "p95": 0.068815,
+            "max": 0.068815,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -2741,17 +2741,17 @@
         {
           "name": "animation-16-15.png",
           "error": {
-            "mean": 0.003886,
-            "p95": 0.017703,
-            "max": 0.017703,
+            "mean": 0.002164,
+            "p95": 0.00986,
+            "max": 0.00986,
             "sampleCount": 164
           },
           "slotUsage": 3
         }
       ],
       "averageSlotUsage": 3,
-      "temporalHeldCount": 180,
-      "temporalIndexVariance": 0.4
+      "temporalHeldCount": 432,
+      "temporalIndexVariance": 0.311579
     },
     {
       "fixture": "animation-16",
@@ -2760,10 +2760,10 @@
       "colorsRequested": 32,
       "colorsReturned": 18,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.123958,
-      "generationRuntimeMs": 11.7925,
-      "runtimeMs": 11.916458,
-      "heapDeltaBytes": 1154384,
+      "samplingRuntimeMs": 0.10925,
+      "generationRuntimeMs": 11.694875,
+      "runtimeMs": 11.804125,
+      "heapDeltaBytes": 1121312,
       "paletteSha256": "4c1a73d5d237a51e5a50ea469c69e91a0158a93128ade661fcacfc051e4afbf9",
       "deterministic": true,
       "error": {
@@ -2945,10 +2945,10 @@
       "colorsRequested": 64,
       "colorsReturned": 64,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.112459,
-      "generationRuntimeMs": 7.584458,
-      "runtimeMs": 7.696917,
-      "heapDeltaBytes": 212536,
+      "samplingRuntimeMs": 0.108542,
+      "generationRuntimeMs": 7.438291,
+      "runtimeMs": 7.546833,
+      "heapDeltaBytes": 218792,
       "paletteSha256": "48a3f9eb35166a8946f9f37365e931c1f6fdc3ed34fe5947630a456d5ad7a153",
       "deterministic": true,
       "error": {
@@ -3130,16 +3130,16 @@
       "colorsRequested": 64,
       "colorsReturned": 18,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.112459,
-      "generationRuntimeMs": 6.616333,
-      "runtimeMs": 6.728792,
-      "heapDeltaBytes": 1826896,
+      "samplingRuntimeMs": 0.110083,
+      "generationRuntimeMs": 6.740417,
+      "runtimeMs": 6.8505,
+      "heapDeltaBytes": 1827080,
       "paletteSha256": "abfff8c3ad30ab2c44c875637c72b9aa2a5c9ec9aa6f3e50c96cae800f1dd3b8",
       "deterministic": true,
       "error": {
-        "mean": 0.000802,
-        "p95": 0.015391,
-        "max": 0.015391,
+        "mean": 0.006395,
+        "p95": 0.068815,
+        "max": 0.068815,
         "sampleCount": 2624
       },
       "perImage": [
@@ -3166,9 +3166,9 @@
         {
           "name": "animation-16-02.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.006176,
+            "p95": 0.028136,
+            "max": 0.028136,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3176,9 +3176,9 @@
         {
           "name": "animation-16-03.png",
           "error": {
-            "mean": 0.00314,
-            "p95": 0.014304,
-            "max": 0.014304,
+            "mean": 0.009308,
+            "p95": 0.042405,
+            "max": 0.042405,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3186,9 +3186,9 @@
         {
           "name": "animation-16-04.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.012478,
+            "p95": 0.056844,
+            "max": 0.056844,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3196,9 +3196,9 @@
         {
           "name": "animation-16-05.png",
           "error": {
-            "mean": 0.003242,
-            "p95": 0.014767,
-            "max": 0.014767,
+            "mean": 0,
+            "p95": 0,
+            "max": 0,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3206,9 +3206,9 @@
         {
           "name": "animation-16-06.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.003306,
+            "p95": 0.015062,
+            "max": 0.015062,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3216,9 +3216,9 @@
         {
           "name": "animation-16-07.png",
           "error": {
-            "mean": 0.003379,
-            "p95": 0.015391,
-            "max": 0.015391,
+            "mean": 0.006681,
+            "p95": 0.030438,
+            "max": 0.030438,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3226,9 +3226,9 @@
         {
           "name": "animation-16-08.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.010128,
+            "p95": 0.046138,
+            "max": 0.046138,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3236,9 +3236,9 @@
         {
           "name": "animation-16-09.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.013645,
+            "p95": 0.062161,
+            "max": 0.062161,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3256,9 +3256,9 @@
         {
           "name": "animation-16-11.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.003694,
+            "p95": 0.016827,
+            "max": 0.016827,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3266,9 +3266,9 @@
         {
           "name": "animation-16-12.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.007453,
+            "p95": 0.033951,
+            "max": 0.033951,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3276,9 +3276,9 @@
         {
           "name": "animation-16-13.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.011262,
+            "p95": 0.051306,
+            "max": 0.051306,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3286,9 +3286,9 @@
         {
           "name": "animation-16-14.png",
           "error": {
-            "mean": 0,
-            "p95": 0,
-            "max": 0,
+            "mean": 0.015106,
+            "p95": 0.068815,
+            "max": 0.068815,
             "sampleCount": 164
           },
           "slotUsage": 3
@@ -3305,8 +3305,8 @@
         }
       ],
       "averageSlotUsage": 3,
-      "temporalHeldCount": 144,
-      "temporalIndexVariance": 0.412632
+      "temporalHeldCount": 432,
+      "temporalIndexVariance": 0.311579
     },
     {
       "fixture": "animation-16",
@@ -3315,10 +3315,10 @@
       "colorsRequested": 64,
       "colorsReturned": 18,
       "sampleCount": 1312,
-      "samplingRuntimeMs": 0.115292,
-      "generationRuntimeMs": 11.713542,
-      "runtimeMs": 11.828834,
-      "heapDeltaBytes": 1128016,
+      "samplingRuntimeMs": 0.106958,
+      "generationRuntimeMs": 11.684417,
+      "runtimeMs": 11.791375,
+      "heapDeltaBytes": 1121320,
       "paletteSha256": "4c1a73d5d237a51e5a50ea469c69e91a0158a93128ade661fcacfc051e4afbf9",
       "deterministic": true,
       "error": {
@@ -3512,10 +3512,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 44726,
-      "samplingRuntimeMs": 1.583125,
-      "generationRuntimeMs": 123.5685,
-      "runtimeMs": 125.151625,
-      "heapDeltaBytes": 23917616,
+      "samplingRuntimeMs": 4.108333,
+      "generationRuntimeMs": 122.964042,
+      "runtimeMs": 127.072375,
+      "heapDeltaBytes": -7726704,
       "paletteSha256": "dfa10ef271d540c7efc38bf8ebda9d112a7df92378081e41b8df6425eb7aedad",
       "deterministic": true,
       "error": {
@@ -3575,10 +3575,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 24950,
-      "samplingRuntimeMs": 1.254709,
-      "generationRuntimeMs": 70.200416,
-      "runtimeMs": 71.455125,
-      "heapDeltaBytes": 16539936,
+      "samplingRuntimeMs": 1.331083,
+      "generationRuntimeMs": 69.973667,
+      "runtimeMs": 71.30475,
+      "heapDeltaBytes": 16670488,
       "paletteSha256": "97b5480d3f7eb1f351a88a51db2570a3b8ff3a02691e0526b9ad5bd02c1b94b9",
       "deterministic": true,
       "error": {
@@ -3638,10 +3638,10 @@
       "colorsRequested": 16,
       "colorsReturned": 16,
       "sampleCount": 3104,
-      "samplingRuntimeMs": 0.57175,
-      "generationRuntimeMs": 7.904333,
-      "runtimeMs": 8.476083,
-      "heapDeltaBytes": 456616,
+      "samplingRuntimeMs": 0.64175,
+      "generationRuntimeMs": 7.728916,
+      "runtimeMs": 8.370666,
+      "heapDeltaBytes": 465024,
       "paletteSha256": "787126718962b4ff2440508d0b15f8868c69cf0250f4f0913c8658fe2f221c26",
       "deterministic": true,
       "error": {
@@ -3704,10 +3704,10 @@
   "algorithmSummary": [
     {
       "algorithm": "kmeans-oklab",
-      "improvementPercent": 27.691988,
-      "runtimeRatio": 1.138713,
+      "improvementPercent": 23.866133,
+      "runtimeRatio": 1.114227,
       "featureChangePercent": 0,
-      "temporalChangePercent": 2.593748,
+      "temporalChangePercent": -16.42652,
       "featureRegressionPass": true,
       "temporalRegressionPass": true,
       "blindPreferencePercent": 50,
@@ -3717,10 +3717,172 @@
     {
       "algorithm": "median-cut",
       "improvementPercent": 56.257887,
-      "runtimeRatio": 3.683156,
+      "runtimeRatio": 3.681759,
       "featureChangePercent": null,
       "temporalChangePercent": 6.052009,
       "featureRegressionPass": false,
+      "temporalRegressionPass": true,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": false
+    }
+  ],
+  "combinationSummary": [
+    {
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colors": 8,
+      "candidateMean": 0.029028,
+      "baselineMean": 0.044428,
+      "improvementPercent": 34.662263,
+      "runtimeRatio": 1.384662,
+      "candidateFeature": 0,
+      "baselineFeature": 0,
+      "featureChangePercent": 0,
+      "featureRegressionPass": true,
+      "candidateTemporal": 0.298947,
+      "baselineTemporal": 0.273684,
+      "temporalChangePercent": 9.230719,
+      "temporalRegressionPass": true,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": true
+    },
+    {
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colors": 16,
+      "candidateMean": 0.024676,
+      "baselineMean": 0.040786,
+      "improvementPercent": 39.498235,
+      "runtimeRatio": 1.356869,
+      "candidateFeature": 0,
+      "baselineFeature": 0,
+      "featureChangePercent": 0,
+      "featureRegressionPass": true,
+      "candidateTemporal": 0.298947,
+      "baselineTemporal": 0.273684,
+      "temporalChangePercent": 9.230719,
+      "temporalRegressionPass": true,
+      "blindPreferencePercent": 50,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": true
+    },
+    {
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colors": 32,
+      "candidateMean": 0.021847,
+      "baselineMean": 0.019685,
+      "improvementPercent": -10.980303,
+      "runtimeRatio": 1.034451,
+      "candidateFeature": 0,
+      "baselineFeature": 0,
+      "featureChangePercent": 0,
+      "featureRegressionPass": true,
+      "candidateTemporal": 0.311579,
+      "baselineTemporal": 0.450526,
+      "temporalChangePercent": -30.841061,
+      "temporalRegressionPass": true,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": false
+    },
+    {
+      "algorithm": "kmeans-oklab",
+      "sampling": "pixel",
+      "colors": 64,
+      "candidateMean": 0.018864,
+      "baselineMean": 0.019112,
+      "improvementPercent": 1.301521,
+      "runtimeRatio": 0.92097,
+      "candidateFeature": 0,
+      "baselineFeature": 0,
+      "featureChangePercent": 0,
+      "featureRegressionPass": true,
+      "candidateTemporal": 0.311579,
+      "baselineTemporal": 0.463158,
+      "temporalChangePercent": -32.727277,
+      "temporalRegressionPass": true,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": false
+    },
+    {
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colors": 8,
+      "candidateMean": 0.022744,
+      "baselineMean": 0.044428,
+      "improvementPercent": 48.807621,
+      "runtimeRatio": 1.684343,
+      "candidateFeature": 0.007617,
+      "baselineFeature": 0,
+      "featureChangePercent": null,
+      "featureRegressionPass": false,
+      "candidateTemporal": 0.324211,
+      "baselineTemporal": 0.273684,
+      "temporalChangePercent": 18.461803,
+      "temporalRegressionPass": false,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": false
+    },
+    {
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colors": 16,
+      "candidateMean": 0.013862,
+      "baselineMean": 0.040786,
+      "improvementPercent": 66.011622,
+      "runtimeRatio": 2.877688,
+      "candidateFeature": 0.007617,
+      "baselineFeature": 0,
+      "featureChangePercent": null,
+      "featureRegressionPass": false,
+      "candidateTemporal": 0.4,
+      "baselineTemporal": 0.273684,
+      "temporalChangePercent": 46.153959,
+      "temporalRegressionPass": false,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": false
+    },
+    {
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colors": 32,
+      "candidateMean": 0.009915,
+      "baselineMean": 0.019685,
+      "improvementPercent": 49.631069,
+      "runtimeRatio": 3.8443,
+      "candidateFeature": 0.007617,
+      "baselineFeature": 0,
+      "featureChangePercent": null,
+      "featureRegressionPass": false,
+      "candidateTemporal": 0.412632,
+      "baselineTemporal": 0.450526,
+      "temporalChangePercent": -8.411057,
+      "temporalRegressionPass": true,
+      "blindPreferencePercent": 0,
+      "deterministic": true,
+      "eligibleByAutomatedMetrics": false
+    },
+    {
+      "algorithm": "median-cut",
+      "sampling": "pixel",
+      "colors": 64,
+      "candidateMean": 0.007724,
+      "baselineMean": 0.019112,
+      "improvementPercent": 59.587437,
+      "runtimeRatio": 4.917045,
+      "candidateFeature": 0.007617,
+      "baselineFeature": 0,
+      "featureChangePercent": null,
+      "featureRegressionPass": false,
+      "candidateTemporal": 0.412632,
+      "baselineTemporal": 0.463158,
+      "temporalChangePercent": -10.90902,
       "temporalRegressionPass": true,
       "blindPreferencePercent": 0,
       "deterministic": true,
@@ -3732,7 +3894,7 @@
       "sampling": "image-balanced",
       "reference": null,
       "improvementPercent": 2.191635,
-      "runtimeRatio": 0.570948,
+      "runtimeRatio": 0.561135,
       "featureChangePercent": -79.634376,
       "temporalChangePercent": 0,
       "featureRegressionPass": true,
@@ -3744,7 +3906,7 @@
       "sampling": "reference",
       "reference": "character.png",
       "improvementPercent": -558.719282,
-      "runtimeRatio": 0.067727,
+      "runtimeRatio": 0.065873,
       "featureChangePercent": -100,
       "temporalChangePercent": 4.615542,
       "featureRegressionPass": true,
@@ -3756,13 +3918,13 @@
   "browserQa": {
     "implementationId": "PAL-002",
     "status": "PASS",
-    "performedAt": "2026-08-25T04:00:00Z",
-    "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-temporal-original-20260825",
+    "performedAt": "2026-08-25T14:53:26Z",
+    "target": "http://localhost:8000/pixelate_studio.html?qa=pal002-final-20260825",
     "browser": "Codex in-app browser",
-    "applicationScriptSha256": "e894f4191815936d25db368dd73e53a1078de8ee61c094a35e505516c56f5921",
+    "applicationScriptSha256": "d78b1aae6b296215659b3085ddaf966d0b7941e0593be891bd726c44e3ffcb6c",
     "revalidation": {
-      "performedAt": "2026-08-24T17:14:24Z",
-      "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-final-20260825",
+      "performedAt": "2026-08-25T14:53:26Z",
+      "target": "http://localhost:8000/pixelate_studio.html?qa=pal002-revalidation-20260825",
       "defaultState": {
         "experimentalCheckboxChecked": false,
         "experimentalControlsHidden": true,
@@ -3775,30 +3937,30 @@
         "experimentalControlsVisible": true,
         "algorithmEnabled": true,
         "samplingEnabled": true,
-        "status": "실험 기능입니다. 기본 팔레트와 preset은 변경되지 않습니다.",
+        "status": "실험 기능입니다. 기본 팔레트는 유지되며 검증된 OKLab 16색 애니메이션 조합만 별도 프리셋으로 제공됩니다.",
         "pass": true
       },
       "referenceWithoutFile": {
         "algorithm": "kmeans-oklab",
         "sampling": "reference",
-        "message": "참조 이미지를 선택하세요.",
+        "message": "참조 이미지를 선택하세요.",
         "executionBlocked": true,
         "pass": true
       },
       "modeCompatibility": {
         "customControlsDisabled": true,
         "unlimitedControlsDisabled": true,
-        "status": "직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.",
+        "status": "직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.",
         "pass": true
       },
       "consoleErrors": [],
       "pass": true
     },
     "actualSizeMatrix": {
-      "performedAt": "2026-08-25T04:00:00Z",
-      "target": "http://localhost:8765/pixelizer-codex-research/evidence/pal-002/browser-manual-matrix.html?group=animation&compact=1",
+      "performedAt": "2026-08-25T14:53:26Z",
+      "target": "http://localhost:8000/pixelizer-codex-research/evidence/pal-002/browser-manual-matrix.html?qa=pal002-final-20260825",
       "manifest": "browser-manual-matrix.json",
-      "manifestSha256": "042c3a0bf79ff7ea128e46a5f53f3daf5fb75e769378837649188324d16acf1b",
+      "manifestSha256": "f7d677c1c45941f1d237d345a9c40a6321e1fa0aa341d22439641c16f15891be",
       "actualSizeScale": 1,
       "cellCount": 20,
       "groups": [
@@ -4026,8 +4188,8 @@
         "browser-manual-gradient-median.jpg": "e09a80a18c2bc1697f905b5ebb6aebb5bfff491a0010c41807700366388af8e0",
         "browser-manual-photo.jpg": "a0c8d69f34322991c220d9d3932057aaa484815e93cc43266193dab22ba49e31",
         "browser-manual-large-small.jpg": "4e13587432f18ee9784495c81a66f6c2967f16928522bfec6436e12d12b4be0e",
-        "browser-manual-animation-stable.jpg": "f49964f2055d444a9fd161517071f4aea73b931f401640da1ff2fbae0f64f730",
-        "browser-manual-animation-stable-next.jpg": "b358b5b4b9330f9bc196a097160b22d42ef01dc5cfd58f456f409910417a7f53"
+        "browser-manual-animation-stable.jpg": "699b42f0c085a85bf6fc5e609c9a48c096ba32867c2f39e6ecdaa7b2a8d45803",
+        "browser-manual-animation-stable-next.jpg": "077f7cadc3efd65174f815e4bcae461d92eaa31de1297faf02691c852f7c79b1"
       },
       "consoleErrors": [],
       "pass": true
@@ -4064,8 +4226,8 @@
       }
     },
     "temporalStableProduct": {
-      "performedAt": "2026-08-25T04:00:00Z",
-      "target": "http://localhost:8765/pixelate_studio.html?qa=pal002-temporal-original-20260825",
+      "performedAt": "2026-08-25T14:53:26Z",
+      "target": "http://localhost:8000/pixelate_studio.html?qa=pal002-final-20260825",
       "preset": "oklab-animation-stable",
       "algorithm": "kmeans-oklab",
       "sampling": "pixel",
@@ -4073,9 +4235,13 @@
       "shared": true,
       "processedImages": 16,
       "temporalMetadataVisibleFrames": 15,
-      "heldPixelFrames": 5,
-      "totalHeldPixels": 180,
-      "temporalEpsilon": 0.00025,
+      "heldPixelFrames": 13,
+      "totalHeldPixels": 468,
+      "temporalEpsilon": 0.005,
+      "baselineTemporalVariance": 0.273684,
+      "candidateTemporalVariance": 0.298947,
+      "temporalChangePercent": 9.230719,
+      "temporalRegressionPass": true,
       "consoleErrors": [],
       "pass": true
     },
@@ -4178,7 +4344,7 @@
       ],
       "capturedPixels": [
         382,
-        827
+        9110
       ],
       "documentScrollWidth": 382,
       "horizontalOverflow": false,
@@ -4205,8 +4371,8 @@
       "browser-algorithm-ab.jpg": "2fdfdaa3e918da37612c9cffe9021367a20f142eaf2e7205172241e2921b624e",
       "browser-reference-error.jpg": "f3266da6cde9638318e22924ff4ec8ebf4178662a6c87434a1f395974a3ecb5e",
       "browser-mobile.jpg": "586deccaa539ea14bf840b44c762e2435570b6af295f99a775ed74ca1e728b65",
-      "browser-oklab-stable-product.jpg": "1bd108f80bd0dd21e753e2674f35418d2fc074419c2ae9d219119719aea609ff",
-      "browser-oklab-stable-mobile.jpg": "676a668a406d8091e969f8d4feae056cf63c30fc7e8d305d4d49d0f65bc3b1bf",
+      "browser-oklab-stable-product.jpg": "fe9fdf629474ac6c3c743e969b3eb9bf1d66feaa85633e578d121717cfeaa3a9",
+      "browser-oklab-stable-mobile.jpg": "c6dc72b1f09cbc616bd651b763d8fd4937777bc5d819507670797d643cee3f46",
       "browser-blind-baseline.jpg": "95c911639b82eebecb9ea291517c17c1ed48ad99fdea37b51f4930fc3dc03c04",
       "browser-blind-oklab.jpg": "f39febc7cb31817e75f1d1fe8610a56de7a7d92cd08faee4edfc0ac20967d3ca",
       "browser-blind-a.jpg": "ee10121a34f436e56a897a723397250d1e899a8a35a2f7c3bc8913bbb225e19c",
@@ -4214,14 +4380,14 @@
     },
     "requiredReview": {
       "model": "Sol xhigh",
-      "result": "FAIL",
-      "reviewedAt": "2026-08-25",
-      "report": "sol-xhigh-independent-rereview-2026-08-25.md",
-      "reportSha256": "c74bac3027ce9804b487f8dc1e02e489faa06d79757566209c18451c8c9cc6da"
+      "result": "PASS",
+      "reviewedAt": "2026-08-26",
+      "report": "sol-xhigh-final-rereview-2026-08-26.md",
+      "reportSha256": "65c849ffc00d546d277f3e39c893cc3b720125b1e3d68ba53823a79c650c17be"
     }
   },
   "evidenceIntegrity": {
-    "applicationScriptSha256": "e894f4191815936d25db368dd73e53a1078de8ee61c094a35e505516c56f5921",
+    "applicationScriptSha256": "d78b1aae6b296215659b3085ddaf966d0b7941e0593be891bd726c44e3ffcb6c",
     "requiredCaptures": [
       "browser-algorithm-ab.jpg",
       "browser-reference-error.jpg",
@@ -4254,18 +4420,18 @@
         "sha256": "586deccaa539ea14bf840b44c762e2435570b6af295f99a775ed74ca1e728b65"
       },
       "browser-oklab-stable-product.jpg": {
-        "width": 1272,
-        "height": 2050,
+        "width": 764,
+        "height": 3579,
         "decoder": "sips",
-        "bytes": 148674,
-        "sha256": "1bd108f80bd0dd21e753e2674f35418d2fc074419c2ae9d219119719aea609ff"
+        "bytes": 356536,
+        "sha256": "fe9fdf629474ac6c3c743e969b3eb9bf1d66feaa85633e578d121717cfeaa3a9"
       },
       "browser-oklab-stable-mobile.jpg": {
         "width": 382,
-        "height": 827,
+        "height": 9110,
         "decoder": "sips",
-        "bytes": 29069,
-        "sha256": "676a668a406d8091e969f8d4feae056cf63c30fc7e8d305d4d49d0f65bc3b1bf"
+        "bytes": 564817,
+        "sha256": "c6dc72b1f09cbc616bd651b763d8fd4937777bc5d819507670797d643cee3f46"
       },
       "browser-blind-a.jpg": {
         "width": 160,
@@ -4286,7 +4452,7 @@
     "blindEvidencePass": true,
     "manualMatrixEvidence": {
       "pass": true,
-      "manifestSha256": "042c3a0bf79ff7ea128e46a5f53f3daf5fb75e769378837649188324d16acf1b",
+      "manifestSha256": "f7d677c1c45941f1d237d345a9c40a6321e1fa0aa341d22439641c16f15891be",
       "cellCount": 20,
       "qaCellCount": 20,
       "assetCount": 240,
@@ -4295,25 +4461,34 @@
   },
   "requiredReview": {
     "model": "Sol xhigh",
-    "result": "FAIL",
-    "reviewedAt": "2026-08-25",
-    "report": "sol-xhigh-independent-rereview-2026-08-25.md",
-    "reportSha256": "c74bac3027ce9804b487f8dc1e02e489faa06d79757566209c18451c8c9cc6da"
+    "result": "PASS",
+    "reviewedAt": "2026-08-26",
+    "report": "sol-xhigh-final-rereview-2026-08-26.md",
+    "reportSha256": "65c849ffc00d546d277f3e39c893cc3b720125b1e3d68ba53823a79c650c17be"
   },
-  "requiredReviewPass": false,
+  "requiredReviewPass": true,
   "adoption": {
     "promotedToDefault": false,
-    "promotedToPreset": false,
-    "preset": null,
-    "status": "REJECTED_BY_REVIEW",
+    "promotedToPreset": true,
+    "preset": "oklab-animation-stable",
+    "status": "ADOPTED_OPT_IN",
     "eligibleAlgorithms": [
       "kmeans-oklab"
     ],
+    "eligibleCombinations": [
+      {
+        "algorithm": "kmeans-oklab",
+        "sampling": "pixel",
+        "colors": 8
+      },
+      {
+        "algorithm": "kmeans-oklab",
+        "sampling": "pixel",
+        "colors": 16
+      }
+    ],
     "eligibleSamplingPolicies": [],
-    "note": "독립 Sol xhigh 검토가 승격 조합의 수용 기준 위반을 확인해 opt-in preset 채택을 거부했다."
+    "note": "정량 임계값을 통과한 OKLab temporal 안정화 후보를 별도 opt-in preset으로 승격했으며 기본값은 유지한다."
   },
-  "pending": [
-    "independent Sol xhigh changes requested",
-    "approved opt-in preset promotion"
-  ]
+  "pending": []
 }

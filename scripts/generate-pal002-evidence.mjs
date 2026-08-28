@@ -6,11 +6,13 @@ import { performance } from 'node:perf_hooks';
 import { extractInlineFunction } from './lib/extract-inline-function.mjs';
 import { generateCorpus, FIXTURE_SEED, GENERATOR_VERSION } from './lib/pixel-fixtures.mjs';
 import {
+  PAL002_OKLAB_TEMPORAL_EPSILON,
   candidateEligible,
   regressionWithinLimit,
   relativeChangePercent,
   relativeImprovementPercent,
-  samplingCorpusValid
+  samplingCorpusValid,
+  summarizeCandidateCombination
 } from './lib/pal002-evaluation.mjs';
 import {
   PAL002_REQUIRED_CAPTURES,
@@ -76,7 +78,7 @@ function scaleNearestDown(down, width, height){
   return { ...down, data, w: width, h: height };
 }
 
-function aggregateMappings(downs, palette, algorithm){
+function aggregateMappings(downs, palette, algorithm, temporalEpsilon=PAL002_OKLAB_TEMPORAL_EPSILON){
   let weightedMean = 0;
   let samples = 0;
   let p95 = 0;
@@ -100,7 +102,7 @@ function aggregateMappings(downs, palette, algorithm){
       algorithm,
       10,
       stabilize ? previousGrid : null,
-      stabilize ? 0.00025 : 0
+      stabilize ? temporalEpsilon : 0
     );
     weightedMean += mapping.error.mean * mapping.error.sampleCount;
     samples += mapping.error.sampleCount;
@@ -239,7 +241,6 @@ const runtimeBreakdownPass = [...matrix, ...samplingMatrix].every(row =>
 const qaPath = path.resolve(evidenceDir, 'qa-results.json');
 const qa = fs.existsSync(qaPath) ? JSON.parse(fs.readFileSync(qaPath, 'utf8')) : null;
 const { captureEvidence, capturesPass, blindEvidencePass } = evaluatePal002CaptureEvidence(qa, evidenceDir);
-const manualMatrixEvidence = evaluatePal002ManualMatrixEvidence(qa, evidenceDir);
 
 const baselineByKey = new Map(matrix.filter(row => row.algorithm === 'kmeans-srgb').map(row => [`${row.fixture}/${row.colorsRequested}`, row]));
 const algorithmSummary = algorithms.slice(1).map(algorithm => {
@@ -282,6 +283,48 @@ const algorithmSummary = algorithms.slice(1).map(algorithm => {
       deterministic
     })
   };
+});
+
+const combinationSummary = algorithms.slice(1).flatMap(algorithm => colorCounts.map(colors => {
+  const candidates = matrix.filter(row => row.algorithm === algorithm && row.colorsRequested === colors);
+  const baselines = candidates.map(row => baselineByKey.get(`${row.fixture}/${colors}`));
+  const candidateMean = candidates.reduce((sum, row) => sum + row.error.mean, 0) / candidates.length;
+  const baselineMean = baselines.reduce((sum, row) => sum + row.error.mean, 0) / baselines.length;
+  const candidateRuntimeMs = candidates.reduce((sum, row) => sum + row.runtimeMs, 0);
+  const baselineRuntimeMs = baselines.reduce((sum, row) => sum + row.runtimeMs, 0);
+  const candidateFeature = candidates.find(row => row.fixture === 'clean-pixel-art')?.error.mean ?? NaN;
+  const baselineFeature = baselines.find(row => row.fixture === 'clean-pixel-art')?.error.mean ?? NaN;
+  const candidateTemporal = candidates.find(row => row.fixture === 'animation-16')?.temporalIndexVariance ?? NaN;
+  const baselineTemporal = baselines.find(row => row.fixture === 'animation-16')?.temporalIndexVariance ?? NaN;
+  const blindPreferencePercent = colors === 16 && blindEvidencePass && qa?.blindPreference?.candidateAlgorithm === algorithm
+    ? Number(qa.blindPreference.preferencePercentForCandidate) || 0
+    : 0;
+  const summarized = summarizeCandidateCombination({
+    algorithm,
+    sampling: 'pixel',
+    colors,
+    candidateMean,
+    baselineMean,
+    candidateRuntimeMs,
+    baselineRuntimeMs,
+    candidateFeature,
+    baselineFeature,
+    candidateTemporal,
+    baselineTemporal,
+    blindPreferencePercent,
+    deterministic: candidates.every(row => row.deterministic)
+  });
+  return Object.fromEntries(Object.entries(summarized).map(([key, value]) => [
+    key,
+    typeof value === 'number' ? round(value) : value
+  ]));
+}));
+const stableCombination = combinationSummary.find(row =>
+  row.algorithm === 'kmeans-oklab' && row.sampling === 'pixel' && row.colors === 16
+);
+const stableCombinationEligible = stableCombination?.eligibleByAutomatedMetrics === true;
+const manualMatrixEvidence = evaluatePal002ManualMatrixEvidence(qa, evidenceDir, {
+  promotionCellIds: stableCombinationEligible ? ['animation-16'] : []
 });
 
 const pixelSamplingBaseline = samplingMatrix.find(row => row.sampling === 'pixel');
@@ -361,19 +404,30 @@ const automatedPass = matrix.length === 48 && samplingMatrix.length === 3 &&
   samplingCorpusPass && runtimeBreakdownPass &&
   samplingMatrix.every(row => row.deterministic && row.sampleCount <= 50000 &&
     row.temporalEvaluation?.deterministic === true && row.temporalEvaluation?.sampleCount <= 50000) &&
+  combinationSummary.length === 8 && stableCombinationEligible &&
   defaultAndPresetPass && baselineHashPass && roundTripPass;
+const browserTemporalMetricsPass = Boolean(stableCombination) &&
+  Number.isFinite(qa?.temporalStableProduct?.baselineTemporalVariance) &&
+  Number.isFinite(qa?.temporalStableProduct?.candidateTemporalVariance) &&
+  Number.isFinite(qa?.temporalStableProduct?.temporalChangePercent) &&
+  Math.abs(qa.temporalStableProduct.baselineTemporalVariance - stableCombination.baselineTemporal) <= 0.000001 &&
+  Math.abs(qa.temporalStableProduct.candidateTemporalVariance - stableCombination.candidateTemporal) <= 0.000001 &&
+  Math.abs(qa.temporalStableProduct.temporalChangePercent - stableCombination.temporalChangePercent) <= 0.000001 &&
+  qa.temporalStableProduct.temporalRegressionPass === true;
 const browserQaPass = qa?.status === 'PASS' && qa?.desktop?.pass === true && qa?.mobile?.pass === true &&
   qa?.applicationScriptSha256 === applicationScriptSha256 &&
   qa?.temporalStableProduct?.pass === true && qa?.temporalStableProduct?.preset === 'oklab-animation-stable' &&
   qa?.temporalStableProduct?.processedImages === 16 && qa?.temporalStableProduct?.totalHeldPixels > 0 &&
-  qa?.temporalStableProduct?.temporalEpsilon === 0.00025 &&
+  qa?.temporalStableProduct?.temporalEpsilon === PAL002_OKLAB_TEMPORAL_EPSILON && browserTemporalMetricsPass &&
   qa?.referenceValidation?.pass === true && qa?.settingsRoundTrip?.pass === true &&
   qa?.defaultCompatibility?.pass === true && qa?.keyboard?.pass === true &&
   qa?.consoleErrors?.length === 0 && blindEvidencePass && capturesPass && manualMatrixEvidence.pass;
-const eligibleAlgorithms = algorithmSummary.filter(row => row.eligibleByAutomatedMetrics).map(row => row.algorithm);
+const eligibleAlgorithms = [...new Set(combinationSummary.filter(row => row.eligibleByAutomatedMetrics).map(row => row.algorithm))];
+const eligibleCombinations = combinationSummary.filter(row => row.eligibleByAutomatedMetrics)
+  .map(row => ({ algorithm: row.algorithm, sampling: row.sampling, colors: row.colors }));
 const eligibleSamplingPolicies = samplingSummary.filter(row => row.eligibleByAutomatedMetrics).map(row => row.sampling);
 const hasEligibleCandidate = eligibleAlgorithms.length > 0 || eligibleSamplingPolicies.length > 0;
-const adoptionPass = hasEligibleCandidate && stablePresetPromoted && eligibleAlgorithms.includes('kmeans-oklab') && requiredReviewPass;
+const adoptionPass = stableCombinationEligible && stablePresetPromoted && requiredReviewPass;
 const status = requiredReviewFailed
   ? 'IN_PROGRESS'
   : automatedPass && browserQaPass && requiredReviewPass
@@ -413,6 +467,7 @@ const summary = {
     pass: samplingCorpusPass
   },
   algorithmSummary,
+  combinationSummary,
   samplingSummary,
   browserQa: qa,
   evidenceIntegrity: {
@@ -431,6 +486,7 @@ const summary = {
     preset: adoptionPass ? 'oklab-animation-stable' : null,
     status: adoptionPass ? 'ADOPTED_OPT_IN' : (requiredReviewFailed ? 'REJECTED_BY_REVIEW' : (hasEligibleCandidate ? 'READY_FOR_PROMOTION_REVIEW' : 'DEFERRED')),
     eligibleAlgorithms,
+    eligibleCombinations,
     eligibleSamplingPolicies,
     note: adoptionPass
       ? '정량 임계값을 통과한 OKLab temporal 안정화 후보를 별도 opt-in preset으로 승격했으며 기본값은 유지한다.'
@@ -447,7 +503,7 @@ fs.writeFileSync(path.resolve(evidenceDir, 'summary.json'), `${JSON.stringify(su
 
 const readme = `# PAL-002 검증 증거 및 A/B 보고서
 
-검증 시각: ${summary.generatedAt}  
+검증 시각: ${summary.generatedAt}
 상태: \`${status}\`
 
 ## 완료 게이트
@@ -470,6 +526,12 @@ const readme = `# PAL-002 검증 증거 및 A/B 보고서
 | 후보 | 평균 OKLab error 변화 | runtime 배율 | feature 변화 | temporal 변화 | 자동 지표상 승격 검토 가능 |
 |---|---:|---:|---:|---:|---|
 ${algorithmSummary.map(row => `| ${row.algorithm} | ${formatPercent(row.improvementPercent)} | ${row.runtimeRatio}× | ${formatPercent(row.featureChangePercent)} | ${formatPercent(row.temporalChangePercent)} | ${row.eligibleByAutomatedMetrics ? '예' : '아니오'} |`).join('\n')}
+
+## 조합별 채택 판정
+
+| 후보 | 색상 수 | 평균 OKLab error 개선 | runtime 배율 | feature 변화 | temporal 변화 | 채택 적격 |
+|---|---:|---:|---:|---:|---:|---|
+${combinationSummary.map(row => `| ${row.algorithm}/${row.sampling} | ${row.colors} | ${formatPercent(row.improvementPercent)} | ${row.runtimeRatio}× | ${formatPercent(row.featureChangePercent)} | ${formatPercent(row.temporalChangePercent)} | ${row.eligibleByAutomatedMetrics ? '예' : '아니오'} |`).join('\n')}
 
 ## 샘플링 요약
 

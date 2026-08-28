@@ -5,13 +5,14 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | 완료 |
+| QA 상태 | `DONE` — 자동·설정·보안·PAL-002 회귀, 경고 양방향 전이, 구조화된 1× 선호, 17장 브라우저 캡처·16프레임 증거와 독립 Sol xhigh 최종 재검토 통과 |
 | 우선순위 | P3 |
 | 근거 분류 | SOURCE-BACKED + EXPERIMENTAL |
 | 구현 모델 | Luna xhigh |
 | 필수 검토 | Sol xhigh |
 | 선행 항목 | QLT-001, PAL-001, CFG-001 |
+| 검증 증거 | [검사·보고서](../../evidence/dit-001/README.md), [품질 매트릭스](../../evidence/dit-001/quality-matrix.json), [브라우저 QA](../../evidence/dit-001/browser-qa.json), [세션 계측](../../evidence/dit-001/browser-session-measurements.json), [1× 선호 판정](../../evidence/dit-001/texture-preference-review.json), [Sol xhigh 최종 재검토](../../evidence/dit-001/sol-xhigh-independent-rereview-2026-08-27.md), [독립 검토 인계](../../evidence/dit-001/independent-review-handoff.md) |
 
 ## 2. 목표와 사용자 완료 상태
 
@@ -64,6 +65,8 @@ enum `off|bayer2|bayer4`. 결과 `processing.dither`에 mode, strength, origin `
 - 채택: static gradient banding 15% 이상 감소하고 sprite outline/alpha 침식 0, animation 기본 off
 - 폐기: 1×에서 texture noise 선호가 낮거나 패턴 origin이 frame 간 흔들림
 
+2026-08-26 실측 판정: 50% 후보는 Bayer2 `12.50%`, Bayer4 `13.75%`로 15% 밴딩 감소 임계값을 충족하지 못해 FAIL이다. Bayer2/4의 75%와 100% 후보만 정량 gate를 PASS했고, 구조화된 실제 크기 1× texture 검토에서도 네 후보가 모두 `ACCEPTABLE`을 받았다. 최종 `adoption`은 정량 gate와 1× 선호 gate를 동시에 통과한 75%·100% 후보로 제한한다. 선호 증거가 누락되거나 `REJECTED`이면 정량값과 관계없이 fail-closed다. PASS 후보도 기본값·기존 preset에는 편입하지 않고 실험 opt-in으로 유지한다.
+
 ## 9. 호환·경계조건
 
 - off는 기존 palette index/PNG hash와 동일.
@@ -100,7 +103,9 @@ enum `off|bayer2|bayer4`. 결과 `processing.dither`에 mode, strength, origin `
 
 ## 13. 브라우저 수동 QA
 
-gradient, flat sprite, outline, alpha edge를 1×/8×에서 본다. animation-16을 8/12fps로 보고 pattern shimmer와 fixed origin을 확인한다. Sol이 pipeline order와 temporal 결과를 검토한다.
+gradient, flat sprite, outline, alpha edge를 1×/2×/8×에서 본다. texture 기준선과 각 채택 후보를 실제 크기 1×에서 비교한다. animation-16을 8/12fps로 보고 pattern shimmer와 fixed origin을 확인한다. Sol이 pipeline order와 temporal 결과를 검토한다.
+
+2026-08-26 fresh localhost QA에서 기본 숨김/off, gradient 결과 메타데이터, clean pixel art·alpha edge·outline 1×/2×/8×, unlimited disabled, 비활성 factor frameMode 경고 미표시를 확인했다. `original↔preserve-sheet`, `factor whole↔sheet`, `grid whole↔sheet` 여섯 경고 전이도 즉시 갱신됐다. animation-safe preset off diff, 16프레임 8/12fps·8×, 390px 모바일 무가로오버플로, console error/warning 0도 통과했다. 17장 캡처는 실제 PNG 픽셀로 검증하며, 설정 JSON·동일 결과 asset·서로 다른 16개 애니메이션 frame asset의 SHA-256과 함께 `browser-qa.json`에 고정했다.
 
 ## 14. 수용 기준
 
@@ -110,6 +115,8 @@ off 기준선 불변, matrix exact, static 채택 지표 충족, alpha/outline �
 
 strength matrix contact sheet, banding/variance report, animation 기록, off hash, Sol review를 연결한다.
 
+contact sheet·banding/variance·temporal·off hash, 경고 전이, 1× texture 판정, 1×/2×/8× 정적 캡처와 8/12fps·16프레임 애니메이션 증거를 연결했다. 2026-08-27 독립 Sol xhigh 최종 재검토도 `FINAL_VERDICT: PASS`를 받았고, 보고서 SHA-256이 `browser-qa.json`의 `requiredReview`와 일치한다. 생성기가 `status: DONE`, `independentSolReview: PASS`를 출력했으므로 완료 게이트를 충족했다. 리뷰가 기록한 Low 잔여 위험은 후보별 `REJECTED` 분기의 체크인 회귀 미포함과 native export 대신 UI 캡처를 result asset으로 사용하는 점이며, 현재 명세의 PASS를 뒤집지는 않는다.
+
 ## 16. Luna xhigh 실행 지시문
 
 > DIT-001만 구현한다. 명세의 Bayer matrix, 두 nearest 색 투영, strength 수식, global origin을 그대로 구현한다. off/strength0은 기존 hash와 같아야 하고 alpha·outline은 dither하지 않는다. animation-safe preset은 off를 강제하며 후보는 실험 영역에만 둔다. static/animation QLT matrix와 settings/CSP 검사를 완료한 뒤 Sol xhigh에 pipeline·temporal 검토를 요청한다.
@@ -118,4 +125,3 @@ strength matrix contact sheet, banding/variance report, animation 기록, off ha
 
 - palette distance metric이 PAL-002와 결합돼 결과 정의가 모호하면 baseline sRGB로 고정하고 별도 실험으로 넘긴다.
 - cleanup과 dither 순서가 실사용에서 상충하면 임의 자동 전환을 만들지 않고 Sol 검토를 요청한다.
-

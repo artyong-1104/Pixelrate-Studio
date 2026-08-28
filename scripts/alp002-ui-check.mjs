@@ -110,12 +110,12 @@ assert.match(
 );
 assert.match(
   html,
-  /const alphaPolicyArtifacts = buildAlphaPolicyArtifacts\([\s\S]*?finalGrid,[\s\S]*?finalAlpha,[\s\S]*?finalW,[\s\S]*?finalH,[\s\S]*?alphaMode,[\s\S]*?alphaThreshold[\s\S]*?\);/,
+  /const alphaPolicyArtifacts = await buildAlphaPolicyArtifactsChunked\([\s\S]*?job,[\s\S]*?finalGrid,[\s\S]*?finalAlpha,[\s\S]*?finalW,[\s\S]*?finalH,[\s\S]*?alphaMode,[\s\S]*?alphaThreshold[\s\S]*?\);/,
   'All scale modes must enter the shared production alpha artifact helper'
 );
 assert.match(
   html,
-  /const outputAlpha = renderedAlpha\[i\];[\s\S]*?const alpha2d = alphaPolicyArtifacts\.alphaMatrix;/,
+  /const outputAlpha = renderedAlpha\[index\];[\s\S]*?const alpha2d = alphaPolicyArtifacts\.alphaMatrix;/,
   'PNG alpha and coverage JSON must consume the same tested production artifacts'
 );
 assert.match(

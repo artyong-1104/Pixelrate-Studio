@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "itemId": "PERF-001",
+  "provenance": {
+    "harness": "QLT-001",
+    "sourceFixtureId": "texture-checker",
+    "sourceWidth": 192,
+    "sourceHeight": 128,
+    "fixtureSeed": 20260814,
+    "generatorVersion": 1,
+    "sourceRgbaSha256": "6f78d9eb4191da5b41648b61b0d09b978c5e995aa0bc1799e4d0faa3e2c12c51",
+    "derivation": "repeat-tile from source origin (0,0); no resampling or color conversion"
+  },
+  "fixtures": {
+    "256K": {
+      "file": "perf-512x512.png",
+      "width": 512,
+      "height": 512,
+      "pixels": 262144,
+      "rgbaSha256": "ba3a932122a60519cb624f71f04d40f81cbe37dc1c19d03af27d33e8fd876de4",
+      "pngSha256": "2b4987a12bd294abf24e03236db28edc74db14a94b523902a0a80b71003cd154",
+      "bytes": 1049236
+    },
+    "1M": {
+      "file": "perf-1024x1024.png",
+      "width": 1024,
+      "height": 1024,
+      "pixels": 1048576,
+      "rgbaSha256": "2a0e6e682fd13c97441a58ab5f38f7e46f9a2d48a972b60ac4d711ed672d3495",
+      "pngSha256": "df6fe53705d20abb9c1953a92b09565a6c5977400c06f851ea977fddd21c100e",
+      "bytes": 4195716
+    },
+    "4M": {
+      "file": "perf-2048x2048.png",
+      "width": 2048,
+      "height": 2048,
+      "pixels": 4194304,
+      "rgbaSha256": "04bcb61b83b79d9e455f2f1aa09414b69c05eea65e858f55ccbc8a4c9af4ad20",
+      "pngSha256": "4e38dcc87e8490ea152dec5436a6a86315ec30181d1107863231e3d7d8fd986f",
+      "bytes": 16780612
+    }
+  }
+}

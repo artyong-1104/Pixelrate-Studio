@@ -1,0 +1,565 @@
+{
+  "itemId": "EDGE-001",
+  "generatedAt": "2026-08-27T04:19:03.069Z",
+  "status": "PASS",
+  "settings": {
+    "lineAware": {
+      "enabled": true,
+      "threshold": 0.2,
+      "strength": 0.6
+    },
+    "selout": {
+      "enabled": true,
+      "darken": 0.2
+    },
+    "palette": "unlimited",
+    "alpha": {
+      "mode": "binary",
+      "threshold": 10
+    },
+    "cleanup": false,
+    "dither": false,
+    "outline": false
+  },
+  "adoption": {
+    "status": "PASS",
+    "thresholds": {
+      "thinFeatureImprovementMinimum": 0.1,
+      "flatRegionFalseLineRatioMaximumExclusive": 0.01,
+      "fatalPainterlyOrPhotoDistortionAllowed": false
+    },
+    "measured": {
+      "baselineFeatureContrast": 15.7501,
+      "lineFeatureContrast": 23.957,
+      "thinFeatureImprovement": 0.5211,
+      "baselineFeatureColorError": 233.5955,
+      "lineFeatureColorError": 219.1777,
+      "maxFlatRegionFalseLineRatio": 0,
+      "fatalPainterlyOrPhotoDistortion": false
+    }
+  },
+  "browserQa": {
+    "pass": true,
+    "file": "browser-qa.json",
+    "captureCount": 9
+  },
+  "flatEvaluations": [
+    {
+      "fixtureId": "dark-clothing",
+      "candidates": 228,
+      "flatRegionFalseLineRatio": 0
+    },
+    {
+      "fixtureId": "shadow",
+      "candidates": 4,
+      "flatRegionFalseLineRatio": 0
+    }
+  ],
+  "safetyEvaluations": [
+    {
+      "fixtureId": "low-contrast",
+      "changedPixels": 0,
+      "changedRatio": 0,
+      "meanRgbAbsoluteDelta": 0
+    },
+    {
+      "fixtureId": "texture-checker",
+      "changedPixels": 0,
+      "changedRatio": 0,
+      "meanRgbAbsoluteDelta": 0
+    },
+    {
+      "fixtureId": "photo-like",
+      "changedPixels": 0,
+      "changedRatio": 0,
+      "meanRgbAbsoluteDelta": 0
+    }
+  ],
+  "sheetBoundary": {
+    "crossFrameLineCandidates": 0,
+    "seloutPixels": 40,
+    "alphaHashStable": true
+  },
+  "performance": {
+    "pixels": 4194304,
+    "runtimeMs": 1971.624,
+    "typedArrayPeakBytes": 25165824,
+    "implementation": "naive 3x3 bounded-neighbor scan; O(N) with at most 8 neighbor reads per foreground pixel"
+  },
+  "determinism": {
+    "baselineSha256": "5cf372d719ce5428b936b424928892abab8e58dadb84dcf41785803cff2d2c90",
+    "lineSha256": "484ba6793d71a7bbe4c6bb8934393041b57f9ca56a2be80bd4c69a4374290d63",
+    "combinedSha256": "484ba6793d71a7bbe4c6bb8934393041b57f9ca56a2be80bd4c69a4374290d63",
+    "repeated": true
+  },
+  "fixtures": [
+    {
+      "id": "small-face",
+      "input": [
+        64,
+        64
+      ],
+      "output": [
+        16,
+        16
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "5cf372d719ce5428b936b424928892abab8e58dadb84dcf41785803cff2d2c90",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "484ba6793d71a7bbe4c6bb8934393041b57f9ca56a2be80bd4c69a4374290d63",
+          "deltaFromBaseline": {
+            "changedPixels": 28,
+            "changedRatio": 0.109375,
+            "meanRgbAbsoluteDelta": 1.3541666666666667
+          },
+          "lineCandidates": 120,
+          "coveredCells": 32,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "5cf372d719ce5428b936b424928892abab8e58dadb84dcf41785803cff2d2c90",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "combined": {
+          "rgbaSha256": "484ba6793d71a7bbe4c6bb8934393041b57f9ca56a2be80bd4c69a4374290d63",
+          "deltaFromBaseline": {
+            "changedPixels": 28,
+            "changedRatio": 0.109375,
+            "meanRgbAbsoluteDelta": 1.3541666666666667
+          },
+          "lineCandidates": 120,
+          "coveredCells": 32,
+          "seloutPixels": 0
+        }
+      }
+    },
+    {
+      "id": "dark-clothing",
+      "input": [
+        64,
+        64
+      ],
+      "output": [
+        16,
+        16
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "0e5e1dffe2e89e0f94748f40ae18e0602f1d8bbedc17415dc6296b9619a76a26",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "b2712631194f19b8c341b4ed187a020721179332de6b69cefe708c91cdae5ea6",
+          "deltaFromBaseline": {
+            "changedPixels": 60,
+            "changedRatio": 0.234375,
+            "meanRgbAbsoluteDelta": 1.8203125
+          },
+          "lineCandidates": 228,
+          "coveredCells": 60,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "0e5e1dffe2e89e0f94748f40ae18e0602f1d8bbedc17415dc6296b9619a76a26",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "combined": {
+          "rgbaSha256": "b2712631194f19b8c341b4ed187a020721179332de6b69cefe708c91cdae5ea6",
+          "deltaFromBaseline": {
+            "changedPixels": 60,
+            "changedRatio": 0.234375,
+            "meanRgbAbsoluteDelta": 1.8203125
+          },
+          "lineCandidates": 228,
+          "coveredCells": 60,
+          "seloutPixels": 0
+        }
+      }
+    },
+    {
+      "id": "shadow",
+      "input": [
+        64,
+        64
+      ],
+      "output": [
+        16,
+        16
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "497cbed19585994cbf7460bf3e00869fce854c5a367aaffda510d93bcd945b77",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "658fd37b70d5ac8a728123d2c22ef3f16d8ebbc686d4277708999d1afd329bcb",
+          "deltaFromBaseline": {
+            "changedPixels": 4,
+            "changedRatio": 0.015625,
+            "meanRgbAbsoluteDelta": 0.015625
+          },
+          "lineCandidates": 4,
+          "coveredCells": 4,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "497cbed19585994cbf7460bf3e00869fce854c5a367aaffda510d93bcd945b77",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "combined": {
+          "rgbaSha256": "658fd37b70d5ac8a728123d2c22ef3f16d8ebbc686d4277708999d1afd329bcb",
+          "deltaFromBaseline": {
+            "changedPixels": 4,
+            "changedRatio": 0.015625,
+            "meanRgbAbsoluteDelta": 0.015625
+          },
+          "lineCandidates": 4,
+          "coveredCells": 4,
+          "seloutPixels": 0
+        }
+      }
+    },
+    {
+      "id": "low-contrast",
+      "input": [
+        160,
+        120
+      ],
+      "output": [
+        40,
+        30
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "caedb8e5603b82d73075e764c0703991e54926932959c34fdbd14a3de09f1846",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "caedb8e5603b82d73075e764c0703991e54926932959c34fdbd14a3de09f1846",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "caedb8e5603b82d73075e764c0703991e54926932959c34fdbd14a3de09f1846",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "combined": {
+          "rgbaSha256": "caedb8e5603b82d73075e764c0703991e54926932959c34fdbd14a3de09f1846",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        }
+      }
+    },
+    {
+      "id": "texture-checker",
+      "input": [
+        192,
+        128
+      ],
+      "output": [
+        48,
+        32
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "3ab4a1e2aa2c48ef1879d10ddf0d14cef60989a4571d2c29987dd9e3db1b5838",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "3ab4a1e2aa2c48ef1879d10ddf0d14cef60989a4571d2c29987dd9e3db1b5838",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "3ab4a1e2aa2c48ef1879d10ddf0d14cef60989a4571d2c29987dd9e3db1b5838",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "combined": {
+          "rgbaSha256": "3ab4a1e2aa2c48ef1879d10ddf0d14cef60989a4571d2c29987dd9e3db1b5838",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        }
+      }
+    },
+    {
+      "id": "photo-like",
+      "input": [
+        256,
+        192
+      ],
+      "output": [
+        64,
+        48
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "fc7d5f709142cf4df4c55bbf3b792ed200a2846ddebd5ffb0a96974c41bab680",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "fc7d5f709142cf4df4c55bbf3b792ed200a2846ddebd5ffb0a96974c41bab680",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "fc7d5f709142cf4df4c55bbf3b792ed200a2846ddebd5ffb0a96974c41bab680",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "combined": {
+          "rgbaSha256": "fc7d5f709142cf4df4c55bbf3b792ed200a2846ddebd5ffb0a96974c41bab680",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        }
+      }
+    },
+    {
+      "id": "clean-pixel-art",
+      "input": [
+        128,
+        128
+      ],
+      "output": [
+        32,
+        32
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "943cd103fa387f3cc2859d2f1216d3bfa3810e26dc5747e6c4cd95bff047dfc4",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 88,
+          "coveredCells": 22,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "2d1be3f52033c458842eb6f3bc28e3d8d3fe718f8c59be4a6135f6f501584be3",
+          "deltaFromBaseline": {
+            "changedPixels": 44,
+            "changedRatio": 0.04296875,
+            "meanRgbAbsoluteDelta": 0.98046875
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 44
+        },
+        "combined": {
+          "rgbaSha256": "2d1be3f52033c458842eb6f3bc28e3d8d3fe718f8c59be4a6135f6f501584be3",
+          "deltaFromBaseline": {
+            "changedPixels": 44,
+            "changedRatio": 0.04296875,
+            "meanRgbAbsoluteDelta": 0.98046875
+          },
+          "lineCandidates": 88,
+          "coveredCells": 22,
+          "seloutPixels": 44
+        }
+      }
+    },
+    {
+      "id": "transparent-sheet",
+      "input": [
+        64,
+        32
+      ],
+      "output": [
+        16,
+        8
+      ],
+      "stages": {
+        "baseline": {
+          "rgbaSha256": "9f3811f107dae870b8797d229526ad0c2512cadc5e8a31edcf6567d60963540f",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "line": {
+          "rgbaSha256": "9f3811f107dae870b8797d229526ad0c2512cadc5e8a31edcf6567d60963540f",
+          "deltaFromBaseline": {
+            "changedPixels": 0,
+            "changedRatio": 0,
+            "meanRgbAbsoluteDelta": 0
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 0
+        },
+        "selout": {
+          "rgbaSha256": "3a03892b9f4992292d049461c8bd1026272e201a9051d2449f93b66171906521",
+          "deltaFromBaseline": {
+            "changedPixels": 40,
+            "changedRatio": 0.3125,
+            "meanRgbAbsoluteDelta": 9.0625
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 40
+        },
+        "combined": {
+          "rgbaSha256": "3a03892b9f4992292d049461c8bd1026272e201a9051d2449f93b66171906521",
+          "deltaFromBaseline": {
+            "changedPixels": 40,
+            "changedRatio": 0.3125,
+            "meanRgbAbsoluteDelta": 9.0625
+          },
+          "lineCandidates": 0,
+          "coveredCells": 0,
+          "seloutPixels": 40
+        }
+      }
+    }
+  ],
+  "artifacts": [
+    "stage-ablation-native.png",
+    "stage-ablation-8x.png",
+    "fixture-small-face.png",
+    "fixture-dark-clothing.png",
+    "fixture-shadow.png",
+    "fixture-transparent-sheet.png",
+    "fixture-low-contrast.png",
+    "fixture-texture-checker.png",
+    "fixture-photo-like.png",
+    "fixture-clean-pixel-art.png"
+  ]
+}

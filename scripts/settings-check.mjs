@@ -17,6 +17,8 @@ assert.match(html, /id="presetDiffBox"/, 'presetDiffBox element must exist');
 assert.match(html, /id="settingsFeedback"/, 'settingsFeedback element must exist');
 assert.match(html, /id="showExperimentalFeatures"/, 'CELL-001 experimental feature toggle must exist');
 assert.match(html, /id="representativeColor"/, 'CELL-001 representative select must exist');
+assert.match(html, /id="lineAwareEnabled"/, 'EDGE-001 line-aware toggle must exist');
+assert.match(html, /id="seloutEnabled"/, 'EDGE-001 selout toggle must exist');
 assert.match(html, /id="paletteAlgorithm"/, 'PAL-002 palette algorithm select must exist');
 assert.match(html, /id="paletteSampling"/, 'PAL-002 palette sampling select must exist');
 assert.match(html, /id="paletteReference"/, 'PAL-002 palette reference select must exist');
@@ -95,6 +97,8 @@ const DEFAULT_SETTINGS = Object.freeze({
   frameHeight: 64,
   pixelBlockSize: 4,
   representativeColor: 'mean-srgb',
+  lineAware: Object.freeze({ enabled: false, threshold: 0.2, strength: 0.6 }),
+  selout: Object.freeze({ enabled: false, darken: 0.2 }),
   paletteMode: 'auto',
   paletteAlgorithm: 'kmeans-srgb',
   paletteSampling: 'pixel',
@@ -111,7 +115,9 @@ const DEFAULT_SETTINGS = Object.freeze({
   outlineShape: '4',
   exportNearestScales: [],
   alphaMode: 'binary',
-  alphaThreshold: 10
+  alphaThreshold: 10,
+  ditherMode: 'off',
+  ditherStrength: 50
 });
 
 const PRESETS = Object.freeze({
@@ -120,7 +126,8 @@ const PRESETS = Object.freeze({
     shared: true,
     cleanEnabled: true,
     cleanPasses: 1,
-    outline: false
+    outline: false,
+    ditherMode: 'off'
   },
   'oklab-animation-stable': {
     paletteMode: 'auto',
@@ -131,7 +138,8 @@ const PRESETS = Object.freeze({
     shared: true,
     cleanEnabled: true,
     cleanPasses: 1,
-    outline: false
+    outline: false,
+    ditherMode: 'off'
   },
   'preserve-sheet': {
     scaleMode: 'preserve-sheet',
@@ -160,6 +168,8 @@ const SETTING_LABELS = Object.freeze({
   frameHeight: '프레임 높이',
   pixelBlockSize: '블록 크기',
   representativeColor: '셀 대표색',
+  lineAware: '세부 선 보존',
+  selout: '실루엣 selout',
   paletteMode: '팔레트 방식',
   paletteAlgorithm: '팔레트 생성 알고리즘',
   paletteSampling: '팔레트 샘플 가중',
@@ -176,7 +186,9 @@ const SETTING_LABELS = Object.freeze({
   outlineShape: '외곽선 형태',
   exportNearestScales: '추가 nearest 확대본',
   alphaMode: '투명도 처리 방식',
-  alphaThreshold: '투명도 임계값'
+  alphaThreshold: '투명도 임계값',
+  ditherMode: '디더링',
+  ditherStrength: '디더링 강도'
 });
 
 ${functionNames.map(name => extractInlineFunction(html, name)).join('\n')}
@@ -239,6 +251,8 @@ const customSettings = {
   frameHeight: 128,
   pixelBlockSize: 8,
   representativeColor: 'majority',
+  lineAware: { enabled: true, threshold: 0.25, strength: 0.7 },
+  selout: { enabled: true, darken: 0.3 },
   paletteMode: 'auto',
   paletteAlgorithm: 'kmeans-oklab',
   paletteSampling: 'reference',
@@ -255,7 +269,9 @@ const customSettings = {
   outlineShape: '8',
   exportNearestScales: [2, 8],
   alphaMode: 'coverage',
-  alphaThreshold: 128
+  alphaThreshold: 128,
+  ditherMode: 'bayer4',
+  ditherStrength: 75
 };
 const customEnvelope = {
   format: 'pixelate-studio-settings',
@@ -452,11 +468,52 @@ assert.throws(
   /공유 팔레트를 켠 경우에만/,
   'Image-balanced sampling without a shared palette must be rejected'
 );
+assert.throws(
+  () => normalizeSettings({ ditherMode: 'floyd-steinberg' }),
+  /유효하지 않은 ditherMode 값/,
+  'Unknown ditherMode must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ ditherStrength: -1 }),
+  /ditherStrength는 0~100 범위의 정수/,
+  'Negative ditherStrength must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ ditherStrength: 101 }),
+  /ditherStrength는 0~100 범위의 정수/,
+  'ditherStrength > 100 must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ ditherStrength: 50.5 }),
+  /ditherStrength는 0~100 범위의 정수/,
+  'Floating point ditherStrength must be rejected'
+);
+assert.throws(
+  () => normalizeSettings({ ditherStrength: 'invalid' }),
+  /ditherStrength는 0~100 범위의 정수/,
+  'NaN ditherStrength must be rejected'
+);
 const normalizedLegacyRepresentative = normalizeSettings({ scaleMode: 'factor', factor: 4 });
 assert.equal(normalizedLegacyRepresentative.settings.representativeColor, 'mean-srgb', 'Legacy settings must default to mean-srgb');
 assert.equal(normalizedLegacyRepresentative.settings.paletteAlgorithm, 'kmeans-srgb', 'Legacy settings must default to baseline palette algorithm');
 assert.equal(normalizedLegacyRepresentative.settings.paletteSampling, 'pixel', 'Legacy settings must default to pixel-proportional sampling');
 assert.equal(normalizedLegacyRepresentative.settings.paletteReference, null, 'Legacy settings must default to no palette reference');
+assert.equal(normalizedLegacyRepresentative.settings.ditherMode, 'off', 'Legacy settings must default to ditherMode: off');
+assert.equal(normalizedLegacyRepresentative.settings.ditherStrength, 50, 'Legacy settings must default to ditherStrength: 50');
+assert.deepEqual(JSON.parse(JSON.stringify(normalizedLegacyRepresentative.settings.lineAware)), { enabled: false, threshold: 0.2, strength: 0.6 }, 'Legacy settings must default line-aware off');
+assert.deepEqual(JSON.parse(JSON.stringify(normalizedLegacyRepresentative.settings.selout)), { enabled: false, darken: 0.2 }, 'Legacy settings must default selout off');
+
+for (const [settings, message] of [
+  [{ lineAware: { enabled: true, threshold: 0.04, strength: 0.6 } }, 'line threshold below range'],
+  [{ lineAware: { enabled: true, threshold: 0.2, strength: 1.1 } }, 'line strength above range'],
+  [{ lineAware: { enabled: 'yes', threshold: 0.2, strength: 0.6 } }, 'line enabled non-boolean'],
+  [{ lineAware: { enabled: true, threshold: 0.2, strength: 0.6, unknown: 1 } }, 'line unknown nested key'],
+  [{ selout: { enabled: true, darken: 0.51 } }, 'selout darken above range'],
+  [{ selout: { enabled: 1, darken: 0.2 } }, 'selout enabled non-boolean'],
+  [{ selout: { enabled: true, darken: 0.2, unknown: 1 } }, 'selout unknown nested key']
+]) {
+  assert.throws(() => normalizeSettings(settings), /lineAware|selout|알 수 없는/, message);
+}
 
 // 6.5 Prototype Pollution Prevention
 assert.throws(
@@ -536,6 +593,25 @@ assert.equal(representativeDiff[0].label, '셀 대표색');
 assert.equal(representativeDiff[0].toText, '선형광 평균');
 assert.match(getSettingsSummary({ scaleMode: 'factor', factor: 4, representativeColor: 'majority' }), /대표색:majority/);
 
+const ditherDiff = diffSettings(DEFAULT_SETTINGS, { ditherMode: 'bayer4', ditherStrength: 80 });
+assert.equal(ditherDiff.length, 2);
+assert.equal(ditherDiff[0].label, '디더링');
+assert.equal(ditherDiff[0].toText, 'Bayer 4×4');
+assert.equal(ditherDiff[1].label, '디더링 강도');
+assert.equal(ditherDiff[1].toText, '80%');
+assert.match(getSettingsSummary({ scaleMode: 'square', size: 64, ditherMode: 'bayer4', ditherStrength: 80 }), /디더링:bayer4\(80%\)/);
+
+const edgeDiff = diffSettings(DEFAULT_SETTINGS, {
+  lineAware: { enabled: true, threshold: 0.2, strength: 0.6 },
+  selout: { enabled: true, darken: 0.2 }
+});
+assert.equal(edgeDiff.length, 2);
+assert.equal(edgeDiff[0].label, '세부 선 보존');
+assert.equal(edgeDiff[0].toText, '켜짐 (임계 20%, 강도 60%)');
+assert.equal(edgeDiff[1].label, '실루엣 selout');
+assert.equal(edgeDiff[1].toText, '켜짐 (어둡게 20%)');
+assert.match(getSettingsSummary({ scaleMode: 'factor', factor: 4, lineAware: edgeDiff[0].to, selout: edgeDiff[1].to }), /선보존:20%\/60%.*selout:20%/);
+
 // 9. Export contains no image data or filenames
 const exportedKeys = Object.keys(validatedCustom.settings);
 assert.equal(exportedKeys.includes('dataUrl'), false);
@@ -543,4 +619,4 @@ assert.equal(exportedKeys.includes('canvas'), false);
 assert.equal(exportedKeys.includes('name'), false);
 assert.equal(exportedKeys.includes('files'), false);
 
-console.log('CFG-001 regression checks passed (envelope schema, GRID-001 round trip, legacy migration, strict validation, prototype safety, presets diff, 64KB limit).');
+console.log('CFG-001/EDGE-001 regression checks passed (envelope schema, nested EDGE round trip, strict validation, presets diff, 64KB limit).');

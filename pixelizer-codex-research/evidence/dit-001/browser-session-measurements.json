@@ -1,0 +1,92 @@
+{
+  "item": "DIT-001",
+  "testedAt": "2026-08-26T15:20:00+09:00",
+  "target": "http://127.0.0.1:8000/pixelate_studio.html?qa=dit001-remediation-20260826",
+  "operator": "Codex localhost browser QA",
+  "desktop": {
+    "defaultPolicy": {
+      "ditherMode": "off",
+      "ditherDisabled": true,
+      "experimentalFieldHidden": true
+    },
+    "gradient": {
+      "fixture": "gradient-gray",
+      "processed": true,
+      "resultMetadata": "디더링 bayer2(50%)",
+      "outputWidth": 256,
+      "outputHeight": 64
+    },
+    "unlimited": {
+      "ditherDisabled": true,
+      "warningHidden": true,
+      "status": "제한 없음 모드에서는 팔레트 생성 및 디더링 실험을 사용할 수 없습니다."
+    },
+    "animationPreset": {
+      "diff": [
+        "노이즈 필터 사용: 꺼짐 → 켜짐",
+        "노이즈 필터 반복 횟수: 0회 → 1회",
+        "디더링: Bayer 4×4 → 사용 안 함 (기본)"
+      ],
+      "appliedDitherMode": "off"
+    },
+    "warningTransitions": {
+      "originalHidden": true,
+      "originalToPreserveSheet": true,
+      "preserveSheetToOriginal": true,
+      "factorWholeHidden": true,
+      "factorWholeToSheet": true,
+      "factorSheetToWhole": true,
+      "inactiveFactorSheetHidden": true,
+      "gridWholeHidden": true,
+      "gridWholeToSheet": true,
+      "gridSheetToWhole": true
+    },
+    "zoomCoverage": [
+      1,
+      2,
+      8
+    ],
+    "fixtureCoverage": [
+      "gradient-gray",
+      "clean-pixel-art",
+      "alpha-edge",
+      "texture-checker"
+    ]
+  },
+  "animation": {
+    "fixture": "animation-16",
+    "frameCount": 16,
+    "fps8Pass": true,
+    "fps12Pass": true,
+    "zoom8Pass": true,
+    "fixedOriginPass": true,
+    "sampledFrameIndexes": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "distinctFrameHashes": 16,
+    "measurements": {
+      "fps8Visible": 8,
+      "fps12Visible": 12,
+      "zoom8AriaPressed": true,
+      "ditherStatus": "켜짐",
+      "staticRegionChangedPixelRatioMaximum": 0
+    }
+  },
+  "mobile": {
+    "viewportWidth": 390,
+    "viewportHeight": 844,
+    "documentScrollWidth": 382,
+    "layoutPass": true,
+    "measurements": {
+      "modalLeft": 15.5,
+      "modalRight": 366.5,
+      "modalWidth": 351,
+      "modalOpen": true
+    }
+  },
+  "consoleErrorCount": 0,
+  "consoleWarningCount": 0
+}

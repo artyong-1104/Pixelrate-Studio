@@ -1,0 +1,82 @@
+{
+  "itemId": "EDGE-001",
+  "runDateKst": "2026-08-27",
+  "url": "http://localhost:8000/pixelate_studio.html?qa=edge001-20260827",
+  "overallStatus": "PASS",
+  "browser": "Codex In-app Browser",
+  "baseline": {
+    "fixtures": 7,
+    "statusText": "완료 — 7개 이미지 처리됨",
+    "detailMetadataAbsentWhenDisabled": true,
+    "nearest8xExportsVisible": true
+  },
+  "lineOnly": {
+    "settings": { "threshold": 0.2, "strength": 0.6 },
+    "smallFace": { "candidatePixels": 120, "coveredCells": 32 },
+    "darkClothing": { "candidatePixels": 228, "coveredCells": 60 },
+    "shadow": { "candidatePixels": 4, "coveredCells": 4 },
+    "cleanPixelArt": { "candidatePixels": 88, "coveredCells": 22 },
+    "lowContrast": { "candidatePixels": 0, "coveredCells": 0 },
+    "texture": { "candidatePixels": 0, "coveredCells": 0 },
+    "photoLike": { "candidatePixels": 0, "coveredCells": 0 }
+  },
+  "seloutOnly": {
+    "settings": { "darken": 0.2 },
+    "cleanPixelArtPixels": 44,
+    "opaqueFixturePixels": 0
+  },
+  "combined": {
+    "lineAndSeloutCountsVisibleTogether": true,
+    "statusText": "완료 — 7개 이미지 처리됨"
+  },
+  "outlineOverlap": {
+    "allowed": true,
+    "warning": "서로 다른 두 외곽선 효과가 중첩됩니다.",
+    "outputPaddingApplied": true
+  },
+  "sheetBoundary": {
+    "url": "http://localhost:8000/pixelate_studio.html?qa=edge001-sheet-20260827",
+    "input": [64, 32],
+    "frame": [32, 32],
+    "factor": 4,
+    "output": [16, 8],
+    "crossFrameLineCandidates": 0,
+    "coveredCells": 0,
+    "seloutPixels": 40,
+    "statusText": "완료 — 1개 이미지 처리됨"
+  },
+  "actualSize": {
+    "oneXStatus": "1배",
+    "eightXStatus": "8배",
+    "fixture": "small-face",
+    "preference": "line-only keeps the eye and mouth cells darker at 1x without changing the photo-like or texture fixtures"
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "horizontalOverflow": false,
+    "edgeControlRect": { "top": 411, "bottom": 707, "width": 276 },
+    "lineAndSeloutControlsVisible": true
+  },
+  "keyboard": {
+    "nativeCheckboxRole": true,
+    "focusVisible": true,
+    "spaceOffTransition": true,
+    "spaceOnTransition": true,
+    "optionsFollowCheckedState": true
+  },
+  "console": {
+    "mainErrorsOrWarnings": 0,
+    "sheetErrorsOrWarnings": 0
+  },
+  "captures": {
+    "browser-baseline-results.jpg": "e29ad4750697eb72796cda48d735db07146ef37b06e9265fc5f34b215239d0cb",
+    "browser-line-results.jpg": "5455347ffe74b0e1c2e870c387e85c7be1a2cbdedea02d284a5731edc4d7972a",
+    "browser-selout-results.jpg": "4cbf2926119d45fca98e403b749d6dbb4cdc47c4b80a06946cbd55b0c8738a68",
+    "browser-combined-results.jpg": "6bad33a618f0f4e79a03ce5e0fdd816be3dfe640a15251912b7fdcce0a493d2f",
+    "browser-outline-overlap.jpg": "45f4bee446eedab8fb00ae134b995c44a6b6b1ead3155640dbde5f7aa023fecd",
+    "browser-small-face-line-1x.jpg": "ad6e0c4c5112bf3e21df4f6b501d4ba471d4c7275b834b4b60974a9297c39d14",
+    "browser-small-face-line-8x.jpg": "5f9e1fb0c3a40c505069e67209b8c735a8741eb13b65405bbf88cec9b764b034",
+    "browser-transparent-sheet.jpg": "f8f8dda311322f39ef062e96b09f4eecc133e8a22093b95083c81409b04b2202",
+    "browser-mobile-edge.jpg": "be98e6359259c073c0193ea981839eb4aa3df5d411583b147a55e5311614e08a"
+  }
+}

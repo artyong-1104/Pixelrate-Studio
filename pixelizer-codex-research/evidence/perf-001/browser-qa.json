@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "itemId": "PERF-001",
+  "runDateKst": "2026-08-28",
+  "url": "http://127.0.0.1:8000/pixelate_studio.html?qa=perf001-qlt-final-20260828",
+  "overallStatus": "PASS",
+  "browser": "Codex In-app Browser; Google Chrome for keyboard activation",
+  "applicationSha256": "7243386a73c9eb0718ba7dfb1a9fc0facd8370fa836a47f5991405b9f190ae95",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "fixtureProvenance": {
+    "harness": "QLT-001",
+    "sourceFixtureId": "texture-checker",
+    "sourceWidth": 192,
+    "sourceHeight": 128,
+    "fixtureSeed": 20260814,
+    "generatorVersion": 1,
+    "sourceRgbaSha256": "6f78d9eb4191da5b41648b61b0d09b978c5e995aa0bc1799e4d0faa3e2c12c51",
+    "derivation": "repeat-tile from source origin (0,0); no resampling or color conversion"
+  },
+  "fixtureManifest": {
+    "file": "browser-fixtures/manifest.json",
+    "sha256": "40e14c15407e81648ad020dfdbdf10d6ee07ba91e8d98c71592fb1216e4f7ad4"
+  },
+  "fixtures": {
+    "256K": {
+      "file": "browser-fixtures/perf-512x512.png",
+      "sha256": "2b4987a12bd294abf24e03236db28edc74db14a94b523902a0a80b71003cd154",
+      "rgbaSha256": "ba3a932122a60519cb624f71f04d40f81cbe37dc1c19d03af27d33e8fd876de4",
+      "pixels": 262144,
+      "bytes": 1049236
+    },
+    "1M": {
+      "file": "browser-fixtures/perf-1024x1024.png",
+      "sha256": "df6fe53705d20abb9c1953a92b09565a6c5977400c06f851ea977fddd21c100e",
+      "rgbaSha256": "2a0e6e682fd13c97441a58ab5f38f7e46f9a2d48a972b60ac4d711ed672d3495",
+      "pixels": 1048576,
+      "bytes": 4195716
+    },
+    "4M": {
+      "file": "browser-fixtures/perf-2048x2048.png",
+      "sha256": "4e38dcc87e8490ea152dec5436a6a86315ec30181d1107863231e3d7d8fd986f",
+      "rgbaSha256": "04bcb61b83b79d9e455f2f1aa09414b69c05eea65e858f55ccbc8a4c9af4ad20",
+      "pixels": 4194304,
+      "bytes": 16780612
+    }
+  },
+  "settings": {
+    "scaleMode": "original",
+    "paletteMode": "auto",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteSize": 16,
+    "cleanupPasses": 1,
+    "workerThresholdPixels": 262144
+  },
+  "measurementSources": {
+    "longTasks": "browser PerformanceObserver longtask entries",
+    "heap": "performance.memory.usedJSHeapSize when exposed by Chromium",
+    "workerTermination": "Worker cancel acknowledgement plus the production 100ms controller termination deadline",
+    "trace": "Chrome Trace Event Format generated from measured browser stage totals; not a raw DevTools sampling trace"
+  },
+  "completionRuns": {
+    "256K": {
+      "statusText": "완료 — 1개 이미지 처리됨",
+      "resultCount": 1,
+      "workerUsed": true,
+      "wallTimeMs": 363.4,
+      "maxWorkerChunkMs": 10.5,
+      "maxInputDelayMs": 3.3,
+      "longTaskCount": 0,
+      "estimatedPeakBytes": 2359360,
+      "heapUsedBytes": 10750510,
+      "processId": "1",
+      "stagesMs": {
+        "decode": 0,
+        "downscale": 7.3,
+        "grid": 0,
+        "palette": 93.2,
+        "map": 60.8,
+        "cleanup": 128.1,
+        "outline": 0,
+        "export": 63.2
+      }
+    },
+    "1M": {
+      "statusText": "완료 — 1개 이미지 처리됨",
+      "resultCount": 1,
+      "workerUsed": true,
+      "wallTimeMs": 854.2,
+      "maxWorkerChunkMs": 11.8,
+      "maxInputDelayMs": 4.2,
+      "longTaskCount": 0,
+      "estimatedPeakBytes": 9437248,
+      "heapUsedBytes": 33050942,
+      "processId": "1",
+      "stagesMs": {
+        "decode": 0,
+        "downscale": 10.8,
+        "grid": 0,
+        "palette": 90.6,
+        "map": 117,
+        "cleanup": 483.1,
+        "outline": 0,
+        "export": 140.6
+      }
+    },
+    "4M": {
+      "statusText": "완료 — 1개 이미지 처리됨",
+      "resultCount": 1,
+      "workerUsed": true,
+      "wallTimeMs": 2651.9,
+      "maxWorkerChunkMs": 14.3,
+      "maxInputDelayMs": 23.9,
+      "longTaskCount": 0,
+      "estimatedPeakBytes": 37748800,
+      "heapUsedBytes": 95582223,
+      "processId": "1",
+      "stagesMs": {
+        "decode": 0,
+        "downscale": 36.5,
+        "grid": 0,
+        "palette": 99.5,
+        "map": 319.4,
+        "cleanup": 1781.7,
+        "outline": 0,
+        "export": 396
+      }
+    }
+  },
+  "cancellation": {
+    "fixture": "4M",
+    "preCancelStatusText": "처리 중 — 노이즈 정리 0%",
+    "statusText": "취소됨 — 생성 중이던 결과는 저장하지 않았습니다.",
+    "outcome": "cancelled",
+    "workerCancelLatencyMs": 0,
+    "cancelToTerminalMs": 12.6,
+    "resultCount": 0,
+    "partialResultPersisted": false,
+    "runButtonRestored": true
+  },
+  "immediateRerun": {
+    "afterCancelledProcessId": "1",
+    "completedProcessId": "2",
+    "statusText": "완료 — 1개 이미지 처리됨",
+    "resultCount": 1,
+    "staleResultApplied": false
+  },
+  "selectedTabSwitch": {
+    "fixture": "4M",
+    "selectedTabBefore": "tabResultsBtn",
+    "selectedTabDuring": "tabLogsBtn",
+    "selectedTabAfter": "tabResultsBtn",
+    "originalTab": "tabResultsBtn",
+    "statusText": "완료 — 1개 이미지 처리됨",
+    "resultCount": 1,
+    "workerUsed": true,
+    "wallTimeMs": 2843.3,
+    "maxWorkerChunkMs": 17.1,
+    "maxInputDelayMs": 82.3,
+    "longTaskCount": 0
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "documentScrollWidth": 382,
+    "bodyScrollWidth": 382,
+    "horizontalOverflow": false,
+    "statusText": "완료 — 1개 이미지 처리됨",
+    "resultCount": 1,
+    "workerUsed": true,
+    "wallTimeMs": 901.4,
+    "maxWorkerChunkMs": 12.4,
+    "maxInputDelayMs": 6.4,
+    "longTaskCount": 0
+  },
+  "workerFailure": {
+    "url": "http://127.0.0.1:8001/pixelate_studio.html?qa=perf001-qlt-worker-failure-20260828",
+    "fixture": "1M",
+    "statusText": "처리 실패 (WORKER_RUNTIME_ERROR) — 입력과 설정을 확인한 뒤 다시 실행하세요.",
+    "outcome": "failed",
+    "errorCode": "WORKER_RUNTIME_ERROR",
+    "resultCount": 0,
+    "silentMainThreadFallback": false,
+    "runButtonRestored": true,
+    "expectedConsoleErrors": 2,
+    "userVisibleStack": false
+  },
+  "keyboardCancellation": {
+    "browser": "Google Chrome",
+    "harnessUrl": "http://127.0.0.1:8000/tests/perf001-browser-keyboard-harness.html",
+    "productionPage": "pixelate_studio.html?qa=perf001-keyboard-harness-20260828",
+    "harnessHtmlSha256": "bf2c67686b2d9bc878bb56a6c72570607326faef04f0c13152964771bbf6e4cd",
+    "harnessScriptSha256": "5ce0bfdcbea1434f09b244330be8cecfa9125c6c253c26ed20931fbfec38de74",
+    "fixture": "4M",
+    "cleanupPasses": 20,
+    "key": "Space",
+    "preCancelStatusText": "처리 중 — 색상 매핑 30%",
+    "statusText": "취소됨 — 생성 중이던 결과는 저장하지 않았습니다.",
+    "outcome": "cancelled",
+    "workerUsed": true,
+    "workerCancelLatencyMs": 0,
+    "cancelToTerminalMs": 1.8,
+    "maxInputDelayMs": 73,
+    "longTaskCount": 0,
+    "resultCount": 0,
+    "runButtonRestored": true,
+    "cancelButtonDisabledAfter": true,
+    "applicationErrors": 0,
+    "extensionMessageChannelErrors": 3
+  },
+  "accessibility": {
+    "statusRole": "status",
+    "statusAriaLive": "polite",
+    "cancelControl": "native button",
+    "cancelAccessibleName": "처리 취소",
+    "progressAnnouncementStepPercent": 10,
+    "keyboardActivation": true,
+    "keyboardActivationBrowser": "Google Chrome"
+  },
+  "console": {
+    "normalErrorsOrWarnings": 0,
+    "failureFixtureExpectedErrors": 2,
+    "keyboardHarnessApplicationErrors": 0,
+    "keyboardHarnessExtensionErrors": 3
+  },
+  "wasmDecision": {
+    "worker4MMedianMs": 529.432,
+    "worker4MPeakBytes": 37748800,
+    "worker4MTimeGateMs": 2000,
+    "memoryGateBytes": 268435456,
+    "gateTriggered": false,
+    "decision": "Do not adopt WASM; the JS Worker remains below both 4M gates."
+  },
+  "cancelVideo": {
+    "capturedDateKst": "2026-08-28",
+    "fixture": "4M",
+    "url": "http://127.0.0.1:8000/pixelate_studio.html?qa=perf001-qlt-cancel-video-20260828",
+    "settings": {
+      "scaleMode": "original",
+      "paletteMode": "auto",
+      "paletteAlgorithm": "kmeans-srgb",
+      "paletteSize": 16,
+      "cleanupPasses": 20
+    },
+    "frameStatuses": [
+      "ready",
+      "처리 중 — 색상 매핑 0%",
+      "처리 중 — 노이즈 정리 0%",
+      "처리 중 — 노이즈 정리 0%",
+      "취소됨 — 생성 중이던 결과는 저장하지 않았습니다."
+    ],
+    "outcome": "cancelled",
+    "inputPixels": 4194304,
+    "workerUsed": true,
+    "workerCancelLatencyMs": 0,
+    "cancelToTerminalMs": 12.6,
+    "wallTimeMs": 1514.6,
+    "maxWorkerChunkMs": 13.7,
+    "maxInputDelayMs": 34.4,
+    "longTaskCount": 0,
+    "estimatedPeakBytes": 37748800,
+    "resultCount": 0,
+    "partialResultPersisted": false,
+    "video": {
+      "file": "browser-cancel-4m.mp4",
+      "sha256": "9821204e7537f5857df6837d488b2183eb63bea8d4d5b7f8e9f405c6b1ac0316",
+      "codec": "h264",
+      "width": 1272,
+      "height": 716,
+      "fps": 1,
+      "frames": 5,
+      "durationSeconds": 5,
+      "bytes": 55269
+    },
+    "sourceFrames": {
+      "cancel-video-frame-000.jpg": "5d89db3b2e5da78f2865893526e07176fac0a9f89d7fddb1c6dab6d8f48d42b4",
+      "cancel-video-frame-001.jpg": "52fa03b7a4c38d34cd0537b62b323e46835f6964e1903c85484f15686b4ff8b8",
+      "cancel-video-frame-002.jpg": "73e8c90ce2e36bd02b77faf7fb8b67fb063908440ea362ff018fe26e7d1fa276",
+      "cancel-video-frame-003.jpg": "73e8c90ce2e36bd02b77faf7fb8b67fb063908440ea362ff018fe26e7d1fa276",
+      "cancel-video-frame-004.jpg": "2aa431516dfc9f38456acd903e8ae452680275c0ad470020938c33af467ea770"
+    }
+  },
+  "performanceTrace": {
+    "file": "performance-trace.json",
+    "sha256": "da80a82705487bf5b92f850e67ebef01a6606b19ef874df5c9980bf64a13274c",
+    "format": "Chrome Trace Event Format",
+    "events": 34,
+    "pipelineRuns": 3,
+    "stageEvents": 24,
+    "source": "measured browser stage totals in browser-qa.json"
+  },
+  "captures": {
+    "browser-complete-1m.jpg": {
+      "sha256": "9c505967bfa8cb95dd9471096daae98e4f0c92688737296a0ec0d9d3a21e655c",
+      "width": 1272,
+      "height": 716
+    },
+    "browser-cancel-4m-contact-sheet.jpg": {
+      "sha256": "976fdce9dc3ad287592e40b1a92036cf7e3e63c1908e1824e6d17e39f24d7d6e",
+      "width": 6360,
+      "height": 716
+    },
+    "browser-mobile-390x844.jpg": {
+      "sha256": "fffe101d718cda74b20fd208f838a00244e93de9d377f571a7b3ab826a27b014",
+      "width": 382,
+      "height": 1738
+    },
+    "browser-worker-failure.jpg": {
+      "sha256": "a4d521b302b7d87b415d93c1f934202d1bc47f6aec251f219a875431c3c41763",
+      "width": 1272,
+      "height": 716
+    },
+    "browser-keyboard-cancel-chrome.jpg": {
+      "sha256": "1125225bcbedbcc1221bd529d1932887e80dcc4230439183ab094f39817416bd",
+      "width": 1249,
+      "height": 746
+    }
+  }
+}

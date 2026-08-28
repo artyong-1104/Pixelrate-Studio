@@ -14,29 +14,31 @@ for(const value of ['kmeans-srgb', 'kmeans-oklab', 'median-cut', 'pixel', 'image
   assert.match(html, new RegExp(`value="${value}"`), `${value} option must exist`);
 }
 assert.match(html, /value="oklab-animation-stable"/);
+assert.match(html, /const OKLAB_TEMPORAL_EPSILON = 0\.005;/);
 assert.match(html, /'oklab-animation-stable':\s*\{[\s\S]*paletteAlgorithm:\s*'kmeans-oklab'[\s\S]*shared:\s*true/);
-assert.match(html, /aria-controls="representativeColorField paletteExperimentField"/);
+assert.match(html, /aria-controls="[^"]*representativeColorField[^"]*paletteExperimentField[^"]*"/);
 assert.match(html, /paletteAlgorithm: 'kmeans-srgb'/);
 assert.match(html, /paletteSampling: 'pixel'/);
 assert.match(html, /paletteReference: null/);
 
 const processAll = extractInlineFunction(html, 'processAll');
 assert.match(processAll, /getPaletteReferenceValidation\(uploadedFiles, paletteSampling, paletteReference\)/);
-assert.match(processAll, /buildAutoPalette\([\s\S]+paletteAlgorithm,[\s\S]+paletteSampling,[\s\S]+paletteReference/);
+assert.match(processAll, /buildAutoPaletteChunked\([\s\S]+paletteAlgorithm,[\s\S]+paletteSampling,[\s\S]+paletteReference/);
 assert.match(processAll, /algorithm: paletteAlgorithm/);
 assert.match(processAll, /sampling: paletteSampling/);
 assert.match(processAll, /error: paletteMapping\?\.error/);
 assert.match(processAll, /slotUsage: paletteMapping\?\.slotUsage/);
 assert.match(processAll, /runtimeMs: paletteBuild\?\.runtimeMs/);
 assert.match(processAll, /temporalPaletteMappings/);
-assert.match(processAll, /sameGeometry \? 0\.00025 : 0/);
+assert.match(processAll, /sameGeometry \? OKLAB_TEMPORAL_EPSILON : 0/);
 assert.match(processAll, /temporalStability:/);
 
 const updatePaletteExperimentUi = extractInlineFunction(html, 'updatePaletteExperimentUi');
 assert.match(updatePaletteExperimentUi, /paletteModeSel\?\.value === 'auto'/);
 assert.match(updatePaletteExperimentUi, /paletteSamplingSel\.value = 'pixel'/);
 assert.match(updatePaletteExperimentUi, /getPaletteReferenceValidation/);
-assert.match(updatePaletteExperimentUi, /직접 지정·제한 없음 모드에서는/);
+assert.match(updatePaletteExperimentUi, /제한 없음 모드에서는 팔레트 생성 및 디더링 실험을 사용할 수 없습니다\./);
+assert.match(updatePaletteExperimentUi, /직접 지정 모드에서는 팔레트 생성 알고리즘을 변경할 수 없으나, 디더링은 적용할 수 있습니다\./);
 
 const updatePaletteReferenceOptions = extractInlineFunction(html, 'updatePaletteReferenceOptions');
 assert.match(updatePaletteReferenceOptions, /\(동일 이름 \$\{duplicateCount\}개 — 사용 불가\)/);

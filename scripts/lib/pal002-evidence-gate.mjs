@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { decodeJpegDimensions, readJpegDimensions } from './alp002-evidence-gate.mjs';
+import { PAL002_OKLAB_TEMPORAL_EPSILON } from './pal002-evaluation.mjs';
 
 export const PAL002_CAPTURE_REQUIREMENTS = Object.freeze({
   'browser-algorithm-ab.jpg': Object.freeze({ minWidth: 640, minHeight: 360 }),
@@ -109,7 +110,7 @@ function readPngDimensions(bytes){
   return width > 0 && height > 0 ? { width, height } : null;
 }
 
-export function evaluatePal002ManualMatrixEvidence(qa, evidenceDir){
+export function evaluatePal002ManualMatrixEvidence(qa, evidenceDir, { promotionCellIds = [] } = {}){
   const record = qa?.actualSizeMatrix;
   const manifestName = record?.manifest;
   if(manifestName !== 'browser-manual-matrix.json') return { pass: false, cellCount: 0, assetCount: 0 };
@@ -130,7 +131,7 @@ export function evaluatePal002ManualMatrixEvidence(qa, evidenceDir){
   const cellIds = cells.map(cell => cell.id);
   let assetCount = 0;
   const manifestPass = manifest.implementationId === 'PAL-002' && manifest.actualSizeScale === 1 &&
-    manifest.oklabTemporalEpsilon === 0.00025 &&
+    manifest.oklabTemporalEpsilon === PAL002_OKLAB_TEMPORAL_EPSILON &&
     manifest.cellCount === expectedCellIds.length && cells.length === expectedCellIds.length &&
     new Set(cellIds).size === expectedCellIds.length &&
     expectedCellIds.every(id => cellIds.includes(id)) &&
@@ -177,7 +178,7 @@ export function evaluatePal002ManualMatrixEvidence(qa, evidenceDir){
       }
       return PAL002_MANUAL_COLORS.every(colors => {
         const cell = group.cells.find(candidate => candidate.colors === colors);
-        const promotionExpected = groupId === 'animation' && colors === 16;
+        const promotionExpected = promotionCellIds.includes(`${groupId}-${colors}`);
         return cell?.actualSizeChecked === true && typeof cell.featureVerdict === 'string' &&
           cell.featureVerdict.length > 0 && typeof cell.flickerVerdict === 'string' &&
           cell.flickerVerdict.length > 0 && cell.candidatePromotionSupported === promotionExpected && cell.pass === true;

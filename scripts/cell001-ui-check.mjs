@@ -15,7 +15,11 @@ assert.match(html, /대표색 \$\{r\.jsonData\?\.processing\?\.representativeCol
 
 const processAll = extractInlineFunction(html, 'processAll');
 for(const route of ['boxDownscale', 'exactFactorDownscale', 'preserveSheetDownscale', 'gridRepairDownscale']){
-  assert.match(processAll, new RegExp(`${route}\\([^;]+representativeColor, alphaThreshold\\)`), `${route} must receive the CELL-001 policy`);
+  assert.match(
+    processAll,
+    new RegExp(`${route}\\([^;]+representativeColor, alphaThreshold(?:, [^)]+)?\\)`),
+    `${route} must receive the CELL-001 policy, with optional later-stage arguments allowed`
+  );
 }
 
 const showExperimentalFeatures = {

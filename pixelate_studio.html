@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-6JT0GRgVk20l2zaN1z5ToQeN6O5hwJSjXlBVFsVvWSE='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YyJhORwbuWpFEp9w7Q3AsmvB+uO4caxGazFYLwq64Ys='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'">
 <!--
 <!-- Inactive historical CSP declarations:
 Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
@@ -451,6 +451,7 @@ Legacy hash declaration:
   }
   button.ghost:hover{border-color:var(--accent); color:var(--accent); transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--shadow-c);}
   button.ghost:active{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--shadow-c);}
+  button.ghost:disabled{cursor:not-allowed; opacity:.48; box-shadow:none; transform:none; border-color:var(--line); color:var(--ink-dim);}
 
   .filelist{list-style:none; margin:0; padding:0; max-height:150px; overflow-y:auto; font-family:var(--mono);}
   .filelist li{
@@ -1051,7 +1052,7 @@ Legacy hash declaration:
 
                 <div class="field" style="margin-top:14px;">
                   <label class="toggle">
-                    <input type="checkbox" id="showExperimentalFeatures" aria-controls="representativeColorField paletteExperimentField" aria-expanded="false">
+                    <input type="checkbox" id="showExperimentalFeatures" aria-controls="representativeColorField edgeExperimentField paletteExperimentField" aria-expanded="false">
                     실험 기능 표시
                   </label>
                 </div>
@@ -1071,6 +1072,49 @@ Legacy hash declaration:
                   </select>
                   <div id="representativeColorWarning" class="frame-size-note" role="status" aria-live="polite" style="display:none; color:var(--ink-dim); margin-top:6px; background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
                     실험 기능이며 작은 특징이 사라지거나 밝기가 달라질 수 있습니다.
+                  </div>
+                </div>
+                <div class="field" id="edgeExperimentField" style="display:none; border-left:2px solid var(--line); padding-left:11px;">
+                  <div class="field-header">
+                    <label class="toggle" for="lineAwareEnabled">
+                      <input type="checkbox" id="lineAwareEnabled" disabled aria-describedby="edgeExperimentStatus">
+                      세부 선 보존 (실험)
+                    </label>
+                    <span class="help-container">
+                      <button class="help-btn" type="button" data-help="주변보다 어두운 선 후보를 찾아 셀 대표색에 일부 혼합합니다. 사진이나 질감에서는 잘못된 선을 만들 수 있어 기본으로 꺼져 있습니다.">?</button>
+                    </span>
+                  </div>
+                  <div id="lineAwareOptions" style="display:none; margin-top:8px;">
+                    <label for="lineThresholdRange">선 감지 임계값 <span class="val" id="lineThresholdVal">20%</span></label>
+                    <div class="row2" style="grid-template-columns:1fr 65px; gap:8px; align-items:center; margin-top:5px;">
+                      <input type="range" id="lineThresholdRange" min="5" max="50" value="20" disabled aria-label="선 감지 임계값 슬라이더">
+                      <input type="number" id="lineThresholdNum" min="5" max="50" value="20" disabled aria-label="선 감지 임계값 숫자 입력">
+                    </div>
+                    <label for="lineStrengthRange" style="display:block; margin-top:8px;">선 혼합 강도 <span class="val" id="lineStrengthVal">60%</span></label>
+                    <div class="row2" style="grid-template-columns:1fr 65px; gap:8px; align-items:center; margin-top:5px;">
+                      <input type="range" id="lineStrengthRange" min="0" max="100" value="60" disabled aria-label="선 혼합 강도 슬라이더">
+                      <input type="number" id="lineStrengthNum" min="0" max="100" value="60" disabled aria-label="선 혼합 강도 숫자 입력">
+                    </div>
+                  </div>
+
+                  <div class="field" style="margin-top:12px; margin-bottom:0;">
+                    <label class="toggle" for="seloutEnabled">
+                      <input type="checkbox" id="seloutEnabled" disabled aria-describedby="edgeExperimentStatus edgeOutlineWarning">
+                      실루엣 selout (실험)
+                    </label>
+                    <div id="seloutOptions" style="display:none; margin-top:8px;">
+                      <label for="seloutDarkenRange">외곽 어둡게 <span class="val" id="seloutDarkenVal">20%</span></label>
+                      <div class="row2" style="grid-template-columns:1fr 65px; gap:8px; align-items:center; margin-top:5px;">
+                        <input type="range" id="seloutDarkenRange" min="5" max="50" value="20" disabled aria-label="selout 어둡게 슬라이더">
+                        <input type="number" id="seloutDarkenNum" min="5" max="50" value="20" disabled aria-label="selout 어둡게 숫자 입력">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="edgeOutlineWarning" class="frame-size-note" role="status" aria-live="polite" style="display:none; color:var(--ink-dim); margin-top:8px; background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
+                    서로 다른 두 외곽선 효과가 중첩됩니다.
+                  </div>
+                  <div id="edgeExperimentStatus" class="frame-size-note" role="status" aria-live="polite" style="margin-top:8px; color:var(--ink-dim); background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
+                    실험 기능입니다. 기본값과 프리셋에는 적용되지 않습니다.
                   </div>
                 </div>
               </div>
@@ -1176,6 +1220,33 @@ Legacy hash declaration:
                       <option value="">참조 이미지를 선택하세요</option>
                     </select>
                     <div id="paletteReferenceError" class="frame-size-note" role="status" aria-live="polite" style="display:none; color:var(--danger); margin-top:6px;"></div>
+                  </div>
+
+                  <div class="field" id="ditherField" style="margin-top:10px; margin-bottom:0;">
+                    <div class="field-header">
+                      <label for="ditherMode">디더링</label>
+                      <span class="help-container">
+                        <button class="help-btn" type="button" data-help="정지 이미지에서 제한 팔레트의 그라디언트 밴딩을 줄이기 위한 Bayer 순서화 디더링입니다. 애니메이션 시트에서는 패턴 떨림이 발생할 수 있어 기본적으로 사용하지 않습니다.">?</button>
+                      </span>
+                    </div>
+                    <select id="ditherMode" disabled aria-describedby="ditherAnimationWarning">
+                      <option value="off" selected>사용 안 함 (기본)</option>
+                      <option value="bayer2">Bayer 2×2</option>
+                      <option value="bayer4">Bayer 4×4</option>
+                    </select>
+
+                    <div id="ditherStrengthField" style="display:none; margin-top:8px;">
+                      <div class="field-header">
+                        <label for="ditherStrengthRange">디더링 강도 <span class="val" id="ditherStrengthVal">50%</span></label>
+                      </div>
+                      <div class="row2" style="grid-template-columns:1fr 65px; gap:8px; align-items:center;">
+                        <input type="range" id="ditherStrengthRange" min="0" max="100" value="50" disabled aria-label="디더링 강도 슬라이더">
+                        <input type="number" id="ditherStrengthNum" min="0" max="100" value="50" disabled aria-label="디더링 강도 숫자 입력">
+                      </div>
+                    </div>
+                    <div id="ditherAnimationWarning" class="frame-size-note" role="status" aria-live="polite" style="display:none; color:var(--ink-dim); margin-top:6px; background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
+                      프레임에서 무늬가 흔들릴 수 있습니다. 패턴 원점은 고정됩니다.
+                    </div>
                   </div>
 
                   <div id="paletteExperimentStatus" class="frame-size-note" role="status" aria-live="polite" style="margin-top:8px; color:var(--ink-dim); background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:6px 8px;">
@@ -1354,9 +1425,10 @@ Legacy hash declaration:
       <div class="controls-actions">
         <div class="controls-actions-row">
           <button class="primary" id="runBtn" disabled style="margin-top: 0; flex: 1.5;">변환 실행</button>
+          <button class="ghost" id="cancelProcessBtn" type="button" disabled style="flex: .75;">처리 취소</button>
           <button class="primary" id="resetBtn" style="margin-top: 0; flex: 1; background: var(--panel-2); color: var(--ink);">조건 초기화</button>
         </div>
-        <div class="status" id="status" style="margin-top:10px;"></div>
+        <div class="status" id="status" role="status" aria-live="polite" style="margin-top:10px;"></div>
       </div>
     </div>
 
@@ -1586,6 +1658,7 @@ const MAX_TOTAL_IMAGE_PIXELS = 64 * 1024 * 1024;
 const MAX_RAW_PROCESS_PIXELS = 4 * 1024 * 1024;
 const MAX_PALETTE_SAMPLES = 50000;
 const MAX_COLOR_COMPARISONS = 80000000;
+const OKLAB_TEMPORAL_EPSILON = 0.005;
 const MAX_STORED_RESULT_DIMENSION = 4096 + 60;
 const MAX_STORED_DATA_URL_CHARS = 110 * 1024 * 1024;
 const MAX_STORED_ALPHA_MATRIX_BYTES = 16 * 1024 * 1024;
@@ -1600,6 +1673,7 @@ const drop = document.getElementById('drop');
 const fileInput = document.getElementById('fileInput');
 const fileListEl = document.getElementById('fileList');
 const runBtn = document.getElementById('runBtn');
+const cancelProcessBtn = document.getElementById('cancelProcessBtn');
 const resetBtn = document.getElementById('resetBtn');
 const statusEl = document.getElementById('status');
 const resultsEl = document.getElementById('results');
@@ -1641,6 +1715,22 @@ const showExperimentalFeatures = document.getElementById('showExperimentalFeatur
 const representativeColorField = document.getElementById('representativeColorField');
 const representativeColorSel = document.getElementById('representativeColor');
 const representativeColorWarning = document.getElementById('representativeColorWarning');
+const edgeExperimentField = document.getElementById('edgeExperimentField');
+const lineAwareEnabled = document.getElementById('lineAwareEnabled');
+const lineAwareOptions = document.getElementById('lineAwareOptions');
+const lineThresholdRange = document.getElementById('lineThresholdRange');
+const lineThresholdNum = document.getElementById('lineThresholdNum');
+const lineThresholdVal = document.getElementById('lineThresholdVal');
+const lineStrengthRange = document.getElementById('lineStrengthRange');
+const lineStrengthNum = document.getElementById('lineStrengthNum');
+const lineStrengthVal = document.getElementById('lineStrengthVal');
+const seloutEnabled = document.getElementById('seloutEnabled');
+const seloutOptions = document.getElementById('seloutOptions');
+const seloutDarkenRange = document.getElementById('seloutDarkenRange');
+const seloutDarkenNum = document.getElementById('seloutDarkenNum');
+const seloutDarkenVal = document.getElementById('seloutDarkenVal');
+const edgeOutlineWarning = document.getElementById('edgeOutlineWarning');
+const edgeExperimentStatus = document.getElementById('edgeExperimentStatus');
 
 const paletteModeSel = document.getElementById('paletteMode');
 const paletteAutoControls = document.getElementById('paletteAutoControls');
@@ -1664,6 +1754,13 @@ const paletteReferenceField = document.getElementById('paletteReferenceField');
 const paletteReferenceSel = document.getElementById('paletteReference');
 const paletteReferenceError = document.getElementById('paletteReferenceError');
 const paletteExperimentStatus = document.getElementById('paletteExperimentStatus');
+const ditherField = document.getElementById('ditherField');
+const ditherModeSel = document.getElementById('ditherMode');
+const ditherStrengthField = document.getElementById('ditherStrengthField');
+const ditherStrengthRange = document.getElementById('ditherStrengthRange');
+const ditherStrengthNum = document.getElementById('ditherStrengthNum');
+const ditherStrengthVal = document.getElementById('ditherStrengthVal');
+const ditherAnimationWarning = document.getElementById('ditherAnimationWarning');
 
 const alphaModeBinaryRadio = document.getElementById('alphaModeBinary');
 const alphaModeCoverageRadio = document.getElementById('alphaModeCoverage');
@@ -2065,6 +2162,8 @@ const DEFAULT_SETTINGS = Object.freeze({
   frameHeight: 64,
   pixelBlockSize: 4,
   representativeColor: 'mean-srgb',
+  lineAware: Object.freeze({ enabled: false, threshold: 0.2, strength: 0.6 }),
+  selout: Object.freeze({ enabled: false, darken: 0.2 }),
   paletteMode: 'auto',
   paletteAlgorithm: 'kmeans-srgb',
   paletteSampling: 'pixel',
@@ -2081,7 +2180,9 @@ const DEFAULT_SETTINGS = Object.freeze({
   outlineShape: '4',
   exportNearestScales: [],
   alphaMode: 'binary',
-  alphaThreshold: 10
+  alphaThreshold: 10,
+  ditherMode: 'off',
+  ditherStrength: 50
 });
 
 const PRESETS = Object.freeze({
@@ -2092,7 +2193,8 @@ const PRESETS = Object.freeze({
     shared: true,
     cleanEnabled: true,
     cleanPasses: 1,
-    outline: false
+    outline: false,
+    ditherMode: 'off'
   },
   'oklab-animation-stable': {
     paletteMode: 'auto',
@@ -2103,7 +2205,8 @@ const PRESETS = Object.freeze({
     shared: true,
     cleanEnabled: true,
     cleanPasses: 1,
-    outline: false
+    outline: false,
+    ditherMode: 'off'
   },
   'preserve-sheet': {
     scaleMode: 'preserve-sheet',
@@ -2140,6 +2243,12 @@ function getSettingsSummary(s) {
   if (s.representativeColor && s.representativeColor !== 'mean-srgb') {
     parts.push(`대표색:${s.representativeColor}`);
   }
+  if (s.lineAware?.enabled) {
+    parts.push(`선보존:${Math.round(s.lineAware.threshold * 100)}%/${Math.round(s.lineAware.strength * 100)}%`);
+  }
+  if (s.selout?.enabled) {
+    parts.push(`selout:${Math.round(s.selout.darken * 100)}%`);
+  }
   if (s.paletteMode === 'custom') {
     const customCount = Array.isArray(s.customPalette) ? s.customPalette.length : (s.colors || 0);
     parts.push(`팔레트:직접지정(${customCount}색)`);
@@ -2154,6 +2263,9 @@ function getSettingsSummary(s) {
   if (s.paletteMode === 'auto' && (paletteAlgorithm !== 'kmeans-srgb' || paletteSampling !== 'pixel')) {
     const reference = paletteSampling === 'reference' && s.paletteReference ? `:${s.paletteReference}` : '';
     parts.push(`팔레트실험:${paletteAlgorithm}/${paletteSampling}${reference}`);
+  }
+  if (s.ditherMode && s.ditherMode !== 'off') {
+    parts.push(`디더링:${s.ditherMode}(${s.ditherStrength ?? 50}%)`);
   }
   const cleanPassesCount = s.cleanPasses ?? s.cleanNum ?? (s.cleanEnabled ? 1 : 0);
   if (cleanPassesCount > 0 && (s.cleanEnabled ?? true)) {
@@ -2188,10 +2300,15 @@ function readUiSettings() {
     : (frameHeightInput ? parseInt(frameHeightInput.value, 10) : 64);
   const pixelBlockSize = pixelBlockSizeSel ? parseInt(pixelBlockSizeSel.value, 10) : 4;
   const representativeColor = representativeColorSel ? representativeColorSel.value : 'mean-srgb';
+  const lineThresholdPercent = lineThresholdNum ? parseInt(lineThresholdNum.value, 10) : 20;
+  const lineStrengthPercent = lineStrengthNum ? parseInt(lineStrengthNum.value, 10) : 60;
+  const seloutDarkenPercent = seloutDarkenNum ? parseInt(seloutDarkenNum.value, 10) : 20;
   const paletteMode = paletteModeSel ? paletteModeSel.value : 'auto';
   const paletteAlgorithm = paletteAlgorithmSel ? paletteAlgorithmSel.value : 'kmeans-srgb';
   const paletteSampling = paletteSamplingSel ? paletteSamplingSel.value : 'pixel';
   const paletteReference = paletteReferenceSel?.value || null;
+  const ditherMode = ditherModeSel ? ditherModeSel.value : 'off';
+  const ditherStrength = ditherStrengthNum ? parseInt(ditherStrengthNum.value, 10) : (ditherStrengthRange ? parseInt(ditherStrengthRange.value, 10) : 50);
   const parsedCustom = customPaletteText ? parseHexPalette(customPaletteText.value) : { hexes: [] };
   const customPalette = parsedCustom.hexes;
   const colors = paletteMode === 'custom'
@@ -2228,10 +2345,21 @@ function readUiSettings() {
     frameHeight,
     pixelBlockSize,
     representativeColor,
+    lineAware: {
+      enabled: Boolean(lineAwareEnabled?.checked),
+      threshold: (Number.isInteger(lineThresholdPercent) ? Math.max(5, Math.min(50, lineThresholdPercent)) : 20) / 100,
+      strength: (Number.isInteger(lineStrengthPercent) ? Math.max(0, Math.min(100, lineStrengthPercent)) : 60) / 100
+    },
+    selout: {
+      enabled: Boolean(seloutEnabled?.checked),
+      darken: (Number.isInteger(seloutDarkenPercent) ? Math.max(5, Math.min(50, seloutDarkenPercent)) : 20) / 100
+    },
     paletteMode,
     paletteAlgorithm,
     paletteSampling,
     paletteReference,
+    ditherMode,
+    ditherStrength: Number.isInteger(ditherStrength) ? Math.max(0, Math.min(100, ditherStrength)) : 50,
     customPalette,
     paletteEnabled,
     colors,
@@ -2261,11 +2389,11 @@ function normalizeSettings(input, source = 'envelope') {
     'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
     'gridFrameMode', 'gridFrameWidth', 'gridFrameHeight', 'gridSizeX', 'gridSizeY',
     'gridPhaseX', 'gridPhaseY', 'gridSource', 'gridLockedAcrossFrames',
-    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'lineAware', 'selout', 'paletteMode',
     'paletteAlgorithm', 'paletteSampling', 'paletteReference', 'customPalette',
     'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
     'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
-    'alphaMode', 'alphaThreshold',
+    'alphaMode', 'alphaThreshold', 'ditherMode', 'ditherStrength',
     'downscaleEnabled', 'colorsNum', 'cleanNum', 'clean', 'outlineWidthNum'
   ]);
 
@@ -2394,6 +2522,44 @@ function normalizeSettings(input, source = 'envelope') {
       throw new Error(`유효하지 않은 representativeColor 값: ${input.representativeColor}`);
     }
     result.representativeColor = input.representativeColor;
+  }
+
+  if ('lineAware' in input) {
+    const value = input.lineAware;
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      throw new Error('lineAware는 설정 객체여야 합니다.');
+    }
+    const allowed = new Set(['enabled', 'threshold', 'strength']);
+    for (const key of Object.keys(value)) {
+      if (!allowed.has(key)) throw new Error(`알 수 없는 lineAware 설정 필드: ${key}`);
+    }
+    if (typeof value.enabled !== 'boolean') throw new Error('lineAware.enabled는 boolean이어야 합니다.');
+    const threshold = Number(value.threshold);
+    const strength = Number(value.strength);
+    if (!Number.isFinite(threshold) || threshold < 0.05 || threshold > 0.5) {
+      throw new Error(`lineAware.threshold는 0.05~0.5 범위여야 합니다: ${value.threshold}`);
+    }
+    if (!Number.isFinite(strength) || strength < 0 || strength > 1) {
+      throw new Error(`lineAware.strength는 0~1 범위여야 합니다: ${value.strength}`);
+    }
+    result.lineAware = { enabled: value.enabled, threshold, strength };
+  }
+
+  if ('selout' in input) {
+    const value = input.selout;
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      throw new Error('selout은 설정 객체여야 합니다.');
+    }
+    const allowed = new Set(['enabled', 'darken']);
+    for (const key of Object.keys(value)) {
+      if (!allowed.has(key)) throw new Error(`알 수 없는 selout 설정 필드: ${key}`);
+    }
+    if (typeof value.enabled !== 'boolean') throw new Error('selout.enabled는 boolean이어야 합니다.');
+    const darken = Number(value.darken);
+    if (!Number.isFinite(darken) || darken < 0.05 || darken > 0.5) {
+      throw new Error(`selout.darken은 0.05~0.5 범위여야 합니다: ${value.darken}`);
+    }
+    result.selout = { enabled: value.enabled, darken };
   }
 
   if ('paletteMode' in input) {
@@ -2559,6 +2725,21 @@ function normalizeSettings(input, source = 'envelope') {
     result.alphaThreshold = val;
   }
 
+  if ('ditherMode' in input) {
+    if (!['off', 'bayer2', 'bayer4'].includes(input.ditherMode)) {
+      throw new Error(`유효하지 않은 ditherMode 값: ${input.ditherMode}`);
+    }
+    result.ditherMode = input.ditherMode;
+  }
+
+  if ('ditherStrength' in input) {
+    const val = Number(input.ditherStrength);
+    if (!Number.isInteger(val) || val < 0 || val > 100) {
+      throw new Error(`ditherStrength는 0~100 범위의 정수여야 합니다: ${input.ditherStrength}`);
+    }
+    result.ditherStrength = val;
+  }
+
   return { settings: result, warnings };
 }
 
@@ -2627,6 +2808,8 @@ const SETTING_LABELS = Object.freeze({
   frameHeight: '프레임 높이',
   pixelBlockSize: '블록 크기',
   representativeColor: '셀 대표색',
+  lineAware: '얇은 선 보존',
+  selout: '선택적 외곽 음영',
   paletteMode: '팔레트 방식',
   paletteAlgorithm: '팔레트 생성 알고리즘',
   paletteSampling: '팔레트 샘플 가중',
@@ -2643,7 +2826,9 @@ const SETTING_LABELS = Object.freeze({
   outlineShape: '외곽선 형태',
   exportNearestScales: '추가 nearest 확대본',
   alphaMode: '투명도 처리 방식',
-  alphaThreshold: '투명도 임계값'
+  alphaThreshold: '투명도 임계값',
+  ditherMode: '디더링',
+  ditherStrength: '디더링 강도'
 });
 
 function formatSettingValue(key, val) {
@@ -2663,6 +2848,12 @@ function formatSettingValue(key, val) {
   if (key === 'representativeColor') {
     const map = { 'mean-srgb': '균형 평균 (sRGB, 기본)', 'mean-linear': '선형광 평균', center: '중앙 샘플', median: '중앙값', majority: '최빈색' };
     return map[val] || val;
+  }
+  if (key === 'lineAware') {
+    return val?.enabled ? `켜짐 (임계 ${Math.round(val.threshold * 100)}%, 강도 ${Math.round(val.strength * 100)}%)` : '꺼짐';
+  }
+  if (key === 'selout') {
+    return val?.enabled ? `켜짐 (어둡게 ${Math.round(val.darken * 100)}%)` : '꺼짐';
   }
   if (key === 'paletteMode') {
     const map = { auto: '자동 생성 (K-means)', custom: '직접 지정 (Custom Palette)', unlimited: '제한 없음 (원본 색상)' };
@@ -2689,6 +2880,11 @@ function formatSettingValue(key, val) {
   }
   if (key === 'alphaMode') return val === 'coverage' ? '픽셀 점유율 유지 (부분 투명도)' : '선명한 스프라이트 (0/255)';
   if (key === 'alphaThreshold') return `${val}`;
+  if (key === 'ditherMode') {
+    const map = { off: '사용 안 함 (기본)', bayer2: 'Bayer 2×2', bayer4: 'Bayer 4×4' };
+    return map[val] || val;
+  }
+  if (key === 'ditherStrength') return `${val}%`;
   return String(val);
 }
 
@@ -2698,11 +2894,11 @@ function diffSettings(current, next) {
     'scaleMode', 'size', 'method', 'factor', 'factorFrameMode',
     'gridFrameMode', 'gridFrameWidth', 'gridFrameHeight', 'gridSizeX', 'gridSizeY',
     'gridPhaseX', 'gridPhaseY', 'gridSource', 'gridLockedAcrossFrames',
-    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'paletteMode',
+    'frameWidth', 'frameHeight', 'pixelBlockSize', 'representativeColor', 'lineAware', 'selout', 'paletteMode',
     'paletteAlgorithm', 'paletteSampling', 'paletteReference', 'customPalette',
     'paletteEnabled', 'colors', 'shared', 'cleanEnabled', 'cleanPasses', 'outline',
     'outlineWidth', 'outlineColor', 'outlineShape', 'exportNearestScales',
-    'alphaMode', 'alphaThreshold'
+    'alphaMode', 'alphaThreshold', 'ditherMode', 'ditherStrength'
   ];
 
   for (const k of keys) {
@@ -2711,7 +2907,9 @@ function diffSettings(current, next) {
     const nextVal = next[k];
     const isDifferent = Array.isArray(curVal) && Array.isArray(nextVal)
       ? curVal.slice().sort().join(',') !== nextVal.slice().sort().join(',')
-      : curVal !== nextVal;
+      : curVal && nextVal && typeof curVal === 'object' && typeof nextVal === 'object'
+        ? JSON.stringify(curVal) !== JSON.stringify(nextVal)
+        : curVal !== nextVal;
 
     if (isDifferent) {
       diffs.push({
@@ -2770,9 +2968,38 @@ function applyUiSettings(settings) {
   if (settings.paletteAlgorithm) paletteAlgorithmSel.value = settings.paletteAlgorithm;
   if (settings.paletteSampling) paletteSamplingSel.value = settings.paletteSampling;
   if ('paletteReference' in settings) updatePaletteReferenceOptions(settings.paletteReference || '');
+  if (settings.ditherMode !== undefined) {
+    if (ditherModeSel) ditherModeSel.value = settings.ditherMode;
+  }
+  if (settings.ditherStrength !== undefined) {
+    if (ditherStrengthRange) ditherStrengthRange.value = String(settings.ditherStrength);
+    if (ditherStrengthNum) ditherStrengthNum.value = String(settings.ditherStrength);
+    if (ditherStrengthVal) ditherStrengthVal.textContent = `${settings.ditherStrength}%`;
+  }
+  if (settings.lineAware) {
+    if (lineAwareEnabled) lineAwareEnabled.checked = settings.lineAware.enabled === true;
+    const thresholdPercent = Math.round((settings.lineAware.threshold ?? 0.2) * 100);
+    const strengthPercent = Math.round((settings.lineAware.strength ?? 0.6) * 100);
+    if (lineThresholdRange) lineThresholdRange.value = String(thresholdPercent);
+    if (lineThresholdNum) lineThresholdNum.value = String(thresholdPercent);
+    if (lineThresholdVal) lineThresholdVal.textContent = `${thresholdPercent}%`;
+    if (lineStrengthRange) lineStrengthRange.value = String(strengthPercent);
+    if (lineStrengthNum) lineStrengthNum.value = String(strengthPercent);
+    if (lineStrengthVal) lineStrengthVal.textContent = `${strengthPercent}%`;
+  }
+  if (settings.selout) {
+    if (seloutEnabled) seloutEnabled.checked = settings.selout.enabled === true;
+    const darkenPercent = Math.round((settings.selout.darken ?? 0.2) * 100);
+    if (seloutDarkenRange) seloutDarkenRange.value = String(darkenPercent);
+    if (seloutDarkenNum) seloutDarkenNum.value = String(darkenPercent);
+    if (seloutDarkenVal) seloutDarkenVal.textContent = `${darkenPercent}%`;
+  }
   showExperimentalFeatures.checked = (settings.representativeColor || 'mean-srgb') !== 'mean-srgb' ||
     (settings.paletteAlgorithm || 'kmeans-srgb') !== 'kmeans-srgb' ||
-    (settings.paletteSampling || 'pixel') !== 'pixel';
+    (settings.paletteSampling || 'pixel') !== 'pixel' ||
+    (settings.ditherMode || 'off') !== 'off' ||
+    settings.lineAware?.enabled === true ||
+    settings.selout?.enabled === true;
   if (settings.paletteMode) {
     paletteModeSel.value = settings.paletteMode;
   } else if (settings.paletteEnabled !== undefined) {
@@ -2789,6 +3016,7 @@ function applyUiSettings(settings) {
     sharedCheck.checked = settings.shared;
   }
   updateRepresentativeColorUi(false);
+  updateEdgeExperimentUi(false);
   updatePaletteModeUi();
   renderCustomPalettePreview();
   if (settings.cleanEnabled !== undefined) {
@@ -3399,7 +3627,10 @@ function syncScaleModeControls(){
     runBtn.disabled = uploadedFiles.length === 0;
   }
 }
-scaleModeSel.addEventListener('change', syncScaleModeControls);
+scaleModeSel.addEventListener('change', () => {
+  syncScaleModeControls();
+  updatePaletteExperimentUi(false);
+});
 
 function updateRepresentativeColorUi(resetWhenHidden = true){
   const show = Boolean(showExperimentalFeatures?.checked);
@@ -3416,7 +3647,74 @@ function updateRepresentativeColorUi(resetWhenHidden = true){
 
 function updateExperimentalFeaturesUi(resetWhenHidden = true){
   updateRepresentativeColorUi(resetWhenHidden);
+  updateEdgeExperimentUi(resetWhenHidden);
   updatePaletteExperimentUi(resetWhenHidden);
+}
+
+function syncPercentPair(range, number, label, min, max, fallback){
+  if(!range || !number) return;
+  const clamp = value => {
+    const parsed = parseInt(value, 10);
+    return Number.isInteger(parsed) ? Math.max(min, Math.min(max, parsed)) : fallback;
+  };
+  range.addEventListener('input', () => {
+    const value = clamp(range.value);
+    number.value = String(value);
+    if(label) label.textContent = `${value}%`;
+  });
+  number.addEventListener('input', () => {
+    const value = clamp(number.value);
+    range.value = String(value);
+    if(label) label.textContent = `${value}%`;
+  });
+  number.addEventListener('change', () => {
+    const value = clamp(number.value);
+    number.value = String(value);
+    range.value = String(value);
+    if(label) label.textContent = `${value}%`;
+  });
+}
+
+function updateEdgeExperimentUi(resetWhenHidden = true){
+  if(!edgeExperimentField) return;
+  const show = Boolean(showExperimentalFeatures?.checked);
+  if(!show && resetWhenHidden){
+    if(lineAwareEnabled) lineAwareEnabled.checked = false;
+    if(seloutEnabled) seloutEnabled.checked = false;
+  }
+  edgeExperimentField.style.display = show ? 'block' : 'none';
+  if(lineAwareEnabled) lineAwareEnabled.disabled = !show;
+  if(seloutEnabled) seloutEnabled.disabled = !show;
+  const lineActive = show && Boolean(lineAwareEnabled?.checked);
+  const seloutActive = show && Boolean(seloutEnabled?.checked);
+  if(lineAwareOptions) lineAwareOptions.style.display = lineActive ? 'block' : 'none';
+  if(seloutOptions) seloutOptions.style.display = seloutActive ? 'block' : 'none';
+  [lineThresholdRange, lineThresholdNum, lineStrengthRange, lineStrengthNum].forEach(control => {
+    if(control) control.disabled = !lineActive;
+  });
+  [seloutDarkenRange, seloutDarkenNum].forEach(control => {
+    if(control) control.disabled = !seloutActive;
+  });
+  if(edgeOutlineWarning) edgeOutlineWarning.style.display = seloutActive && Boolean(outlineCheck?.checked) ? 'block' : 'none';
+  if(edgeExperimentStatus){
+    edgeExperimentStatus.textContent = (lineActive || seloutActive)
+      ? '실험 후보가 활성화되었습니다. 결과의 선 후보·적용 셀·selout 픽셀 수를 확인하세요.'
+      : '실험 기능입니다. 기본값과 프리셋에는 적용되지 않습니다.';
+  }
+}
+
+syncPercentPair(lineThresholdRange, lineThresholdNum, lineThresholdVal, 5, 50, 20);
+syncPercentPair(lineStrengthRange, lineStrengthNum, lineStrengthVal, 0, 100, 60);
+syncPercentPair(seloutDarkenRange, seloutDarkenNum, seloutDarkenVal, 5, 50, 20);
+lineAwareEnabled?.addEventListener('change', () => updateEdgeExperimentUi(false));
+seloutEnabled?.addEventListener('change', () => updateEdgeExperimentUi(false));
+for(const edgeToggle of [lineAwareEnabled, seloutEnabled]){
+  edgeToggle?.addEventListener('keydown', event => {
+    if((event.key !== ' ' && event.code !== 'Space') || event.repeat) return;
+    event.preventDefault();
+    edgeToggle.checked = !edgeToggle.checked;
+    edgeToggle.dispatchEvent(new Event('change', { bubbles: true }));
+  });
 }
 
 showExperimentalFeatures?.addEventListener('change', () => updateExperimentalFeaturesUi(true));
@@ -3426,6 +3724,7 @@ updateExperimentalFeaturesUi(false);
 document.querySelectorAll('input[name="gridFrameMode"]').forEach(radio => {
   radio.addEventListener('change', () => {
     syncGridFrameModeControls();
+    updatePaletteExperimentUi(false);
     invalidateGridAnalysis('분석 단위가 바뀌었습니다. 격자를 다시 분석하거나 수동 값을 적용하세요.');
   });
 });
@@ -3583,7 +3882,10 @@ function updateFactorCalculation(){
 }
 
 document.querySelectorAll('input[name="factorFrameMode"]').forEach(radio => {
-  radio.addEventListener('change', syncFactorFrameModeControls);
+  radio.addEventListener('change', () => {
+    syncFactorFrameModeControls();
+    updatePaletteExperimentUi(false);
+  });
 });
 factorInput.addEventListener('input', updateFactorCalculation);
 factorFrameWidthInput.addEventListener('input', updateFactorCalculation);
@@ -3717,6 +4019,7 @@ cleanEnabledCheck.addEventListener('change', syncCleanControlsState);
 
 outlineCheck.addEventListener('change', () => {
   outlineOptions.style.display = outlineCheck.checked ? 'block' : 'none';
+  updateEdgeExperimentUi(false);
 });
 
 function compareAnimationFrameOrder(a, b){
@@ -3731,6 +4034,7 @@ function compareAnimationFrameOrder(a, b){
 }
 
 function handleFiles(fileListObj){
+  cancelActiveProcessingJob('new-upload');
   const candidates = Array.from(fileListObj);
   const accepted = [];
   const rejected = [];
@@ -3829,6 +4133,7 @@ function renderFileList(){
   });
   fileListEl.querySelectorAll('.x').forEach(x => {
     x.addEventListener('click', () => {
+      cancelActiveProcessingJob('file-removed');
       uploadedFiles.splice(parseInt(x.dataset.i), 1);
       renderFileList();
       runBtn.disabled = uploadedFiles.length === 0;
@@ -4020,6 +4325,205 @@ function representativeColorForCell(rgba, width, x0, y0, x1, y1, mode = 'mean-sr
     }
   }
   return [...selected.rgb, outputAlpha];
+}
+
+function edgeLuma(r, g, b){
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function createLineAwareContext(rgba, width, height, options = null, frameWidth = width, frameHeight = height){
+  const enabled = options?.enabled === true;
+  const threshold = Number(options?.threshold ?? 0.2);
+  const strength = Number(options?.strength ?? 0.6);
+  const alphaThreshold = Number.isInteger(Number(options?.alphaThreshold))
+    ? Math.max(1, Math.min(254, Number(options.alphaThreshold)))
+    : 10;
+  if(!enabled){
+    return {
+      enabled: false,
+      threshold,
+      strength,
+      alphaThreshold,
+      sourceCandidatePixels: 0,
+      candidatePixels: 0,
+      coveredCells: 0,
+      totalCells: 0,
+      memoryBytes: 0
+    };
+  }
+  if(!rgba || !Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1 || rgba.length !== width * height * 4){
+    throw new Error('얇은 선 보존 RGBA 크기가 올바르지 않습니다.');
+  }
+  if(!Number.isInteger(frameWidth) || !Number.isInteger(frameHeight) || frameWidth < 1 || frameHeight < 1 || width % frameWidth !== 0 || height % frameHeight !== 0){
+    throw new Error('얇은 선 보존 프레임 크기가 원본 치수와 나누어떨어지지 않습니다.');
+  }
+  if(!Number.isFinite(threshold) || threshold < 0.05 || threshold > 0.5 || !Number.isFinite(strength) || strength < 0 || strength > 1){
+    throw new Error('얇은 선 보존 임계값 또는 강도가 범위를 벗어났습니다.');
+  }
+
+  const pixelCount = width * height;
+  const luma = new Float32Array(pixelCount);
+  const foreground = new Uint8Array(pixelCount);
+  const mask = new Uint8Array(pixelCount);
+  for(let index=0; index<pixelCount; index++){
+    const rgbaIndex = index * 4;
+    if(rgba[rgbaIndex + 3] >= alphaThreshold){
+      foreground[index] = 1;
+      luma[index] = edgeLuma(rgba[rgbaIndex], rgba[rgbaIndex + 1], rgba[rgbaIndex + 2]);
+    }
+  }
+
+  let sourceCandidatePixels = 0;
+  for(let y=0; y<height; y++){
+    const frameStartY = Math.floor(y / frameHeight) * frameHeight;
+    const frameEndY = frameStartY + frameHeight;
+    for(let x=0; x<width; x++){
+      const index = y * width + x;
+      if(!foreground[index]) continue;
+      const frameStartX = Math.floor(x / frameWidth) * frameWidth;
+      const frameEndX = frameStartX + frameWidth;
+      let neighborLuma = 0;
+      let neighborCount = 0;
+      const minY = Math.max(frameStartY, y - 1);
+      const maxY = Math.min(frameEndY - 1, y + 1);
+      const minX = Math.max(frameStartX, x - 1);
+      const maxX = Math.min(frameEndX - 1, x + 1);
+      for(let ny=minY; ny<=maxY; ny++){
+        for(let nx=minX; nx<=maxX; nx++){
+          if(nx === x && ny === y) continue;
+          const neighborIndex = ny * width + nx;
+          if(!foreground[neighborIndex]) continue;
+          neighborLuma += luma[neighborIndex];
+          neighborCount++;
+        }
+      }
+      if(neighborCount >= 3 && luma[index] <= (neighborLuma / neighborCount) * (1 - threshold)){
+        mask[index] = 1;
+        sourceCandidatePixels++;
+      }
+    }
+  }
+
+  return {
+    enabled: true,
+    threshold,
+    strength,
+    alphaThreshold,
+    mask,
+    sourceCandidatePixels,
+    candidatePixels: 0,
+    coveredCells: 0,
+    totalCells: 0,
+    memoryBytes: luma.byteLength + foreground.byteLength + mask.byteLength
+  };
+}
+
+function blendLineAwareCell(baseColor, rgba, width, x0, y0, x1, y1, context){
+  if(!context?.enabled) return baseColor;
+  context.totalCells++;
+  let foregroundCount = 0;
+  let candidateCount = 0;
+  let alphaSum = 0;
+  let weightedR = 0, weightedG = 0, weightedB = 0;
+  for(let y=y0; y<y1; y++){
+    for(let x=x0; x<x1; x++){
+      const pixelIndex = y * width + x;
+      const rgbaIndex = pixelIndex * 4;
+      const alpha = rgba[rgbaIndex + 3];
+      if(alpha < context.alphaThreshold) continue;
+      foregroundCount++;
+      if(!context.mask[pixelIndex]) continue;
+      candidateCount++;
+      alphaSum += alpha;
+      weightedR += rgba[rgbaIndex] * alpha;
+      weightedG += rgba[rgbaIndex + 1] * alpha;
+      weightedB += rgba[rgbaIndex + 2] * alpha;
+    }
+  }
+  if(candidateCount === 0 || foregroundCount === 0 || alphaSum === 0) return baseColor;
+  const coverage = candidateCount / foregroundCount;
+  const blend = Math.max(0, Math.min(1, coverage * context.strength));
+  context.candidatePixels += candidateCount;
+  context.coveredCells++;
+  return [
+    Math.round(baseColor[0] * (1 - blend) + (weightedR / alphaSum) * blend),
+    Math.round(baseColor[1] * (1 - blend) + (weightedG / alphaSum) * blend),
+    Math.round(baseColor[2] * (1 - blend) + (weightedB / alphaSum) * blend),
+    baseColor[3]
+  ];
+}
+
+function getLineAwareMetadata(context){
+  return {
+    enabled: context?.enabled === true,
+    threshold: Number(context?.threshold ?? 0.2),
+    strength: Number(context?.strength ?? 0.6),
+    candidatePixels: Number(context?.candidatePixels || 0),
+    sourceCandidatePixels: Number(context?.sourceCandidatePixels || 0),
+    coveredCells: Number(context?.coveredCells || 0),
+    totalCells: Number(context?.totalCells || 0),
+    memoryBytes: Number(context?.memoryBytes || 0)
+  };
+}
+
+function applyLineAwareIdentity(rgba, width, height, context){
+  if(!context?.enabled) return rgba;
+  const output = new Uint8ClampedArray(rgba.length);
+  for(let y=0; y<height; y++){
+    for(let x=0; x<width; x++){
+      const index = (y * width + x) * 4;
+      output.set(blendLineAwareCell(
+        [rgba[index], rgba[index + 1], rgba[index + 2], rgba[index + 3]],
+        rgba, width, x, y, x + 1, y + 1, context
+      ), index);
+    }
+  }
+  return output;
+}
+
+function applySeloutRgb(rgba, width, height, options = null, frameWidth = width, frameHeight = height){
+  const enabled = options?.enabled === true;
+  const darken = Number(options?.darken ?? 0.2);
+  const alphaThreshold = Number.isInteger(Number(options?.alphaThreshold))
+    ? Math.max(1, Math.min(254, Number(options.alphaThreshold)))
+    : 10;
+  if(!enabled){
+    return { data: rgba, enabled: false, darken, pixelCount: 0, memoryBytes: 0 };
+  }
+  if(!rgba || !Number.isInteger(width) || !Number.isInteger(height) || rgba.length !== width * height * 4){
+    throw new Error('selout RGBA 크기가 올바르지 않습니다.');
+  }
+  if(!Number.isFinite(darken) || darken < 0.05 || darken > 0.5){
+    throw new Error('selout 어둡게 값은 0.05~0.5 범위여야 합니다.');
+  }
+  if(!Number.isInteger(frameWidth) || !Number.isInteger(frameHeight) || frameWidth < 1 || frameHeight < 1 || width % frameWidth !== 0 || height % frameHeight !== 0){
+    throw new Error('selout 프레임 크기가 논리 치수와 나누어떨어지지 않습니다.');
+  }
+  const output = new Uint8ClampedArray(rgba);
+  const multiplier = 1 - darken;
+  let pixelCount = 0;
+  for(let y=0; y<height; y++){
+    const frameStartY = Math.floor(y / frameHeight) * frameHeight;
+    const frameEndY = frameStartY + frameHeight;
+    for(let x=0; x<width; x++){
+      const index = y * width + x;
+      const rgbaIndex = index * 4;
+      if(rgba[rgbaIndex + 3] < alphaThreshold) continue;
+      const frameStartX = Math.floor(x / frameWidth) * frameWidth;
+      const frameEndX = frameStartX + frameWidth;
+      let touchesTransparent = false;
+      if(y > frameStartY && rgba[((y - 1) * width + x) * 4 + 3] < alphaThreshold) touchesTransparent = true;
+      else if(y + 1 < frameEndY && rgba[((y + 1) * width + x) * 4 + 3] < alphaThreshold) touchesTransparent = true;
+      else if(x > frameStartX && rgba[(y * width + x - 1) * 4 + 3] < alphaThreshold) touchesTransparent = true;
+      else if(x + 1 < frameEndX && rgba[(y * width + x + 1) * 4 + 3] < alphaThreshold) touchesTransparent = true;
+      if(!touchesTransparent) continue;
+      output[rgbaIndex] = Math.round(rgba[rgbaIndex] * multiplier);
+      output[rgbaIndex + 1] = Math.round(rgba[rgbaIndex + 1] * multiplier);
+      output[rgbaIndex + 2] = Math.round(rgba[rgbaIndex + 2] * multiplier);
+      pixelCount++;
+    }
+  }
+  return { data: output, enabled: true, darken, pixelCount, memoryBytes: output.byteLength };
 }
 
 function gridClamp01(value){
@@ -4369,7 +4873,7 @@ function sliceGridFrame(raw, startX, startY, width, height){
   return { data, width, height };
 }
 
-function gridRepairDownscale(img, grid, frameWidth = null, frameHeight = null, representativeColor = 'mean-srgb', alphaThreshold = 10){
+function gridRepairDownscale(img, grid, frameWidth = null, frameHeight = null, representativeColor = 'mean-srgb', alphaThreshold = 10, lineAwareOptions = null){
   const raw = (img && img.data && typeof img.width === 'number' && typeof img.height === 'number') ? img : getRawPixels(img);
   const manual = validateManualGrid(grid);
   if(!manual.ok) throw new Error(manual.reason);
@@ -4386,6 +4890,9 @@ function gridRepairDownscale(img, grid, frameWidth = null, frameHeight = null, r
   const outputWidth = columns * crop.outputWidth;
   const outputHeight = rows * crop.outputHeight;
   const out = new Uint8ClampedArray(outputWidth * outputHeight * 4);
+  const lineContext = lineAwareOptions?.enabled === true
+    ? createLineAwareContext(raw.data, raw.width, raw.height, { ...lineAwareOptions, alphaThreshold }, fw, fh)
+    : null;
 
   for(let frameRow=0; frameRow<rows; frameRow++){
     for(let frameColumn=0; frameColumn<columns; frameColumn++){
@@ -4398,11 +4905,15 @@ function gridRepairDownscale(img, grid, frameWidth = null, frameHeight = null, r
           const targetX = frameColumn * crop.outputWidth + cellX;
           const targetY = frameRow * crop.outputHeight + cellY;
           const targetIndex = (targetY * outputWidth + targetX) * 4;
-          out.set(representativeColorForCell(
+          const baseColor = representativeColorForCell(
             raw.data, raw.width, x0, y0,
             x0 + manual.grid.sizeX, y0 + manual.grid.sizeY,
             representativeColor, alphaThreshold
-          ), targetIndex);
+          );
+          out.set(lineContext ? blendLineAwareCell(
+            baseColor, raw.data, raw.width, x0, y0,
+            x0 + manual.grid.sizeX, y0 + manual.grid.sizeY, lineContext
+          ) : baseColor, targetIndex);
         }
       }
     }
@@ -4418,11 +4929,12 @@ function gridRepairDownscale(img, grid, frameWidth = null, frameHeight = null, r
     frameLogicalH: crop.outputHeight,
     gridCrop: crop
   };
+  if(lineContext) result.lineAware = getLineAwareMetadata(lineContext);
   if(isSheet){ result.frameWidth = fw; result.frameHeight = fh; }
   return result;
 }
 
-function boxDownscale(img, size, method, representativeColor = 'mean-srgb', alphaThreshold = 10){
+function boxDownscale(img, size, method, representativeColor = 'mean-srgb', alphaThreshold = 10, lineAwareOptions = null){
   const sw = img.width, sh = img.height;
   const srcCanvas = document.createElement('canvas');
   srcCanvas.width = sw; srcCanvas.height = sh;
@@ -4431,9 +4943,12 @@ function boxDownscale(img, size, method, representativeColor = 'mean-srgb', alph
   const srcData = sctx.getImageData(0, 0, sw, sh).data;
 
   const out = new Uint8ClampedArray(size * size * 4);
+  const lineContext = lineAwareOptions?.enabled === true
+    ? createLineAwareContext(srcData, sw, sh, { ...lineAwareOptions, alphaThreshold }, sw, sh)
+    : null;
 
   const representativeMode = normalizeRepresentativeColor(representativeColor);
-  if(method === 'nearest' && representativeMode === 'mean-srgb'){
+  if(method === 'nearest' && representativeMode === 'mean-srgb' && !lineContext){
     for(let ty=0; ty<size; ty++){
       for(let tx=0; tx<size; tx++){
         const sx = Math.min(sw-1, Math.floor((tx+0.5) * sw / size));
@@ -4450,22 +4965,35 @@ function boxDownscale(img, size, method, representativeColor = 'mean-srgb', alph
     for(let tx=0; tx<size; tx++){
       const x0 = Math.floor(tx * sw / size), x1 = Math.max(x0+1, Math.floor((tx+1) * sw / size));
       const ti=(ty*size+tx)*4;
-      out.set(representativeColorForCell(
-        srcData, sw, x0, y0, x1, y1,
-        representativeMode, alphaThreshold
-      ), ti);
+      let baseColor;
+      if(method === 'nearest' && representativeMode === 'mean-srgb'){
+        const sx = Math.min(sw - 1, Math.floor((tx + 0.5) * sw / size));
+        const sy = Math.min(sh - 1, Math.floor((ty + 0.5) * sh / size));
+        const sourceIndex = (sy * sw + sx) * 4;
+        baseColor = [srcData[sourceIndex], srcData[sourceIndex + 1], srcData[sourceIndex + 2], srcData[sourceIndex + 3]];
+      } else {
+        baseColor = representativeColorForCell(
+          srcData, sw, x0, y0, x1, y1,
+          representativeMode, alphaThreshold
+        );
+      }
+      out.set(lineContext ? blendLineAwareCell(baseColor, srcData, sw, x0, y0, x1, y1, lineContext) : baseColor, ti);
     }
   }
+  if(lineContext) out.lineAware = getLineAwareMetadata(lineContext);
   return out;
 }
 
-function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize, representativeColor = 'mean-srgb', alphaThreshold = 10){
+function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize, representativeColor = 'mean-srgb', alphaThreshold = 10, lineAwareOptions = null){
   const raw = getRawPixels(img);
   const logicalFrameWidth = frameWidth / blockSize;
   const logicalFrameHeight = frameHeight / blockSize;
   const logicalWidth = raw.width / blockSize;
   const logicalHeight = raw.height / blockSize;
   const out = new Uint8ClampedArray(logicalWidth * logicalHeight * 4);
+  const lineContext = lineAwareOptions?.enabled === true
+    ? createLineAwareContext(raw.data, raw.width, raw.height, { ...lineAwareOptions, alphaThreshold }, frameWidth, frameHeight)
+    : null;
 
   for(let y=0; y<logicalHeight; y++){
     const frameY = Math.floor(y / logicalFrameHeight) * frameHeight;
@@ -4476,10 +5004,14 @@ function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize, represe
       const x0 = frameX + localX;
       const y0 = frameY + localY;
       const ti=(y*logicalWidth+x)*4;
-      out.set(representativeColorForCell(
+      const baseColor = representativeColorForCell(
         raw.data, raw.width, x0, y0, x0 + blockSize, y0 + blockSize,
         representativeColor, alphaThreshold
-      ), ti);
+      );
+      out.set(lineContext ? blendLineAwareCell(
+        baseColor, raw.data, raw.width, x0, y0,
+        x0 + blockSize, y0 + blockSize, lineContext
+      ) : baseColor, ti);
     }
   }
 
@@ -4491,11 +5023,12 @@ function preserveSheetDownscale(img, frameWidth, frameHeight, blockSize, represe
     sourceH: raw.height,
     frameLogicalW: logicalFrameWidth,
     frameLogicalH: logicalFrameHeight,
-    blockSize
+    blockSize,
+    ...(lineContext ? { lineAware: getLineAwareMetadata(lineContext) } : {})
   };
 }
 
-function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null, representativeColor = 'mean-srgb', alphaThreshold = 10){
+function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null, representativeColor = 'mean-srgb', alphaThreshold = 10, lineAwareOptions = null){
   const raw = (img && img.data && typeof img.width === 'number' && typeof img.height === 'number')
     ? img
     : getRawPixels(img);
@@ -4510,6 +5043,9 @@ function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null
   const logicalFrameHeight = fh / factorVal;
 
   const out = new Uint8ClampedArray(logicalWidth * logicalHeight * 4);
+  const lineContext = lineAwareOptions?.enabled === true
+    ? createLineAwareContext(raw.data, raw.width, raw.height, { ...lineAwareOptions, alphaThreshold }, fw, fh)
+    : null;
 
   for(let y=0; y<logicalHeight; y++){
     const frameY = isSheet ? Math.floor(y / logicalFrameHeight) * fh : 0;
@@ -4520,10 +5056,14 @@ function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null
       const localX = isSheet ? (x % logicalFrameWidth) * factorVal : x * factorVal;
       const x0 = frameX + localX;
       const ti=(y*logicalWidth+x)*4;
-      out.set(representativeColorForCell(
+      const baseColor = representativeColorForCell(
         raw.data, raw.width, x0, y0, x0 + factorVal, y0 + factorVal,
         representativeColor, alphaThreshold
-      ), ti);
+      );
+      out.set(lineContext ? blendLineAwareCell(
+        baseColor, raw.data, raw.width, x0, y0,
+        x0 + factorVal, y0 + factorVal, lineContext
+      ) : baseColor, ti);
     }
   }
 
@@ -4535,6 +5075,7 @@ function exactFactorDownscale(img, factor, frameWidth = null, frameHeight = null
     sourceH: raw.height,
     factor: factorVal
   };
+  if(lineContext) result.lineAware = getLineAwareMetadata(lineContext);
   if(isSheet){
     result.frameWidth = fw;
     result.frameHeight = fh;
@@ -4896,26 +5437,159 @@ function nearestOklabIndex(lab, paletteLabs){
   return best;
 }
 
-function mapPixelsToPalette(data, alpha, pixelCount, palette, algorithm='kmeans-srgb', threshold=10, previousGrid=null, temporalEpsilon=0){
+const BAYER_MATRICES = Object.freeze({
+  bayer2: Object.freeze([
+    [0, 2],
+    [3, 1]
+  ]),
+  bayer4: Object.freeze([
+    [0, 8, 2, 10],
+    [12, 4, 14, 6],
+    [3, 11, 1, 9],
+    [15, 7, 13, 5]
+  ])
+});
+
+function getTwoNearestPaletteIndices(r, g, b, palette, algorithm='kmeans-srgb'){
+  if(!palette || palette.length === 0) return [-1, -1];
+  if(palette.length === 1) return [0, 0];
+
+  let firstIndex = 0;
+  let secondIndex = 1;
+  let firstDist = Infinity;
+  let secondDist = Infinity;
+
+  if(algorithm === 'kmeans-oklab'){
+    const sourceLab = srgbToOklab(r, g, b);
+    for(let i=0; i<palette.length; i++){
+      const pLab = srgbToOklab(palette[i][0], palette[i][1], palette[i][2]);
+      const dist = (sourceLab[0] - pLab[0])**2 + (sourceLab[1] - pLab[1])**2 + (sourceLab[2] - pLab[2])**2;
+      if(dist < firstDist){
+        secondDist = firstDist;
+        secondIndex = firstIndex;
+        firstDist = dist;
+        firstIndex = i;
+      } else if(dist < secondDist){
+        secondDist = dist;
+        secondIndex = i;
+      }
+    }
+  } else {
+    for(let i=0; i<palette.length; i++){
+      const dr = r - palette[i][0];
+      const dg = g - palette[i][1];
+      const db = b - palette[i][2];
+      const dist = dr*dr + dg*dg + db*db;
+      if(dist < firstDist){
+        secondDist = firstDist;
+        secondIndex = firstIndex;
+        firstDist = dist;
+        firstIndex = i;
+      } else if(dist < secondDist){
+        secondDist = dist;
+        secondIndex = i;
+      }
+    }
+  }
+
+  return [firstIndex, secondIndex];
+}
+
+function applyOrderedDither(r, g, b, x, y, palette, ditherMode='off', ditherStrength=50, algorithm='kmeans-srgb'){
+  if(ditherMode === 'off' || ditherStrength === 0 || !palette || palette.length <= 1){
+    if(algorithm === 'kmeans-oklab'){
+      const sourceLab = srgbToOklab(r, g, b);
+      const paletteLabs = palette.map(color => srgbToOklab(color[0], color[1], color[2]));
+      return nearestOklabIndex(sourceLab, paletteLabs);
+    }
+    return nearestColorIndex(r, g, b, palette);
+  }
+
+  const matrix = BAYER_MATRICES[ditherMode];
+  if(!matrix){
+    if(algorithm === 'kmeans-oklab'){
+      const sourceLab = srgbToOklab(r, g, b);
+      const paletteLabs = palette.map(color => srgbToOklab(color[0], color[1], color[2]));
+      return nearestOklabIndex(sourceLab, paletteLabs);
+    }
+    return nearestColorIndex(r, g, b, palette);
+  }
+
+  const [c0Idx, c1Idx] = getTwoNearestPaletteIndices(r, g, b, palette, algorithm);
+  if(c0Idx === c1Idx) return c0Idx;
+
+  const N = matrix.length;
+  const modX = ((x % N) + N) % N;
+  const modY = ((y % N) + N) % N;
+  const M = matrix[modY][modX];
+  const threshold = (M + 0.5) / (N * N);
+  const adjustedThreshold = 0.5 + (threshold - 0.5) * (ditherStrength / 100);
+
+  let t = 0;
+  if(algorithm === 'kmeans-oklab'){
+    const sLab = srgbToOklab(r, g, b);
+    const c0Lab = srgbToOklab(palette[c0Idx][0], palette[c0Idx][1], palette[c0Idx][2]);
+    const c1Lab = srgbToOklab(palette[c1Idx][0], palette[c1Idx][1], palette[c1Idx][2]);
+    const vr = c1Lab[0] - c0Lab[0];
+    const vg = c1Lab[1] - c0Lab[1];
+    const vb = c1Lab[2] - c0Lab[2];
+    const denom = vr*vr + vg*vg + vb*vb;
+    if(denom === 0) return c0Idx;
+    const pr = sLab[0] - c0Lab[0];
+    const pg = sLab[1] - c0Lab[1];
+    const pb = sLab[2] - c0Lab[2];
+    const dot = pr*vr + pg*vg + pb*vb;
+    t = Math.max(0, Math.min(1, dot / denom));
+  } else {
+    const c0 = palette[c0Idx];
+    const c1 = palette[c1Idx];
+    const vr = c1[0] - c0[0];
+    const vg = c1[1] - c0[1];
+    const vb = c1[2] - c0[2];
+    const denom = vr*vr + vg*vg + vb*vb;
+    if(denom === 0) return c0Idx;
+    const pr = r - c0[0];
+    const pg = g - c0[1];
+    const pb = b - c0[2];
+    const dot = pr*vr + pg*vg + pb*vb;
+    t = Math.max(0, Math.min(1, dot / denom));
+  }
+
+  return t >= adjustedThreshold ? c1Idx : c0Idx;
+}
+
+function mapPixelsToPalette(data, alpha, pixelCount, palette, algorithm='kmeans-srgb', threshold=10, previousGrid=null, temporalEpsilon=0, ditherMode='off', ditherStrength=50, width=null){
   const grid = new Array(pixelCount).fill(-1);
   const slotCounts = new Array(palette.length).fill(0);
   const paletteLabs = palette.map(color => srgbToOklab(color[0], color[1], color[2]));
-  const canStabilize = algorithm === 'kmeans-oklab' && Number.isFinite(temporalEpsilon) && temporalEpsilon > 0 &&
+  const ditherActive = ditherMode !== 'off' && ditherStrength > 0 && palette.length > 1;
+  const canStabilize = !ditherActive && algorithm === 'kmeans-oklab' && Number.isFinite(temporalEpsilon) && temporalEpsilon > 0 &&
     previousGrid && previousGrid.length === pixelCount;
   const metricStride = Math.max(1, Math.ceil(pixelCount / MAX_PALETTE_SAMPLES));
   const sampledErrors = [];
   let errorSum = 0;
   let temporalHeldCount = 0;
+  const rowWidth = (Number.isInteger(width) && width > 0) ? width : pixelCount;
+
   for(let index=0; index<pixelCount; index++){
     if(alpha[index] < threshold || palette.length === 0) continue;
     let sourceLab = null;
     let paletteIndex;
-    if(algorithm === 'kmeans-oklab'){
-      sourceLab = srgbToOklab(data[index*4], data[index*4+1], data[index*4+2]);
+    const r = data[index*4];
+    const g = data[index*4+1];
+    const b = data[index*4+2];
+    const x = index % rowWidth;
+    const y = Math.floor(index / rowWidth);
+
+    if(ditherActive){
+      paletteIndex = applyOrderedDither(r, g, b, x, y, palette, ditherMode, ditherStrength, algorithm);
+    } else if(algorithm === 'kmeans-oklab'){
+      sourceLab = srgbToOklab(r, g, b);
       paletteIndex = nearestOklabIndex(sourceLab, paletteLabs);
     } else {
-      paletteIndex = nearestColorIndex(data[index*4], data[index*4+1], data[index*4+2], palette);
+      paletteIndex = nearestColorIndex(r, g, b, palette);
     }
+
     if(canStabilize){
       const previousIndex = previousGrid[index];
       if(Number.isInteger(previousIndex) && previousIndex >= 0 && previousIndex < paletteLabs.length && previousIndex !== paletteIndex){
@@ -4956,6 +5630,9 @@ function mapPixelsToPalette(data, alpha, pixelCount, palette, algorithm='kmeans-
     temporalStabilityApplied: Boolean(canStabilize),
     temporalEpsilon: canStabilize ? temporalEpsilon : 0,
     temporalHeldCount,
+    ditherApplied: Boolean(ditherActive),
+    ditherMode: ditherActive ? ditherMode : 'off',
+    ditherStrength: ditherActive ? ditherStrength : 0,
     error: {
       mean: roundMetric(sampledErrors.length ? errorSum / sampledErrors.length : 0),
       p95: roundMetric(sortedErrors.length ? sortedErrors[percentileIndex] : 0),
@@ -5225,8 +5902,13 @@ function updatePaletteExperimentUi(resetWhenHidden = true){
     if(paletteAlgorithmSel) paletteAlgorithmSel.value = 'kmeans-srgb';
     if(paletteSamplingSel) paletteSamplingSel.value = 'pixel';
     if(paletteReferenceSel) paletteReferenceSel.value = '';
+    if(ditherModeSel) ditherModeSel.value = 'off';
+    if(ditherStrengthRange) ditherStrengthRange.value = '50';
+    if(ditherStrengthNum) ditherStrengthNum.value = '50';
+    if(ditherStrengthVal) ditherStrengthVal.textContent = '50%';
   }
   paletteExperimentField.style.display = show ? 'block' : 'none';
+  const paletteOn = paletteModeSel?.value !== 'unlimited';
   const autoMode = paletteModeSel?.value === 'auto';
   const controlsEnabled = show && autoMode;
   if(paletteAlgorithmSel) paletteAlgorithmSel.disabled = !controlsEnabled;
@@ -5251,9 +5933,27 @@ function updatePaletteExperimentUi(resetWhenHidden = true){
       : '';
     paletteReferenceError.style.display = paletteReferenceError.textContent ? 'block' : 'none';
   }
+
+  const ditherAllowed = show && paletteOn;
+  if(ditherModeSel) ditherModeSel.disabled = !ditherAllowed;
+  const ditherActive = Boolean(ditherAllowed && ditherModeSel?.value && ditherModeSel.value !== 'off');
+  if(ditherStrengthField) ditherStrengthField.style.display = ditherActive ? 'block' : 'none';
+  if(ditherStrengthRange) ditherStrengthRange.disabled = !ditherActive;
+  if(ditherStrengthNum) ditherStrengthNum.disabled = !ditherActive;
+  const activeScaleMode = scaleModeSel?.value || 'square';
+  const isMultiOrAnimation = uploadedFiles.length > 1 ||
+    activeScaleMode === 'preserve-sheet' ||
+    (activeScaleMode === 'factor' && document.querySelector('input[name="factorFrameMode"]:checked')?.value === 'sheet') ||
+    (activeScaleMode === 'grid-repair' && document.querySelector('input[name="gridFrameMode"]:checked')?.value === 'sheet');
+  if(ditherAnimationWarning){
+    ditherAnimationWarning.style.display = (ditherActive && isMultiOrAnimation) ? 'block' : 'none';
+  }
+
   if(paletteExperimentStatus){
-    if(!autoMode){
-      paletteExperimentStatus.textContent = '직접 지정·제한 없음 모드에서는 팔레트 생성 실험을 사용할 수 없습니다.';
+    if(!paletteOn){
+      paletteExperimentStatus.textContent = '제한 없음 모드에서는 팔레트 생성 및 디더링 실험을 사용할 수 없습니다.';
+    } else if(!autoMode){
+      paletteExperimentStatus.textContent = '직접 지정 모드에서는 팔레트 생성 알고리즘을 변경할 수 없으나, 디더링은 적용할 수 있습니다.';
     } else if(!balancedAllowed && uploadedFiles.length > 0){
       paletteExperimentStatus.textContent = '이미지별 균등은 이미지 2개 이상과 공유 팔레트가 필요합니다. 후보는 기본값·프리셋에 자동 반영되지 않습니다.';
     } else {
@@ -5723,6 +6423,840 @@ function computeAlphaDiagnostics(alpha, w, h, frameW, frameH, threshold = 10) {
   };
 }
 
+// ---------- PERF-001 processing coordinator ----------
+const PERF_WORKER_MIN_PIXELS = 256 * 1024;
+const PERF_STAGE_NAMES = Object.freeze(['decode', 'downscale', 'grid', 'palette', 'map', 'cleanup', 'outline', 'export']);
+let perfProcessSequence = 0;
+let perfWorkerRequestSequence = 0;
+let activeProcessingJob = null;
+
+class ProcessCancelledError extends Error {
+  constructor(reason='requested'){
+    super('PROCESS_CANCELLED');
+    this.name = 'ProcessCancelledError';
+    this.reason = reason;
+  }
+}
+
+class ProcessWorkerError extends Error {
+  constructor(code='WORKER_FAILED'){
+    super(code);
+    this.name = 'ProcessWorkerError';
+    this.code = code;
+  }
+}
+
+function createEmptyPerfStages(){
+  return Object.fromEntries(PERF_STAGE_NAMES.map(stage => [stage, { totalMs:0, samples:0 }]));
+}
+
+function addPerfStage(job, stage, durationMs){
+  if(!job?.report?.stages[stage] || !Number.isFinite(durationMs)) return;
+  job.report.stages[stage].totalMs = Number((job.report.stages[stage].totalMs + durationMs).toFixed(3));
+  job.report.stages[stage].samples++;
+}
+
+function measurePerfStage(job, stage, operation){
+  const startedAt = performance.now();
+  try {
+    return operation();
+  } finally {
+    addPerfStage(job, stage, performance.now() - startedAt);
+  }
+}
+
+async function yieldProcessingJob(job){
+  assertProcessingJobActive(job);
+  job.cooperativeYieldCount = (job.cooperativeYieldCount || 0) + 1;
+  if(globalThis.scheduler && typeof globalThis.scheduler.yield === 'function' && job.cooperativeYieldCount % 4 !== 0){
+    await globalThis.scheduler.yield();
+  } else {
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+  assertProcessingJobActive(job);
+}
+
+async function cleanIsolatedChunked(job, grid, alpha, w, h, passes, threshold=10){
+  let result = grid.slice();
+  const rowsPerChunk = Math.max(1, Math.floor(16384 / Math.max(1, w)));
+  for(let pass=0; pass<passes; pass++){
+    const next = result.slice();
+    for(let startY=0; startY<h; startY+=rowsPerChunk){
+      const endY = Math.min(h, startY + rowsPerChunk);
+      for(let y=startY; y<endY; y++){
+        for(let x=0; x<w; x++){
+          const pixelIndex = y*w+x;
+          if(alpha[pixelIndex] < threshold) continue;
+          const neighbors = [];
+          for(let dy=-1; dy<=1; dy++){
+            for(let dx=-1; dx<=1; dx++){
+              if(dx===0 && dy===0) continue;
+              const nx=x+dx, ny=y+dy;
+              if(nx>=0 && nx<w && ny>=0 && ny<h && alpha[ny*w+nx]>=threshold){
+                neighbors.push(result[ny*w+nx]);
+              }
+            }
+          }
+          if(neighbors.length===0) continue;
+          const counts = {};
+          neighbors.forEach(value => counts[value] = (counts[value] || 0) + 1);
+          let majority = null, majorityCount = 0;
+          for(const key in counts){
+            if(counts[key] > majorityCount){ majorityCount = counts[key]; majority = parseInt(key); }
+          }
+          if(!neighbors.includes(result[pixelIndex]) && majorityCount >= neighbors.length * 0.6){
+            next[pixelIndex] = majority;
+          }
+        }
+      }
+      await yieldProcessingJob(job);
+    }
+    result = next;
+  }
+  return result;
+}
+
+async function cleanPreserveSheetChunked(job, grid, alpha, w, h, frameW, frameH, passes, threshold=10){
+  const result = grid.slice();
+  const columns = w / frameW;
+  const rows = h / frameH;
+  for(let frameY=0; frameY<rows; frameY++){
+    for(let frameX=0; frameX<columns; frameX++){
+      const frameGrid = new Array(frameW * frameH);
+      const frameAlpha = new Array(frameW * frameH);
+      for(let y=0; y<frameH; y++){
+        for(let x=0; x<frameW; x++){
+          const sourceIndex = (frameY*frameH+y)*w + frameX*frameW+x;
+          const frameIndex = y*frameW+x;
+          frameGrid[frameIndex] = result[sourceIndex];
+          frameAlpha[frameIndex] = alpha[sourceIndex];
+        }
+      }
+      const cleaned = await cleanIsolatedChunked(job, frameGrid, frameAlpha, frameW, frameH, passes, threshold);
+      for(let y=0; y<frameH; y++){
+        for(let x=0; x<frameW; x++){
+          result[(frameY*frameH+y)*w + frameX*frameW+x] = cleaned[y*frameW+x];
+        }
+      }
+      await yieldProcessingJob(job);
+    }
+  }
+  return result;
+}
+
+async function kmeansChunked(job, rawPoints, k, iterations=10){
+  let points = rawPoints;
+  if(points.length > MAX_PALETTE_SAMPLES){
+    const stride = points.length / MAX_PALETTE_SAMPLES;
+    points = Array.from({length:MAX_PALETTE_SAMPLES}, (_, index) => points[Math.floor(index * stride)]);
+  }
+  if(points.length === 0) return [];
+  k = Math.min(k, points.length);
+  let centers = Array.from({length:k}, (_, index) => points[Math.floor(index * points.length / k)].slice(0, 3));
+  const assignments = new Array(points.length).fill(0);
+  for(let iteration=0; iteration<iterations; iteration++){
+    for(let start=0; start<points.length; start+=4096){
+      const end = Math.min(points.length, start + 4096);
+      for(let pointIndex=start; pointIndex<end; pointIndex++){
+        let best=0, bestDistance=Infinity;
+        for(let centerIndex=0; centerIndex<centers.length; centerIndex++){
+          const dr=points[pointIndex][0]-centers[centerIndex][0];
+          const dg=points[pointIndex][1]-centers[centerIndex][1];
+          const db=points[pointIndex][2]-centers[centerIndex][2];
+          const distance=dr*dr+dg*dg+db*db;
+          if(distance<bestDistance){ bestDistance=distance; best=centerIndex; }
+        }
+        assignments[pointIndex]=best;
+      }
+      await yieldProcessingJob(job);
+    }
+    const sums = centers.map(() => [0,0,0,0]);
+    for(let start=0; start<points.length; start+=8192){
+      const end = Math.min(points.length, start + 8192);
+      for(let pointIndex=start; pointIndex<end; pointIndex++){
+        const cluster=assignments[pointIndex];
+        const weight=palettePointWeight(points[pointIndex]);
+        sums[cluster][0]+=points[pointIndex][0]*weight;
+        sums[cluster][1]+=points[pointIndex][1]*weight;
+        sums[cluster][2]+=points[pointIndex][2]*weight;
+        sums[cluster][3]+=weight;
+      }
+      await yieldProcessingJob(job);
+    }
+    for(let centerIndex=0; centerIndex<centers.length; centerIndex++){
+      if(sums[centerIndex][3]>0){
+        centers[centerIndex]=[sums[centerIndex][0]/sums[centerIndex][3], sums[centerIndex][1]/sums[centerIndex][3], sums[centerIndex][2]/sums[centerIndex][3]];
+      }
+    }
+  }
+  return centers.map(center => center.map(Math.round));
+}
+
+async function kmeansOklabChunked(job, rawPoints, k, iterations=10){
+  const points = limitPalettePoints(rawPoints);
+  if(points.length === 0) return [];
+  k = Math.min(k, points.length);
+  const labs = new Array(points.length);
+  for(let start=0; start<points.length; start+=8192){
+    const end = Math.min(points.length, start + 8192);
+    for(let index=start; index<end; index++) labs[index] = [...srgbToOklab(points[index][0], points[index][1], points[index][2]), palettePointWeight(points[index])];
+    await yieldProcessingJob(job);
+  }
+  let centers = Array.from({length:k}, (_, index) => labs[Math.floor(index * labs.length / k)].slice(0, 3));
+  const assignments = new Array(labs.length).fill(0);
+  for(let iteration=0; iteration<iterations; iteration++){
+    for(let start=0; start<labs.length; start+=4096){
+      const end = Math.min(labs.length, start + 4096);
+      for(let pointIndex=start; pointIndex<end; pointIndex++){
+        let best=0, bestDistance=Infinity;
+        for(let centerIndex=0; centerIndex<centers.length; centerIndex++){
+          const dL=labs[pointIndex][0]-centers[centerIndex][0];
+          const da=labs[pointIndex][1]-centers[centerIndex][1];
+          const db=labs[pointIndex][2]-centers[centerIndex][2];
+          const distance=dL*dL+da*da+db*db;
+          if(distance<bestDistance){ bestDistance=distance; best=centerIndex; }
+        }
+        assignments[pointIndex]=best;
+      }
+      await yieldProcessingJob(job);
+    }
+    const sums=centers.map(() => [0,0,0,0]);
+    for(let start=0; start<labs.length; start+=8192){
+      const end=Math.min(labs.length,start+8192);
+      for(let pointIndex=start; pointIndex<end; pointIndex++){
+        const cluster=assignments[pointIndex], weight=labs[pointIndex][3];
+        sums[cluster][0]+=labs[pointIndex][0]*weight;
+        sums[cluster][1]+=labs[pointIndex][1]*weight;
+        sums[cluster][2]+=labs[pointIndex][2]*weight;
+        sums[cluster][3]+=weight;
+      }
+      await yieldProcessingJob(job);
+    }
+    for(let centerIndex=0; centerIndex<centers.length; centerIndex++){
+      if(sums[centerIndex][3]>0){
+        centers[centerIndex]=[sums[centerIndex][0]/sums[centerIndex][3],sums[centerIndex][1]/sums[centerIndex][3],sums[centerIndex][2]/sums[centerIndex][3]];
+      }
+    }
+  }
+  return dedupeAndBackfillPalette(centers.map(center => oklabToSrgb(center[0], center[1], center[2])), points, k);
+}
+
+async function buildAutoPaletteChunked(job, downs, colorCount, algorithm, sampling, referenceName, threshold, alphaWeighted){
+  const points = collectPaletteSamples(downs, sampling, referenceName, MAX_PALETTE_SAMPLES, threshold, alphaWeighted);
+  const startHeap = performance.memory ? performance.memory.usedJSHeapSize : null;
+  const startedAt = performance.now();
+  let palette;
+  if(algorithm === 'kmeans-oklab') palette = await kmeansOklabChunked(job, points, colorCount, 10);
+  else if(algorithm === 'median-cut') palette = medianCut(points, colorCount);
+  else palette = await kmeansChunked(job, points, colorCount, 10);
+  const endHeap = performance.memory ? performance.memory.usedJSHeapSize : null;
+  return {
+    palette,
+    sampleCount:points.length,
+    iterations:algorithm === 'median-cut' ? 0 : 10,
+    runtimeMs:Number((performance.now() - startedAt).toFixed(3)),
+    heapDeltaBytes:startHeap === null || endHeap === null ? null : endHeap - startHeap
+  };
+}
+
+async function buildAlphaPolicyArtifactsChunked(job, grid, alpha, width, height, alphaMode, threshold){
+  const total = width * height;
+  const gridLike = Array.isArray(grid) || ArrayBuffer.isView(grid);
+  const alphaLike = Array.isArray(alpha) || ArrayBuffer.isView(alpha);
+  if(!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1 ||
+      !gridLike || !alphaLike || grid.length !== total || alpha.length !== total){
+    throw new Error('알파 정책 산출물의 크기가 올바르지 않습니다.');
+  }
+  const renderedAlpha = new Array(total);
+  for(let start=0; start<total; start+=32768){
+    const end = Math.min(total, start + 32768);
+    for(let index=start; index<end; index++) renderedAlpha[index] = resolveOutputAlpha(grid[index], alpha[index], alphaMode, threshold);
+    await yieldProcessingJob(job);
+  }
+  const alphaMatrix = [];
+  if(alphaMode === 'coverage'){
+    for(let y=0; y<height; y++){
+      alphaMatrix.push(renderedAlpha.slice(y*width, (y+1)*width));
+      if(y % 64 === 63) await yieldProcessingJob(job);
+    }
+  }
+  return { renderedAlpha, alphaMatrix:alphaMode === 'coverage' ? alphaMatrix : null };
+}
+
+async function renderPaletteCanvasChunked(job, finalGrid, renderedAlpha, finalPalette, width, height){
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d');
+  const imageData = context.createImageData(width, height);
+  const total = width * height;
+  for(let start=0; start<total; start+=32768){
+    const end = Math.min(total, start + 32768);
+    for(let index=start; index<end; index++){
+      const byteIndex = index * 4;
+      const outputAlpha = renderedAlpha[index];
+      if(outputAlpha > 0){
+        const color = finalPalette[finalGrid[index]];
+        imageData.data[byteIndex] = color[0];
+        imageData.data[byteIndex + 1] = color[1];
+        imageData.data[byteIndex + 2] = color[2];
+        imageData.data[byteIndex + 3] = outputAlpha;
+      } else {
+        imageData.data[byteIndex] = 0;
+        imageData.data[byteIndex + 1] = 0;
+        imageData.data[byteIndex + 2] = 0;
+        imageData.data[byteIndex + 3] = 0;
+      }
+    }
+    await yieldProcessingJob(job);
+  }
+  context.putImageData(imageData, 0, 0);
+  await yieldProcessingJob(job);
+  return canvas;
+}
+
+async function computeAlphaDiagnosticsChunked(job, alpha, w, h, frameW, frameH, threshold=10){
+  const fW = (frameW && frameW > 0 && frameW <= w) ? frameW : w;
+  const fH = (frameH && frameH > 0 && frameH <= h) ? frameH : h;
+  const columns = Math.floor(w / fW);
+  const rows = Math.floor(h / fH);
+  const diagThreshold = Number.isInteger(threshold) && threshold >= 1 && threshold <= 254 ? threshold : 10;
+  const totalPixels = w * h;
+  let partialAlphaCount = 0;
+  for(let start=0; start<totalPixels; start+=65536){
+    const end = Math.min(totalPixels, start + 65536);
+    for(let index=start; index<end; index++) if(alpha[index] > 0 && alpha[index] < 255) partialAlphaCount++;
+    await yieldProcessingJob(job);
+  }
+  const visited = new Uint8Array(totalPixels);
+  const queue = new Int32Array(fW * fH);
+  const islands = [];
+  let scannedSinceYield = 0;
+  let queuedSinceYield = 0;
+  for(let frameY=0; frameY<rows; frameY++){
+    for(let frameX=0; frameX<columns; frameX++){
+      const frameIndex = frameY * columns + frameX;
+      const startX = frameX * fW, endX = startX + fW;
+      const startY = frameY * fH, endY = startY + fH;
+      const components = [];
+      for(let y=startY; y<endY; y++){
+        for(let x=startX; x<endX; x++){
+          const sourceIndex = y*w+x;
+          scannedSinceYield++;
+          if(scannedSinceYield >= 32768){ scannedSinceYield = 0; await yieldProcessingJob(job); }
+          if(visited[sourceIndex] || alpha[sourceIndex] < diagThreshold) continue;
+          let head=0, tail=0, area=1;
+          queue[tail++] = sourceIndex;
+          visited[sourceIndex] = 1;
+          let minX=x, maxX=x, minY=y, maxY=y;
+          let smallPixels = [{ x, y }];
+          while(head < tail){
+            const current = queue[head++];
+            const currentX = current % w;
+            const currentY = Math.floor(current / w);
+            const neighbors = [current-w, current+w, current-1, current+1];
+            for(let neighborIndex=0; neighborIndex<4; neighborIndex++){
+              const next = neighbors[neighborIndex];
+              const nextX = neighborIndex < 2 ? currentX : currentX + (neighborIndex === 2 ? -1 : 1);
+              const nextY = neighborIndex < 2 ? currentY + (neighborIndex === 0 ? -1 : 1) : currentY;
+              if(nextX < startX || nextX >= endX || nextY < startY || nextY >= endY || visited[next] || alpha[next] < diagThreshold) continue;
+              visited[next] = 1;
+              queue[tail++] = next;
+              area++;
+              if(nextX < minX) minX=nextX;
+              if(nextX > maxX) maxX=nextX;
+              if(nextY < minY) minY=nextY;
+              if(nextY > maxY) maxY=nextY;
+              if(smallPixels){
+                if(area <= 4) smallPixels.push({ x:nextX, y:nextY });
+                else smallPixels = null;
+              }
+            }
+            queuedSinceYield++;
+            if(queuedSinceYield >= 16384){ queuedSinceYield = 0; await yieldProcessingJob(job); }
+          }
+          components.push({
+            frameIndex,
+            area,
+            seedX:x,
+            seedY:y,
+            bbox:{ minX, minY, maxX, maxY, width:maxX-minX+1, height:maxY-minY+1 },
+            pixels:smallPixels || []
+          });
+        }
+      }
+      if(components.length){
+        let largest = components[0];
+        for(let index=1; index<components.length; index++) if(components[index].area > largest.area) largest = components[index];
+        for(const component of components) if(component !== largest && component.area <= 4) islands.push(component);
+      }
+    }
+  }
+  return {
+    partialAlphaCount,
+    islandCount:islands.length,
+    islandPixelCount:islands.reduce((sum, island) => sum + island.area, 0),
+    threshold:diagThreshold,
+    islands
+  };
+}
+
+async function buildGridRowsChunked(job, finalGrid, width, height){
+  const rows = [];
+  for(let y=0; y<height; y++){
+    rows.push(Array.from(finalGrid.slice(y*width, (y+1)*width)));
+    if(y % 64 === 63) await yieldProcessingJob(job);
+  }
+  return rows;
+}
+
+async function blobToDataUrlAsync(job, blob){
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('PNG_DATA_URL_FAILED'));
+    reader.readAsDataURL(blob);
+  });
+  assertProcessingJobActive(job);
+  return dataUrl;
+}
+
+function clearPartialProcessOutput(){
+  lastResults = [];
+  resultsEl.replaceChildren();
+  resultsEl.className = 'empty';
+  resultsEl.textContent = '아직 결과가 없습니다. 왼쪽에서 이미지를 올리고 옵션을 정한 뒤 변환을 실행하세요.';
+  downloadAllBtn.style.display = 'none';
+  const sortControls = document.getElementById('sortControls');
+  if(sortControls) sortControls.style.display = 'none';
+  const animReviewBtn = document.getElementById('animReviewBtn');
+  if(animReviewBtn) animReviewBtn.style.display = 'none';
+}
+
+function beginProcessingJob(inputPixels, paletteAlgorithm, paletteMode){
+  const now = performance.now();
+  const inputDelayAvailable = document.visibilityState === 'visible' && document.hasFocus();
+  const job = {
+    id:String(++perfProcessSequence),
+    cancelRequested:false,
+    cancelReason:null,
+    cancelRequestedAt:null,
+    workerControllers:new Set(),
+    startedAt:now,
+    observer:null,
+    responsivenessTimer:null,
+    responsivenessExpectedAt:now + 50,
+    report:{
+      schemaVersion:1,
+      processId:String(perfProcessSequence),
+      inputPixels,
+      paletteAlgorithm,
+      paletteMode,
+      workerThresholdPixels:PERF_WORKER_MIN_PIXELS,
+      workerUsed:false,
+      stages:createEmptyPerfStages(),
+      longTasks:[],
+      inputDelayAvailable,
+      maxInputDelayMs:inputDelayAvailable ? 0 : null,
+      maxWorkerChunkMs:0,
+      workerCancelLatencyMs:null,
+      estimatedPeakBytes:0,
+      wallTimeMs:0,
+      outcome:'running',
+      wasmDecision:'not-evaluated'
+    }
+  };
+  if(typeof PerformanceObserver === 'function' && PerformanceObserver.supportedEntryTypes?.includes('longtask')){
+    try {
+      job.observer = new PerformanceObserver(list => {
+        list.getEntries().forEach(entry => {
+          if(entry.startTime >= job.startedAt){
+            job.report.longTasks.push({ startMs:Number(entry.startTime.toFixed(3)), durationMs:Number(entry.duration.toFixed(3)) });
+          }
+        });
+      });
+      job.observer.observe({ type:'longtask', buffered:true });
+    } catch(error){
+      console.warn('PERF-001 long-task observer unavailable', error);
+      job.observer = null;
+    }
+  }
+  if(inputDelayAvailable){
+    job.responsivenessTimer = setInterval(() => {
+      const sampleTime = performance.now();
+      job.report.maxInputDelayMs = Math.max(job.report.maxInputDelayMs, Math.max(0, sampleTime - job.responsivenessExpectedAt));
+      job.responsivenessExpectedAt = sampleTime + 50;
+    }, 50);
+  }
+  activeProcessingJob = job;
+  runBtn.disabled = true;
+  cancelProcessBtn.disabled = false;
+  statusEl.removeAttribute('data-perf-report');
+  clearPartialProcessOutput();
+  updateProcessingProgress(job, 'downscale', 0);
+  return job;
+}
+
+function updateProcessingProgress(job, stage, percent){
+  if(activeProcessingJob !== job || job.cancelRequested) return;
+  const normalizedPercent = Math.max(0, Math.min(100, Math.floor(percent / 10) * 10));
+  const stageLabels = {
+    decode:'디코딩', downscale:'축소', grid:'격자', palette:'팔레트', map:'색상 매핑',
+    cleanup:'노이즈 정리', outline:'외곽선', export:'결과 생성'
+  };
+  statusEl.textContent = `처리 중 — ${stageLabels[stage] || stage} ${normalizedPercent}%`;
+  statusEl.classList.add('busy');
+}
+
+function assertProcessingJobActive(job){
+  if(activeProcessingJob !== job || job.cancelRequested){
+    throw new ProcessCancelledError(job.cancelReason || 'stale');
+  }
+}
+
+function cancelActiveProcessingJob(reason='requested'){
+  const job = activeProcessingJob;
+  if(!job || job.cancelRequested) return false;
+  job.cancelRequested = true;
+  job.cancelReason = reason;
+  job.cancelRequestedAt = performance.now();
+  statusEl.textContent = '취소 요청 중...';
+  statusEl.classList.add('busy');
+  job.workerControllers.forEach(controller => controller.cancel(reason));
+  return true;
+}
+
+function finishProcessingJob(job, outcome){
+  const wasCurrent = activeProcessingJob === job;
+  if(job.responsivenessTimer) clearInterval(job.responsivenessTimer);
+  job.observer?.disconnect();
+  if(Number.isFinite(job.report.maxInputDelayMs)) job.report.maxInputDelayMs = Number(job.report.maxInputDelayMs.toFixed(3));
+  job.report.wallTimeMs = Number((performance.now() - job.startedAt).toFixed(3));
+  job.report.outcome = outcome;
+  job.report.cancelToTerminalMs = job.cancelRequestedAt === null
+    ? null
+    : Number((performance.now() - job.cancelRequestedAt).toFixed(3));
+  const usedHeap = performance?.memory?.usedJSHeapSize;
+  job.report.heapUsedBytes = Number.isFinite(usedHeap) ? usedHeap : null;
+  job.report.wasmDecision = job.report.estimatedPeakBytes > 256 * 1024 * 1024
+    ? 'evaluate-memory-gate'
+    : 'not-adopted-worker-below-memory-gate';
+  if(wasCurrent){
+    globalThis.__pixelatePerfLastReport = job.report;
+    statusEl.dataset.perfReport = JSON.stringify(job.report);
+    activeProcessingJob = null;
+    statusEl.classList.remove('busy');
+    cancelProcessBtn.disabled = true;
+    runBtn.disabled = uploadedFiles.length === 0;
+  }
+}
+
+function validateWorkerResponse(message, jobId){
+  if(!message || typeof message !== 'object' || message.jobId !== jobId) return false;
+  return ['progress', 'result', 'error', 'cancelled'].includes(message.type);
+}
+
+function runPaletteMapStage(job, options){
+  const { data, alpha, pixelCount, palette, algorithm, threshold, previousGrid, temporalEpsilon, ditherMode, ditherStrength, width } = options;
+  assertProcessingJobActive(job);
+  if(pixelCount < PERF_WORKER_MIN_PIXELS){
+    const startedAt = performance.now();
+    const mapping = mapPixelsToPalette(data, alpha, pixelCount, palette, algorithm, threshold, previousGrid, temporalEpsilon, ditherMode, ditherStrength, width);
+    addPerfStage(job, 'map', performance.now() - startedAt);
+    return Promise.resolve({ ...mapping, data, alpha, workerUsed:false });
+  }
+  if(typeof Worker !== 'function'){
+    return Promise.reject(new ProcessWorkerError('WORKER_UNAVAILABLE'));
+  }
+
+  job.report.workerUsed = true;
+  const workerJobId = String(++perfWorkerRequestSequence);
+  const worker = new Worker('pixelate-worker.js');
+  const alphaArray = alpha instanceof Uint8Array ? alpha : Uint8Array.from(alpha);
+  const previousGridArray = previousGrid ? Int32Array.from(previousGrid) : null;
+  const dataBuffer = data.byteOffset === 0 && data.byteLength === data.buffer.byteLength
+    ? data.buffer
+    : data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+  const startedAt = performance.now();
+
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    let lastProgress = -10;
+    let terminateTimer = null;
+    const removeController = () => {
+      if(terminateTimer) clearTimeout(terminateTimer);
+      job.workerControllers.delete(controller);
+      worker.terminate();
+    };
+    const settleReject = error => {
+      if(settled) return;
+      settled = true;
+      removeController();
+      reject(error);
+    };
+    const controller = {
+      jobId:workerJobId,
+      cancel(reason){
+        if(settled) return;
+        try { worker.postMessage({ type:'cancel', jobId:workerJobId, reason }); } catch(error){ console.warn('PERF-001 cancel post failed', error); }
+        terminateTimer = setTimeout(() => settleReject(new ProcessCancelledError(reason)), 100);
+      }
+    };
+    job.workerControllers.add(controller);
+    worker.addEventListener('message', event => {
+      const message = event.data;
+      if(!validateWorkerResponse(message, workerJobId)) return;
+      if(activeProcessingJob !== job && message.type !== 'cancelled') return;
+      if(message.type === 'progress'){
+        if(message.stage !== 'palette-map' || !Number.isInteger(message.percent) || message.percent < lastProgress || message.percent < 0 || message.percent > 100){
+          settleReject(new ProcessWorkerError('WORKER_INVALID_PROGRESS'));
+          return;
+        }
+        lastProgress = message.percent;
+        updateProcessingProgress(job, 'map', message.percent);
+        return;
+      }
+      if(message.type === 'cancelled'){
+        if(Number.isFinite(message.cancelLatencyMs)) job.report.workerCancelLatencyMs = message.cancelLatencyMs;
+        settleReject(new ProcessCancelledError(message.reason || job.cancelReason || 'requested'));
+        return;
+      }
+      if(message.type === 'error'){
+        settleReject(new ProcessWorkerError(typeof message.code === 'string' ? message.code : 'WORKER_FAILED'));
+        return;
+      }
+      const payload = message.payload;
+      if(message.stage !== 'palette-map' || !payload ||
+          !(payload.gridBuffer instanceof ArrayBuffer) || payload.gridBuffer.byteLength !== pixelCount * 4 ||
+          !(payload.slotCountsBuffer instanceof ArrayBuffer) || payload.slotCountsBuffer.byteLength !== palette.length * 4 ||
+          !(payload.dataBuffer instanceof ArrayBuffer) || payload.dataBuffer.byteLength !== pixelCount * 4 ||
+          !(payload.alphaBuffer instanceof ArrayBuffer) || payload.alphaBuffer.byteLength !== pixelCount){
+        settleReject(new ProcessWorkerError('WORKER_INVALID_RESULT'));
+        return;
+      }
+      settled = true;
+      addPerfStage(job, 'map', performance.now() - startedAt);
+      job.report.maxWorkerChunkMs = Math.max(job.report.maxWorkerChunkMs, Number(payload.performance?.maxChunkMs) || 0);
+      job.report.estimatedPeakBytes = Math.max(job.report.estimatedPeakBytes, Number(payload.performance?.estimatedPeakBytes) || 0);
+      removeController();
+      resolve({
+        grid:new Int32Array(payload.gridBuffer),
+        slotCounts:Array.from(new Uint32Array(payload.slotCountsBuffer)),
+        slotUsage:payload.slotUsage,
+        temporalStabilityApplied:payload.temporalStabilityApplied,
+        temporalEpsilon:payload.temporalEpsilon,
+        temporalHeldCount:payload.temporalHeldCount,
+        ditherApplied:payload.ditherApplied,
+        ditherMode:payload.ditherMode,
+        ditherStrength:payload.ditherStrength,
+        error:payload.error,
+        data:new Uint8ClampedArray(payload.dataBuffer),
+        alpha:new Uint8Array(payload.alphaBuffer),
+        workerUsed:true,
+        workerPerformance:payload.performance
+      });
+    });
+    worker.addEventListener('error', event => {
+      console.error('PERF-001 worker runtime error', event.error || event.message);
+      settleReject(new ProcessWorkerError('WORKER_RUNTIME_ERROR'));
+    });
+    try {
+      const transfer = [dataBuffer, alphaArray.buffer];
+      const payload = {
+        dataBuffer,
+        alphaBuffer:alphaArray.buffer,
+        previousGridBuffer:previousGridArray?.buffer || null,
+        pixelCount,
+        palette
+      };
+      if(previousGridArray) transfer.push(previousGridArray.buffer);
+      worker.postMessage({
+        type:'process-stage',
+        jobId:workerJobId,
+        stage:'palette-map',
+        payload,
+        settings:{ algorithm, threshold, temporalEpsilon, ditherMode, ditherStrength, width }
+      }, transfer);
+    } catch(error){
+      console.error('PERF-001 worker start error', error);
+      settleReject(new ProcessWorkerError('WORKER_START_ERROR'));
+    }
+  });
+}
+
+async function runPngEncodeStage(job, canvas){
+  assertProcessingJobActive(job);
+  if(typeof Worker !== 'function' || typeof createImageBitmap !== 'function'){
+    throw new ProcessWorkerError('PNG_WORKER_UNAVAILABLE');
+  }
+  const bitmap = await createImageBitmap(canvas);
+  assertProcessingJobActive(job);
+  const workerJobId = String(++perfWorkerRequestSequence);
+  const worker = new Worker('pixelate-worker.js');
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    let lastProgress = -10;
+    let terminateTimer = null;
+    const removeController = () => {
+      if(terminateTimer) clearTimeout(terminateTimer);
+      job.workerControllers.delete(controller);
+      worker.terminate();
+    };
+    const settleReject = error => {
+      if(settled) return;
+      settled = true;
+      removeController();
+      reject(error);
+    };
+    const controller = {
+      jobId:workerJobId,
+      cancel(reason){
+        if(settled) return;
+        try { worker.postMessage({ type:'cancel', jobId:workerJobId, reason }); } catch(error){ console.warn('PERF-001 PNG cancel post failed', error); }
+        terminateTimer = setTimeout(() => settleReject(new ProcessCancelledError(reason)), 100);
+      }
+    };
+    job.workerControllers.add(controller);
+    worker.addEventListener('message', event => {
+      const message = event.data;
+      if(!validateWorkerResponse(message, workerJobId)) return;
+      if(activeProcessingJob !== job && message.type !== 'cancelled') return;
+      if(message.type === 'progress'){
+        if(message.stage !== 'png-encode' || !Number.isInteger(message.percent) || message.percent < lastProgress || message.percent < 0 || message.percent > 100){
+          settleReject(new ProcessWorkerError('PNG_WORKER_INVALID_PROGRESS'));
+          return;
+        }
+        lastProgress = message.percent;
+        updateProcessingProgress(job, 'export', 70 + message.percent * 0.3);
+        return;
+      }
+      if(message.type === 'cancelled'){
+        if(Number.isFinite(message.cancelLatencyMs)) job.report.workerCancelLatencyMs = message.cancelLatencyMs;
+        settleReject(new ProcessCancelledError(message.reason || job.cancelReason || 'requested'));
+        return;
+      }
+      if(message.type === 'error'){
+        settleReject(new ProcessWorkerError(typeof message.code === 'string' ? message.code : 'PNG_WORKER_FAILED'));
+        return;
+      }
+      const pngBuffer = message.payload?.pngBuffer;
+      if(message.stage !== 'png-encode' || !(pngBuffer instanceof ArrayBuffer) || pngBuffer.byteLength < 8){
+        settleReject(new ProcessWorkerError('PNG_WORKER_INVALID_RESULT'));
+        return;
+      }
+      const signature = new Uint8Array(pngBuffer, 0, 8);
+      if(signature[0] !== 137 || signature[1] !== 80 || signature[2] !== 78 || signature[3] !== 71){
+        settleReject(new ProcessWorkerError('PNG_WORKER_INVALID_RESULT'));
+        return;
+      }
+      settled = true;
+      job.report.estimatedPeakBytes = Math.max(job.report.estimatedPeakBytes, canvas.width * canvas.height * 4 + pngBuffer.byteLength);
+      removeController();
+      resolve(new Blob([pngBuffer], { type:'image/png' }));
+    });
+    worker.addEventListener('error', event => {
+      console.error('PERF-001 PNG worker runtime error', event.error || event.message);
+      settleReject(new ProcessWorkerError('PNG_WORKER_RUNTIME_ERROR'));
+    });
+    try {
+      worker.postMessage({
+        type:'encode-png', jobId:workerJobId, stage:'png-encode',
+        payload:{ bitmap, width:canvas.width, height:canvas.height }, settings:{}
+      }, [bitmap]);
+    } catch(error){
+      console.error('PERF-001 PNG worker start error', error);
+      settleReject(new ProcessWorkerError('PNG_WORKER_START_ERROR'));
+    }
+  });
+}
+
+function runCleanupStage(job, options){
+  const { grid, alpha, width, height, frameWidth, frameHeight, passes, threshold } = options;
+  assertProcessingJobActive(job);
+  if(width * height < PERF_WORKER_MIN_PIXELS){
+    return (frameWidth !== width || frameHeight !== height)
+      ? cleanPreserveSheetChunked(job, grid, alpha, width, height, frameWidth, frameHeight, passes, threshold)
+      : cleanIsolatedChunked(job, grid, alpha, width, height, passes, threshold);
+  }
+  if(typeof Worker !== 'function') return Promise.reject(new ProcessWorkerError('CLEANUP_WORKER_UNAVAILABLE'));
+  job.report.workerUsed = true;
+  const workerJobId = String(++perfWorkerRequestSequence);
+  const worker = new Worker('pixelate-worker.js');
+  const gridArray = Int32Array.from(grid);
+  const alphaArray = Uint8Array.from(alpha);
+  return new Promise((resolve, reject) => {
+    let settled=false, lastProgress=-10, terminateTimer=null;
+    const removeController=()=>{
+      if(terminateTimer) clearTimeout(terminateTimer);
+      job.workerControllers.delete(controller);
+      worker.terminate();
+    };
+    const settleReject=error=>{
+      if(settled) return;
+      settled=true;
+      removeController();
+      reject(error);
+    };
+    const controller={
+      jobId:workerJobId,
+      cancel(reason){
+        if(settled) return;
+        try { worker.postMessage({ type:'cancel', jobId:workerJobId, reason }); } catch(error){ console.warn('PERF-001 cleanup cancel post failed', error); }
+        terminateTimer=setTimeout(()=>settleReject(new ProcessCancelledError(reason)),100);
+      }
+    };
+    job.workerControllers.add(controller);
+    worker.addEventListener('message', event=>{
+      const message=event.data;
+      if(!validateWorkerResponse(message,workerJobId)) return;
+      if(activeProcessingJob!==job && message.type!=='cancelled') return;
+      if(message.type==='progress'){
+        if(message.stage!=='cleanup' || !Number.isInteger(message.percent) || message.percent<lastProgress || message.percent<0 || message.percent>100){
+          settleReject(new ProcessWorkerError('CLEANUP_WORKER_INVALID_PROGRESS'));
+          return;
+        }
+        lastProgress=message.percent;
+        updateProcessingProgress(job,'cleanup',message.percent);
+        return;
+      }
+      if(message.type==='cancelled'){
+        if(Number.isFinite(message.cancelLatencyMs)) job.report.workerCancelLatencyMs=message.cancelLatencyMs;
+        settleReject(new ProcessCancelledError(message.reason || job.cancelReason || 'requested'));
+        return;
+      }
+      if(message.type==='error'){
+        settleReject(new ProcessWorkerError(typeof message.code==='string' ? message.code : 'CLEANUP_WORKER_FAILED'));
+        return;
+      }
+      const payload=message.payload;
+      if(message.stage!=='cleanup' || !(payload?.gridBuffer instanceof ArrayBuffer) || payload.gridBuffer.byteLength!==width*height*4 ||
+          !(payload.alphaBuffer instanceof ArrayBuffer) || payload.alphaBuffer.byteLength!==width*height){
+        settleReject(new ProcessWorkerError('CLEANUP_WORKER_INVALID_RESULT'));
+        return;
+      }
+      settled=true;
+      job.report.maxWorkerChunkMs=Math.max(job.report.maxWorkerChunkMs,Number(payload.performance?.maxChunkMs)||0);
+      job.report.estimatedPeakBytes=Math.max(job.report.estimatedPeakBytes,Number(payload.performance?.estimatedPeakBytes)||0);
+      removeController();
+      resolve(new Int32Array(payload.gridBuffer));
+    });
+    worker.addEventListener('error',event=>{
+      console.error('PERF-001 cleanup worker runtime error',event.error||event.message);
+      settleReject(new ProcessWorkerError('CLEANUP_WORKER_RUNTIME_ERROR'));
+    });
+    try{
+      worker.postMessage({
+        type:'process-stage',jobId:workerJobId,stage:'cleanup',
+        payload:{gridBuffer:gridArray.buffer,alphaBuffer:alphaArray.buffer,pixelCount:width*height},
+        settings:{width,height,frameWidth,frameHeight,passes,threshold}
+      },[gridArray.buffer,alphaArray.buffer]);
+    }catch(error){
+      console.error('PERF-001 cleanup worker start error',error);
+      settleReject(new ProcessWorkerError('CLEANUP_WORKER_START_ERROR'));
+    }
+  });
+}
+
 async function processAll(){
   if (typeof closeAnimModal === 'function') closeAnimModal(false);
   const scaleMode = scaleModeSel.value;
@@ -5747,6 +7281,23 @@ async function processAll(){
   const paletteOn = paletteMode !== 'unlimited';
   const parsedCustom = paletteMode === 'custom' ? parseHexPalette(customPaletteText.value) : { colors: [], hexes: [] };
   const customColors = parsedCustom.colors;
+  const ditherMode = (ditherModeSel && paletteOn) ? ditherModeSel.value : 'off';
+  let ditherStrength = ditherStrengthNum ? parseInt(ditherStrengthNum.value, 10) : (ditherStrengthRange ? parseInt(ditherStrengthRange.value, 10) : 50);
+  if (!Number.isInteger(ditherStrength) || ditherStrength < 0 || ditherStrength > 100) {
+    ditherStrength = 50;
+  }
+  const lineThresholdPercent = lineThresholdNum ? parseInt(lineThresholdNum.value, 10) : 20;
+  const lineStrengthPercent = lineStrengthNum ? parseInt(lineStrengthNum.value, 10) : 60;
+  const seloutDarkenPercent = seloutDarkenNum ? parseInt(seloutDarkenNum.value, 10) : 20;
+  const lineAwareSettings = {
+    enabled: Boolean(lineAwareEnabled?.checked),
+    threshold: (Number.isInteger(lineThresholdPercent) ? Math.max(5, Math.min(50, lineThresholdPercent)) : 20) / 100,
+    strength: (Number.isInteger(lineStrengthPercent) ? Math.max(0, Math.min(100, lineStrengthPercent)) : 60) / 100
+  };
+  const seloutSettings = {
+    enabled: Boolean(seloutEnabled?.checked),
+    darken: (Number.isInteger(seloutDarkenPercent) ? Math.max(5, Math.min(50, seloutDarkenPercent)) : 20) / 100
+  };
   const alphaMode = (alphaModeCoverageRadio && alphaModeCoverageRadio.checked) ? 'coverage' : 'binary';
   let alphaThreshold = alphaThresholdNum ? parseInt(alphaThresholdNum.value, 10) : (alphaThresholdRange ? parseInt(alphaThresholdRange.value, 10) : 10);
   if (!Number.isInteger(alphaThreshold) || alphaThreshold < 1 || alphaThreshold > 254) {
@@ -5833,48 +7384,106 @@ async function processAll(){
     return;
   }
 
-  runBtn.disabled = true;
-  statusEl.textContent = '처리 중...';
-  statusEl.classList.add('busy');
+  cancelActiveProcessingJob('re-run');
+  const job = beginProcessingJob(outputPixels, paletteAlgorithm, paletteMode);
+  try {
+  addPerfStage(job, 'decode', 0);
+  addPerfStage(job, 'grid', scaleMode === 'grid-repair' ? gridAnalysisState.elapsedMs : 0);
+  updateProcessingProgress(job, 'downscale', 0);
 
-  const downs = uploadedFiles.map(f => {
+  const downs = measurePerfStage(job, 'downscale', () => uploadedFiles.map(f => {
     if(scaleMode === 'square'){
-      return { name: f.name, addedIndex: f.addedIndex, data: boxDownscale(f.img, size, method, representativeColor, alphaThreshold), w: size, h: size, mode: scaleMode };
+      const data = boxDownscale(f.img, size, method, representativeColor, alphaThreshold, lineAwareSettings);
+      return { name: f.name, addedIndex: f.addedIndex, data, w: size, h: size, mode: scaleMode, lineAware: data.lineAware };
     }
     if(scaleMode === 'factor'){
       const isSheet = factorFrameMode === 'sheet';
       return {
         name: f.name,
         addedIndex: f.addedIndex,
-        ...exactFactorDownscale(f.img, factor, isSheet ? factorFrameWidth : null, isSheet ? factorFrameHeight : null, representativeColor, alphaThreshold),
+        ...exactFactorDownscale(f.img, factor, isSheet ? factorFrameWidth : null, isSheet ? factorFrameHeight : null, representativeColor, alphaThreshold, lineAwareSettings),
         mode: scaleMode,
         factorFrameMode
       };
     }
     if(scaleMode === 'preserve-sheet'){
-      return { name: f.name, addedIndex: f.addedIndex, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize, representativeColor, alphaThreshold), mode: scaleMode };
+      return { name: f.name, addedIndex: f.addedIndex, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize, representativeColor, alphaThreshold, lineAwareSettings), mode: scaleMode };
     }
     if(scaleMode === 'grid-repair'){
       const isSheet = gridFrameMode === 'sheet';
       return {
         name: f.name,
         addedIndex: f.addedIndex,
-        ...gridRepairDownscale(f.img, appliedGrid, isSheet ? gridFrameWidth : null, isSheet ? gridFrameHeight : null, representativeColor, alphaThreshold),
+        ...gridRepairDownscale(f.img, appliedGrid, isSheet ? gridFrameWidth : null, isSheet ? gridFrameHeight : null, representativeColor, alphaThreshold, lineAwareSettings),
         mode: scaleMode,
         gridFrameMode,
         appliedGrid: { ...appliedGrid }
       };
     }
     const raw = getRawPixels(f.img);
-    return { name: f.name, addedIndex: f.addedIndex, data: raw.data, w: raw.width, h: raw.height, mode: scaleMode, sourceW: raw.width, sourceH: raw.height };
-  });
+    const lineContext = createLineAwareContext(
+      raw.data, raw.width, raw.height,
+      { ...lineAwareSettings, alphaThreshold }, raw.width, raw.height
+    );
+    return {
+      name: f.name,
+      addedIndex: f.addedIndex,
+      data: applyLineAwareIdentity(raw.data, raw.width, raw.height, lineContext),
+      w: raw.width,
+      h: raw.height,
+      mode: scaleMode,
+      sourceW: raw.width,
+      sourceH: raw.height,
+      lineAware: getLineAwareMetadata(lineContext)
+    };
+  }));
+  assertProcessingJobActive(job);
+  updateProcessingProgress(job, 'palette', 20);
+
+  for(const downscaled of downs){
+    const isLogicalSheet = downscaled.mode === 'preserve-sheet' ||
+      (downscaled.mode === 'factor' && downscaled.factorFrameMode === 'sheet') ||
+      (downscaled.mode === 'grid-repair' && downscaled.gridFrameMode === 'sheet');
+    const logicalFrameWidth = isLogicalSheet ? downscaled.frameLogicalW : downscaled.w;
+    const logicalFrameHeight = isLogicalSheet ? downscaled.frameLogicalH : downscaled.h;
+    const seloutResult = applySeloutRgb(
+      downscaled.data,
+      downscaled.w,
+      downscaled.h,
+      { ...seloutSettings, alphaThreshold },
+      logicalFrameWidth,
+      logicalFrameHeight
+    );
+    downscaled.data = seloutResult.data;
+    downscaled.detailPreservation = {
+      experimental: lineAwareSettings.enabled || seloutSettings.enabled,
+      lineAware: downscaled.lineAware || {
+        enabled: false,
+        threshold: lineAwareSettings.threshold,
+        strength: lineAwareSettings.strength,
+        candidatePixels: 0,
+        sourceCandidatePixels: 0,
+        coveredCells: 0,
+        totalCells: 0,
+        memoryBytes: 0
+      },
+      selout: {
+        enabled: seloutResult.enabled,
+        darken: seloutResult.darken,
+        pixelCount: seloutResult.pixelCount,
+        memoryBytes: seloutResult.memoryBytes
+      }
+    };
+  }
 
   let sharedPalette = null;
   let sharedPaletteBuild = null;
   if(paletteMode === 'custom'){
     sharedPalette = customColors;
   } else if(paletteMode === 'auto' && effectiveShared){
-    sharedPaletteBuild = buildAutoPalette(
+    const paletteStartedAt = performance.now();
+    sharedPaletteBuild = await buildAutoPaletteChunked(
+      job,
       downs,
       nColors,
       paletteAlgorithm,
@@ -5883,8 +7492,10 @@ async function processAll(){
       alphaThreshold,
       alphaMode === 'coverage'
     );
+    addPerfStage(job, 'palette', performance.now() - paletteStartedAt);
     sharedPalette = sharedPaletteBuild.palette;
     await new Promise(r=>setTimeout(r,0));
+    assertProcessingJobActive(job);
   }
 
   const temporalPaletteMappings = new Map();
@@ -5896,21 +7507,25 @@ async function processAll(){
     let previousWidth = null;
     let previousHeight = null;
     for(const sequenceFrame of orderedDowns){
-      const sequenceAlpha = Array.from(
+      const sequenceAlpha = Uint8Array.from(
         { length: sequenceFrame.w * sequenceFrame.h },
         (_, index) => sequenceFrame.data[index*4+3]
       );
       const sameGeometry = previousWidth === sequenceFrame.w && previousHeight === sequenceFrame.h;
-      const mapping = mapPixelsToPalette(
-        sequenceFrame.data,
-        sequenceAlpha,
-        sequenceFrame.w * sequenceFrame.h,
-        sharedPalette,
-        paletteAlgorithm,
-        alphaThreshold,
-        sameGeometry ? previousGrid : null,
-        sameGeometry ? 0.00025 : 0
-      );
+      const mapping = await runPaletteMapStage(job, {
+        data:sequenceFrame.data,
+        alpha:sequenceAlpha,
+        pixelCount:sequenceFrame.w * sequenceFrame.h,
+        palette:sharedPalette,
+        algorithm:paletteAlgorithm,
+        threshold:alphaThreshold,
+        previousGrid:sameGeometry ? previousGrid : null,
+        temporalEpsilon:sameGeometry ? OKLAB_TEMPORAL_EPSILON : 0,
+        ditherMode,
+        ditherStrength,
+        width:sequenceFrame.w
+      });
+      sequenceFrame.data = mapping.data;
       temporalPaletteMappings.set(sequenceFrame, mapping);
       previousGrid = mapping.grid;
       previousWidth = sequenceFrame.w;
@@ -5918,21 +7533,24 @@ async function processAll(){
     }
   }
 
-  lastResults = [];
-  resultsEl.replaceChildren();
-  resultsEl.classList.remove('empty');
+  assertProcessingJobActive(job);
+  updateProcessingProgress(job, 'map', 30);
 
-  for(const d of downs){
+  for(const [downIndex, d] of downs.entries()){
+    assertProcessingJobActive(job);
+    updateProcessingProgress(job, 'map', 30 + (downIndex / Math.max(1, downs.length)) * 40);
     const w = d.w, h = d.h, n = w*h;
     let palette = sharedPalette;
     let paletteBuild = sharedPaletteBuild;
     let exactColorMap = null;
-    const alpha = new Array(n);
+    let alpha = new Uint8Array(n);
     for(let i=0;i<n;i++) alpha[i] = d.data[i*4+3];
 
     if(!palette){
       if(paletteMode === 'auto'){
-        paletteBuild = buildAutoPalette(
+        const paletteStartedAt = performance.now();
+        paletteBuild = await buildAutoPaletteChunked(
+          job,
           [d],
           nColors,
           paletteAlgorithm,
@@ -5941,6 +7559,7 @@ async function processAll(){
           alphaThreshold,
           alphaMode === 'coverage'
         );
+        addPerfStage(job, 'palette', performance.now() - paletteStartedAt);
         palette = paletteBuild.palette;
       } else if(paletteMode === 'custom'){
         palette = customColors;
@@ -5950,7 +7569,8 @@ async function processAll(){
       }
     }
 
-    let grid = new Array(n).fill(-1);
+    let grid = new Int32Array(n);
+    grid.fill(-1);
     let paletteMapping = null;
     if(exactColorMap){
       for(let i=0;i<n;i++){
@@ -5959,21 +7579,40 @@ async function processAll(){
         }
       }
     } else {
-      paletteMapping = temporalPaletteMappings.get(d) || mapPixelsToPalette(
-        d.data,
+      paletteMapping = temporalPaletteMappings.get(d) || await runPaletteMapStage(job, {
+        data:d.data,
         alpha,
-        n,
+        pixelCount:n,
         palette,
-        paletteMode === 'auto' ? paletteAlgorithm : 'kmeans-srgb',
-        alphaThreshold
-      );
+        algorithm:paletteMode === 'auto' ? paletteAlgorithm : 'kmeans-srgb',
+        threshold:alphaThreshold,
+        previousGrid:null,
+        temporalEpsilon:0,
+        ditherMode,
+        ditherStrength,
+        width:w
+      });
+      d.data = paletteMapping.data;
+      alpha = paletteMapping.alpha;
       grid = paletteMapping.grid;
     }
 
     if(cleanPasses>0){
-      grid = (d.mode === 'preserve-sheet' || (d.mode === 'factor' && d.factorFrameMode === 'sheet') || (d.mode === 'grid-repair' && d.gridFrameMode === 'sheet'))
-        ? cleanPreserveSheet(grid, alpha, w, h, d.frameLogicalW, d.frameLogicalH, cleanPasses, alphaThreshold)
-        : cleanIsolated(grid, alpha, w, h, cleanPasses, alphaThreshold);
+      const cleanupStartedAt = performance.now();
+      const cleanupIsSheet = d.mode === 'preserve-sheet' ||
+        (d.mode === 'factor' && d.factorFrameMode === 'sheet') ||
+        (d.mode === 'grid-repair' && d.gridFrameMode === 'sheet');
+      grid = await runCleanupStage(job, {
+        grid,
+        alpha,
+        width:w,
+        height:h,
+        frameWidth:cleanupIsSheet ? d.frameLogicalW : w,
+        frameHeight:cleanupIsSheet ? d.frameLogicalH : h,
+        passes:cleanPasses,
+        threshold:alphaThreshold
+      });
+      addPerfStage(job, 'cleanup', performance.now() - cleanupStartedAt);
     }
 
     let finalW = w, finalH = h;
@@ -5982,6 +7621,7 @@ async function processAll(){
     const finalPalette = palette.slice();
     let outlineColorIdx = -1;
     const outlineThickness = Math.max(1, parseInt(outlineWidthNum.value, 10) || 1);
+    const outlineStartedAt = performance.now();
 
     if(outlineCheck.checked){
       const oRgb = hexToRgb(outlineColor.value);
@@ -6056,8 +7696,12 @@ async function processAll(){
       finalW = expanded.w;
       finalH = expanded.h;
     }
+    addPerfStage(job, 'outline', performance.now() - outlineStartedAt);
+    updateProcessingProgress(job, 'export', 70 + (downIndex / Math.max(1, downs.length)) * 30);
+    const exportStartedAt = performance.now();
 
-    const alphaPolicyArtifacts = buildAlphaPolicyArtifacts(
+    const alphaPolicyArtifacts = await buildAlphaPolicyArtifactsChunked(
+      job,
       finalGrid,
       finalAlpha,
       finalW,
@@ -6066,25 +7710,7 @@ async function processAll(){
       alphaThreshold
     );
     const renderedAlpha = alphaPolicyArtifacts.renderedAlpha;
-    const canvas = document.createElement('canvas');
-    canvas.width = finalW; canvas.height = finalH;
-    const ctx = canvas.getContext('2d');
-    const imgData = ctx.createImageData(finalW, finalH);
-    const finalN = finalW*finalH;
-    for(let i=0;i<finalN;i++){
-      const idx = i*4;
-      const outputAlpha = renderedAlpha[i];
-      if(outputAlpha > 0){
-        const c = finalPalette[finalGrid[i]];
-        imgData.data[idx]=c[0];
-        imgData.data[idx+1]=c[1];
-        imgData.data[idx+2]=c[2];
-        imgData.data[idx+3]=outputAlpha;
-      } else {
-        imgData.data[idx]=0; imgData.data[idx+1]=0; imgData.data[idx+2]=0; imgData.data[idx+3]=0;
-      }
-    }
-    ctx.putImageData(imgData, 0, 0);
+    const canvas = await renderPaletteCanvasChunked(job, finalGrid, renderedAlpha, finalPalette, finalW, finalH);
 
     const isSheetResult = d.mode === 'preserve-sheet' ||
       (d.mode === 'factor' && d.factorFrameMode === 'sheet') ||
@@ -6095,7 +7721,8 @@ async function processAll(){
     const diagnosticsFrameH = d.mode === 'preserve-sheet'
       ? frameHeight
       : isSheetResult ? d.frameLogicalH : finalH;
-    const outputAlphaDiag = computeAlphaDiagnostics(
+    const outputAlphaDiag = await computeAlphaDiagnosticsChunked(
+      job,
       renderedAlpha,
       finalW,
       finalH,
@@ -6106,10 +7733,7 @@ async function processAll(){
 
     const paletteObj = {};
     finalPalette.forEach((c,i) => paletteObj[i] = c);
-    const grid2d = [];
-    for(let y=0;y<finalH;y++){
-      grid2d.push(Array.from(finalGrid.slice(y*finalW,(y+1)*finalW)));
-    }
+    const grid2d = await buildGridRowsChunked(job, finalGrid, finalW, finalH);
     let processing;
     if(scaleMode === 'square'){
       processing = { mode: 'square', size, method };
@@ -6147,6 +7771,7 @@ async function processAll(){
       processing = { mode: 'original' };
     }
     processing.representativeColor = representativeColor;
+    processing.detailPreservation = d.detailPreservation;
 
     let paletteProcessing;
     if(paletteMode === 'custom'){
@@ -6196,6 +7821,11 @@ async function processAll(){
       mode: alphaMode,
       threshold: alphaThreshold
     };
+    processing.dither = {
+      mode: paletteOn ? ditherMode : 'off',
+      strength: ditherStrength,
+      origin: [0, 0]
+    };
 
     const selectedScales = getSelectedNearestScales();
     const jsonData = {
@@ -6228,14 +7858,16 @@ async function processAll(){
       jsonData.alpha = alpha2d;
     }
 
-    const dataUrl = canvas.toDataURL('image/png');
-    const pngSize = Math.round(dataUrl.split(',')[1].length * 0.75);
+    const pngBlob = await runPngEncodeStage(job, canvas);
+    const dataUrl = persistLogsEnabled ? await blobToDataUrlAsync(job, pngBlob) : null;
+    const pngSize = pngBlob.size;
     lastResults.push({
       name: d.name,
       canvas,
       jsonData,
       paletteSize: finalPalette.length,
       pngSize,
+      pngBlob,
       dataUrl,
       addedIndex: d.addedIndex,
       sourceImage: d.img,
@@ -6244,7 +7876,9 @@ async function processAll(){
       alphaDiagnostics: outputAlphaDiag,
       coverageAlphaEstimatedBytes
     });
+    addPerfStage(job, 'export', performance.now() - exportStartedAt);
     await new Promise(r=>setTimeout(r,0));
+    assertProcessingJobActive(job);
   }
 
   renderResults();
@@ -6268,6 +7902,22 @@ async function processAll(){
     const fileNames = uploadedFiles.map(f => f.name);
     const settings = readUiSettings();
     saveLogToDB(fileNames, settings, resultsDataToSave);
+  }
+  finishProcessingJob(job, 'completed');
+  } catch(error) {
+    const wasCurrent = activeProcessingJob === job;
+    const cancelled = error instanceof ProcessCancelledError || job.cancelRequested;
+    if(wasCurrent){
+      clearPartialProcessOutput();
+      if(cancelled){
+        statusEl.textContent = '취소됨 — 생성 중이던 결과는 저장하지 않았습니다.';
+      } else {
+        const code = error instanceof ProcessWorkerError ? error.code : 'PROCESS_FAILED';
+        console.error('PERF-001 processing failure', error);
+        statusEl.textContent = `처리 실패 (${code}) — 입력과 설정을 확인한 뒤 다시 실행하세요.`;
+      }
+    }
+    finishProcessingJob(job, cancelled ? 'cancelled' : 'failed');
   }
 }
 
@@ -6359,6 +8009,27 @@ function renderResults(){
       meta.appendChild(experiment);
     }
 
+    const ditherMeta = r.jsonData?.processing?.dither;
+    if(ditherMeta && ditherMeta.mode !== 'off'){
+      const ditherSpan = document.createElement('span');
+      ditherSpan.textContent = `디더링 ${ditherMeta.mode}(${ditherMeta.strength}%)`;
+      meta.appendChild(ditherSpan);
+    }
+
+    const detailMeta = r.jsonData?.processing?.detailPreservation;
+    if(detailMeta?.lineAware?.enabled || detailMeta?.selout?.enabled){
+      const detailSpan = document.createElement('span');
+      const detailParts = [];
+      if(detailMeta.lineAware?.enabled){
+        detailParts.push(`선 후보 ${detailMeta.lineAware.candidatePixels}px · 적용 셀 ${detailMeta.lineAware.coveredCells}개`);
+      }
+      if(detailMeta.selout?.enabled){
+        detailParts.push(`selout ${detailMeta.selout.pixelCount}px`);
+      }
+      detailSpan.textContent = detailParts.join(' · ');
+      meta.appendChild(detailSpan);
+    }
+
     const alphaDiagSpan = document.createElement('span');
     if (r.jsonData?.diagnostics?.alpha) {
       const ad = r.jsonData.diagnostics.alpha;
@@ -6390,6 +8061,10 @@ function renderResults(){
     pngButton.textContent = 'PNG';
     pngButton.setAttribute('aria-label', `${r.name} native PNG 다운로드 (${r.canvas.width}×${r.canvas.height})`);
     pngButton.addEventListener('click', () => {
+      if(r.pngBlob){
+        downloadBlob(r.pngBlob, `${stem}_${dimsLabel(r.canvas)}.png`);
+        return;
+      }
       r.canvas.toBlob(blob => {
         if (blob) downloadBlob(blob, `${stem}_${dimsLabel(r.canvas)}.png`);
       });
@@ -7557,6 +9232,11 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+window.addEventListener('beforeunload', () => {
+  cancelActiveProcessingJob('page-close');
+  activeProcessingJob?.workerControllers.forEach(controller => controller.cancel('page-close'));
+});
+
 window.addEventListener('blur', () => {
   if (animIsPlaying) {
     setAnimPlaying(false);
@@ -7583,6 +9263,7 @@ function downloadBlob(blob, filename){
 }
 
 runBtn.addEventListener('click', processAll);
+cancelProcessBtn.addEventListener('click', () => cancelActiveProcessingJob('user'));
 
 applyPresetBtn.addEventListener('click', () => {
   const current = readUiSettings();
@@ -7663,6 +9344,7 @@ importSettingsInput.addEventListener('change', async (e) => {
 });
 
 resetBtn.addEventListener('click', () => {
+  cancelActiveProcessingJob('reset');
   applyUiSettings(DEFAULT_SETTINGS);
   presetSelect.value = 'default';
   presetDiffBox.style.display = 'none';
@@ -7694,7 +9376,7 @@ downloadAllBtn.addEventListener('click', async () => {
     const dims = dimsLabel(r.canvas);
 
     // Native PNG
-    const blob = await new Promise(res => r.canvas.toBlob(res));
+    const blob = r.pngBlob || await new Promise(res => r.canvas.toBlob(res));
     if (blob) {
       zip.file(`${stem}_${dims}.png`, blob);
     }
@@ -7747,6 +9429,19 @@ sharedCheck?.addEventListener('change', () => updatePaletteExperimentUi(false));
 paletteAlgorithmSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
 paletteSamplingSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
 paletteReferenceSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
+ditherModeSel?.addEventListener('change', () => updatePaletteExperimentUi(false));
+ditherStrengthRange?.addEventListener('input', () => {
+  if (ditherStrengthNum) ditherStrengthNum.value = ditherStrengthRange.value;
+  if (ditherStrengthVal) ditherStrengthVal.textContent = `${ditherStrengthRange.value}%`;
+});
+ditherStrengthNum?.addEventListener('change', () => {
+  let val = parseInt(ditherStrengthNum.value, 10);
+  if (!Number.isFinite(val) || val < 0) val = 0;
+  else if (val > 100) val = 100;
+  ditherStrengthNum.value = String(val);
+  if (ditherStrengthRange) ditherStrengthRange.value = String(val);
+  if (ditherStrengthVal) ditherStrengthVal.textContent = `${val}%`;
+});
 
 if (customPaletteText) {
   customPaletteText.addEventListener('input', () => {

@@ -5,10 +5,12 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { extractInlineFunction } from './lib/extract-inline-function.mjs';
 import {
+  PAL002_OKLAB_TEMPORAL_EPSILON,
   candidateEligible,
   regressionWithinLimit,
   relativeChangePercent,
-  samplingCorpusValid
+  samplingCorpusValid,
+  summarizeCandidateCombination
 } from './lib/pal002-evaluation.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -155,12 +157,12 @@ const downs = [
   const palette = [[100,100,100], [104,104,104]];
   const data = new Uint8ClampedArray([103,103,103,255]);
   const withoutStability = api.mapPixelsToPalette(data, [255], 1, palette, 'kmeans-oklab', 10);
-  const withStability = api.mapPixelsToPalette(data, [255], 1, palette, 'kmeans-oklab', 10, [0], 0.00025);
+  const withStability = api.mapPixelsToPalette(data, [255], 1, palette, 'kmeans-oklab', 10, [0], PAL002_OKLAB_TEMPORAL_EPSILON);
   assert.deepEqual(clone(withoutStability.grid), [1], 'OKLab mapping must select the nearest slot without temporal context');
   assert.deepEqual(clone(withStability.grid), [0], 'near-boundary OKLab mapping must retain the prior frame slot');
   assert.equal(withStability.temporalStabilityApplied, true);
   assert.equal(withStability.temporalHeldCount, 1);
-  assert.equal(withStability.temporalEpsilon, 0.00025);
+  assert.equal(withStability.temporalEpsilon, PAL002_OKLAB_TEMPORAL_EPSILON);
 }
 
 {
@@ -174,6 +176,31 @@ const downs = [
     temporalRegressionPass: true,
     deterministic: true
   }), false, 'quality improvement must not override a feature regression');
+  const sixteenColorCombinationInput = {
+    algorithm: 'kmeans-oklab',
+    sampling: 'pixel',
+    colors: 16,
+    candidateMean: 0.04,
+    baselineMean: 0.08,
+    candidateRuntimeMs: 13,
+    baselineRuntimeMs: 10,
+    candidateFeature: 0,
+    baselineFeature: 0,
+    candidateTemporal: 0.374737,
+    baselineTemporal: 0.273684,
+    deterministic: true
+  };
+  const rejectedSixteenColorCombination = summarizeCandidateCombination(sixteenColorCombinationInput);
+  assert.equal(rejectedSixteenColorCombination.temporalRegressionPass, false);
+  assert.equal(rejectedSixteenColorCombination.eligibleByAutomatedMetrics, false,
+    'a 16-color temporal regression above 10% must reject that exact preset combination');
+  const acceptedSixteenColorCombination = summarizeCandidateCombination({
+    ...sixteenColorCombinationInput,
+    candidateTemporal: 0.298947
+  });
+  assert.equal(acceptedSixteenColorCombination.temporalRegressionPass, true);
+  assert.equal(acceptedSixteenColorCombination.eligibleByAutomatedMetrics, true,
+    'the exact 16-color combination may pass only after all gates pass');
   const samplingEvidence = {
     backgroundPixels: 512 * 256,
     characterPixels: 128 * 128,

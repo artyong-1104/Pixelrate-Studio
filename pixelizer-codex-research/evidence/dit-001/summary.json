@@ -1,0 +1,828 @@
+{
+  "item": "DIT-001",
+  "title": "Ordered Dithering (Bayer 2×2 / 4×4)",
+  "verifiedAt": "2026-08-26T16:16:12.778Z",
+  "status": "DONE",
+  "cspHash": "sha256-dCThAbZF9KDGIWkx4zjYcZtJPzsERu8D3uoo4yb62DU=",
+  "automatedPass": true,
+  "gates": {
+    "bayerMatrixExact": "PASS",
+    "quantitativeCandidateCoverage": "PASS",
+    "texturePreferenceEvidence": "PASS",
+    "adoptionCoverage": "PASS",
+    "zeroStrengthBaselineIdentity": "PASS",
+    "alphaTopologyInvariant": "PASS",
+    "outlinePipelineOrder": "PASS",
+    "animationPresetsOff": "PASS",
+    "contactSheetWritten": "PASS",
+    "cspSynchronized": "PASS",
+    "browserQa": "PASS",
+    "independentSolReview": "PASS"
+  },
+  "baseline": {
+    "bandingRatio": 0.941176,
+    "mappingErrorMean": 0.017811,
+    "mappingErrorP95": 0.030475,
+    "gridHash": "1ccd0f26047622c50cf3bd3bda8e56a474118bb51a95d228986b582ca627f717"
+  },
+  "strength0Match": true,
+  "alphaTopologyMismatches": 0,
+  "outlinePipelineOrder": true,
+  "evaluations": [
+    {
+      "id": "bayer2-25",
+      "mode": "bayer2",
+      "strength": 25,
+      "bandingRatio": 0.882353,
+      "bandingReductionPercent": 6.25,
+      "mappingErrorMean": 0.017909,
+      "mappingErrorP95": 0.035498,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.288088,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "bc1bc68c77127cd2b9b2948b835b4d755f317f46ab7c3516364b6c72df6161f4",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 6.25% is below the 15% threshold"
+    },
+    {
+      "id": "bayer2-50",
+      "mode": "bayer2",
+      "strength": 50,
+      "bandingRatio": 0.823529,
+      "bandingReductionPercent": 12.5,
+      "mappingErrorMean": 0.019004,
+      "mappingErrorP95": 0.042929,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.294237,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "abedb7870e7bbc529cb5b3f1a7299b2a1a62253823564867862ee157279dcc5c",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 12.50% is below the 15% threshold"
+    },
+    {
+      "id": "bayer2-75",
+      "mode": "bayer2",
+      "strength": 75,
+      "bandingRatio": 0.647059,
+      "bandingReductionPercent": 31.25,
+      "mappingErrorMean": 0.022304,
+      "mappingErrorP95": 0.047867,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.294338,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "6a5f39b9adc60b98661a9a36cc7f71b871b4fd575061af79db3475292ca37256",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    },
+    {
+      "id": "bayer2-100",
+      "mode": "bayer2",
+      "strength": 100,
+      "bandingRatio": 0.588235,
+      "bandingReductionPercent": 37.5,
+      "mappingErrorMean": 0.0247,
+      "mappingErrorP95": 0.050402,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.294243,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "bc50699c52219b0e604dcdd08844933ebf925383422e79ce17fba0fe0c936955",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    },
+    {
+      "id": "bayer4-25",
+      "mode": "bayer4",
+      "strength": 25,
+      "bandingRatio": 0.911765,
+      "bandingReductionPercent": 3.13,
+      "mappingErrorMean": 0.017585,
+      "mappingErrorP95": 0.035087,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.289477,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "eed4072e6ffe0369ca9580693c9d15f10fb6798f4e0e341e7f0d0a23ac672058",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 3.13% is below the 15% threshold"
+    },
+    {
+      "id": "bayer4-50",
+      "mode": "bayer4",
+      "strength": 50,
+      "bandingRatio": 0.811765,
+      "bandingReductionPercent": 13.75,
+      "mappingErrorMean": 0.019527,
+      "mappingErrorP95": 0.043229,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.292303,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "1bf2d30ac9220065bc52659511f26bb177a18b05bcb144b18b7e9899e02a022b",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 13.75% is below the 15% threshold"
+    },
+    {
+      "id": "bayer4-75",
+      "mode": "bayer4",
+      "strength": 75,
+      "bandingRatio": 0.676471,
+      "bandingReductionPercent": 28.12,
+      "mappingErrorMean": 0.022922,
+      "mappingErrorP95": 0.048812,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.293574,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "9ddafdf495f125f284881d03ab12d6b6f9cdec75f6b82cbe4d8ad0e09875942e",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    },
+    {
+      "id": "bayer4-100",
+      "mode": "bayer4",
+      "strength": 100,
+      "bandingRatio": 0.529412,
+      "bandingReductionPercent": 43.75,
+      "mappingErrorMean": 0.026777,
+      "mappingErrorP95": 0.060713,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.295084,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "ad847682e2460b875ec0f52941d4a2242ee68eddc8d6507849a67ad1be13dd73",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    }
+  ],
+  "quantitativeEligibleByMode": {
+    "bayer2": [
+      "bayer2-75",
+      "bayer2-100"
+    ],
+    "bayer4": [
+      "bayer4-75",
+      "bayer4-100"
+    ]
+  },
+  "adoptedByMode": {
+    "bayer2": [
+      "bayer2-75",
+      "bayer2-100"
+    ],
+    "bayer4": [
+      "bayer4-75",
+      "bayer4-100"
+    ]
+  },
+  "browserEvidence": {
+    "present": true,
+    "browserQaPass": true,
+    "captureEvidencePass": true,
+    "staticZoomHashesPass": true,
+    "texturePreferencePass": true,
+    "warningTransitionsPass": true,
+    "captures": {
+      "browser-gradient-1x.png": {
+        "width": 768,
+        "height": 192,
+        "bytes": 28451,
+        "sha256": "bccab9d3ef835406c383a21a1bbf695f743673c0d8f2da3e72e7aa0509f32b4a",
+        "visual": {
+          "sampledPixels": 147456,
+          "uniqueColorCount": 2367,
+          "dominantColorRatio": 0.315104,
+          "luminanceVariance": 8027.914485,
+          "opaquePixels": 147456,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-gradient-2x.png": {
+        "width": 768,
+        "height": 192,
+        "bytes": 31266,
+        "sha256": "48251e203d2557de123d7733df48665642185b27fd8142fc7689f3b3896843c6",
+        "visual": {
+          "sampledPixels": 147456,
+          "uniqueColorCount": 2430,
+          "dominantColorRatio": 0.315104,
+          "luminanceVariance": 6355.681116,
+          "opaquePixels": 147456,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-gradient-8x.png": {
+        "width": 768,
+        "height": 192,
+        "bytes": 27470,
+        "sha256": "24f6fdfa3ee28b82e221713bf48066a02d4142c11ea6411394241ed7a2aea514",
+        "visual": {
+          "sampledPixels": 147456,
+          "uniqueColorCount": 2195,
+          "dominantColorRatio": 0.315104,
+          "luminanceVariance": 2097.891754,
+          "opaquePixels": 147456,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-clean-1x.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 33427,
+        "sha256": "4535872d345ac8d145cef0de71590ef8bef8be23d6965a8d1e3fe35f3c2b7856",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1782,
+          "dominantColorRatio": 0.380272,
+          "luminanceVariance": 8477.71191,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-clean-2x.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 37041,
+        "sha256": "6d65490315e70def1f5f3f04df2bddcbdf9d879be421be7f450a4988e92f0834",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 2453,
+          "dominantColorRatio": 0.380318,
+          "luminanceVariance": 8340.584879,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-clean-8x.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 39654,
+        "sha256": "f90ccb2c2a0d89160b3ed4599a229374a06db1b56cdf9128c4c339cd853ecfdf",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 2059,
+          "dominantColorRatio": 0.380318,
+          "luminanceVariance": 4146.878432,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-alpha-outline-1x.png": {
+        "width": 520,
+        "height": 520,
+        "bytes": 31396,
+        "sha256": "8b44b8cfea6a79c7b53a94c43fd11d99971f4e8dd5320e5393c9b5ca4a7524b7",
+        "visual": {
+          "sampledPixels": 135200,
+          "uniqueColorCount": 1626,
+          "dominantColorRatio": 0.401309,
+          "luminanceVariance": 532.347215,
+          "opaquePixels": 135200,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-alpha-outline-2x.png": {
+        "width": 520,
+        "height": 520,
+        "bytes": 32687,
+        "sha256": "5c1b27f3270b9bde05f1bbef6d79de22714e8752f5f1fdab1a760f6ed332f69d",
+        "visual": {
+          "sampledPixels": 135200,
+          "uniqueColorCount": 1875,
+          "dominantColorRatio": 0.398587,
+          "luminanceVariance": 1469.382,
+          "opaquePixels": 135200,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-alpha-outline-8x.png": {
+        "width": 1546,
+        "height": 818,
+        "bytes": 88393,
+        "sha256": "ef17a4659bf859e82b02b9cfc874a61eb2a97c21888022ae918d11380a974b20",
+        "visual": {
+          "sampledPixels": 105386,
+          "uniqueColorCount": 1239,
+          "dominantColorRatio": 0.697892,
+          "luminanceVariance": 4012.870912,
+          "opaquePixels": 105386,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-texture-off-1x.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 41396,
+        "sha256": "9b4f2c612e6bb0c16fc47f8e404b17b362a67e400bd9fdf5cb181656f985262a",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1712,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 313.334133,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-texture-bayer2-75-1x.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 41148,
+        "sha256": "eb8eac55ec748eebdc9cdaa6c9e4815296526efed34edbff509f0f18c17a3f20",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1765,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 313.241101,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-texture-bayer2-100-1x.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 45108,
+        "sha256": "5221b0ee7f98a98b15a30ea918c9ad52958ed8a2c2eeb5530be52c30ec810932",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 2015,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 312.501317,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-texture-bayer4-75-1x.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 43291,
+        "sha256": "eb2402700a55fad8057e26e98b7b1db1c2f9847f5c7b9359ef88104902bfdf9a",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1830,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 313.161696,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-texture-bayer4-100-1x.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 43866,
+        "sha256": "9ddb8ceb0e9ea6bad9c38c4ad029e723445c8f6eb0f4d407abcce264edc1205f",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1902,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 312.019225,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-animation-8x8fps.png": {
+        "width": 789,
+        "height": 689,
+        "bytes": 148492,
+        "sha256": "cf572fff44cf0371b3a86ed2ea30d4dc79a437632c7e79560816935a13762f7d",
+        "visual": {
+          "sampledPixels": 108725,
+          "uniqueColorCount": 3503,
+          "dominantColorRatio": 0.388154,
+          "luminanceVariance": 401.355628,
+          "opaquePixels": 108725,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-animation-8x12fps.png": {
+        "width": 789,
+        "height": 689,
+        "bytes": 146758,
+        "sha256": "8d13449f0a7f20dbedb05f10d6f2072fea40ca4f383efb58cd63e1f5482d0748",
+        "visual": {
+          "sampledPixels": 108725,
+          "uniqueColorCount": 3400,
+          "dominantColorRatio": 0.388154,
+          "luminanceVariance": 402.609096,
+          "opaquePixels": 108725,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-mobile-animation-8x12fps.png": {
+        "width": 382,
+        "height": 827,
+        "bytes": 72976,
+        "sha256": "9600916a2ffe1a6181aef8f1417bf3250b04a8085312f71b2a818c181359c8b8",
+        "visual": {
+          "sampledPixels": 105305,
+          "uniqueColorCount": 4595,
+          "dominantColorRatio": 0.403836,
+          "luminanceVariance": 988.994816,
+          "opaquePixels": 105305,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      }
+    },
+    "resultAssets": {
+      "browser-result-assets/gradient-bayer2-50.png": {
+        "width": 768,
+        "height": 192,
+        "bytes": 27470,
+        "sha256": "24f6fdfa3ee28b82e221713bf48066a02d4142c11ea6411394241ed7a2aea514",
+        "visual": {
+          "sampledPixels": 147456,
+          "uniqueColorCount": 2195,
+          "dominantColorRatio": 0.315104,
+          "luminanceVariance": 2097.891754,
+          "opaquePixels": 147456,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/clean-bayer4-75.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 39654,
+        "sha256": "f90ccb2c2a0d89160b3ed4599a229374a06db1b56cdf9128c4c339cd853ecfdf",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 2059,
+          "dominantColorRatio": 0.380318,
+          "luminanceVariance": 4146.878432,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/alpha-outline-bayer4-75.png": {
+        "width": 1546,
+        "height": 818,
+        "bytes": 88393,
+        "sha256": "ef17a4659bf859e82b02b9cfc874a61eb2a97c21888022ae918d11380a974b20",
+        "visual": {
+          "sampledPixels": 105386,
+          "uniqueColorCount": 1239,
+          "dominantColorRatio": 0.697892,
+          "luminanceVariance": 4012.870912,
+          "opaquePixels": 105386,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/texture-off.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 41396,
+        "sha256": "9b4f2c612e6bb0c16fc47f8e404b17b362a67e400bd9fdf5cb181656f985262a",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1712,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 313.334133,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/texture-bayer2-75.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 41148,
+        "sha256": "eb8eac55ec748eebdc9cdaa6c9e4815296526efed34edbff509f0f18c17a3f20",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1765,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 313.241101,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/texture-bayer2-100.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 45108,
+        "sha256": "5221b0ee7f98a98b15a30ea918c9ad52958ed8a2c2eeb5530be52c30ec810932",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 2015,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 312.501317,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/texture-bayer4-75.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 43291,
+        "sha256": "eb2402700a55fad8057e26e98b7b1db1c2f9847f5c7b9359ef88104902bfdf9a",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1830,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 313.161696,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/texture-bayer4-100.png": {
+        "width": 768,
+        "height": 512,
+        "bytes": 43866,
+        "sha256": "9ddb8ceb0e9ea6bad9c38c4ad029e723445c8f6eb0f4d407abcce264edc1205f",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 1902,
+          "dominantColorRatio": 0.530403,
+          "luminanceVariance": 312.019225,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-00.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91352,
+        "sha256": "aa1a709611e0a0549ca00e2186b62b61625166f4e9d7189afc3cf2db5dcf6004",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 3894,
+          "dominantColorRatio": 0.237717,
+          "luminanceVariance": 557.919962,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-01.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91260,
+        "sha256": "7f88d3012363185383d1be6946822cab0608b35703c4a4211a15feff75a5a32e",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4020,
+          "dominantColorRatio": 0.238564,
+          "luminanceVariance": 564.868551,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-02.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91976,
+        "sha256": "062e2fe790331275270f20197160ff157e7818f412a24d82db1256018c376711",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4070,
+          "dominantColorRatio": 0.237724,
+          "luminanceVariance": 564.821344,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-03.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 92117,
+        "sha256": "9f2719f50661f8c4ae98afa02cc915b7d8ceb367c2a4ce4e4ab7b531bfc7e52a",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4104,
+          "dominantColorRatio": 0.237701,
+          "luminanceVariance": 564.784172,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-04.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 92280,
+        "sha256": "f3713c7f3372755461f2b5a6dcedf06ddb75f05d32dc7712336db13d45066ff4",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4088,
+          "dominantColorRatio": 0.237556,
+          "luminanceVariance": 564.845445,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-05.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 92142,
+        "sha256": "2b84e70b4b93c57f9f1161e1268f2bd9d696ae53a31989f20d2614dc2bc77bb5",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4093,
+          "dominantColorRatio": 0.237602,
+          "luminanceVariance": 564.961312,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-06.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91745,
+        "sha256": "2521e0b0bc4529b70ca037a10c3696521f8f3ec2aa971b45c44b66c29492363e",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4043,
+          "dominantColorRatio": 0.237267,
+          "luminanceVariance": 564.953132,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-07.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 90966,
+        "sha256": "3ac4126de71e98df6ae7f7f7edaeab7d3e2afb83244b4e07775089d205f26d36",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 3987,
+          "dominantColorRatio": 0.23806,
+          "luminanceVariance": 565.179568,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-08.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91562,
+        "sha256": "582170dfab53df306a11155889938323b4b71b9ed4f967060a73574722326cbd",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4030,
+          "dominantColorRatio": 0.237198,
+          "luminanceVariance": 565.227318,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-09.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91516,
+        "sha256": "015f591b4ae90841529516df8122cbc4e7939c2a24475346c8b3189c34fee303",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4052,
+          "dominantColorRatio": 0.237289,
+          "luminanceVariance": 565.571196,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-10.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91578,
+        "sha256": "38914adfc574800fc6fe762969e2eed71f4ff463239243b584eb94e15449110b",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4057,
+          "dominantColorRatio": 0.237274,
+          "luminanceVariance": 565.64101,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-11.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91515,
+        "sha256": "5b523615d39d8b77d89b98acf054565be3cea723792cf20ff86e65043bf2c869",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4034,
+          "dominantColorRatio": 0.237625,
+          "luminanceVariance": 565.474564,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-12.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 91586,
+        "sha256": "c7888eccb93639de86c9cb9d63204f0991c23959c427a220882114e1024da878",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 4039,
+          "dominantColorRatio": 0.237274,
+          "luminanceVariance": 565.439778,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-13.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 90006,
+        "sha256": "d45917730dea5d450274389b7b17628906e41becb5ba3fc2175908e8f3b1ecf8",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 3804,
+          "dominantColorRatio": 0.237419,
+          "luminanceVariance": 565.637924,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-14.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 90071,
+        "sha256": "09a6a33848ba22fbe3839750f47060d33cd3e75f52691c29dbaf866725da54af",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 3801,
+          "dominantColorRatio": 0.237305,
+          "luminanceVariance": 565.552154,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "browser-result-assets/animation-bayer4-75-15.png": {
+        "width": 512,
+        "height": 512,
+        "bytes": 89984,
+        "sha256": "25795beb63dbd327fa20e37234afbe22f924aba0ac4da0a160ab92a984a6bb0c",
+        "visual": {
+          "sampledPixels": 131072,
+          "uniqueColorCount": 3802,
+          "dominantColorRatio": 0.237419,
+          "luminanceVariance": 565.621403,
+          "opaquePixels": 131072,
+          "partialAlphaPixels": 0,
+          "transparentPixels": 0
+        }
+      }
+    }
+  },
+  "requiredReview": {
+    "pass": true,
+    "requestedResult": "PASS",
+    "reportExists": true,
+    "reportSha256": "9f1f0e6afd43f65e60d8da476f81578d497c6e8cce031ce08f4bfe12fa73b70a"
+  },
+  "artifacts": {
+    "contactSheet": "strength-matrix-contact-sheet.png",
+    "contactSheetSha256": "0a0dabbc049194135b23a549ef6a37ccd5cb10de677268a8f4bf4645884a5745",
+    "qualityMatrix": "quality-matrix.json",
+    "browserQa": "browser-qa.json"
+  }
+}

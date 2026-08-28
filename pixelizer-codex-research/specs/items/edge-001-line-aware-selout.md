@@ -5,8 +5,8 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | NOT_STARTED |
-| QA 상태 | 미실행 |
+| 구현 상태 | DONE |
+| QA 상태 | 완료 — exact·회귀·결정성·localhost 브라우저·모바일·키보드 QA 통과 |
 | 우선순위 | P3 |
 | 근거 분류 | SOURCE-BACKED + EXPERIMENTAL |
 | 구현 모델 | Sol xhigh |
@@ -130,3 +130,47 @@ stage ablation contact sheet, feature/false-line report, sheet boundary test, ru
 - selout과 제한 palette의 stage order가 색 수를 불안정하게 만들면 product 연결을 중단하고 palette-aware selout 후속 명세를 작성한다.
 - false-line 기준을 넘으면 threshold를 fixture에 과적합하지 말고 항목을 DEFERRED로 전환한다.
 
+## 18. 구현·검증 완료 기록
+
+완료일: 2026-08-27 (KST)
+
+구현 결과:
+
+- 실험 영역에 `세부 선 보존 (실험)`과 `실루엣 selout (실험)`을 서로 독립된 기본 off 옵션으로 추가했다.
+- 설정 JSON은 `lineAware.enabled/threshold/strength`와 `selout.enabled/darken`을 엄격히 검증하며, 해당 필드가 없는 legacy 설정은 명세 기본값으로 복원한다.
+- alpha-masked 3×3 dark-line 후보 검출, cell coverage blend, logical-frame 4-neighbor selout을 구현했다. 처리 순서는 line blend → selout RGB → palette mapping → 기존 outline이다.
+- 결과 JSON과 카드에 line candidate, covered cell, selout pixel 및 중간 typed-array 메모리 정보를 기록한다.
+- 기존 outline과 동시에 활성화하면 명세의 중첩 경고를 `aria-live`로 표시한다. 체크박스는 키보드 Space 전환과 옵션의 disabled/visible 상태를 동기화한다.
+- 기본값과 기존 preset은 모두 off로 유지했다. 채택 게이트 통과는 구현 실험의 완료 판정이며, 일반 preset 승격이나 기본값 변경을 의미하지 않는다.
+
+자동 검증:
+
+- `node scripts/edge001-check.mjs`: exact threshold, 유효 이웃 수, coverage blend, frame 경계, selout, alpha 불변, 단계 순서, 결정성, off hash, 4M 계측 통과.
+- `node scripts/settings-check.mjs`: nested 설정 round trip, legacy 기본값, strict validation, preset diff 통과.
+- `node scripts/generate-edge001-evidence.mjs`: 품질 fixture, ablation, 증거 hash 및 브라우저 캡처 무결성 통과.
+- `for f in scripts/*check.mjs; do node "$f"; done`: 29개 프로젝트 검사 스크립트 통과.
+- `git diff --check`: 통과.
+
+정량 결과:
+
+- thin-feature contrast 개선: **52.11%** (기준: 10% 이상).
+- 최대 flat-region false-line ratio: **0.000%** (기준: 1% 미만).
+- low-contrast, texture, photo-like fixture 치명 왜곡: **없음**.
+- transparent sheet의 cross-frame line candidate: **0**, selout pixel: **40**, alpha hash 안정.
+- disabled baseline SHA-256: `5cf372d719ce5428b936b424928892abab8e58dadb84dcf41785803cff2d2c90`.
+- 4,194,304px line-mask 계측: **1971.624ms**, typed-array peak **25,165,824 bytes**. 현재 naive bounded-neighbor O(N) 구현은 명세가 허용한 계측 조건을 충족하며, Worker 이전 여부는 PERF-001에서 별도 평가한다.
+
+localhost 브라우저 QA:
+
+- `http://localhost:8000/pixelate_studio.html?qa=edge001-20260827`에서 baseline, line-only, selout-only, combined를 7개 fixture로 비교했다.
+- 작은 얼굴을 1×/8×로 확인했고, transparent sheet logical-frame 격리, 기존 outline 중첩 경고·출력 padding, 결과 metadata를 확인했다.
+- 390×844 모바일에서 가로 overflow가 없고 모든 EDGE 제어가 노출됨을 확인했다.
+- 체크박스 focus/Space off→on·on→off, 옵션 상태 동기화, main/sheet console warning·error 0건을 확인했다.
+
+증거:
+
+- [자동·브라우저 QA 요약](../../evidence/edge-001/README.md)
+- [정량 결과 JSON](../../evidence/edge-001/automated-results.json)
+- [브라우저 QA JSON](../../evidence/edge-001/browser-qa.json)
+- [native 단계별 ablation](../../evidence/edge-001/stage-ablation-native.png)
+- [8× 단계별 ablation](../../evidence/edge-001/stage-ablation-8x.png)

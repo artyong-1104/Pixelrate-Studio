@@ -5,9 +5,9 @@
 | 항목 | 값 |
 |---|---|
 | 명세 상태 | 완료 |
-| 구현 상태 | 보완 필요 — 알고리즘은 구현됐으나 16색 preset 승격 gate와 temporal 정책이 수용 기준을 만족하지 못함 |
-| QA 상태 | FAIL — 자동·브라우저 증거는 무결성을 통과했으나 독립 Sol xhigh 재검토에서 승격 조합의 temporal 10% 상한 위반 확인 |
-| 채택 상태 | REJECTED_PENDING_FIX — `oklab-animation-stable` 16색 opt-in preset은 현재 증거로 승격 불가 |
+| 구현 상태 | 완료 — 조합별 eligibility, 16색 temporal negative test, 정량 결과 기반 manual gate, temporal 안정화를 보완함 |
+| QA 상태 | PASS — 조합별 자동 회귀, fresh localhost:8000 브라우저 QA, decoder-backed 캡처·manifest 무결성, 독립 Sol xhigh 최종 재검토 통과 |
+| 채택 상태 | ADOPTED_OPT_IN — `oklab-animation-stable` 16색 공유 팔레트 preset을 명시적 opt-in으로 승격했으며 기본값은 유지 |
 | 우선순위 | P3 |
 | 근거 분류 | SOURCE-BACKED + EXPERIMENTAL |
 | 구현 모델 | Sol xhigh |
@@ -143,11 +143,13 @@ palette matrix JSON, sample count report, 1× blind 결과, runtime/heap, baseli
 
 ## 18. 구현·검증 결과 (2026-08-25 KST)
 
-- 구현: `kmeans-srgb`, deterministic `kmeans-oklab`, deterministic `median-cut`, `pixel`/`image-balanced`/`reference` sampling을 실험 기능 표시 아래 연결했다. OKLab 공유 다중 프레임은 이전 프레임의 palette index가 최적값과 OKLab squared-distance `0.00025` 이내이면 이전 index를 유지한다. 첫 프레임·다른 치수·투명→불투명 전환에는 유지 규칙을 적용하지 않는다.
+- 구현: `kmeans-srgb`, deterministic `kmeans-oklab`, deterministic `median-cut`, `pixel`/`image-balanced`/`reference` sampling을 실험 기능 표시 아래 연결했다. OKLab 공유 다중 프레임은 이전 프레임의 palette index가 최적값과 OKLab squared-distance `0.005` 이내이면 이전 index를 유지한다. 첫 프레임·다른 치수·투명→불투명 전환에는 유지 규칙을 적용하지 않는다.
 - 호환: 초기화·legacy 설정은 `kmeans-srgb` + `pixel` + `null reference`로 복원된다. 기존 baseline palette 순서와 고정 SHA-256 `8fc99dd6e6e2dffde8dec057af66e2868cfe0ddbc50bd1035bfe73681781602d`를 유지했다.
 - 오류 처리: reference 파일 삭제와 동일 filename 중복을 자동 대체하지 않고 실행 전에 각각 명시적 오류로 차단했다.
 - 자동 QA: 4 fixture × 8/16/32/64색 × 3 algorithm의 48행 matrix, sampling 3종, 결정성, sample 상한, 변환 round trip, tie-break와 baseline 회귀를 통과했다. sampling 평가는 512×256 배경과 128×128 캐릭터를 사용하며, pixel 44,726개와 image-balanced 24,950개 표본 및 서로 다른 palette를 확인한다. runtime은 sample 수집과 palette 생성을 분리 기록하고 합계로 채택 상한을 판정한다.
-- 브라우저 QA: localhost에서 `oklab-animation-stable` preset 적용, 원본 16프레임 변환 완료, 15개 후속 프레임 metadata와 5프레임·총 180px index 유지, console error 0을 확인했다. 390×844에서는 document scroll width 382px로 가로 overflow가 없었다. 재생되는 actual-size matrix의 animation 8/16/32/64색을 새 자산으로 검수했고 16색 조합만 preset 승격 대상으로 기록했다.
-- 채택 재판정: 알고리즘 전체 8/16/32/64색 평균으로는 temporal variance 악화가 2.593748%로 보이지만, 실제 preset으로 승격한 16색 조합은 baseline `0.273684`에서 OKLab `0.374737`로 `36.9232%` 악화된다. 명세의 temporal 10% 상한을 위반하므로 `oklab-animation-stable` 채택은 거부된다.
-- 독립 재검토: application script SHA-256 `e894f4191815936d25db368dd73e53a1078de8ee61c094a35e505516c56f5921`에 결합한 Sol xhigh 독립 재검토는 `FAIL / CHANGES_REQUESTED`다. 조합별 eligibility 계산, 16색 temporal 실패 negative test, 하드코딩된 manual promotion gate 제거, temporal 정책 재조정 후 전체 QA와 독립 재검토를 반복해야 한다.
-- 근거: [구현 출처 검증 노트](../../references/notes/pal-002-implementation-note.md), [자동·브라우저 QA 보고서](../../evidence/pal-002/README.md), [요약 JSON](../../evidence/pal-002/summary.json), [브라우저 QA JSON](../../evidence/pal-002/qa-results.json), [Sol xhigh 독립 재검토](../../evidence/pal-002/sol-xhigh-independent-rereview-2026-08-25.md).
+- 보완 자동 QA: 채택 gate를 알고리즘 전체 평균에서 `algorithm × sampling × colors` 조합별 판정으로 바꾼다. 이전 16색 결과 `0.374737`/`0.273684`(`+36.9232%`)는 반드시 거부하고, 보완 결과 `0.298947`/`0.273684`(`+9.230719%`)는 10% 상한 이내로 인정하는 negative/positive test를 고정했다. manual matrix의 `candidatePromotionSupported`는 하드코딩하지 않고 정량 조합 gate가 전달한 cell ID와 일치해야 한다.
+- 정량 재판정: `kmeans-oklab + pixel + 16색`은 평균 OKLab error `39.498235%` 개선, 최종 증거 생성 runtime `1.356869×`, feature 변화 `0%`, temporal variance `+9.230719%`, blind preference `50%`, 결정성 PASS로 조합별 지표를 모두 통과했다. 독립 검토 실행의 runtime은 `1.341899×`였으며 계측 변동에도 모두 3× 폐기 상한 이하였다.
+- 브라우저 QA: localhost:8000에서 `oklab-animation-stable` preset을 적용해 16개 원본 프레임을 처리했다. 15개 후속 프레임에 metadata가 표시되었고 13프레임·총 468px에서 이전 index가 유지됐으며 console error는 0개였다. 390×844 viewport에서 document scroll width는 382px, 가로 overflow는 없었다. 5개 fixture group×4개 palette size의 20-cell actual-size matrix와 240개 PNG, 6개 manual 대표 캡처를 새 manifest·SHA-256으로 검수했다.
+- 최종 판정: application script SHA-256 `d78b1aae6b296215659b3085ddaf966d0b7941e0593be891bd726c44e3ffcb6c`에 결합된 독립 Sol xhigh 최종 재검토가 `PASS`를 반환했다. 기본값은 변경하지 않고 `oklab-animation-stable` 16색 공유 팔레트만 opt-in preset으로 승격했다.
+- 이전 브라우저·독립 증거: application script SHA-256 `e894f4191815936d25db368dd73e53a1078de8ee61c094a35e505516c56f5921`에 결합한 QA와 `FAIL / CHANGES_REQUESTED` 보고서는 보완 전 이력으로만 보존한다. 현재 코드의 QA·최종 판정 증거로 재사용하지 않는다.
+- 근거: [구현 출처 검증 노트](../../references/notes/pal-002-implementation-note.md), [자동·브라우저 QA 보고서](../../evidence/pal-002/README.md), [요약 JSON](../../evidence/pal-002/summary.json), [브라우저 QA JSON](../../evidence/pal-002/qa-results.json), [Sol xhigh 독립 최종 재검토](../../evidence/pal-002/sol-xhigh-final-rereview-2026-08-26.md), [이전 FAIL 검토 이력](../../evidence/pal-002/sol-xhigh-independent-rereview-2026-08-25.md).

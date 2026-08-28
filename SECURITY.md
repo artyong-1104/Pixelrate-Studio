@@ -15,7 +15,7 @@ Pixelate Studio에는 서버 API, 로그인, 서버 데이터베이스가 없습
 - HTML의 CSP는 기본 보호 장치입니다. 실제 서비스에서는 아래 정책을 HTTP 응답 헤더에도 적용합니다.
 
 ```text
-Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-6JT0GRgVk20l2zaN1z5ToQeN6O5hwJSjXlBVFsVvWSE='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'
+Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-YyJhORwbuWpFEp9w7Q3AsmvB+uO4caxGazFYLwq64Ys='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'
 Referrer-Policy: no-referrer
 X-Content-Type-Options: nosniff
 Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
@@ -32,6 +32,7 @@ Cross-Origin-Resource-Policy: same-origin
 - 디코딩 후 이미지는 최대 4096×4096 픽셀로 제한합니다.
 - 전체 디코딩 픽셀, 원본 크기 처리량, 팔레트 비교 연산량을 별도로 제한합니다.
 - 실행 중 네트워크 연결 API 사용을 금지하며 CSP `connect-src 'none'`으로 차단합니다.
+- 성능 Worker는 같은 출처의 `pixelate-worker.js`만 허용하며 CSP `worker-src 'self'`로 제한합니다.
 
 ## 취약점 보고
 

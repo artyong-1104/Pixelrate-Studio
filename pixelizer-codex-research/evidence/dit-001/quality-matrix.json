@@ -1,0 +1,192 @@
+{
+  "item": "DIT-001",
+  "verifiedAt": "2026-08-26T16:16:12.778Z",
+  "fixture": "gradient-gray",
+  "palette": "16-step grayscale",
+  "baseline": {
+    "bandingRatio": 0.941176,
+    "mappingErrorMean": 0.017811,
+    "mappingErrorP95": 0.030475,
+    "gridHash": "1ccd0f26047622c50cf3bd3bda8e56a474118bb51a95d228986b582ca627f717"
+  },
+  "candidateOrder": [
+    "off",
+    "bayer2-25",
+    "bayer2-50",
+    "bayer2-75",
+    "bayer2-100",
+    "bayer4-25",
+    "bayer4-50",
+    "bayer4-75",
+    "bayer4-100"
+  ],
+  "acceptance": {
+    "bandingReductionPercentMinimum": 15,
+    "staticRegionChangedPixelRatioMaximum": 0,
+    "texturePreferenceZoom": 1,
+    "texturePreferenceAcceptedValue": "ACCEPTABLE",
+    "missingTexturePreference": "FAIL_CLOSED"
+  },
+  "evaluations": [
+    {
+      "id": "bayer2-25",
+      "mode": "bayer2",
+      "strength": 25,
+      "bandingRatio": 0.882353,
+      "bandingReductionPercent": 6.25,
+      "mappingErrorMean": 0.017909,
+      "mappingErrorP95": 0.035498,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.288088,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "bc1bc68c77127cd2b9b2948b835b4d755f317f46ab7c3516364b6c72df6161f4",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 6.25% is below the 15% threshold"
+    },
+    {
+      "id": "bayer2-50",
+      "mode": "bayer2",
+      "strength": 50,
+      "bandingRatio": 0.823529,
+      "bandingReductionPercent": 12.5,
+      "mappingErrorMean": 0.019004,
+      "mappingErrorP95": 0.042929,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.294237,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "abedb7870e7bbc529cb5b3f1a7299b2a1a62253823564867862ee157279dcc5c",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 12.50% is below the 15% threshold"
+    },
+    {
+      "id": "bayer2-75",
+      "mode": "bayer2",
+      "strength": 75,
+      "bandingRatio": 0.647059,
+      "bandingReductionPercent": 31.25,
+      "mappingErrorMean": 0.022304,
+      "mappingErrorP95": 0.047867,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.294338,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "6a5f39b9adc60b98661a9a36cc7f71b871b4fd575061af79db3475292ca37256",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    },
+    {
+      "id": "bayer2-100",
+      "mode": "bayer2",
+      "strength": 100,
+      "bandingRatio": 0.588235,
+      "bandingReductionPercent": 37.5,
+      "mappingErrorMean": 0.0247,
+      "mappingErrorP95": 0.050402,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.294243,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "bc50699c52219b0e604dcdd08844933ebf925383422e79ce17fba0fe0c936955",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    },
+    {
+      "id": "bayer4-25",
+      "mode": "bayer4",
+      "strength": 25,
+      "bandingRatio": 0.911765,
+      "bandingReductionPercent": 3.13,
+      "mappingErrorMean": 0.017585,
+      "mappingErrorP95": 0.035087,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.289477,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "eed4072e6ffe0369ca9580693c9d15f10fb6798f4e0e341e7f0d0a23ac672058",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 3.13% is below the 15% threshold"
+    },
+    {
+      "id": "bayer4-50",
+      "mode": "bayer4",
+      "strength": 50,
+      "bandingRatio": 0.811765,
+      "bandingReductionPercent": 13.75,
+      "mappingErrorMean": 0.019527,
+      "mappingErrorP95": 0.043229,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.292303,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "1bf2d30ac9220065bc52659511f26bb177a18b05bcb144b18b7e9899e02a022b",
+      "quantitativeEligibility": "FAIL",
+      "texturePreference": "MISSING",
+      "adoption": "FAIL",
+      "verdict": "banding reduction 13.75% is below the 15% threshold"
+    },
+    {
+      "id": "bayer4-75",
+      "mode": "bayer4",
+      "strength": 75,
+      "bandingRatio": 0.676471,
+      "bandingReductionPercent": 28.12,
+      "mappingErrorMean": 0.022922,
+      "mappingErrorP95": 0.048812,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.293574,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "9ddafdf495f125f284881d03ab12d6b6f9cdec75f6b82cbe4d8ad0e09875942e",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    },
+    {
+      "id": "bayer4-100",
+      "mode": "bayer4",
+      "strength": 100,
+      "bandingRatio": 0.529412,
+      "bandingReductionPercent": 43.75,
+      "mappingErrorMean": 0.026777,
+      "mappingErrorP95": 0.060713,
+      "flatRegionVariance": 16256.25,
+      "temporalChangedPixelRatio": 0.295084,
+      "staticRegionChangedPixelRatio": 0,
+      "gridHash": "ad847682e2460b875ec0f52941d4a2242ee68eddc8d6507849a67ad1be13dd73",
+      "quantitativeEligibility": "PASS",
+      "texturePreference": "ACCEPTABLE",
+      "adoption": "PASS",
+      "verdict": "quantitative gates passed and 1x texture preference is ACCEPTABLE"
+    }
+  ],
+  "quantitativeEligibleByMode": {
+    "bayer2": [
+      "bayer2-75",
+      "bayer2-100"
+    ],
+    "bayer4": [
+      "bayer4-75",
+      "bayer4-100"
+    ]
+  },
+  "adoptedByMode": {
+    "bayer2": [
+      "bayer2-75",
+      "bayer2-100"
+    ],
+    "bayer4": [
+      "bayer4-75",
+      "bayer4-100"
+    ]
+  },
+  "defaultPolicy": {
+    "ditherMode": "off",
+    "promotedToPreset": false
+  }
+}

@@ -1,6 +1,6 @@
 # Pixelate Studio 개선 진행 대시보드
 
-기준일: 2026-08-25 (KST)
+기준일: 2026-08-27 (KST)
 
 이 디렉터리는 외부 소스 연구를 실제 구현 단위로 전환한 명세 패키지다. 구현자는 한 번에 한 항목만 선택하고, 해당 명세의 수용 기준과 증거 요구를 모두 만족한 뒤 다음 항목으로 이동한다.
 
@@ -9,8 +9,8 @@
 | 구분 | 완료 | 전체 | 진행률 |
 |---|---:|---:|---:|
 | 명세 작성 | 15 | 15 | 100% |
-| 구현 | 11 | 15 | 73.3% |
-| QA | 11 | 15 | 73.3% |
+| 구현 | 15 | 15 | 100% |
+| QA | 15 | 15 | 100% |
 
 ## 상태 정의
 
@@ -41,10 +41,10 @@
 | GRID-001 | Sobel grid period/phase 감지 | SOURCE-BACKED + EXPERIMENTAL | P2 | QLT-001, GEO-001 | Sol xhigh | `DONE` | 완료 — algorithm v2 자동·localhost 브라우저 QA·증거 무결성·독립 Sol xhigh 최종 검토 통과 | [열기](items/grid-001-grid-detection.md) | [검사·QA 보고서](../evidence/grid-001/README.md), [Sol 최종 검토](../evidence/grid-001/sol-xhigh-final-review-2026-08-23.md) |
 | ALP-002 | binary/coverage alpha 정책 | SOURCE-BACKED + ENGINEERING-INFERENCE | P2 | QLT-001, CFG-001, ALP-001 | Luna xhigh + Sol 검토 | `DONE` | 완료 — 보완 자동 회귀·fresh localhost 브라우저 QA·decoder-backed 캡처 무결성·독립 Sol xhigh 재검토 통과 | [열기](items/alp-002-alpha-policy.md) | [검사·보고서](../evidence/alp-002/README.md), [Sol 최종 재검토](../evidence/alp-002/sol-xhigh-rereview-2026-08-23.md) |
 | CELL-001 | 셀 대표색 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, GEO-001 | Sol xhigh | `DONE` | 완료 — exact·결정성·기준선·QLT A/B·localhost 데스크톱/모바일/설정/실제 크기 QA 통과, 후보는 실험 영역 유지 | [열기](items/cell-001-representative-colors.md) | [검사·A/B·브라우저 QA 보고서](../evidence/cell-001/README.md) |
-| PAL-002 | 지각 팔레트·샘플링 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001 | Sol xhigh | `IN_PROGRESS` | 독립 Sol xhigh 재검토 FAIL — 승격 대상 16색 조합의 temporal variance가 36.9232% 악화되어 10% 상한 위반; 조합별 gate와 temporal 정책 보완 필요 | [열기](items/pal-002-palette-algorithms.md) | [matrix·브라우저 QA·판정 보고서](../evidence/pal-002/README.md), [요약 JSON](../evidence/pal-002/summary.json), [Sol xhigh 독립 재검토](../evidence/pal-002/sol-xhigh-independent-rereview-2026-08-25.md) |
-| DIT-001 | 정지 이미지 ordered dithering | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001, CFG-001 | Luna xhigh + Sol 검토 | `READY` | 미실행 | [열기](items/dit-001-ordered-dithering.md) | — |
-| EDGE-001 | Weber/line-aware/selout | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, CELL-001 | Sol xhigh | `READY` | 미실행 | [열기](items/edge-001-line-aware-selout.md) | — |
-| PERF-001 | 계측, Worker, 조건부 WASM | ENGINEERING-INFERENCE | P3 | QLT-001 및 대상 알고리즘 | Sol xhigh | `NOT_STARTED` | 미실행 | [열기](items/perf-001-worker-wasm.md) | — |
+| PAL-002 | 지각 팔레트·샘플링 A/B | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001 | Sol xhigh | `DONE` | 완료 — 조합별 gate·16색 negative test·temporal 정책 보완, fresh localhost:8000 브라우저 QA, 20-cell·240-asset 무결성, 독립 Sol xhigh 최종 재검토 통과; `oklab-animation-stable` opt-in preset 승격, 기본값 유지 | [열기](items/pal-002-palette-algorithms.md) | [matrix·브라우저 QA·판정 보고서](../evidence/pal-002/README.md), [요약 JSON](../evidence/pal-002/summary.json), [Sol xhigh 최종 재검토](../evidence/pal-002/sol-xhigh-final-rereview-2026-08-26.md), [이전 FAIL 검토 이력](../evidence/pal-002/sol-xhigh-independent-rereview-2026-08-25.md) |
+| DIT-001 | 정지 이미지 ordered dithering | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, PAL-001, CFG-001 | Luna xhigh + Sol 검토 | `DONE` | 완료 — 자동·설정·보안·PAL-002 회귀, 경고 양방향 전이, 1× texture 선호, 1×/2×/8× 정적 캡처, 8/12fps·16프레임·모바일 증거와 독립 Sol xhigh 최종 재검토 PASS; 50%는 12.50%/13.75%로 FAIL하고 75%·100%만 실험 후보 PASS, 기본값·preset은 off 유지 | [열기](items/dit-001-ordered-dithering.md) | [검사·보고서](../evidence/dit-001/README.md), [품질 매트릭스](../evidence/dit-001/quality-matrix.json), [브라우저 QA](../evidence/dit-001/browser-qa.json), [1× 선호 판정](../evidence/dit-001/texture-preference-review.json), [세션 계측](../evidence/dit-001/browser-session-measurements.json), [contact sheet](../evidence/dit-001/strength-matrix-contact-sheet.png), [Sol xhigh 최종 재검토](../evidence/dit-001/sol-xhigh-independent-rereview-2026-08-27.md), [독립 검토 인계](../evidence/dit-001/independent-review-handoff.md) |
+| EDGE-001 | Weber/line-aware/selout | SOURCE-BACKED + EXPERIMENTAL | P3 | QLT-001, CELL-001 | Sol xhigh | `DONE` | 완료 — exact·결정성·off hash·52.11% feature 개선·0.000% flat false-line·4M 계측, localhost 데스크톱/모바일·1×/8×·sheet·outline·키보드 QA 통과; 기본값·preset off 유지 | [열기](items/edge-001-line-aware-selout.md) | [검사·브라우저 QA 보고서](../evidence/edge-001/README.md), [정량 결과](../evidence/edge-001/automated-results.json), [브라우저 QA](../evidence/edge-001/browser-qa.json), [8× ablation](../evidence/edge-001/stage-ablation-8x.png) |
+| PERF-001 | 계측, Worker, 조건부 WASM | ENGINEERING-INFERENCE | P3 | QLT-001 및 대상 알고리즘 | Sol xhigh | `DONE` | 완료 — QLT texture-checker provenance·파생 해시 gate, 1M Worker gate, byte-identical hash, 4M `map` 67.358% 단축, 최대 chunk 5.703ms, click 12.6ms·Chrome Space 1.8ms 취소·부분 결과 0, 256K/1M/4M·탭·모바일·Worker 실패 QA, performance trace·cancel MP4·전체 회귀 통과; WASM gate 미진입 | [열기](items/perf-001-worker-wasm.md) | [검사·브라우저 QA 보고서](../evidence/perf-001/README.md), [QLT fixture manifest](../evidence/perf-001/browser-fixtures/manifest.json), [기준선·Worker 비교](../evidence/perf-001/benchmark-report.json), [performance trace](../evidence/perf-001/performance-trace.json), [cancel MP4](../evidence/perf-001/browser-cancel-4m.mp4), [브라우저 QA](../evidence/perf-001/browser-qa.json) |
 
 ## 공통 문서
 
@@ -61,4 +61,4 @@
 4. 실험 항목은 명세의 채택 임계값을 넘지 못하면 `DONE`이 아니라 실험 종료 결과와 함께 `DEFERRED`로 이동한다.
 5. 실패를 숨기지 않는다. 중단 조건이 발생하면 `BLOCKED`와 원인·재현 입력·추천 모델을 기록한다.
 
-PAL-002 독립 재검토에서 8/16/32/64색 전체 평균이 승격 대상인 16색 조합의 실패를 숨기는 집계 결함을 확인했다. 16색 temporal index variance는 baseline `0.273684`에서 OKLab `0.374737`로 `36.9232%` 악화되어 명세의 10% 상한을 위반한다. 조합별 eligibility, 16색 negative test, 정량 결과에 결합된 manual gate와 temporal 정책을 보완한 후 재검토해야 한다.
+PAL-002의 이전 독립 재검토가 발견한 전체 palette-size 평균 집계 결함을 조합별 eligibility로 교체했다. 이전 16색 temporal 실패 `+36.9232%`를 재현하여 거부하는 negative test와 보완 후 `+9.230719%`를 10% 상한 이내로 판정하는 positive test를 고정했다. 새 application script SHA-256에 결합된 fresh localhost:8000 브라우저 QA와 독립 Sol xhigh 최종 PASS를 완료했다. 기본 `kmeans-srgb + pixel`은 유지하고 검증된 16색 OKLab 공유 팔레트만 `oklab-animation-stable` opt-in preset으로 승격했다.

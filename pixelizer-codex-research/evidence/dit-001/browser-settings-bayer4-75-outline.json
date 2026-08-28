@@ -1,0 +1,19 @@
+{
+  "format": "pixelate-studio-settings",
+  "version": 1,
+  "createdAt": "2026-08-26T00:00:00.000Z",
+  "settings": {
+    "scaleMode": "original",
+    "paletteMode": "auto",
+    "colors": 16,
+    "cleanEnabled": false,
+    "cleanPasses": 0,
+    "outline": true,
+    "outlineWidth": 1,
+    "outlineColor": "#000000",
+    "outlineShape": "4",
+    "ditherMode": "bayer4",
+    "ditherStrength": 75,
+    "exportNearestScales": []
+  }
+}

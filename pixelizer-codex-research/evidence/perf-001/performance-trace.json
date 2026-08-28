@@ -1,0 +1,472 @@
+{
+  "traceFormat": "Chrome Trace Event Format",
+  "schemaVersion": 1,
+  "itemId": "PERF-001",
+  "runDateKst": "2026-08-28",
+  "source": {
+    "file": "browser-qa.json",
+    "applicationSha256": "7243386a73c9eb0718ba7dfb1a9fc0facd8370fa836a47f5991405b9f190ae95",
+    "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+    "fixtureProvenance": {
+      "harness": "QLT-001",
+      "sourceFixtureId": "texture-checker",
+      "sourceWidth": 192,
+      "sourceHeight": 128,
+      "fixtureSeed": 20260814,
+      "generatorVersion": 1,
+      "sourceRgbaSha256": "6f78d9eb4191da5b41648b61b0d09b978c5e995aa0bc1799e4d0faa3e2c12c51",
+      "derivation": "repeat-tile from source origin (0,0); no resampling or color conversion"
+    },
+    "note": "Trace events are generated from the measured one-run browser stage totals; benchmark warm medians remain in benchmark-report.json."
+  },
+  "displayTimeUnit": "ms",
+  "traceEvents": [
+    {
+      "name": "process_name",
+      "ph": "M",
+      "pid": 1,
+      "tid": 0,
+      "args": {
+        "name": "Pixelate Studio PERF-001 browser runs"
+      }
+    },
+    {
+      "name": "thread_name",
+      "ph": "M",
+      "pid": 1,
+      "tid": 1,
+      "args": {
+        "name": "256K original pipeline"
+      }
+    },
+    {
+      "name": "thread_name",
+      "ph": "M",
+      "pid": 1,
+      "tid": 2,
+      "args": {
+        "name": "1M original pipeline"
+      }
+    },
+    {
+      "name": "thread_name",
+      "ph": "M",
+      "pid": 1,
+      "tid": 3,
+      "args": {
+        "name": "4M original pipeline"
+      }
+    },
+    {
+      "name": "pipeline",
+      "cat": "PERF-001",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 0,
+      "dur": 363400,
+      "args": {
+        "fixture": "256K",
+        "pixels": 262144,
+        "workerUsed": true,
+        "resultCount": 1,
+        "maxWorkerChunkMs": 10.5,
+        "maxInputDelayMs": 3.3,
+        "longTaskCount": 0,
+        "estimatedPeakBytes": 2359360
+      }
+    },
+    {
+      "name": "decode",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 0,
+      "dur": 0,
+      "args": {
+        "fixture": "256K",
+        "samples": 0
+      }
+    },
+    {
+      "name": "downscale",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 0,
+      "dur": 7300,
+      "args": {
+        "fixture": "256K",
+        "samples": 1
+      }
+    },
+    {
+      "name": "grid",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 7300,
+      "dur": 0,
+      "args": {
+        "fixture": "256K",
+        "samples": 0
+      }
+    },
+    {
+      "name": "palette",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 7300,
+      "dur": 93200,
+      "args": {
+        "fixture": "256K",
+        "samples": 1
+      }
+    },
+    {
+      "name": "map",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 100500,
+      "dur": 60800,
+      "args": {
+        "fixture": "256K",
+        "samples": 1
+      }
+    },
+    {
+      "name": "cleanup",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 161300,
+      "dur": 128100,
+      "args": {
+        "fixture": "256K",
+        "samples": 1
+      }
+    },
+    {
+      "name": "outline",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 289400,
+      "dur": 0,
+      "args": {
+        "fixture": "256K",
+        "samples": 0
+      }
+    },
+    {
+      "name": "export",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 1,
+      "ts": 289400,
+      "dur": 63200,
+      "args": {
+        "fixture": "256K",
+        "samples": 1
+      }
+    },
+    {
+      "name": "responsiveness",
+      "cat": "PERF-001.metric",
+      "ph": "i",
+      "s": "t",
+      "pid": 1,
+      "tid": 1,
+      "ts": 363400,
+      "args": {
+        "maxWorkerChunkMs": 10.5,
+        "maxInputDelayMs": 3.3,
+        "longTaskCount": 0
+      }
+    },
+    {
+      "name": "pipeline",
+      "cat": "PERF-001",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10000000,
+      "dur": 854200,
+      "args": {
+        "fixture": "1M",
+        "pixels": 1048576,
+        "workerUsed": true,
+        "resultCount": 1,
+        "maxWorkerChunkMs": 11.8,
+        "maxInputDelayMs": 4.2,
+        "longTaskCount": 0,
+        "estimatedPeakBytes": 9437248
+      }
+    },
+    {
+      "name": "decode",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10000000,
+      "dur": 0,
+      "args": {
+        "fixture": "1M",
+        "samples": 0
+      }
+    },
+    {
+      "name": "downscale",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10000000,
+      "dur": 10800,
+      "args": {
+        "fixture": "1M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "grid",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10010800,
+      "dur": 0,
+      "args": {
+        "fixture": "1M",
+        "samples": 0
+      }
+    },
+    {
+      "name": "palette",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10010800,
+      "dur": 90600,
+      "args": {
+        "fixture": "1M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "map",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10101400,
+      "dur": 117000,
+      "args": {
+        "fixture": "1M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "cleanup",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10218400,
+      "dur": 483100,
+      "args": {
+        "fixture": "1M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "outline",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10701500,
+      "dur": 0,
+      "args": {
+        "fixture": "1M",
+        "samples": 0
+      }
+    },
+    {
+      "name": "export",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10701500,
+      "dur": 140600,
+      "args": {
+        "fixture": "1M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "responsiveness",
+      "cat": "PERF-001.metric",
+      "ph": "i",
+      "s": "t",
+      "pid": 1,
+      "tid": 2,
+      "ts": 10854200,
+      "args": {
+        "maxWorkerChunkMs": 11.8,
+        "maxInputDelayMs": 4.2,
+        "longTaskCount": 0
+      }
+    },
+    {
+      "name": "pipeline",
+      "cat": "PERF-001",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20000000,
+      "dur": 2651900,
+      "args": {
+        "fixture": "4M",
+        "pixels": 4194304,
+        "workerUsed": true,
+        "resultCount": 1,
+        "maxWorkerChunkMs": 14.3,
+        "maxInputDelayMs": 23.9,
+        "longTaskCount": 0,
+        "estimatedPeakBytes": 37748800
+      }
+    },
+    {
+      "name": "decode",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20000000,
+      "dur": 0,
+      "args": {
+        "fixture": "4M",
+        "samples": 0
+      }
+    },
+    {
+      "name": "downscale",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20000000,
+      "dur": 36500,
+      "args": {
+        "fixture": "4M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "grid",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20036500,
+      "dur": 0,
+      "args": {
+        "fixture": "4M",
+        "samples": 0
+      }
+    },
+    {
+      "name": "palette",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20036500,
+      "dur": 99500,
+      "args": {
+        "fixture": "4M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "map",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20136000,
+      "dur": 319400,
+      "args": {
+        "fixture": "4M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "cleanup",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 20455400,
+      "dur": 1781700,
+      "args": {
+        "fixture": "4M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "outline",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 22237100,
+      "dur": 0,
+      "args": {
+        "fixture": "4M",
+        "samples": 0
+      }
+    },
+    {
+      "name": "export",
+      "cat": "PERF-001.stage",
+      "ph": "X",
+      "pid": 1,
+      "tid": 3,
+      "ts": 22237100,
+      "dur": 396000,
+      "args": {
+        "fixture": "4M",
+        "samples": 1
+      }
+    },
+    {
+      "name": "responsiveness",
+      "cat": "PERF-001.metric",
+      "ph": "i",
+      "s": "t",
+      "pid": 1,
+      "tid": 3,
+      "ts": 22651900,
+      "args": {
+        "maxWorkerChunkMs": 14.3,
+        "maxInputDelayMs": 23.9,
+        "longTaskCount": 0
+      }
+    }
+  ]
+}
