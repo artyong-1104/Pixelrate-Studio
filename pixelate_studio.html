@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YyJhORwbuWpFEp9w7Q3AsmvB+uO4caxGazFYLwq64Ys='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-907FBsLrs3+PN/PpX+WhPl2UOwIYQusgxSlslxdB0QA='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'">
 <!--
 <!-- Inactive historical CSP declarations:
 Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
@@ -4136,7 +4136,6 @@ function renderFileList(){
       cancelActiveProcessingJob('file-removed');
       uploadedFiles.splice(parseInt(x.dataset.i), 1);
       renderFileList();
-      runBtn.disabled = uploadedFiles.length === 0;
     });
   });
   runBtn.disabled = uploadedFiles.length === 0;
@@ -9263,6 +9262,12 @@ function downloadBlob(blob, filename){
 }
 
 runBtn.addEventListener('click', processAll);
+runBtn.addEventListener('keydown', event => {
+  if((event.key === 'Enter' || event.key === ' ') && !runBtn.disabled){
+    event.preventDefault();
+    runBtn.click();
+  }
+});
 cancelProcessBtn.addEventListener('click', () => cancelActiveProcessingJob('user'));
 
 applyPresetBtn.addEventListener('click', () => {
@@ -9533,6 +9538,7 @@ initDB().then(() => {
 });
 
 // 초기 팔레트 UI 동기화
+syncScaleModeControls();
 updatePaletteReferenceOptions();
 updatePaletteModeUi();
 renderCustomPalettePreview();

@@ -2,10 +2,10 @@
   "traceFormat": "Chrome Trace Event Format",
   "schemaVersion": 1,
   "itemId": "PERF-001",
-  "runDateKst": "2026-08-28",
+  "runDateKst": "2026-08-30",
   "source": {
     "file": "browser-qa.json",
-    "applicationSha256": "7243386a73c9eb0718ba7dfb1a9fc0facd8370fa836a47f5991405b9f190ae95",
+    "applicationSha256": "d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3",
     "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
     "fixtureProvenance": {
       "harness": "QLT-001",
@@ -64,14 +64,14 @@
       "pid": 1,
       "tid": 1,
       "ts": 0,
-      "dur": 363400,
+      "dur": 319600,
       "args": {
         "fixture": "256K",
         "pixels": 262144,
         "workerUsed": true,
         "resultCount": 1,
-        "maxWorkerChunkMs": 10.5,
-        "maxInputDelayMs": 3.3,
+        "maxWorkerChunkMs": 10.1,
+        "maxInputDelayMs": 1.7,
         "longTaskCount": 0,
         "estimatedPeakBytes": 2359360
       }
@@ -96,7 +96,7 @@
       "pid": 1,
       "tid": 1,
       "ts": 0,
-      "dur": 7300,
+      "dur": 3700,
       "args": {
         "fixture": "256K",
         "samples": 1
@@ -108,7 +108,7 @@
       "ph": "X",
       "pid": 1,
       "tid": 1,
-      "ts": 7300,
+      "ts": 3700,
       "dur": 0,
       "args": {
         "fixture": "256K",
@@ -121,8 +121,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 1,
-      "ts": 7300,
-      "dur": 93200,
+      "ts": 3700,
+      "dur": 75000,
       "args": {
         "fixture": "256K",
         "samples": 1
@@ -134,8 +134,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 1,
-      "ts": 100500,
-      "dur": 60800,
+      "ts": 78700,
+      "dur": 55300,
       "args": {
         "fixture": "256K",
         "samples": 1
@@ -147,8 +147,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 1,
-      "ts": 161300,
-      "dur": 128100,
+      "ts": 134000,
+      "dur": 122900,
       "args": {
         "fixture": "256K",
         "samples": 1
@@ -160,7 +160,7 @@
       "ph": "X",
       "pid": 1,
       "tid": 1,
-      "ts": 289400,
+      "ts": 256900,
       "dur": 0,
       "args": {
         "fixture": "256K",
@@ -173,8 +173,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 1,
-      "ts": 289400,
-      "dur": 63200,
+      "ts": 256900,
+      "dur": 54000,
       "args": {
         "fixture": "256K",
         "samples": 1
@@ -187,10 +187,10 @@
       "s": "t",
       "pid": 1,
       "tid": 1,
-      "ts": 363400,
+      "ts": 319600,
       "args": {
-        "maxWorkerChunkMs": 10.5,
-        "maxInputDelayMs": 3.3,
+        "maxWorkerChunkMs": 10.1,
+        "maxInputDelayMs": 1.7,
         "longTaskCount": 0
       }
     },
@@ -201,14 +201,14 @@
       "pid": 1,
       "tid": 2,
       "ts": 10000000,
-      "dur": 854200,
+      "dur": 875300,
       "args": {
         "fixture": "1M",
         "pixels": 1048576,
         "workerUsed": true,
         "resultCount": 1,
-        "maxWorkerChunkMs": 11.8,
-        "maxInputDelayMs": 4.2,
+        "maxWorkerChunkMs": 11.3,
+        "maxInputDelayMs": 2.3,
         "longTaskCount": 0,
         "estimatedPeakBytes": 9437248
       }
@@ -233,7 +233,7 @@
       "pid": 1,
       "tid": 2,
       "ts": 10000000,
-      "dur": 10800,
+      "dur": 8200,
       "args": {
         "fixture": "1M",
         "samples": 1
@@ -245,7 +245,7 @@
       "ph": "X",
       "pid": 1,
       "tid": 2,
-      "ts": 10010800,
+      "ts": 10008200,
       "dur": 0,
       "args": {
         "fixture": "1M",
@@ -258,8 +258,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 2,
-      "ts": 10010800,
-      "dur": 90600,
+      "ts": 10008200,
+      "dur": 111700,
       "args": {
         "fixture": "1M",
         "samples": 1
@@ -271,8 +271,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 2,
-      "ts": 10101400,
-      "dur": 117000,
+      "ts": 10119900,
+      "dur": 124800,
       "args": {
         "fixture": "1M",
         "samples": 1
@@ -284,8 +284,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 2,
-      "ts": 10218400,
-      "dur": 483100,
+      "ts": 10244700,
+      "dur": 481200,
       "args": {
         "fixture": "1M",
         "samples": 1
@@ -297,7 +297,7 @@
       "ph": "X",
       "pid": 1,
       "tid": 2,
-      "ts": 10701500,
+      "ts": 10725900,
       "dur": 0,
       "args": {
         "fixture": "1M",
@@ -310,8 +310,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 2,
-      "ts": 10701500,
-      "dur": 140600,
+      "ts": 10725900,
+      "dur": 139400,
       "args": {
         "fixture": "1M",
         "samples": 1
@@ -324,10 +324,10 @@
       "s": "t",
       "pid": 1,
       "tid": 2,
-      "ts": 10854200,
+      "ts": 10875300,
       "args": {
-        "maxWorkerChunkMs": 11.8,
-        "maxInputDelayMs": 4.2,
+        "maxWorkerChunkMs": 11.3,
+        "maxInputDelayMs": 2.3,
         "longTaskCount": 0
       }
     },
@@ -338,14 +338,14 @@
       "pid": 1,
       "tid": 3,
       "ts": 20000000,
-      "dur": 2651900,
+      "dur": 2653500,
       "args": {
         "fixture": "4M",
         "pixels": 4194304,
         "workerUsed": true,
         "resultCount": 1,
-        "maxWorkerChunkMs": 14.3,
-        "maxInputDelayMs": 23.9,
+        "maxWorkerChunkMs": 14.1,
+        "maxInputDelayMs": 25.6,
         "longTaskCount": 0,
         "estimatedPeakBytes": 37748800
       }
@@ -370,7 +370,7 @@
       "pid": 1,
       "tid": 3,
       "ts": 20000000,
-      "dur": 36500,
+      "dur": 43900,
       "args": {
         "fixture": "4M",
         "samples": 1
@@ -382,7 +382,7 @@
       "ph": "X",
       "pid": 1,
       "tid": 3,
-      "ts": 20036500,
+      "ts": 20043900,
       "dur": 0,
       "args": {
         "fixture": "4M",
@@ -395,8 +395,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 3,
-      "ts": 20036500,
-      "dur": 99500,
+      "ts": 20043900,
+      "dur": 104900,
       "args": {
         "fixture": "4M",
         "samples": 1
@@ -408,8 +408,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 3,
-      "ts": 20136000,
-      "dur": 319400,
+      "ts": 20148800,
+      "dur": 302800,
       "args": {
         "fixture": "4M",
         "samples": 1
@@ -421,8 +421,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 3,
-      "ts": 20455400,
-      "dur": 1781700,
+      "ts": 20451600,
+      "dur": 1795000,
       "args": {
         "fixture": "4M",
         "samples": 1
@@ -434,7 +434,7 @@
       "ph": "X",
       "pid": 1,
       "tid": 3,
-      "ts": 22237100,
+      "ts": 22246600,
       "dur": 0,
       "args": {
         "fixture": "4M",
@@ -447,8 +447,8 @@
       "ph": "X",
       "pid": 1,
       "tid": 3,
-      "ts": 22237100,
-      "dur": 396000,
+      "ts": 22246600,
+      "dur": 389900,
       "args": {
         "fixture": "4M",
         "samples": 1
@@ -461,10 +461,10 @@
       "s": "t",
       "pid": 1,
       "tid": 3,
-      "ts": 22651900,
+      "ts": 22653500,
       "args": {
-        "maxWorkerChunkMs": 14.3,
-        "maxInputDelayMs": 23.9,
+        "maxWorkerChunkMs": 14.1,
+        "maxInputDelayMs": 25.6,
         "longTaskCount": 0
       }
     }

@@ -1,0 +1,171 @@
+{
+  "itemId": "GEO-001",
+  "status": "PASS",
+  "measuredAt": "2026-08-30T09:48:20+09:00",
+  "gitHead": "3463fa01e21f6021430480f2e16bb42ca596bf36",
+  "url": "http://localhost:8000/pixelate_studio.html?qa=geo001-final-20260830",
+  "browser": "Codex In-app Browser (version not exposed by the browser control API)",
+  "applicationSha256": "d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "servedApplicationSha256": "d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3",
+  "baselineHashes": {
+    "visualQuality": "db4b3d904fbcc53e83966e3db097b6e27242ee6494e7c0f2f943a007e6f23cef",
+    "geo001Deterministic": "893f0da6936f5051c2ac15215764bfbaba0f25d4326d8a44a2e4fb5ba71a232d",
+    "changed": false
+  },
+  "desktop": {
+    "viewport": [1280, 900],
+    "modeTransition": {
+      "pass": true,
+      "factorOptionsDisplayBefore": "none",
+      "factorOptionsDisplayAfter": "block",
+      "downscaleOptionsDisplayAfter": "none",
+      "squareSizeDisabledInFactorMode": true,
+      "squareMethodDisabledInFactorMode": true
+    },
+    "hiddenControlsDisabled": {
+      "pass": true,
+      "scaleMode": "square",
+      "factorOptionsDisplay": "none",
+      "factorInputDisabled": true,
+      "expectedFactorInputDisabled": true
+    },
+    "liveCalculation": {
+      "pass": true,
+      "hero": "입력 768×1344 ÷ 8 → 출력 96×168",
+      "nonSquare": "입력 480×702 ÷ 3 → 출력 160×234",
+      "sheet": "4열 × 2행 = 8프레임 (프레임 16×16, 전체 64×32)"
+    },
+    "validHero": {
+      "pass": true,
+      "input": [768, 1344],
+      "factor": 8,
+      "output": [96, 168],
+      "aspectRatioInput": 0.5714285714285714,
+      "aspectRatioOutput": 0.5714285714285714,
+      "resultCount": 1,
+      "keyboardEnterElapsedMs": 231
+    },
+    "validNonSquare": {
+      "pass": true,
+      "input": [480, 702],
+      "factor": 3,
+      "output": [160, 234],
+      "resultCount": 1,
+      "keyboardSpaceElapsedMs": 187
+    },
+    "invalidSingle": {
+      "pass": true,
+      "input": [101, 100],
+      "factor": 4,
+      "message": "invalid-factor4-101x100.png: 101×100는 배율 4로 정확히 나눌 수 없습니다.",
+      "runDisabledAfterCleanSingleUpload": true
+    },
+    "invalidRemovalTransition": {
+      "pass": true,
+      "description": "유효 768×1344 파일과 잘못된 101×100 파일을 함께 올린 뒤 유효 파일을 제거한 직후 측정",
+      "errorMessageVisible": true,
+      "runDisabledImmediatelyAfterRemoval": true,
+      "runDisabledAfterSettledState": true
+    },
+    "invalidMultiFile": {
+      "pass": true,
+      "files": [
+        "hero-valid-factor8-768x1344.png",
+        "invalid-factor4-101x100.png"
+      ],
+      "invalidFilenameVisible": true,
+      "runDisabled": true
+    },
+    "sheet": {
+      "pass": true,
+      "input": [256, 128],
+      "factor": 4,
+      "sourceFrame": [64, 64],
+      "columns": 4,
+      "rows": 2,
+      "frameCount": 8,
+      "logicalFrame": [16, 16],
+      "output": [64, 32],
+      "zoom8CssPixels": [512, 256]
+    },
+    "quickView": {
+      "pass": true,
+      "logicalCanvas": [96, 168],
+      "zoom1CssPixels": [96, 168],
+      "zoom1Pressed": true,
+      "zoom8CssPixels": [768, 1344],
+      "zoom8Pressed": true
+    }
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "clientWidth": 382,
+    "documentScrollWidth": 382,
+    "horizontalOverflow": false,
+    "valid": {
+      "pass": true,
+      "logicalCanvas": [96, 168],
+      "zoom8CssPixels": [768, 1344],
+      "quickZoomControlsVisible": true,
+      "status": "완료 — 1개 이미지 처리됨"
+    },
+    "invalid": {
+      "pass": true,
+      "input": [101, 100],
+      "factor": 4,
+      "messageVisible": true,
+      "runDisabled": true,
+      "horizontalOverflow": false
+    }
+  },
+  "keyboard": {
+    "pass": true,
+    "runButtonFocusedBeforeActivation": true,
+    "enterActivationProducedResult": true,
+    "spaceActivationProducedResult": true,
+    "enterStatus": "완료 — 1개 이미지 처리됨",
+    "spaceStatus": "완료 — 1개 이미지 처리됨"
+  },
+  "console": {
+    "pass": true,
+    "errors": 0,
+    "warnings": 0,
+    "pageErrorChannelAvailable": false,
+    "pageErrorsObservedThroughErrorLog": 0,
+    "measurement": "tab.dev.logs에서 전체 유효·오류·모바일·키보드 시나리오 후 error 0건, warn/warning 0건을 측정했다. 별도 pageerror 스트림은 브라우저 제어 API가 제공하지 않아 미측정값을 0으로 추정하지 않았다."
+  },
+  "captures": {
+    "browser-desktop-valid-1x.jpg": {
+      "sha256": "a283ba7c6172647074c0bd25e40d14170fe3f7078564ac31dec3aa188e1cf7a9",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 900
+    },
+    "browser-desktop-valid-8x.jpg": {
+      "sha256": "a0e6b0c02f353da94e879eb239bc33fc1779655abc77d91043547c89e3ce91b9",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 900
+    },
+    "browser-desktop-sheet-8x.jpg": {
+      "sha256": "184f370bf690da4d9a40fdb7dfdd1161c3ef27575c1c63a383a186f2c1b2acef",
+      "format": "jpeg",
+      "width": 1280,
+      "height": 900
+    },
+    "browser-mobile-invalid-disabled.jpg": {
+      "sha256": "6cec331f6153da83093af3d13d8bcea207808f1b111e5f29ccb5ef2e407042e6",
+      "format": "jpeg",
+      "width": 382,
+      "height": 1269
+    },
+    "browser-mobile-valid-8x.jpg": {
+      "sha256": "4edd4d711cd171d7ebe1707f72bf758fa303445c1e0304defef0ce55c1d1d8e1",
+      "format": "jpeg",
+      "width": 382,
+      "height": 827
+    }
+  },
+  "blockingFindings": []
+}

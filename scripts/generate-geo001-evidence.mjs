@@ -13,7 +13,9 @@ import vm from 'node:vm';
 const root = resolve(import.meta.dirname, '..');
 const html = readFileSync(resolve(root, 'pixelate_studio.html'), 'utf8');
 const evidenceDir = resolve(root, 'pixelizer-codex-research/evidence/geo-001');
+const browserFixtureDir = resolve(evidenceDir, 'browser-fixtures');
 mkdirSync(evidenceDir, { recursive: true });
+mkdirSync(browserFixtureDir, { recursive: true });
 
 const functionNames = [
   'normalizeRepresentativeColor',
@@ -158,6 +160,22 @@ function generateHero768() {
   return { id: 'hero-factor-768', width, height, frames: [data] };
 }
 
+function generateInvalidFactorFixture() {
+  const width = 101, height = 100;
+  const data = new Uint8ClampedArray(width * height * 4);
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = (y * width + x) * 4;
+      const light = ((Math.floor(x / 10) + Math.floor(y / 10)) % 2) === 0;
+      data[idx] = light ? 230 : 40;
+      data[idx + 1] = light ? 110 : 180;
+      data[idx + 2] = light ? 70 : 220;
+      data[idx + 3] = 255;
+    }
+  }
+  return { id: 'invalid-factor-101x100', width, height, frames: [data] };
+}
+
 const corpus = generateCorpus();
 const byId = new Map(corpus.map(item => [item.id, item]));
 
@@ -178,6 +196,22 @@ const cases = [
     settings: { mode: 'factor', factor: 4, frameMode: 'sheet', frameWidth: 64, frameHeight: 64, paletteSize: 16, cleanPasses: 1 },
   },
 ];
+
+const browserFixtures = [
+  { filename: 'hero-valid-factor8-768x1344.png', item: cases[1].item },
+  { filename: 'non-square-valid-factor3.png', item: cases[0].item },
+  { filename: 'sheet-valid-factor4.png', item: cases[2].item },
+  { filename: 'invalid-factor4-101x100.png', item: generateInvalidFactorFixture() },
+].map(({ filename, item }) => {
+  const png = encodePng(item.width, item.height, item.frames[0]);
+  writeFileSync(resolve(browserFixtureDir, filename), png);
+  return {
+    filename,
+    width: item.width,
+    height: item.height,
+    sha256: sha256(png),
+  };
+});
 
 const results = [];
 for (const testCase of cases) {
@@ -207,6 +241,7 @@ const summary = {
   generatedAt: new Date().toISOString(),
   deterministic: true,
   deterministicSha256: sha256(Buffer.from(stableStringify(results))),
+  browserFixtures,
   cases: results,
 };
 

@@ -202,7 +202,7 @@ assert.equal(browser.keyboardCancellation.runButtonRestored, true);
 assert.equal(browser.keyboardCancellation.cancelButtonDisabledAfter, true);
 assert.equal(browser.keyboardCancellation.harnessHtmlSha256, sha256(keyboardHarnessHtmlPath));
 assert.equal(browser.keyboardCancellation.harnessScriptSha256, sha256(keyboardHarnessScriptPath));
-assert.match(fs.readFileSync(keyboardHarnessHtmlPath, 'utf8'), /src="\.\.\/pixelate_studio\.html\?qa=perf001-keyboard-harness-20260828"/);
+assert.match(fs.readFileSync(keyboardHarnessHtmlPath, 'utf8'), /src="\.\.\/pixelate_studio\.html\?qa=perf001-keyboard-harness-20260830"/);
 const keyboardHarnessScript = fs.readFileSync(keyboardHarnessScriptPath, 'utf8');
 assert.match(keyboardHarnessScript, /fetch\('\.\.\/pixelizer-codex-research\/evidence\/perf-001\/browser-fixtures\/perf-2048x2048\.png'\)/);
 assert.doesNotMatch(keyboardHarnessScript, /https?:\/\//, 'keyboard harness must not make external requests');

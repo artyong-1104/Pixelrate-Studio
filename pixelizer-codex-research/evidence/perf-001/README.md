@@ -2,7 +2,7 @@
 
 상태: **PASS**
 
-실행일은 2026-08-28(KST)이며, 애플리케이션 SHA-256 `7243386a73c9eb0718ba7dfb1a9fc0facd8370fa836a47f5991405b9f190ae95`와 Worker SHA-256 `444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0`에 결합된 결과다. 입력은 QLT-001 seed `20260814`, generator v1의 `texture-checker` RGBA(`6f78d9eb…2c12c51`)를 원점부터 반복 타일링해 만든 512²·1024²·2048² fixture이며, [manifest](browser-fixtures/manifest.json)와 생성기가 이 provenance를 고정한다.
+최종 재검증일은 2026-08-30(KST)이며, 애플리케이션 SHA-256 `d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3`와 Worker SHA-256 `444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0`에 결합된 결과다. 입력은 QLT-001 seed `20260814`, generator v1의 `texture-checker` RGBA(`6f78d9eb…2c12c51`)를 원점부터 반복 타일링해 만든 512²·1024²·2048² fixture이며, [manifest](browser-fixtures/manifest.json)와 생성기가 이 provenance를 고정한다.
 
 ## 결론
 
@@ -10,9 +10,9 @@
 - 모든 256K·1M·4M 벤치마크에서 main/Worker RGBA·palette·result JSON SHA-256가 일치했다.
 - 4M `map` warm median은 main `1621.943ms`, Worker `529.432ms`로 `67.358%` 단축됐고, Worker 최대 chunk는 `5.703ms`였다.
 - Worker 경로는 모든 크기에서 wall time이 기준선보다 20% 이상 느려지지 않았다. 실제로는 256K `-44.438%`, 1M `-60.720%`, 4M `-67.358%`였다.
-- 4M click 취소는 앱 내부 계측 `12.6ms`에 terminal 상태로 전환됐고, 부분 결과는 0개였다. 즉시 재실행은 새 `processId=2`로 완료되어 stale 결과가 적용되지 않았다.
-- 명세의 `cancel 영상` 증거는 4M·cleanup 20회 시나리오의 ready→map 0%→cleanup 0%→취소 전이를 5초 H.264 MP4로 고정했다. 해당 실행의 결과는 0개였다.
-- Google Chrome에서 same-origin harness가 production 페이지와 QLT 4M fixture를 연결한 뒤 native 취소 버튼에 `Space`를 보냈다. 취소는 `1.8ms`, 결과 0개, run 복구·cancel disabled로 종료했다.
+- 4M click 취소는 앱 내부 계측 `1.5ms`에 terminal 상태로 전환됐고, 부분 결과는 0개였다. 즉시 재실행은 새 `processId=2`로 완료되어 stale 결과가 적용되지 않았다.
+- 명세의 `cancel 영상` 증거는 4M·cleanup 20회 시나리오의 ready→map 30%→cleanup 0%→취소 전이를 5초 H.264 MP4로 고정했다. 해당 실행의 결과는 0개였다.
+- Google Chrome 151.0.7922.175에서 same-origin harness가 production 페이지와 QLT 4M fixture를 연결한 뒤 native 취소 버튼에 `Space`를 보냈다. 취소는 앱 내부 계측 `20.3ms`, 최대 입력 지연 `64.7ms`, 결과 0개, run 복구·cancel disabled로 종료했다.
 - 결과 탭→작업 로그 탭→결과 탭으로 바꾸는 동안 4M 변환이 유지되었고 결과 1개로 완료됐다.
 - 390×844에서 1M 작업이 완료됐고, document scroll width `382px`로 가로 overflow가 없었다.
 - Worker 스크립트를 의도적으로 503 응답한 경로는 `WORKER_RUNTIME_ERROR`를 노출하고 결과 0개·재실행 버튼 복구로 종료했다. main-thread로 silent fallback하지 않았다.
@@ -32,9 +32,9 @@
 
 | Fixture | wall | map | cleanup | export | 최대 Worker chunk | 최대 input delay | long task |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| 256K | 363.4ms | 60.8ms | 128.1ms | 63.2ms | 10.5ms | 3.3ms | 0 |
-| 1M | 854.2ms | 117.0ms | 483.1ms | 140.6ms | 11.8ms | 4.2ms | 0 |
-| 4M | 2,651.9ms | 319.4ms | 1,781.7ms | 396.0ms | 14.3ms | 23.9ms | 0 |
+| 256K | 319.6ms | 55.3ms | 122.9ms | 54.0ms | 10.1ms | 1.7ms | 0 |
+| 1M | 875.3ms | 124.8ms | 481.2ms | 139.4ms | 11.3ms | 2.3ms | 0 |
+| 4M | 2,653.5ms | 302.8ms | 1,795.0ms | 389.9ms | 14.1ms | 25.6ms | 0 |
 
 모든 항목은 `original`, 자동 16색 `kmeans-srgb`, cleanup 1회 설정으로 실행했다. 브라우저 수치는 각 시나리오 1회 계측이며 warm median은 아니다.
 
@@ -60,7 +60,7 @@ for check_file in scripts/*-check.mjs; do node "$check_file"; done
 git diff --check
 ```
 
-전체 `*-check.mjs` 회귀에서 PERF의 chunked 생산 경로를 예전 synchronous 호출 문자열로만 검사하던 ALP-002·EDGE-001·PAL-002 정적 검사 3곳을 현재 실제 호출 `buildAlphaPolicyArtifactsChunked`, `buildAutoPaletteChunked`에 맞게 갱신했다. 각 전용 정확성 검사와 전체 회귀가 모두 통과했다.
+현재 소스 재검증에서 전체 `scripts/*-check.mjs` 32개가 모두 통과했다. PERF의 chunked 생산 경로를 검사하는 ALP-002·EDGE-001·PAL-002 정적 회귀도 현재 실제 호출 `buildAlphaPolicyArtifactsChunked`, `buildAutoPaletteChunked`를 계속 검증한다.
 
 ## 브라우저 증거
 
@@ -74,4 +74,4 @@ git diff --check
 - [Chrome Trace Event Format 계측 trace](performance-trace.json)
 - [브라우저 QA 계측·캡처 무결성](browser-qa.json)
 
-캡처·영상·source frame·trace·QLT 원본/파생 fixture SHA-256, 미디어 형식·크기, 앱·Worker·keyboard harness SHA-256은 `browser-qa.json`에 고정했고 `scripts/perf001-evidence-gate-check.mjs`가 현재 파일과 대조한다. Chrome 확장 자체의 message-channel error 3건은 outer harness URL에서만 발생했고 production iframe 오류는 0건이었다.
+캡처·영상·source frame·trace·QLT 원본/파생 fixture SHA-256, 미디어 형식·크기, 앱·Worker·keyboard harness SHA-256은 `browser-qa.json`에 고정했고 `scripts/perf001-evidence-gate-check.mjs`가 현재 파일과 대조한다. Google Chrome keyboard harness와 production iframe의 console error/warning은 모두 0건이었다.

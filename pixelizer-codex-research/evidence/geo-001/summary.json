@@ -1,4 +1,30 @@
 {
+  "browserFixtures": [
+    {
+      "filename": "hero-valid-factor8-768x1344.png",
+      "height": 1344,
+      "sha256": "5048173f744c893234fb6c827daed88ba3f9f6f7b10efd86b4cf3f0a12bc7314",
+      "width": 768
+    },
+    {
+      "filename": "non-square-valid-factor3.png",
+      "height": 702,
+      "sha256": "f0b3d7927e6d71be5b7a6ecf2f414573a348c8b5c16ad4c533cecc58a6a77035",
+      "width": 480
+    },
+    {
+      "filename": "sheet-valid-factor4.png",
+      "height": 128,
+      "sha256": "db32ecc3c1e41673b57d10b3be51b932b4d2c183f25a3d5f17ebad9b4bc70488",
+      "width": 256
+    },
+    {
+      "filename": "invalid-factor4-101x100.png",
+      "height": 100,
+      "sha256": "e7050beaa0d81a17b2e534c15805a33cb6246bf6b94580b0cea57183f80a7d0d",
+      "width": 101
+    }
+  ],
   "cases": [
     {
       "factor": 3,
@@ -33,6 +59,6 @@
   ],
   "deterministic": true,
   "deterministicSha256": "893f0da6936f5051c2ac15215764bfbaba0f25d4326d8a44a2e4fb5ba71a232d",
-  "generatedAt": "2026-08-23T04:36:48.023Z",
+  "generatedAt": "2026-08-30T00:47:53.451Z",
   "implementationId": "GEO-001"
 }

@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 |
+| QA 상태 | 완료 — 현재 소스 브라우저 QA·fail-closed gate·전체 32/32 회귀 통과 |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED |
 | 구현 모델 | Luna xhigh |
@@ -142,3 +142,10 @@ sheet이면 `frameWidth`, `frameHeight`, `frameLogicalWidth`, `frameLogicalHeigh
 - partial cell crop/pad 요구가 생기면 임의 정책을 만들지 않고 중단한다.
 - factor mode가 기존 JSON의 width/height 의미 변경을 요구하면 Sol xhigh 검토로 올린다.
 - frame-local cleanup/outline을 유지할 수 없으면 완료하지 않는다.
+
+## 17. 2026-08-30 현재 소스 재검증
+
+현재 HTML `d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3`, Worker `444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0`, git HEAD `3463fa01e21f6021430480f2e16bb42ca596bf36`에 결속한 localhost 브라우저 QA를 완료했다. 정확한 치수, 1×/8×, sheet, 데스크톱·390px 모바일, 단일·다중 invalid, 제거 직후 disabled, 초기 숨은 컨트롤 disabled, Enter·Space 실행이 모두 통과했다. 기존 결정성 해시와 visual-quality 기준선은 불변이고, 캡처 디코딩·SHA-256 및 필수 시나리오를 검사하는 GEO fail-closed gate와 음성 테스트도 통과했다. PERF-001 브라우저 증거까지 동일한 현재 HTML 해시에 재결속한 뒤 전체 `scripts/*-check.mjs` 32/32가 통과했으므로 최종 상태는 `DONE`이다.
+
+- [현재 소스 결속 증거](../../evidence/geo-001/README.md)
+- [브라우저 측정 JSON](../../evidence/geo-001/browser-qa.json)

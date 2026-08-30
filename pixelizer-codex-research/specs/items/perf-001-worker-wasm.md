@@ -158,12 +158,12 @@ WASM PoC는 동일 QLT API와 byte-identical output, local pinned binary, source
 
 ## 19. 완료 기록
 
-- 완료일: 2026-08-28 (KST)
+- 완료일: 2026-08-28 (KST), 현재 소스 최종 재검증일: 2026-08-30 (KST)
 - 기준선: QLT-001 seed `20260814`, generator v1 `texture-checker`를 원점 반복 타일링한 256K·1M·4M RGBA 입력으로 `map` stage를 cold 1회·warm 5회 계측했다. 원본·파생 RGBA·PNG hash를 manifest와 gate가 재생성 대조하며, 1M main warm 5/5가 100ms를 넘어 Worker gate를 통과했다.
 - Worker 수용: 모든 fixture의 RGBA·palette·result JSON hash가 main-thread와 일치했다. 4M warm median은 `1621.943ms`→`529.432ms`, 최대 Worker chunk는 `5.703ms`였다.
-- 취소·상태: 4M click 취소는 앱 내부 계측 `12.6ms`, 부분 결과 0개였다. 취소 직후 새 `processId=2`로 재실행해 stale 결과가 적용되지 않음을 확인했다. Google Chrome에서는 production iframe의 native 취소 버튼을 `Space`로 활성화해 `1.8ms`, 결과 0, 버튼 상태 복구를 확인했다.
-- 영상·trace: 4M·cleanup 20회의 ready→map 0%→cleanup 0%→취소 전이를 5초 H.264 MP4로 기록했다. 256K·1M·4M 브라우저 stage 계측은 QLT provenance를 포함한 Chrome Trace Event Format 34개 event로 연결했다.
+- 취소·상태: 현재 HTML 결속 실행의 4M click 취소는 앱 내부 계측 `1.5ms`, 부분 결과 0개였다. 취소 직후 새 `processId=2`로 재실행해 stale 결과가 적용되지 않음을 확인했다. Google Chrome 151.0.7922.175에서는 production iframe의 native 취소 버튼을 `Space`로 활성화해 `20.3ms`, 최대 입력 지연 `64.7ms`, 결과 0, 버튼 상태 복구를 확인했다.
+- 영상·trace: 4M·cleanup 20회의 ready→map 30%→cleanup 0%→취소 전이를 5초 H.264 MP4로 기록했다. 256K·1M·4M 브라우저 stage 계측은 QLT provenance와 현재 application/Worker SHA-256을 포함한 Chrome Trace Event Format 34개 event로 연결했다.
 - 브라우저: 256K·1M·4M 완료, 결과↔작업 로그 탭 이동 중 4M 지속, 390×844 모바일, Worker 503 실패 경로를 실제 localhost에서 검증했다. 일반 경로 console error/warning은 0개였다.
 - WASM: 대상 `map` 4M Worker warm median `529.432ms`, peak 추정 `37,748,800 bytes`로 2초·256MiB 진입 gate 모두 미달이다. production WASM은 추가하지 않았다.
-- 전체 회귀: 모든 `scripts/*-check.mjs`, `security-check.mjs`, `preserve-sheet-check.mjs`, `git diff --check`가 통과했다. PERF의 chunked 경로를 예전 synchronous 호출 문자열로만 검사하던 ALP-002·EDGE-001·PAL-002 정적 검사는 현재 실제 호출 경로를 검사하도록 갱신했다.
+- 전체 회귀: 현재 소스 기준 모든 `scripts/*-check.mjs` 32개, `security-check.mjs`, `preserve-sheet-check.mjs`, `git diff --check`가 통과했다. PERF 브라우저 증거는 application SHA-256 `d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3`와 Worker SHA-256 `444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0`에 결속했다.
 - 증거: [검사·브라우저 QA 보고서](../../evidence/perf-001/README.md), [기준선·Worker 비교](../../evidence/perf-001/benchmark-report.json), [performance trace](../../evidence/perf-001/performance-trace.json), [cancel MP4](../../evidence/perf-001/browser-cancel-4m.mp4), [브라우저 QA·무결성](../../evidence/perf-001/browser-qa.json)
