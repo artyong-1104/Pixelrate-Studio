@@ -1,0 +1,65 @@
+{
+  "browser": "Codex In-app Browser",
+  "key": "Space",
+  "preCancelStatusText": "처리 중 — 노이즈 정리 10%",
+  "logUnchanged": true,
+  "cancelButtonDisabledAfter": true,
+  "focus": "",
+  "report": {
+    "cancelToTerminalMs": 6.3,
+    "estimatedPeakBytes": 37748800,
+    "heapUsedBytes": 68061064,
+    "inputDelayAvailable": true,
+    "inputPixels": 4194304,
+    "longTasks": [],
+    "maxInputDelayMs": 7.8,
+    "maxWorkerChunkMs": 4.2,
+    "outcome": "cancelled",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteMode": "auto",
+    "processId": "8",
+    "schemaVersion": 1,
+    "stages": {
+      "cleanup": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "decode": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "downscale": {
+        "samples": 1,
+        "totalMs": 16.9
+      },
+      "export": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "grid": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "map": {
+        "samples": 1,
+        "totalMs": 335
+      },
+      "outline": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "palette": {
+        "samples": 1,
+        "totalMs": 104.4
+      }
+    },
+    "wallTimeMs": 5191.1,
+    "wasmDecision": "not-adopted-worker-below-memory-gate",
+    "workerCancelLatencyMs": 0.1,
+    "workerThresholdPixels": 262144,
+    "workerUsed": true
+  },
+  "resultCount": 0,
+  "runButtonRestored": true,
+  "status": "취소됨 — 생성 중이던 결과는 저장하지 않았습니다."
+}

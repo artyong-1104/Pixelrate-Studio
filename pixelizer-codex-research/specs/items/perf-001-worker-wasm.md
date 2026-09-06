@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 — 기준선·Worker 수용·취소·실패·모바일·전체 회귀 통과 |
+| QA 상태 | 완료 — 현재 소스 검증 및 전체 37/37 PASS |
 | 우선순위 | P3 |
 | 근거 분류 | ENGINEERING-INFERENCE |
 | 구현 모델 | Sol xhigh |
@@ -167,3 +167,15 @@ WASM PoC는 동일 QLT API와 byte-identical output, local pinned binary, source
 - WASM: 대상 `map` 4M Worker warm median `529.432ms`, peak 추정 `37,748,800 bytes`로 2초·256MiB 진입 gate 모두 미달이다. production WASM은 추가하지 않았다.
 - 전체 회귀: 현재 소스 기준 모든 `scripts/*-check.mjs` 32개, `security-check.mjs`, `preserve-sheet-check.mjs`, `git diff --check`가 통과했다. PERF 브라우저 증거는 application SHA-256 `d627799749e5e88e2490d246492dfcad59a7ff06511f899a667f5bfcd0ab2fc3`와 Worker SHA-256 `444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0`에 결속했다.
 - 증거: [검사·브라우저 QA 보고서](../../evidence/perf-001/README.md), [기준선·Worker 비교](../../evidence/perf-001/benchmark-report.json), [performance trace](../../evidence/perf-001/performance-trace.json), [cancel MP4](../../evidence/perf-001/browser-cancel-4m.mp4), [브라우저 QA·무결성](../../evidence/perf-001/browser-qa.json)
+
+## 2026-09-06 현재 소스 검증
+
+[현재 검증 결과와 남은 완료 조건](../../evidence/completion-20260906/README.md)을 참조한다. 전체 자동 검사는 36/37 PASS이며 PERF의 현재 소스 Chrome 증거 갱신이 남아 최종 상태는 `NEEDS_REVIEW`다. 과거 완료 기록은 현재 소스 승인을 뜻하지 않는다.
+
+## 2026-09-06 검증 환경 결정 및 재개 완료
+
+사용자가 Chrome 주소 재시도 실패 시 사이드바 페이지에서 남은 QA를 진행하도록 명시했다. 이에 따라 브라우저 식별 조건은 Codex In-app Browser로 변경하고 수치·정확성·취소·무결성 기준은 유지했다. 동일 production iframe 하네스의 Space 취소 17.1ms, 최대 입력 지연 26.8ms, Worker 사용, 결과 0, 버튼 복구를 확인했다. 직접 페이지 취소·탭 복귀·mobile·Worker 503 실패도 검증했다. 크레딧 거부 후 제어는 재시도에서 복구됐으며 원인은 미확정이다. [최신 증거와 관측 한계](../../evidence/perf-001/current-20260906/README.md).
+
+## 2026-09-06 최종 판정
+
+현재 소스 전체 자동 검사 37/37, 항목별 브라우저·결정성·무결성 증거를 확인해 `DONE`으로 갱신했다. 앞의 NEEDS_REVIEW 기록은 검증 진행 중의 이력이다. [최종 보고서 및 검증 환경·한계](../../evidence/completion-20260906/README.md).

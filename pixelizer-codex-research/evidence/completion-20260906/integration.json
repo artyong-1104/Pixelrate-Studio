@@ -1,0 +1,301 @@
+{
+  "scenarios": [
+    {
+      "name": "CFG-001 settings export/import and presets",
+      "status": "PASS",
+      "measurements": {
+        "errors": [
+          "지원하지 않는 설정 버전: v2. 현재 버전은 v1만 지원합니다.",
+          "size는 16~512 범위의 정수여야 합니다: 1000",
+          "보안 위험: 금지된 속성 키가 포함되어 있습니다.",
+          "설정 파일 크기(65537 bytes)가 최대 허용 한도(64KB)를 초과했습니다."
+        ],
+        "presets": [
+          {
+            "key": "default",
+            "diff": "크기 처리 방식: 크기 변환 없음 → 정사각 다운스케일팔레트 방식: 제한 없음 (원본 색상) → 자동 생성 (K-means)팔레트 제한 사용: 꺼짐 → 켜짐팔레트 색상 수: 32색 → 16색노이즈 필터 반복 횟수: 2회 → 1회"
+          },
+          {
+            "key": "preserve-sheet",
+            "diff": "크기 처리 방식: 정사각 다운스케일 → 원본 규격 유지"
+          }
+        ],
+        "roundTrip": true,
+        "legacy": {
+          "scaleMode": "original",
+          "size": 64,
+          "method": "box",
+          "factor": 4,
+          "factorFrameMode": "whole",
+          "gridFrameMode": "whole",
+          "gridFrameWidth": 64,
+          "gridFrameHeight": 64,
+          "gridSizeX": 8,
+          "gridSizeY": 8,
+          "gridPhaseX": 0,
+          "gridPhaseY": 0,
+          "gridSource": "manual",
+          "gridLockedAcrossFrames": true,
+          "frameWidth": 64,
+          "frameHeight": 64,
+          "pixelBlockSize": 4,
+          "representativeColor": "mean-srgb",
+          "lineAware": {
+            "enabled": false,
+            "threshold": 0.2,
+            "strength": 0.6
+          },
+          "selout": {
+            "enabled": false,
+            "darken": 0.2
+          },
+          "paletteMode": "unlimited",
+          "paletteAlgorithm": "kmeans-srgb",
+          "paletteSampling": "pixel",
+          "paletteReference": null,
+          "customPalette": [],
+          "paletteEnabled": false,
+          "colors": 32,
+          "shared": true,
+          "cleanEnabled": true,
+          "cleanPasses": 2,
+          "outline": false,
+          "outlineWidth": 1,
+          "outlineColor": "#000000",
+          "outlineShape": "4",
+          "exportNearestScales": [],
+          "alphaMode": "binary",
+          "alphaThreshold": 10,
+          "ditherMode": "off",
+          "ditherStrength": 50
+        }
+      }
+    },
+    {
+      "name": "OUT-001 PNG blocks ZIP determinism and reupload",
+      "status": "PASS",
+      "measurements": {
+        "pngHashes": [
+          [
+            "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+            "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+            "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+          ],
+          [
+            "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+            "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+            "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+          ]
+        ],
+        "entries": [
+          [
+            "hero-valid-factor8-768x1344_96x168.png",
+            "hero-valid-factor8-768x1344_96x168_2x.png",
+            "hero-valid-factor8-768x1344_96x168_8x.png",
+            "hero-valid-factor8-768x1344_96x168.json"
+          ],
+          [
+            "hero-valid-factor8-768x1344_96x168.png",
+            "hero-valid-factor8-768x1344_96x168_2x.png",
+            "hero-valid-factor8-768x1344_96x168_8x.png",
+            "hero-valid-factor8-768x1344_96x168.json"
+          ]
+        ],
+        "zipEntryPngHashes": [
+          [
+            [
+              "hero-valid-factor8-768x1344_96x168.png",
+              "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+            ],
+            [
+              "hero-valid-factor8-768x1344_96x168_2x.png",
+              "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710"
+            ],
+            [
+              "hero-valid-factor8-768x1344_96x168_8x.png",
+              "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+            ]
+          ],
+          [
+            [
+              "hero-valid-factor8-768x1344_96x168.png",
+              "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+            ],
+            [
+              "hero-valid-factor8-768x1344_96x168_2x.png",
+              "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710"
+            ],
+            [
+              "hero-valid-factor8-768x1344_96x168_8x.png",
+              "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+            ]
+          ]
+        ],
+        "blockEquality": true,
+        "reuploads": [
+          {
+            "scale": 1,
+            "colors": 17
+          },
+          {
+            "scale": 2,
+            "colors": 17
+          },
+          {
+            "scale": 8,
+            "colors": 17
+          }
+        ],
+        "limitEntries": [
+          "perf-1024x1024_1024px.png",
+          "perf-1024x1024_1024px.json"
+        ],
+        "limitWarning": "주의: perf-1024x1024.png: 4× 확대 시 최대 처리량(4096×4096) 초과 / perf-1024x1024.png: 8× 확대 시 최대 처리량(8192×8192) 초과"
+      }
+    },
+    {
+      "name": "PAL-001 parser mapping and atomic file validation",
+      "status": "PASS",
+      "measurements": {
+        "palette": {
+          "0": [
+            0,
+            0,
+            0
+          ],
+          "1": [
+            255,
+            255,
+            255
+          ],
+          "2": [
+            255,
+            0,
+            0
+          ]
+        },
+        "metadata": {
+          "mode": "custom",
+          "inputColors": 3,
+          "usedColors": 2,
+          "distance": "srgb"
+        },
+        "partialAlphaIgnored": 1
+      }
+    },
+    {
+      "name": "UX-001 source dimensions cleanup and fallback",
+      "status": "PASS",
+      "measurements": {
+        "source": [
+          768,
+          1344
+        ],
+        "output": [
+          16,
+          16
+        ],
+        "scales": [
+          1,
+          2,
+          8
+        ],
+        "cleanup": true
+      }
+    },
+    {
+      "name": "ALP-001 backgrounds and overlay leave PNG unchanged",
+      "status": "PASS",
+      "measurements": {
+        "boxes": [
+          {
+            "scale": 1,
+            "width": "16px",
+            "height": "16px"
+          },
+          {
+            "scale": 2,
+            "width": "32px",
+            "height": "32px"
+          },
+          {
+            "scale": 8,
+            "width": "128px",
+            "height": "128px"
+          }
+        ],
+        "hash": "116b106f3ae839e51b4cd0d8c2e26232c48bd89be538f2d07831268fe7c0eefb",
+        "secondHash": "116b106f3ae839e51b4cd0d8c2e26232c48bd89be538f2d07831268fe7c0eefb"
+      }
+    }
+  ],
+  "artifacts": {
+    "settings-run1.json": {
+      "sha256": "7f60849d9dc736278434bf829025110422e3fc9276bdb31a0762ab0f4ba9b3b4",
+      "bytes": 1237
+    },
+    "out-1x-run1.png": {
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "bytes": 1855
+    },
+    "out-2x-run1.png": {
+      "sha256": "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+      "bytes": 4225
+    },
+    "out-8x-run1.png": {
+      "sha256": "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331",
+      "bytes": 28198
+    },
+    "out-run1.zip": {
+      "sha256": "177478277a396ac7f435f30a4f905658113e4fb7673d82d2a86944cd9247362b",
+      "bytes": 195977
+    },
+    "out-1x-run2.png": {
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "bytes": 1855
+    },
+    "out-2x-run2.png": {
+      "sha256": "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+      "bytes": 4225
+    },
+    "out-8x-run2.png": {
+      "sha256": "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331",
+      "bytes": 28198
+    },
+    "out-run2.zip": {
+      "sha256": "43c1dfbeda68c3f198e8ef8c97b1c60abe25e8627fa3d5fe384f1ba4f266f197",
+      "bytes": 195977
+    },
+    "out-none-native.png": {
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "bytes": 1855
+    },
+    "out-none.zip": {
+      "sha256": "50b9f48fd266c7a907662426563883823b1327322ce971910d22bf4c5bbbc1ea",
+      "bytes": 163216
+    },
+    "out-limit.zip": {
+      "sha256": "59f2c68508f47291c40f824ed09b47283f4eb78e4be79ed860aebb5ac9e63df0",
+      "bytes": 10258774
+    },
+    "custom-result.json": {
+      "sha256": "53da76ff351b535a50f4f7003ef01818ae39e60a320a0188a93c8dbb0c51f156",
+      "bytes": 4770
+    },
+    "alpha-run1.png": {
+      "sha256": "116b106f3ae839e51b4cd0d8c2e26232c48bd89be538f2d07831268fe7c0eefb",
+      "bytes": 170
+    },
+    "alpha-run2.png": {
+      "sha256": "116b106f3ae839e51b4cd0d8c2e26232c48bd89be538f2d07831268fe7c0eefb",
+      "bytes": 170
+    }
+  },
+  "startedAt": "2026-09-05T18:17:40.635Z",
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "method": "Production iframe; programmatic integration scenarios; OS download boundary intercepted. CUA keyboard and screenshots recorded separately.",
+  "status": "PASS",
+  "finishedAt": "2026-09-05T18:18:59.886Z"
+}

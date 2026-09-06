@@ -1,0 +1,59 @@
+{
+  "report": {
+    "cancelToTerminalMs": null,
+    "estimatedPeakBytes": 0,
+    "heapUsedBytes": 32485686,
+    "inputDelayAvailable": true,
+    "inputPixels": 4194304,
+    "longTasks": [],
+    "maxInputDelayMs": 84.7,
+    "maxWorkerChunkMs": 0,
+    "outcome": "failed",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteMode": "auto",
+    "processId": "1",
+    "schemaVersion": 1,
+    "stages": {
+      "cleanup": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "decode": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "downscale": {
+        "samples": 1,
+        "totalMs": 48.2
+      },
+      "export": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "grid": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "map": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "outline": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "palette": {
+        "samples": 1,
+        "totalMs": 160.2
+      }
+    },
+    "wallTimeMs": 257.6,
+    "wasmDecision": "not-adopted-worker-below-memory-gate",
+    "workerCancelLatencyMs": null,
+    "workerThresholdPixels": 262144,
+    "workerUsed": true
+  },
+  "resultCount": 0,
+  "runButtonRestored": true,
+  "status": "처리 실패 (WORKER_RUNTIME_ERROR) — 입력과 설정을 확인한 뒤 다시 실행하세요."
+}

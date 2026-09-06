@@ -1,0 +1,270 @@
+{
+  "itemId": "OUT-001",
+  "status": "PASS",
+  "measuredAt": "2026-08-30T11:32:39+09:00",
+  "url": "http://localhost:8000/pixelate_studio.html?qa=out001-final-20260830-v2",
+  "browser": "Codex In-app Browser (Chromium surface), desktop 1280x720 and mobile override 390x844",
+  "applicationSha256": "d8887c31d5d50292541930fba9d18b11d05913990f2404bfb5ec345fde0a4db2",
+  "servedApplicationSha256": "d8887c31d5d50292541930fba9d18b11d05913990f2404bfb5ec345fde0a4db2",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "servedWorkerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "gitHead": "5e6e8b68696f7e0ef01d4ada8e1547b216fe2e17",
+  "baselineHashes": {
+    "generatedOutputsChanged": false,
+    "nativeSha256": "0446810d279349bfd410957e04d05ca576c33f1c25ad3c8578b3e4d32644516b",
+    "scale2Sha256": "8b38176cf738aa5ddb7e17c75d29d10ed569e0f504f2602aeda38df4171ffd59",
+    "scale4Sha256": "bd38e6c3abb46e17dccb705a44e4ca1e8641d6d59ab43e7d1bea52de01ec354d",
+    "scale8Sha256": "17be7a49a6d93e68012c5dd850311d778e07f1c501f9e1830bfeb6c405174e7d",
+    "jsonSha256": "599109d66fbbc3dea74b0b8e49d135bd0291a7d9455d39c6be5e2cd4ab4f7293",
+    "previousSummarySha256": "8df98e0dd4e01ee0c4033ebc1efd74b94cdbd9a1a0861448264688b445db65c3",
+    "regeneratedSummarySha256": "f7681be0b3c5073fb97bee37c0921a7623a1e7db4bbf4f95fe6186521697c9ef",
+    "summaryTimestampChangedOnly": true
+  },
+  "scenarios": {
+    "initialDisabled": {
+      "pass": true,
+      "runDisabled": true,
+      "selectedScales": [],
+      "statusText": ""
+    },
+    "noneSelectedCompatibility": {
+      "pass": true,
+      "selectedScales": [],
+      "resultButtons": [
+        "PNG",
+        "JSON"
+      ],
+      "nativeSha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "nativeMatchesSelectedRun": true,
+      "zipEntries": [
+        "hero-valid-factor8-768x1344_96x168.png",
+        "hero-valid-factor8-768x1344_96x168.json"
+      ],
+      "unexpectedScaleEntries": 0
+    },
+    "desktopOutputs": {
+      "pass": true,
+      "input": "hero-valid-factor8-768x1344.png",
+      "inputDimensions": "768x1344",
+      "mode": "factor",
+      "factor": 8,
+      "nativeDimensions": "96x168",
+      "scale2Dimensions": "192x336",
+      "scale8Dimensions": "768x1344",
+      "selectedScales": [
+        2,
+        8
+      ],
+      "buttons": [
+        "PNG",
+        "2× PNG",
+        "8× PNG",
+        "JSON"
+      ],
+      "metadataText": "추가 출력: 2×, 8×",
+      "zipVisible": true,
+      "allOutputButtonsInsideViewport": true
+    },
+    "browserDownloads": {
+      "pass": true,
+      "currentSourceButtonsInvoked": [
+        "PNG",
+        "2× PNG",
+        "8× PNG",
+        "ZIP"
+      ],
+      "downloadEventChannelAvailable": false,
+      "artifactFilesRevalidatedWithDecoders": true,
+      "nativeDecoded": true,
+      "scale2Decoded": true,
+      "scale8Decoded": true,
+      "nativeUniqueColorCount": 16,
+      "scale2UniqueColorCount": 16,
+      "scale8UniqueColorCount": 16,
+      "scale2BlockUniformityPercent": 100,
+      "scale8BlockUniformityPercent": 100
+    },
+    "zipContents": {
+      "pass": true,
+      "currentSourceZipButtonInvoked": true,
+      "run1Entries": [
+        "hero-valid-factor8-768x1344_96x168.png",
+        "hero-valid-factor8-768x1344_96x168_2x.png",
+        "hero-valid-factor8-768x1344_96x168_8x.png",
+        "hero-valid-factor8-768x1344_96x168.json"
+      ],
+      "run2EntriesMatch": true,
+      "entryHashesMatch": true,
+      "jsonCount": 1,
+      "archiveBytesMatch": false,
+      "archiveBytesDifferenceReason": "JSZip entry timestamps differ; acceptance is bound to ordered entry names and entry content hashes"
+    },
+    "reupload": {
+      "pass": true,
+      "files": [
+        "browser-native-run1.png",
+        "browser-8x-run1.png"
+      ],
+      "recognizedDimensions": [
+        "96x168",
+        "768x1344"
+      ],
+      "browserRecognizedFileCount": 2,
+      "sameColorCount": true,
+      "exactBlockUniformity": true
+    },
+    "determinism": {
+      "pass": true,
+      "nativeRunHashesMatch": true,
+      "scale2RunHashesMatch": true,
+      "scale8RunHashesMatch": true,
+      "zipEntryListsMatch": true,
+      "zipEntryContentHashesMatch": true
+    },
+    "mobile390": {
+      "pass": true,
+      "viewport": [
+        390,
+        844
+      ],
+      "capturedViewport": [
+        382,
+        827
+      ],
+      "documentScrollWidth": 382,
+      "horizontalOverflow": false,
+      "cardWidth": 342,
+      "exportAccordionExpanded": true,
+      "allOutputButtonsVisible": true,
+      "buttonWidths": [
+        75,
+        75,
+        75,
+        75
+      ],
+      "buttonLabels": [
+        "PNG",
+        "2× PNG",
+        "8× PNG",
+        "JSON"
+      ]
+    },
+    "keyboardCheckbox": {
+      "pass": true,
+      "focused": true,
+      "focusedControl": "exportScale8x",
+      "checkedBeforeSpace": true,
+      "spaceToggledOff": true,
+      "spaceToggledOn": true,
+      "checkedAfterRoundTrip": true,
+      "browserActivationObserved": true
+    },
+    "limitExceeded": {
+      "pass": true,
+      "input": "perf-1024x1024.png",
+      "mode": "original",
+      "nativeDimensions": "1024x1024",
+      "requestedScale": 8,
+      "targetDimensions": "8192x8192",
+      "checkboxChecked": true,
+      "checkboxDisabled": true,
+      "checkboxTitle": "8× 확대본을 생성할 수 있는 현재 결과가 없습니다.",
+      "checkboxAriaDescribedBy": "exportScaleWarning",
+      "scaleButtonDisabled": true,
+      "scaleButtonTitle": "이 결과는 8× 확대 시 최대 처리량을 넘습니다.",
+      "warningVisible": true,
+      "warningText": "주의: perf-1024x1024.png: 4× 확대 시 최대 처리량(4096×4096) 초과 / perf-1024x1024.png: 8× 확대 시 최대 처리량(8192×8192) 초과",
+      "zipWarningDialogObserved": false,
+      "zipWarningVisibleBeforeDownload": true,
+      "zipScaleOmitted": true,
+      "zipEntries": [
+        "perf-1024x1024_1024px.png",
+        "perf-1024x1024_1024px.json"
+      ],
+      "checkboxReenabledAfterReload": true
+    },
+    "console": {
+      "pass": true,
+      "errors": 0,
+      "warnings": 0,
+      "pageErrorChannelAvailable": false
+    }
+  },
+  "captures": {
+    "browser-desktop-outputs.jpg": {
+      "format": "jpeg",
+      "width": 1272,
+      "height": 716,
+      "bytes": 82691,
+      "sha256": "1762a0dc1855768fd136e261dcd790a87072a0d758ffbc14366c44393f14ad61"
+    },
+    "browser-mobile-390px.jpg": {
+      "format": "jpeg",
+      "width": 382,
+      "height": 827,
+      "bytes": 47100,
+      "sha256": "2c2bd61e3c08750ab8883cd1987a0a6a724a111958ff724170d6f4c03556200f"
+    },
+    "browser-mobile-390px-results.jpg": {
+      "format": "jpeg",
+      "width": 382,
+      "height": 827,
+      "bytes": 63909,
+      "sha256": "9e1fa070a234f23e3d35948fb0ab3c29c457ead3e2b16c28af60706f71e5652e"
+    },
+    "browser-limit-disabled.jpg": {
+      "format": "jpeg",
+      "width": 1272,
+      "height": 716,
+      "bytes": 70924,
+      "sha256": "1145713e594afa74fe49510957a500f236a89208c0598a51c706dbd753c3661b"
+    }
+  },
+  "artifacts": {
+    "browser-native-run1.png": {
+      "bytes": 1855,
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+    },
+    "browser-native-run2.png": {
+      "bytes": 1855,
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+    },
+    "browser-2x-run1.png": {
+      "bytes": 4225,
+      "sha256": "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710"
+    },
+    "browser-2x-run2.png": {
+      "bytes": 4225,
+      "sha256": "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710"
+    },
+    "browser-8x-run1.png": {
+      "bytes": 28198,
+      "sha256": "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+    },
+    "browser-8x-run2.png": {
+      "bytes": 28198,
+      "sha256": "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+    },
+    "browser-normal-run1.zip": {
+      "bytes": 195977,
+      "sha256": "79eea8ce3400abb8f6914cc65c6f421cf64a39a18e43e1a6bbaaf69cdd39c998"
+    },
+    "browser-normal-run2.zip": {
+      "bytes": 195977,
+      "sha256": "7b656c647312be0265fde88c5e03c98135ca54da603004cbf0d76fc002d449ca"
+    },
+    "browser-none-native.png": {
+      "bytes": 1855,
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+    },
+    "browser-none.zip": {
+      "bytes": 163216,
+      "sha256": "9fba025465faa516a4f9a990ef1fad71a566b34779b0cb93520559aa120fd79d"
+    },
+    "browser-limit.zip": {
+      "bytes": 10846465,
+      "sha256": "7be1ed128a0c5b91d1b066123ad6a11e33c4176691cd6c763e1e4647c40d429d"
+    }
+  },
+  "blockingFindings": []
+}

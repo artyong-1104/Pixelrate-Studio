@@ -1,0 +1,15 @@
+✔ DIT-001: Bayer matrix structure and threshold formulas (1.169625ms)
+✔ DIT-001: Two-nearest palette colors and tie-breaking (0.192375ms)
+✔ DIT-001: Ordered dithering behavior across strength and modes (0.436625ms)
+✔ DIT-001: Monotonic block density response across uniform brightness levels (0.668792ms)
+✔ DIT-001: Alpha and transparency invariance (0.432958ms)
+✔ DIT-001: Global coordinate pattern origin consistency across frames/sheets (0.083584ms)
+✔ DIT-001: Settings normalization, defaults, presets, and validation (1.553ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9.124625

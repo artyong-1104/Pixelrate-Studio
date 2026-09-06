@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 |
+| QA 상태 | 완료 — 현재 소스 검증 및 전체 37/37 PASS |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED + ENGINEERING-INFERENCE |
 | 구현 모델 | Luna xhigh |
@@ -137,3 +137,11 @@ v1 예제, legacy migration 검사, invalid import 캡처, preset diff 캡처를
 
 - 기존 로그에 문서화되지 않은 형태가 있어 default로 안전하게 normalize할 수 없으면 샘플과 영향 범위를 보고한다.
 - settings schema를 version 2로 시작해야 할 이유가 생기면 임의 변경하지 않고 상위 명세 검토를 요청한다.
+
+## 2026-09-06 현재 소스 재검증
+
+프리셋 취소/선택 변경 및 import focus 보완. round trip·legacy 로그·invalid 원자적 거부·모바일 캡처를 기록했다. [증거 및 남은 완료 조건](../../evidence/completion-20260906/README.md). 전체 36/37 검사로 최종 DONE은 보류한다.
+
+## 2026-09-06 최종 판정
+
+현재 소스 전체 자동 검사 37/37, 항목별 브라우저·결정성·무결성 증거를 확인해 `DONE`으로 갱신했다. 앞의 NEEDS_REVIEW 기록은 검증 진행 중의 이력이다. [최종 보고서 및 검증 환경·한계](../../evidence/completion-20260906/README.md).

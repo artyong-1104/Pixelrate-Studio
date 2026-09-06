@@ -1,0 +1,58 @@
+{
+  "report": {
+    "cancelToTerminalMs": 2.9,
+    "estimatedPeakBytes": 0,
+    "heapUsedBytes": 33564224,
+    "inputDelayAvailable": true,
+    "inputPixels": 4194304,
+    "longTasks": [],
+    "maxInputDelayMs": 131.2,
+    "maxWorkerChunkMs": 0,
+    "outcome": "cancelled",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteMode": "auto",
+    "processId": "4",
+    "schemaVersion": 1,
+    "stages": {
+      "cleanup": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "decode": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "downscale": {
+        "samples": 1,
+        "totalMs": 75.8
+      },
+      "export": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "grid": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "map": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "outline": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "palette": {
+        "samples": 0,
+        "totalMs": 0
+      }
+    },
+    "wallTimeMs": 193.8,
+    "wasmDecision": "not-adopted-worker-below-memory-gate",
+    "workerCancelLatencyMs": null,
+    "workerThresholdPixels": 262144,
+    "workerUsed": false
+  },
+  "results": 0,
+  "status": "취소됨 — 생성 중이던 결과는 저장하지 않았습니다."
+}

@@ -1,0 +1,1 @@
+PERF-001 checks passed: schema, worker and chunk parity hashes, transfer, progress, four-phase cancellation, retry, stale-result and network guards

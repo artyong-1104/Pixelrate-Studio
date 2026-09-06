@@ -1,0 +1,191 @@
+{
+  "checks": [
+    {
+      "script": "scripts/alp001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "alp001-ui-check.log"
+    },
+    {
+      "script": "scripts/alp002-check.mjs",
+      "exitCode": 0,
+      "log": "alp002-check.log"
+    },
+    {
+      "script": "scripts/alp002-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "alp002-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/alp002-ui-check.mjs",
+      "exitCode": 0,
+      "log": "alp002-ui-check.log"
+    },
+    {
+      "script": "scripts/alpha-check.mjs",
+      "exitCode": 0,
+      "log": "alpha-check.log"
+    },
+    {
+      "script": "scripts/ani001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "ani001-ui-check.log"
+    },
+    {
+      "script": "scripts/animation-check.mjs",
+      "exitCode": 0,
+      "log": "animation-check.log"
+    },
+    {
+      "script": "scripts/cell001-check.mjs",
+      "exitCode": 0,
+      "log": "cell001-check.log"
+    },
+    {
+      "script": "scripts/cell001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "cell001-ui-check.log"
+    },
+    {
+      "script": "scripts/cfg001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "cfg001-ui-check.log"
+    },
+    {
+      "script": "scripts/completion-evidence-check.mjs",
+      "exitCode": 0,
+      "log": "completion-evidence-check.log"
+    },
+    {
+      "script": "scripts/dit001-check.mjs",
+      "exitCode": 0,
+      "log": "dit001-check.log"
+    },
+    {
+      "script": "scripts/dit001-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "dit001-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/dit001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "dit001-ui-check.log"
+    },
+    {
+      "script": "scripts/edge001-check.mjs",
+      "exitCode": 0,
+      "log": "edge001-check.log"
+    },
+    {
+      "script": "scripts/geo001-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "geo001-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/geo001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "geo001-ui-check.log"
+    },
+    {
+      "script": "scripts/grid-detection-check.mjs",
+      "exitCode": 0,
+      "log": "grid-detection-check.log"
+    },
+    {
+      "script": "scripts/grid001-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "grid001-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/grid001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "grid001-ui-check.log"
+    },
+    {
+      "script": "scripts/out001-check.mjs",
+      "exitCode": 0,
+      "log": "out001-check.log"
+    },
+    {
+      "script": "scripts/out001-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "out001-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/pal001-ui-check.mjs",
+      "exitCode": 0,
+      "log": "pal001-ui-check.log"
+    },
+    {
+      "script": "scripts/pal002-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "pal002-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/pal002-ui-check.mjs",
+      "exitCode": 0,
+      "log": "pal002-ui-check.log"
+    },
+    {
+      "script": "scripts/palette-algorithm-check.mjs",
+      "exitCode": 0,
+      "log": "palette-algorithm-check.log"
+    },
+    {
+      "script": "scripts/palette-check.mjs",
+      "exitCode": 0,
+      "log": "palette-check.log"
+    },
+    {
+      "script": "scripts/palette-file-check.mjs",
+      "exitCode": 0,
+      "log": "palette-file-check.log"
+    },
+    {
+      "script": "scripts/perf001-check.mjs",
+      "exitCode": 0,
+      "log": "perf001-check.log"
+    },
+    {
+      "script": "scripts/perf001-evidence-gate-check.mjs",
+      "exitCode": 0,
+      "log": "perf001-evidence-gate-check.log"
+    },
+    {
+      "script": "scripts/preserve-sheet-check.mjs",
+      "exitCode": 0,
+      "log": "preserve-sheet-check.log"
+    },
+    {
+      "script": "scripts/security-check.mjs",
+      "exitCode": 0,
+      "log": "security-check.log"
+    },
+    {
+      "script": "scripts/settings-check.mjs",
+      "exitCode": 0,
+      "log": "settings-check.log"
+    },
+    {
+      "script": "scripts/settings-preview-check.mjs",
+      "exitCode": 0,
+      "log": "settings-preview-check.log"
+    },
+    {
+      "script": "scripts/source-preview-check.mjs",
+      "exitCode": 0,
+      "log": "source-preview-check.log"
+    },
+    {
+      "script": "scripts/ux001-check.mjs",
+      "exitCode": 0,
+      "log": "ux001-check.log"
+    },
+    {
+      "script": "scripts/visual-quality-check.mjs",
+      "exitCode": 0,
+      "log": "visual-quality-check.log"
+    }
+  ],
+  "passed": 37,
+  "total": 37
+}

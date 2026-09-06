@@ -1,0 +1,88 @@
+{
+  "frames": [
+    {
+      "index": 0,
+      "capturedAt": "2026-09-06T00:47:26.540Z",
+      "status": "완료 — 1개 이미지 처리됨"
+    },
+    {
+      "index": 1,
+      "capturedAt": "2026-09-06T00:47:26.741Z",
+      "status": "처리 중 — 색상 매핑 30%"
+    },
+    {
+      "index": 2,
+      "capturedAt": "2026-09-06T00:47:26.791Z",
+      "status": "처리 중 — 색상 매핑 0%"
+    },
+    {
+      "index": 3,
+      "capturedAt": "2026-09-06T00:47:26.842Z",
+      "status": "처리 중 — 색상 매핑 20%"
+    },
+    {
+      "index": 4,
+      "capturedAt": "2026-09-06T00:47:33.612Z",
+      "status": "취소됨 — 생성 중이던 결과는 저장하지 않았습니다."
+    }
+  ],
+  "cancelButtonDisabledAfter": true,
+  "focus": "",
+  "report": {
+    "cancelToTerminalMs": 14.9,
+    "estimatedPeakBytes": 37748800,
+    "heapUsedBytes": 69056226,
+    "inputDelayAvailable": true,
+    "inputPixels": 4194304,
+    "longTasks": [],
+    "maxInputDelayMs": 9.9,
+    "maxWorkerChunkMs": 4.1,
+    "outcome": "cancelled",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteMode": "auto",
+    "processId": "4",
+    "schemaVersion": 1,
+    "stages": {
+      "cleanup": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "decode": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "downscale": {
+        "samples": 1,
+        "totalMs": 18
+      },
+      "export": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "grid": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "map": {
+        "samples": 1,
+        "totalMs": 359.7
+      },
+      "outline": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "palette": {
+        "samples": 1,
+        "totalMs": 103.8
+      }
+    },
+    "wallTimeMs": 636.2,
+    "wasmDecision": "not-adopted-worker-below-memory-gate",
+    "workerCancelLatencyMs": 0,
+    "workerThresholdPixels": 262144,
+    "workerUsed": true
+  },
+  "resultCount": 0,
+  "runButtonRestored": true,
+  "status": "취소됨 — 생성 중이던 결과는 저장하지 않았습니다."
+}

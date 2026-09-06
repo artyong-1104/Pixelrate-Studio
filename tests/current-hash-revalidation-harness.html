@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixelate current hash revalidation</title>
+<style>
+  body{margin:16px;background:#171a25;color:#eef;font:14px system-ui}
+  button{padding:10px 14px} iframe{width:1280px;height:780px;border:1px solid #778}
+  pre{white-space:pre-wrap;max-height:360px;overflow:auto;background:#10131d;padding:12px}
+</style>
+<h1>현재 소스 해시 브라우저 재검증</h1>
+<p>운영 HTML을 그대로 iframe에 로드해 남은 8개 항목의 대표 경로를 실행합니다.</p>
+<button id="run">8개 항목 실행</button>
+<pre id="status" role="status">READY</pre>
+<pre id="report"></pre>
+<iframe id="app" title="Pixelate Studio 운영 페이지" src="../pixelate_studio.html?qa=current-hash-revalidation"></iframe>
+<script src="current-hash-revalidation-harness.js"></script>
+</html>

@@ -1,0 +1,132 @@
+{
+  "capture": {
+    "status": "PASS",
+    "logs": [
+      {
+        "level": "error",
+        "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+        "timestamp": "2026-09-06T01:34:45.859Z"
+      }
+    ]
+  },
+  "report": {
+    "schemaVersion": 1,
+    "runDateKst": "2026-09-06",
+    "items": [
+      {
+        "id": "QLT-001",
+        "status": "PASS",
+        "measurements": {
+          "fixture": "generated 8px checker",
+          "dimensions": [
+            16,
+            16
+          ],
+          "rgbaSha256": "c9ffc20887cb0e0393b78efbaf189abe4895b54c48401e12d812cd1b85440117",
+          "mode": "square",
+          "workerUsed": false
+        }
+      },
+      {
+        "id": "ANI-001",
+        "status": "PASS",
+        "measurements": {
+          "before": "1 / 2",
+          "after": "2 / 2",
+          "sourceOptions": 1,
+          "zoom8": true,
+          "closed": true
+        }
+      },
+      {
+        "id": "GRID-001",
+        "status": "PASS",
+        "measurements": {
+          "analysis": "X 8px / offset 0 · Y 8px / offset 0 · 신뢰도 99% · 36ms · main-thread max 3ms",
+          "size": [
+            8,
+            8
+          ],
+          "phase": [
+            0,
+            0
+          ],
+          "source": "auto",
+          "maxInputDelayMs": 0
+        }
+      },
+      {
+        "id": "ALP-002",
+        "status": "PASS",
+        "measurements": {
+          "coveragePartialPixels": 128,
+          "coverageHash": "8f26ceae120527225e774b39c7f1f2c9ea654f02e768cec19031e90d1d3ff3b9",
+          "binaryHash": "af7341a19269f8ac56791ee5e07eceff2f6fb95da7e0bd36419604df959d3d61",
+          "binaryOnly": true
+        }
+      },
+      {
+        "id": "CELL-001",
+        "status": "PASS",
+        "measurements": {
+          "representativeColor": "center",
+          "warning": "\n                    실험 기능이며 작은 특징이 사라지거나 밝기가 달라질 수 있습니다.\n                  ",
+          "resultText": "16×16 (150 B)팔레트 2색대표색 center부분 알파 없음 · 고립 섬 없음"
+        }
+      },
+      {
+        "id": "PAL-002",
+        "status": "PASS",
+        "measurements": {
+          "algorithm": "kmeans-oklab",
+          "sampling": "image-balanced",
+          "distance": "oklab",
+          "experimental": true,
+          "error": {
+            "mean": 0.033389,
+            "p95": 0.133557,
+            "max": 0.133557,
+            "sampleCount": 1024
+          }
+        }
+      },
+      {
+        "id": "DIT-001",
+        "status": "PASS",
+        "measurements": {
+          "mode": "bayer4",
+          "strength": 75,
+          "origin": [
+            0,
+            0
+          ],
+          "offHash": "95d233521031189d03b340d3abd811454de7a809b9e73e24371a78061cee5d25",
+          "onHash": "588d6fe7b6ccf4777bd6fc20e3741b3fca82390687a6e020a3bed630f2b88a39"
+        }
+      },
+      {
+        "id": "EDGE-001",
+        "status": "PASS",
+        "measurements": {
+          "lineAware": {
+            "enabled": true,
+            "candidatePixels": 120,
+            "coveredCells": 32
+          },
+          "selout": {
+            "enabled": true,
+            "pixelCount": 0
+          },
+          "resultText": "16×16 (239 B)팔레트 7색대표색 mean-srgb선 후보 120px · 적용 셀 32개 · selout 0px부분 알파 없음 · 고립 섬 없음"
+        }
+      }
+    ],
+    "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+    "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "url": "http://localhost:8000/tests/current-hash-revalidation-harness.html",
+    "consoleCapture": "Collected by the browser controller after completion.",
+    "status": "PASS",
+    "finishedAt": "2026-09-06T01:34:52.876Z"
+  }
+}

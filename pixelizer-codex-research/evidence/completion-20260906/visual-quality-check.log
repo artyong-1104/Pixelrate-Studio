@@ -1,0 +1,15 @@
+PASS ai-grid-wobble     35030be67bce 16.421ms
+PASS alpha-edge         71bc71d4bf93 3.217ms
+PASS animation-16       a55d1628c427 5.242ms
+PASS clean-pixel-art    f74f015261aa 1.386ms
+PASS gradient-gray      0da1ceafca73 3.123ms
+PASS hard-edge-phase    838c77defca9 3.767ms
+PASS low-contrast       4747493c3f44 2.878ms
+PASS non-square-factor  1729ccb8af7e 35.426ms
+PASS photo-like         f398b97a9dc1 13.180ms
+PASS sprite-sheet       25f83919cb99 4.415ms
+PASS texture-checker    892ecf467b08 4.261ms
+PASS thin-lines         19b80be38484 2.487ms
+PASS current-square-default       ab006b365f9c baseline
+PASS current-preserve-sheet-4x    55bf669981d7 baseline
+Visual quality checks: 12 passed, 0 failed, deterministic db4b3d904fbcc53e83966e3db097b6e27242ee6494e7c0f2f943a007e6f23cef.

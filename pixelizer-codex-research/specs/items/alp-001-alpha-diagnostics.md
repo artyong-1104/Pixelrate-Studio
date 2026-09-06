@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 |
+| QA 상태 | 완료 — 현재 소스 검증 및 전체 37/37 PASS |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED + ENGINEERING-INFERENCE |
 | 구현 모델 | Luna xhigh |
@@ -129,3 +129,11 @@ island 좌표 목록은 session UI에만 두고 JSON에는 집계만 저장한�
 - 실제 사용자 입력에서 4-neighbor/면적 4 정의가 과도한 false positive를 내면 threshold를 임의 변경하지 않고 QLT 보고서와 함께 명세 재검토한다.
 - overlay가 source/result 좌표 metadata 부족으로 어긋나면 UX-001과 조정한다.
 
+
+## 2026-09-06 현재 소스 재검증
+
+배경 순환·custom·B 예외·overlay 1/2/8배·PNG 결정성을 기록했다. 후속 ALP-002의 최종 alpha 진단 정책을 적용한다. [증거 및 남은 완료 조건](../../evidence/completion-20260906/README.md). 전체 36/37 검사로 최종 DONE은 보류한다.
+
+## 2026-09-06 최종 판정
+
+현재 소스 전체 자동 검사 37/37, 항목별 브라우저·결정성·무결성 증거를 확인해 `DONE`으로 갱신했다. 앞의 NEEDS_REVIEW 기록은 검증 진행 중의 이력이다. [최종 보고서 및 검증 환경·한계](../../evidence/completion-20260906/README.md).

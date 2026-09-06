@@ -1,0 +1,13 @@
+✔ ALP-001: computeAlphaDiagnostics counts partial alpha pixels (0 < a < 255) (0.836542ms)
+✔ ALP-001: 4-neighbor connectivity distinguishes diagonal pixels (0.634166ms)
+✔ ALP-001: components with area >= 5 are not islands (0.794875ms)
+✔ ALP-001: sprite sheet frame boundary isolation (0.14475ms)
+✔ ALP-001: background presets and custom hex color validation (0.240875ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7.128625

@@ -1,0 +1,232 @@
+{
+  "itemId": "OUT-001",
+  "status": "PASS",
+  "measuredAt": "2026-09-06T09:27:15.800048+09:00",
+  "url": "http://localhost:8000/pixelate_studio.html?qa=completion-captures",
+  "browser": "Codex In-app Browser; manual CUA controls and production iframe Blob interception",
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "servedApplicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "servedWorkerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "gitHead": "5e6e8b68696f7e0ef01d4ada8e1547b216fe2e17",
+  "baselineHashes": {
+    "generatedOutputsChanged": false,
+    "method": "unchanged algorithm regression suite; nearest/no-selection byte equality in integration.json"
+  },
+  "scenarios": {
+    "initialDisabled": {
+      "pass": true,
+      "runDisabled": true
+    },
+    "noneSelectedCompatibility": {
+      "pass": true,
+      "method": "production iframe no-selection PNG SHA equals selected native; ZIP entry validation"
+    },
+    "desktopOutputs": {
+      "pass": true,
+      "selectedScales": [
+        2,
+        8
+      ],
+      "buttons": [
+        "PNG",
+        "2× PNG",
+        "8× PNG",
+        "JSON"
+      ],
+      "nativeDimensions": "96x168",
+      "scale2Dimensions": "192x336",
+      "scale8Dimensions": "768x1344"
+    },
+    "browserDownloads": {
+      "pass": true,
+      "method": "production downloadBlob boundary captures real Blob bytes before OS save; CUA download event unavailable; OS save not claimed",
+      "downloadEventChannelAvailable": false
+    },
+    "zipContents": {
+      "pass": true,
+      "entries": [
+        [
+          "hero-valid-factor8-768x1344_96x168.png",
+          "hero-valid-factor8-768x1344_96x168_2x.png",
+          "hero-valid-factor8-768x1344_96x168_8x.png",
+          "hero-valid-factor8-768x1344_96x168.json"
+        ],
+        [
+          "hero-valid-factor8-768x1344_96x168.png",
+          "hero-valid-factor8-768x1344_96x168_2x.png",
+          "hero-valid-factor8-768x1344_96x168_8x.png",
+          "hero-valid-factor8-768x1344_96x168.json"
+        ]
+      ]
+    },
+    "reupload": {
+      "pass": true,
+      "measurements": [
+        {
+          "scale": 1,
+          "colors": 17
+        },
+        {
+          "scale": 2,
+          "colors": 17
+        },
+        {
+          "scale": 8,
+          "colors": 17
+        }
+      ]
+    },
+    "determinism": {
+      "pass": true,
+      "pngHashes": [
+        [
+          "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+          "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+          "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+        ],
+        [
+          "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+          "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+          "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+        ]
+      ],
+      "zipEntryPngHashes": [
+        [
+          [
+            "hero-valid-factor8-768x1344_96x168.png",
+            "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+          ],
+          [
+            "hero-valid-factor8-768x1344_96x168_2x.png",
+            "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710"
+          ],
+          [
+            "hero-valid-factor8-768x1344_96x168_8x.png",
+            "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+          ]
+        ],
+        [
+          [
+            "hero-valid-factor8-768x1344_96x168.png",
+            "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd"
+          ],
+          [
+            "hero-valid-factor8-768x1344_96x168_2x.png",
+            "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710"
+          ],
+          [
+            "hero-valid-factor8-768x1344_96x168_8x.png",
+            "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331"
+          ]
+        ]
+      ]
+    },
+    "mobile390": {
+      "pass": true,
+      "viewport": [
+        390,
+        844
+      ],
+      "documentScrollWidth": 382,
+      "horizontalOverflow": false,
+      "allOutputButtonsVisible": true
+    },
+    "keyboardCheckbox": {
+      "pass": true,
+      "focused": true,
+      "spaceToggledOff": true,
+      "spaceToggledOn": true
+    },
+    "limitExceeded": {
+      "pass": true,
+      "checkboxDisabled": true,
+      "scaleButtonDisabled": true,
+      "warningVisible": true,
+      "zipScaleOmitted": true,
+      "entries": [
+        "perf-1024x1024_1024px.png",
+        "perf-1024x1024_1024px.json"
+      ]
+    },
+    "console": {
+      "pass": true,
+      "errors": 0,
+      "warnings": 0,
+      "measurement": "CUA tab.dev.logs normal scenarios; expected limit alert separately accepted"
+    }
+  },
+  "captures": {
+    "browser-desktop-outputs.jpg": {
+      "format": "jpeg",
+      "sha256": "14c837ed36deba09afe019af63ace4a974fafef388cad81c57fafd42c62fba3f",
+      "width": 1272,
+      "height": 716
+    },
+    "browser-mobile-390px.jpg": {
+      "format": "jpeg",
+      "sha256": "49baa3db436bb9dab97056903c1d466829c5c70b2db8a16c42026aa22067eb6f",
+      "width": 382,
+      "height": 827
+    },
+    "browser-mobile-390px-results.jpg": {
+      "format": "jpeg",
+      "sha256": "95ff8e9096e3cf4a2cadcdb94e80d619067477f0d1532346e85506009683b3d1",
+      "width": 382,
+      "height": 827
+    },
+    "browser-limit-disabled.jpg": {
+      "format": "jpeg",
+      "sha256": "418240eddd8e065bbd978f92f1145bfa2f25ac6840b38dd5e6feb391bc128688",
+      "width": 1272,
+      "height": 716
+    }
+  },
+  "artifacts": {
+    "browser-native-run1.png": {
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "bytes": 1855
+    },
+    "browser-native-run2.png": {
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "bytes": 1855
+    },
+    "browser-2x-run1.png": {
+      "sha256": "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+      "bytes": 4225
+    },
+    "browser-2x-run2.png": {
+      "sha256": "fa83af87903a78d7e35472349d49b65a0868e0ad748c9e8e388072515b907710",
+      "bytes": 4225
+    },
+    "browser-8x-run1.png": {
+      "sha256": "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331",
+      "bytes": 28198
+    },
+    "browser-8x-run2.png": {
+      "sha256": "6c9b9859033c03c4f2bd0cfa2e71da04fcfb89932f9a9fecee79b6cc34c43331",
+      "bytes": 28198
+    },
+    "browser-normal-run1.zip": {
+      "sha256": "177478277a396ac7f435f30a4f905658113e4fb7673d82d2a86944cd9247362b",
+      "bytes": 195977
+    },
+    "browser-normal-run2.zip": {
+      "sha256": "43c1dfbeda68c3f198e8ef8c97b1c60abe25e8627fa3d5fe384f1ba4f266f197",
+      "bytes": 195977
+    },
+    "browser-none-native.png": {
+      "sha256": "8d083346eb1873d92b0d2c8d8d562e584cb9038ce46410a2b730f6af3fe67bbd",
+      "bytes": 1855
+    },
+    "browser-none.zip": {
+      "sha256": "50b9f48fd266c7a907662426563883823b1327322ce971910d22bf4c5bbbc1ea",
+      "bytes": 163216
+    },
+    "browser-limit.zip": {
+      "sha256": "59f2c68508f47291c40f824ed09b47283f4eb78e4be79ed860aebb5ac9e63df0",
+      "bytes": 10258774
+    }
+  },
+  "blockingFindings": []
+}

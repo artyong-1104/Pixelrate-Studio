@@ -1,0 +1,2 @@
+GEO-001 negative evidence tests passed: missing, tampered, stale HTML/Worker hashes, FAIL status, and false scenario all fail closed.
+GEO-001 evidence gate: PASS

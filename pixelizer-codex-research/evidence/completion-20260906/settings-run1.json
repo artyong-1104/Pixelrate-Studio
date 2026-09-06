@@ -1,0 +1,53 @@
+{
+  "format": "pixelate-studio-settings",
+  "version": 1,
+  "createdAt": "2026-09-05T18:17:40.661Z",
+  "settings": {
+    "scaleMode": "square",
+    "size": 64,
+    "method": "box",
+    "factor": 4,
+    "factorFrameMode": "whole",
+    "gridFrameMode": "whole",
+    "gridFrameWidth": 64,
+    "gridFrameHeight": 64,
+    "gridSizeX": 8,
+    "gridSizeY": 8,
+    "gridPhaseX": 0,
+    "gridPhaseY": 0,
+    "gridSource": "auto",
+    "gridLockedAcrossFrames": true,
+    "frameWidth": 64,
+    "frameHeight": 64,
+    "pixelBlockSize": 4,
+    "representativeColor": "mean-srgb",
+    "lineAware": {
+      "enabled": false,
+      "threshold": 0.2,
+      "strength": 0.6
+    },
+    "selout": {
+      "enabled": false,
+      "darken": 0.2
+    },
+    "paletteMode": "auto",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteSampling": "pixel",
+    "paletteReference": null,
+    "ditherMode": "off",
+    "ditherStrength": 50,
+    "customPalette": [],
+    "paletteEnabled": true,
+    "colors": 16,
+    "shared": true,
+    "cleanEnabled": true,
+    "cleanPasses": 1,
+    "outline": false,
+    "outlineWidth": 1,
+    "outlineColor": "#000000",
+    "outlineShape": "4",
+    "exportNearestScales": [],
+    "alphaMode": "binary",
+    "alphaThreshold": 10
+  }
+}

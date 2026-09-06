@@ -1,0 +1,18 @@
+✔ ALP-002: Alpha threshold boundary testing (values 0, 9, 10, 127, 255) (1.187666ms)
+✔ ALP-002: Coverage auto palette applies alpha/255 weighting without changing binary samples (0.284708ms)
+✔ ALP-002: Noise cleanup preserves alpha values unchanged (0.286666ms)
+✔ ALP-002: Outline assigns alpha 255 to newly created pixels and preserves existing alpha (0.41025ms)
+✔ ALP-002: computeAlphaDiagnostics accurately reflects custom threshold (0.318334ms)
+✔ ALP-002: Settings validation and normalization for alphaMode and alphaThreshold (1.364375ms)
+✔ ALP-002: Production alpha helpers generate matching binary/coverage output and improve MAE (0.253458ms)
+✔ ALP-002: Production alpha artifacts preserve hole topology, coverage matrix, legacy hash, and determinism (0.89225ms)
+✔ ALP-002: Coverage JSON/log size gate is fail-closed while small results remain storable (37.325ms)
+✔ ALP-002: Restored logs retain the final partial-alpha summary (0.262417ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50.296167

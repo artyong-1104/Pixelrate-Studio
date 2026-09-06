@@ -1,0 +1,1 @@
+CFG-001/EDGE-001 regression checks passed (envelope schema, nested EDGE round trip, strict validation, presets diff, 64KB limit).

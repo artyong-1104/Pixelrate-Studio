@@ -1,3 +1,19 @@
+# 최종 검증 — 2026-09-06
+
+현재 소스의 항목별 검증과 전체 자동 검사 **37/37 PASS**. [최종 보고서·증거·한계](../completion-20260906/README.md). 아래 NEEDS_REVIEW·차단·과거 완료 기록은 진행 이력이며 현재 판정에 우선하지 않는다.
+
+---
+
+# 현재 재검증 (2026-09-06)
+
+배경 순환·custom·B 예외·overlay 1/2/8배·PNG 결정성을 기록했다. 후속 ALP-002의 최종 alpha 진단 정책을 적용한다.
+
+[통합 결과·검사 로그·제약](../completion-20260906/README.md), [CUA 측정](../completion-session.json), [현재 소스 무결성 manifest](../completion-20260906/manifest.json).
+
+기능별 검증은 통과했으나 전체 회귀는 36/37이며 PERF Chrome 증거 갱신이 남아 최종 상태는 `NEEDS_REVIEW`다. 아래 과거 완료 기록과 현재 소스 최종 판정을 구분한다.
+
+---
+
 # ALP-001 검증 증거 및 실행 보고서
 
 ## 개요

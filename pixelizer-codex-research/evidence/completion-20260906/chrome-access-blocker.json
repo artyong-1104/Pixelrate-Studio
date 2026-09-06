@@ -1,0 +1,15 @@
+{
+  "nativeRequest": "cua.getApp(com.google.Chrome)",
+  "nativeResult": "Computer Use was not approved to use Google Chrome",
+  "browserRequest": "cua.createBrowserTab(chrome, localhost PERF harness)",
+  "browserResult": "Browser is not available: chrome",
+  "observedBrowsers": [
+    {
+      "id": "1",
+      "name": "Codex In-app Browser",
+      "type": "iab"
+    }
+  ],
+  "userAuthorizationReceived": true,
+  "persistentPermissionChanged": false
+}

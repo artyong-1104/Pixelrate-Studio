@@ -1,0 +1,2 @@
+OUT-001 negative evidence tests passed: missing file, tampered capture, stale HTML hash, FAIL status, and false scenario all fail closed.
+OUT-001 evidence gate: PASS

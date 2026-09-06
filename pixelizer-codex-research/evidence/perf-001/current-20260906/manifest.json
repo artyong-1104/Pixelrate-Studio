@@ -1,0 +1,137 @@
+{
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "browser": "Codex In-app Browser",
+  "browserSelection": "user-requested-sidebar-fallback",
+  "status": "PASS",
+  "files": {
+    "README.md": {
+      "bytes": 3641,
+      "sha256": "90d94109628f95d02d28485507839343613b07aae75546c5fb879572de1e11b1"
+    },
+    "cancel-4m.mp4": {
+      "bytes": 59755,
+      "sha256": "fd167df2560dd6e9887f06e55fa762a4e9f04d859aa44ec76266c5d4aa811fb1"
+    },
+    "cancel-frame-0.jpg": {
+      "bytes": 64603,
+      "sha256": "61fb7633a227b0ebc5c40707d2a7693807361ad6ef639cbdedb32812eafa81e8"
+    },
+    "cancel-frame-0.png": {
+      "bytes": 42747,
+      "sha256": "14b147ce0150443bb8f1be2c604e162dff44354036782f9bbd435e1a9530d628"
+    },
+    "cancel-frame-1.jpg": {
+      "bytes": 62767,
+      "sha256": "6c9f70ffe61706c15640069118b7c28ed03bbb046ac0712d85b2a0cc61ae691a"
+    },
+    "cancel-frame-1.png": {
+      "bytes": 41954,
+      "sha256": "9e727d0d159a86026ea06745c07f5bcc6ce5c836ed98835d242302edaf94bcd6"
+    },
+    "cancel-frame-2.jpg": {
+      "bytes": 62966,
+      "sha256": "7398d6bfbc262845577290ef323ca937a0781f6e2a12d286dabd060a151256ab"
+    },
+    "cancel-frame-2.png": {
+      "bytes": 42107,
+      "sha256": "9ee55604366db7f0a0f827a12009c8717b90be526c9e5f1284924913fa3824ae"
+    },
+    "cancel-frame-3.jpg": {
+      "bytes": 62959,
+      "sha256": "e5f58f39559e62d678509dfe62f76356eb0a0b3a8ea2874fb49f7f5f9ed5cf20"
+    },
+    "cancel-frame-3.png": {
+      "bytes": 42116,
+      "sha256": "bb543e4a2fdd386445c182ae1af96b39a20ffe83afe8c1c03f2d2d6f6f2862e3"
+    },
+    "cancel-frame-4.jpg": {
+      "bytes": 65051,
+      "sha256": "2383041f1ee85b5ba8a10365ac5a7140d31b3c458d7727896388763d6104afa5"
+    },
+    "cancel-frame-4.png": {
+      "bytes": 43430,
+      "sha256": "89822165dc2c3b3c850dab2367795dcb90b71b84a1099709c404d8979d98e230"
+    },
+    "click-cancel.json": {
+      "bytes": 2063,
+      "sha256": "2e2c1f3c1760da1f682f3d32d913b3bed0fd53db4924b90d156b2332f3ed969c"
+    },
+    "completion-1M.json": {
+      "bytes": 1327,
+      "sha256": "ef06798bcf296b8de25340d6c873a133446a3b2adf5991b48268b4b9f7ca214a"
+    },
+    "completion-256K.json": {
+      "bytes": 1323,
+      "sha256": "e34f49fd89609222dcd266d975fc7190a9cd3600f0199958de9aa14cc091f636"
+    },
+    "completion-4M.json": {
+      "bytes": 1331,
+      "sha256": "b9c84b9c9fe43b2952ec47e1d04c2ba3c4673c470f51d739ffc6ed0d2ff877cc"
+    },
+    "console.json": {
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "harness-keyboard.jpg": {
+      "bytes": 72015,
+      "sha256": "55dc76caba9fa7b5f8d69d7bfd296022de59c6d5d92a02ae493b07253a19e85c"
+    },
+    "harness-keyboard.json": {
+      "bytes": 1406,
+      "sha256": "81d44c9e8905babb456866a4e0648bc09bf9fda739bf30e6bac6098eb2e9eb18"
+    },
+    "harness-keyboard.png": {
+      "bytes": 48730,
+      "sha256": "deae4faf1ab63fc190d30ee039c9b6e784d06c85d6e9610274f23447f18ce77b"
+    },
+    "immediate-rerun.json": {
+      "bytes": 1335,
+      "sha256": "10b45f87687ed5e05f172d58715873bada3b05cb77f172def7febe672ec11bb0"
+    },
+    "interrupted-session.md": {
+      "bytes": 2856,
+      "sha256": "10ada5b8c73e012a349d6aad6b248aed5704232db2d502dc63b0376ec5d90391"
+    },
+    "keyboard-cancel.json": {
+      "bytes": 1500,
+      "sha256": "f82f4c3b76d81746fea579bbed6b5ea391461154152a85a6d72d76192c6f6da8"
+    },
+    "keyboard-cancel.png": {
+      "bytes": 43430,
+      "sha256": "89822165dc2c3b3c850dab2367795dcb90b71b84a1099709c404d8979d98e230"
+    },
+    "keyboard-during.png": {
+      "bytes": 41877,
+      "sha256": "072cdb36fc1546e1e8a03c27a550788f00242d1a29e9f372dd04f9b8ac85457b"
+    },
+    "mobile.jpg": {
+      "bytes": 41198,
+      "sha256": "8466e12d1f5bdba74ca34ace9572479314e0d3c53821cfc17be5111aff59f536"
+    },
+    "mobile.json": {
+      "bytes": 1346,
+      "sha256": "de87eb7fe90a445e64cb5829be51824427578e551a5ce14d9fe7b9598d3e2c10"
+    },
+    "mobile.png": {
+      "bytes": 27666,
+      "sha256": "37abcf0918688804a276b65eb47cb091d24718c5a739291fb011204b6e1b315e"
+    },
+    "tab-switch.json": {
+      "bytes": 1443,
+      "sha256": "108e0e8d52888736e7fee73aea570ed6d3cb48410e07d5363c1a0caff18d9784"
+    },
+    "worker-failure.jpg": {
+      "bytes": 72285,
+      "sha256": "1a9117499dc20c5164617ae129e599c4bcae73b07081b1cba31289905f9c82df"
+    },
+    "worker-failure.json": {
+      "bytes": 1321,
+      "sha256": "3c600e5fbc407b6acab6a280cca36725ec5b63d121f93f41d4a86b6a93d091db"
+    },
+    "worker-failure.png": {
+      "bytes": 49124,
+      "sha256": "fa70df8ba7886be303d47bb0ec374f422d08d574c31fa036617b1b953d39d5b5"
+    }
+  }
+}

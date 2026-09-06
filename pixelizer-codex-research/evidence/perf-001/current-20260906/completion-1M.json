@@ -1,0 +1,61 @@
+{
+  "cancelButtonDisabledAfter": true,
+  "focus": "",
+  "report": {
+    "cancelToTerminalMs": null,
+    "estimatedPeakBytes": 9437248,
+    "heapUsedBytes": 40504351,
+    "inputDelayAvailable": true,
+    "inputPixels": 1048576,
+    "longTasks": [],
+    "maxInputDelayMs": 3.4,
+    "maxWorkerChunkMs": 4.1,
+    "outcome": "completed",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteMode": "auto",
+    "processId": "2",
+    "schemaVersion": 1,
+    "stages": {
+      "cleanup": {
+        "samples": 0,
+        "totalMs": 0
+      },
+      "decode": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "downscale": {
+        "samples": 1,
+        "totalMs": 19.9
+      },
+      "export": {
+        "samples": 1,
+        "totalMs": 174.5
+      },
+      "grid": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "map": {
+        "samples": 1,
+        "totalMs": 121.3
+      },
+      "outline": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "palette": {
+        "samples": 1,
+        "totalMs": 96.4
+      }
+    },
+    "wallTimeMs": 422.9,
+    "wasmDecision": "not-adopted-worker-below-memory-gate",
+    "workerCancelLatencyMs": null,
+    "workerThresholdPixels": 262144,
+    "workerUsed": true
+  },
+  "resultCount": 1,
+  "runButtonRestored": true,
+  "status": "완료 — 1개 이미지 처리됨"
+}

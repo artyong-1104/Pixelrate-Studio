@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "runDateKst": "2026-09-06",
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "browserScenarios": {
+    "passed": 8,
+    "total": 8,
+    "ids": [
+      "QLT-001",
+      "ANI-001",
+      "GRID-001",
+      "ALP-002",
+      "CELL-001",
+      "PAL-002",
+      "DIT-001",
+      "EDGE-001"
+    ]
+  },
+  "automatedChecks": {
+    "passed": 13,
+    "total": 13
+  },
+  "browserLogs": {
+    "unexpectedCount": 0,
+    "knownHostNoiseCount": 1,
+    "note": "The controller reported a source-less MutationObserver error. The application source contains no MutationObserver reference."
+  },
+  "artifacts": [
+    {
+      "path": "pixelizer-codex-research/evidence/current-hash-revalidation-20260906/browser-run.json",
+      "bytes": 4002,
+      "sha256": "c4169db41bf54d4e9c18c16f0480b3b4415365836a172799655f6b45556f1a13"
+    },
+    {
+      "path": "pixelizer-codex-research/evidence/current-hash-revalidation-20260906/browser-final.jpg",
+      "bytes": 49699,
+      "sha256": "41deff62960d26cdf0186e550fd4931e53b9ffca1b0fa84d1c88f03c44d7c194"
+    },
+    {
+      "path": "pixelizer-codex-research/evidence/current-hash-revalidation-20260906/automated-checks.json",
+      "bytes": 6252,
+      "sha256": "8b5270c18904873e4cb27906fdbf2aabfac30bbb022c9842f5e8b851993660aa"
+    },
+    {
+      "path": "tests/current-hash-revalidation-harness.html",
+      "bytes": 906,
+      "sha256": "ac1613c5752bdef8b60e89036f59fc500bbaa339ecb36489693110b32fe5f054"
+    },
+    {
+      "path": "tests/current-hash-revalidation-harness.js",
+      "bytes": 11565,
+      "sha256": "8f255e40fd42fe47ef2f8478c03b06b9206e0a69908e57fd4a817ef0f2f8c84d"
+    },
+    {
+      "path": "scripts/current-hash-revalidation-check.mjs",
+      "bytes": 6589,
+      "sha256": "f22b48ecb47b77e9ef36831ef1c850331c639aa8c98db4e65d65a08308321706"
+    }
+  ],
+  "status": "PASS"
+}

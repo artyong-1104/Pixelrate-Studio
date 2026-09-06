@@ -17,6 +17,8 @@ assert.match(html, /id="exportScaleWarning"/, 'exportScaleWarning element must e
 // 2. Extract createNearestCanvas and dependencies into test context
 const functionNames = [
   'createNearestCanvas',
+  'nearestScaleExceedsLimit',
+  'getNearestScaleAvailability',
   'getSettingsSummary',
   'normalizeScaleMode',
 ];
@@ -87,7 +89,12 @@ vm.runInContext(
   context
 );
 
-const { createNearestCanvas, getSettingsSummary } = context.api;
+const {
+  createNearestCanvas,
+  nearestScaleExceedsLimit,
+  getNearestScaleAvailability,
+  getSettingsSummary
+} = context.api;
 
 // 3. Test 3x2 RGBA Source Scaled by 2x, 4x, 8x - Exact N×N Uniform RGBA Block Verification
 const srcW = 3;
@@ -183,4 +190,26 @@ const settingsWithExport = {
 const summary = getSettingsSummary(settingsWithExport);
 assert.match(summary, /확대출력:2×,8×/, 'getSettingsSummary must include exportNearestScales');
 
-console.log('OUT-001 regression checks passed (N×N blocks, smoothing=false, limits, scale validation, settings summary).');
+// 7. Test fail-closed scale availability for single and mixed result sets.
+const resultAt = (width, height) => ({ canvas: { width, height } });
+assert.equal(nearestScaleExceedsLimit(resultAt(64, 64), 8), false, '64×64 at 8× must remain available');
+assert.equal(nearestScaleExceedsLimit(resultAt(1024, 1024), 8), true, '1024×1024 at 8× must exceed limits');
+assert.equal(nearestScaleExceedsLimit(resultAt(64, 64), 3), true, 'unsupported scales must fail closed');
+const allBlocked = getNearestScaleAvailability([resultAt(1024, 1024)], 8);
+assert.equal(allBlocked.blockedCount, 1, 'the single oversized result must be counted as blocked');
+assert.equal(allBlocked.allBlocked, true, 'a scale checkbox must be disabled when every current result is blocked');
+const mixedAvailability = getNearestScaleAvailability([resultAt(64, 64), resultAt(1024, 1024)], 8);
+assert.equal(mixedAvailability.blockedCount, 1, 'the mixed batch must count only its oversized result');
+assert.equal(mixedAvailability.allBlocked, false, 'a mixed batch must keep the scale selectable for its valid result');
+const emptyAvailability = getNearestScaleAvailability([], 8);
+assert.equal(emptyAvailability.blockedCount, 0, 'an empty result set must not report blocked results');
+assert.equal(emptyAvailability.allBlocked, false, 'a scale checkbox must be enabled before results exist');
+
+// 8. Keyboard activation must be explicit because OUT-001 requires a real Space toggle.
+assert.match(
+  html,
+  /\[exportScale2x, exportScale4x, exportScale8x\][\s\S]*?addEventListener\('keydown',[\s\S]*?event\.preventDefault\(\)[\s\S]*?cb\.checked = !cb\.checked[\s\S]*?dispatchEvent\(new Event\('change', \{ bubbles: true \}\)\)/,
+  'nearest-scale checkboxes must implement deterministic Space activation'
+);
+
+console.log('OUT-001 regression checks passed (N×N blocks, smoothing=false, limits, scale availability, keyboard activation, settings summary).');

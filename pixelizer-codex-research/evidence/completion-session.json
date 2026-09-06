@@ -1,0 +1,332 @@
+{
+  "alp": {
+    "measurements": [
+      {
+        "overlay": {
+          "cssHeight": "16px",
+          "cssWidth": "16px",
+          "display": "block",
+          "height": 16,
+          "width": 16
+        },
+        "title": "알파 진단 표시 (작은 섬 2)",
+        "zoom": "1"
+      },
+      {
+        "overlay": {
+          "cssHeight": "32px",
+          "cssWidth": "32px",
+          "display": "block",
+          "height": 16,
+          "width": 16
+        },
+        "title": "알파 진단 표시 (작은 섬 2)",
+        "zoom": "2"
+      },
+      {
+        "overlay": {
+          "cssHeight": "128px",
+          "cssWidth": "128px",
+          "display": "block",
+          "height": 16,
+          "width": 16
+        },
+        "title": "알파 진단 표시 (작은 섬 2)",
+        "zoom": "8"
+      }
+    ],
+    "backgrounds": [
+      "modal-canvas-wrap bg-white",
+      "modal-canvas-wrap bg-black",
+      "modal-canvas-wrap bg-green",
+      "modal-canvas-wrap bg-magenta",
+      "modal-canvas-wrap bg-cyan",
+      "modal-canvas-wrap bg-custom",
+      "modal-canvas-wrap bg-checker"
+    ],
+    "custom": {
+      "class": "preview bg-custom",
+      "css": "#12AB34"
+    },
+    "inputShortcutIgnored": true,
+    "invalidCustomPreserved": "#12AB34",
+    "mobile": {
+      "overlay": [
+        "128px",
+        "128px"
+      ],
+      "pressed": "true",
+      "scrollWidth": 382,
+      "width": 390
+    }
+  },
+  "cfg": {
+    "logRestore": {
+      "feedback": "옵션 설정이 성공적으로 복원되었습니다.",
+      "mode": "original",
+      "palette": "unlimited"
+    },
+    "cancelFocus": "applyPresetBtn",
+    "invalid": "설정 불러오기 실패: 지원하지 않는 설정 버전: v2. 현재 버전은 v1만 지원합니다.",
+    "importSuccess": "설정 파일이 성공적으로 적용되었습니다."
+  },
+  "ux": {
+    "logFallback": {
+      "notice": "저장된 로그에는 원본 이미지가 없습니다.",
+      "sourceDisabled": true,
+      "splitDisabled": true
+    },
+    "scales": [
+      {
+        "css": [
+          "96px",
+          "168px"
+        ],
+        "source": [
+          768,
+          1344
+        ],
+        "zoom": "1"
+      },
+      {
+        "css": [
+          "192px",
+          "336px"
+        ],
+        "source": [
+          768,
+          1344
+        ],
+        "zoom": "2"
+      },
+      {
+        "css": [
+          "768px",
+          "1344px"
+        ],
+        "source": [
+          768,
+          1344
+        ],
+        "zoom": "8"
+      }
+    ],
+    "mobile": {
+      "direction": "column",
+      "scrollWidth": 382,
+      "width": 390
+    },
+    "pan": {
+      "before": {
+        "h": 336,
+        "left": 304,
+        "top": 1216,
+        "w": 192,
+        "x": 95,
+        "y": 196.8046875
+      },
+      "after": {
+        "left": 381,
+        "top": 1350.5
+      }
+    },
+    "tabWrap": "modalModeResult",
+    "shiftTabWrap": "modalExpandToggle",
+    "closed": {
+      "focus": "preview bg-custom",
+      "open": false,
+      "sourceCanvasCount": 0
+    }
+  },
+  "geo": {
+    "hidden": {
+      "factorDisabled": true,
+      "mode": "square"
+    },
+    "transition": {
+      "calculation": "\n                  \n                    \n                      축소 배율\n                      \n                        ?\n                      \n                    \n                    \n                  \n\n                  \n                    \n                      프레임 분할 방식\n                      \n                        ?\n                      \n                    \n                    \n                      \n                        \n                        전체 이미지\n                      \n                      \n                        \n                        스프라이트 시트 프레임별\n                      \n                    \n                  \n\n                  \n                    \n                      \n                        원본 프레임 크기\n                        \n                          ?\n                        \n                      \n                      \n                        \n                        \n                      \n                    \n                  \n\n                  입력 768×1344 ÷ 8 → 출력 96×168\n                ",
+      "factorDisplay": "block",
+      "methodDisabled": true,
+      "sizeDisabled": true
+    },
+    "hero": {
+      "1": {
+        "css": [
+          "96px",
+          "168px"
+        ],
+        "height": 168,
+        "pressed": [
+          [
+            "1×",
+            "true"
+          ],
+          [
+            "2×",
+            "false"
+          ],
+          [
+            "8×",
+            "false"
+          ],
+          [
+            "1×",
+            "false"
+          ],
+          [
+            "2×",
+            "false"
+          ],
+          [
+            "8×",
+            "false"
+          ]
+        ],
+        "width": 96
+      },
+      "8": {
+        "css": [
+          "768px",
+          "1344px"
+        ],
+        "height": 168,
+        "pressed": [
+          [
+            "1×",
+            "false"
+          ],
+          [
+            "2×",
+            "false"
+          ],
+          [
+            "8×",
+            "true"
+          ],
+          [
+            "1×",
+            "false"
+          ],
+          [
+            "2×",
+            "false"
+          ],
+          [
+            "8×",
+            "false"
+          ]
+        ],
+        "width": 96
+      }
+    },
+    "invalidMulti": {
+      "disabled": true,
+      "message": "\n                  \n                    \n                      축소 배율\n                      \n                        ?\n                      \n                    \n                    \n                  \n\n                  \n                    \n                      프레임 분할 방식\n                      \n                        ?\n                      \n                    \n                    \n                      \n                        \n                        전체 이미지\n                      \n                      \n                        \n                        스프라이트 시트 프레임별\n                      \n                    \n                  \n\n                  \n                    \n                      \n                        원본 프레임 크기\n                        \n                          ?\n                        \n                      \n                      \n                        \n                        \n                      \n                    \n                  \n\n                  입력 768×1344 ÷ 8 → 출력 96×168invalid-factor4-101x100.png: 101×100는 배율 8로 정확히 나눌 수 없습니다.\n                "
+    },
+    "invalidRemoval": {
+      "disabled": true,
+      "message": "\n                  \n                    \n                      축소 배율\n                      \n                        ?\n                      \n                    \n                    \n                  \n\n                  \n                    \n                      프레임 분할 방식\n                      \n                        ?\n                      \n                    \n                    \n                      \n                        \n                        전체 이미지\n                      \n                      \n                        \n                        스프라이트 시트 프레임별\n                      \n                    \n                  \n\n                  \n                    \n                      \n                        원본 프레임 크기\n                        \n                          ?\n                        \n                      \n                      \n                        \n                        \n                      \n                    \n                  \n\n                  invalid-factor4-101x100.png: 101×100는 배율 8로 정확히 나눌 수 없습니다.\n                "
+    },
+    "invalidSingle": {
+      "disabled": true,
+      "message": "\n                  \n                    \n                      축소 배율\n                      \n                        ?\n                      \n                    \n                    \n                  \n\n                  \n                    \n                      프레임 분할 방식\n                      \n                        ?\n                      \n                    \n                    \n                      \n                        \n                        전체 이미지\n                      \n                      \n                        \n                        스프라이트 시트 프레임별\n                      \n                    \n                  \n\n                  \n                    \n                      \n                        원본 프레임 크기\n                        \n                          ?\n                        \n                      \n                      \n                        \n                        \n                      \n                    \n                  \n\n                  invalid-factor4-101x100.png: 101×100는 배율 4로 정확히 나눌 수 없습니다.\n                "
+    },
+    "mobileInvalid": {
+      "disabled": true,
+      "scrollWidth": 382,
+      "width": 390
+    },
+    "mobileValid": {
+      "canvas": [
+        96,
+        168
+      ],
+      "scrollWidth": 382,
+      "width": 390,
+      "zoom": "8"
+    },
+    "nonSquare": {
+      "h": 234,
+      "status": "입력 이미지가 바뀌었습니다. 격자를 분석하거나 수동 값을 적용하세요.",
+      "w": 160
+    },
+    "sheet": {
+      "css": [
+        "512px",
+        "256px"
+      ],
+      "h": 32,
+      "w": 64
+    },
+    "console": [],
+    "runFocus": "runBtn",
+    "enterStatus": "완료 — 1개 이미지 처리됨",
+    "spaceStatus": "완료 — 1개 이미지 처리됨"
+  },
+  "out": {
+    "keyboard": [
+      false,
+      true
+    ],
+    "focus": "exportScale2x",
+    "desktop": {
+      "buttons": [
+        "PNG",
+        "2× PNG",
+        "8× PNG",
+        "JSON",
+        "옵션 불러오기",
+        "결과 불러오기",
+        "삭제"
+      ],
+      "height": 168,
+      "width": 96
+    },
+    "mobile": {
+      "buttons": [
+        {
+          "disabled": false,
+          "text": "PNG",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "text": "2× PNG",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "text": "8× PNG",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "text": "JSON",
+          "visible": true
+        }
+      ],
+      "scrollWidth": 382,
+      "width": 390
+    },
+    "limit": {
+      "buttons": [
+        {
+          "disabled": false,
+          "text": "PNG"
+        },
+        {
+          "disabled": true,
+          "text": "8× PNG"
+        },
+        {
+          "disabled": false,
+          "text": "JSON"
+        }
+      ],
+      "checkboxDisabled": true,
+      "warning": "주의: perf-1024x1024.png: 4× 확대 시 최대 처리량(4096×4096) 초과 / perf-1024x1024.png: 8× 확대 시 최대 처리량(8192×8192) 초과"
+    },
+    "initialDisabled": true
+  },
+  "console": []
+}

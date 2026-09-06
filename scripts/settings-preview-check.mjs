@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const html = fs.readFileSync(new URL('../pixelate_studio.html', import.meta.url), 'utf8');
+const listeners = {};
+let focus = '';
+const element = id => ({id,style:{},value:'',text:'',options:[{text:'Sheet preset'}],selectedIndex:0,addEventListener(event,cb){listeners[id+':'+event]=cb;},focus(){focus=id;},replaceChildren(){},appendChild(){}});
+const ids=['presetSelect','applyPresetBtn','presetDiffBox','presetDiffList','presetDiffCancelBtn','presetDiffConfirmBtn'];
+const env=Object.fromEntries(ids.map(id=>[id,element(id)]));
+let current={scaleMode:'square',colors:16};
+Object.assign(env,{pendingPresetKey:null,PRESETS:{sheet:{scaleMode:'preserve-sheet'},animation:{colors:32}},readUiSettings:()=>({...current}),diffSettings:(a,b)=>Object.entries(b).filter(([k,v])=>a[k]!==v).map(([key])=>({label:key})),normalizeSettings:settings=>({settings}),applyUiSettings:s=>{current=s;},showSettingsFeedback:()=>{},document:{createElement:()=>({})}});
+vm.runInNewContext(html.slice(html.indexOf("presetSelect.addEventListener('change'"),html.indexOf("exportSettingsBtn.addEventListener('click'")),env);
+const fire=(id,event='click')=>listeners[id+':'+event]();
+env.presetSelect.value='sheet'; fire('applyPresetBtn'); assert.equal(focus,'presetDiffConfirmBtn'); fire('presetDiffCancelBtn'); assert.equal(focus,'applyPresetBtn'); assert.equal(current.scaleMode,'square');
+fire('applyPresetBtn'); env.presetSelect.value='animation';fire('presetSelect','change');fire('presetDiffConfirmBtn');assert.deepEqual(current,{scaleMode:'square',colors:16},'changing selection invalidates old confirmation');
+env.presetSelect.value='sheet';fire('applyPresetBtn');fire('presetDiffConfirmBtn');assert.equal(current.scaleMode,'preserve-sheet');assert.equal(current.colors,16);assert.equal(focus,'applyPresetBtn');
+console.log('Preset production event handlers: cancel atomicity, focus return, stale confirmation rejection, partial apply PASS');

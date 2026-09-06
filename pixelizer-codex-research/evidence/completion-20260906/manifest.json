@@ -1,0 +1,116 @@
+{
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "files": {
+    "pixelizer-codex-research/evidence/completion-20260906/integration.json": {
+      "bytes": 9633,
+      "sha256": "90c4cd32b53b317db8a480c8fa58e02836faf61723408367dfc5dfed75d9aee3"
+    },
+    "pixelizer-codex-research/evidence/completion-session.json": {
+      "bytes": 11498,
+      "sha256": "41f68cff217ed0427a16656d1ceca87212cc0ef350891068d0615a925290098a"
+    },
+    "pixelizer-codex-research/evidence/completion-20260906/performance.json": {
+      "bytes": 5000,
+      "sha256": "36c3a2c8c90379154ad43bccd427b60287bafc65a874eef3c7d7c2c9f4b6e580"
+    },
+    "pixelizer-codex-research/evidence/completion-20260906/keyboard-cancel-iab.json": {
+      "bytes": 1260,
+      "sha256": "647d85a8613c7e10ff5e00c174b3df59193c7943a256467abb52d2fb61805b67"
+    },
+    "pixelizer-codex-research/evidence/completion-20260906/worker-cancel-iab.json": {
+      "bytes": 1260,
+      "sha256": "409bf2e13b67e413f1e2c89794ca1210e38f2a5e32b9d8699c9e257d2c461d0b"
+    },
+    "pixelizer-codex-research/evidence/completion-20260906/rerun-iab.json": {
+      "bytes": 1251,
+      "sha256": "cce250fb206b39fedefec6e7809b7414e041042cb32194be3c99c30d7b538a2a"
+    },
+    "pixelizer-codex-research/evidence/cfg-001/current-invalid-import.png": {
+      "bytes": 43611,
+      "sha256": "c32eab01a5b32b9eb32871fc6f2f6911454496bde4225027404a76e9bee14dd0"
+    },
+    "pixelizer-codex-research/evidence/cfg-001/current-mobile.png": {
+      "bytes": 5285,
+      "sha256": "548963263aef29f1d3aca26d62cfb0e343fb11aa22580d7d8e7f2dcc80fc6ece"
+    },
+    "pixelizer-codex-research/evidence/cfg-001/current-preset-diff.png": {
+      "bytes": 45849,
+      "sha256": "1a2e13182435fcf3c2717628b891a47cf9a1cb4cf30c236874928d49b74af29d"
+    },
+    "pixelizer-codex-research/evidence/ux-001/current-desktop-1x.png": {
+      "bytes": 32228,
+      "sha256": "743509c3b60494e30d2d12990d23ba9c9dcf60a3666bca043c2e21e2777cf932"
+    },
+    "pixelizer-codex-research/evidence/ux-001/current-desktop-2x.png": {
+      "bytes": 31639,
+      "sha256": "5934d5d189bb5be3c74e2d77ca8ae6ffca759e44e109728708de912dee02039b"
+    },
+    "pixelizer-codex-research/evidence/ux-001/current-desktop-8x.png": {
+      "bytes": 27680,
+      "sha256": "6fb85f901fff53bdd31af20b4cf830a5fc8dbc8b372bbd2921f824d3c5fbb83b"
+    },
+    "pixelizer-codex-research/evidence/ux-001/current-log-fallback.png": {
+      "bytes": 30226,
+      "sha256": "f0484b08876ba337a896b96ac8565c07d8b2d27594771c45f6c371be43ebcb9a"
+    },
+    "pixelizer-codex-research/evidence/ux-001/current-mobile-ab.png": {
+      "bytes": 37180,
+      "sha256": "9db6075cec3e9adefa33f86d17011690b842ce6fce8bfb6bf81cf44af81a5a8d"
+    },
+    "pixelizer-codex-research/evidence/pal-001/current-chips-dark.png": {
+      "bytes": 60236,
+      "sha256": "689cffd8a65ca5ecf92bf1fbd2d3d6480085eff470f29922b9ba7c6c5a10a48b"
+    },
+    "pixelizer-codex-research/evidence/pal-001/current-chips-light.png": {
+      "bytes": 69463,
+      "sha256": "d5c082b72a2a1abda94aab88e05a460998c9236419cb20a247bee9bc1fd29f49"
+    },
+    "pixelizer-codex-research/evidence/pal-001/current-chips-mobile.png": {
+      "bytes": 39825,
+      "sha256": "2c4d21d2a236e74cb9c5937a6d57ca7154f6712c268ce795970851e45e3648d4"
+    },
+    "pixelizer-codex-research/evidence/pal-001/current-invalid-atomic.png": {
+      "bytes": 51293,
+      "sha256": "66db440d0a54b2591010dd1a3a023149dc7706704393e1267d6439615010ac43"
+    },
+    "pixelizer-codex-research/evidence/alp-001/current-green.png": {
+      "bytes": 29206,
+      "sha256": "6914bbe31731ae7953d52fa917261a64d89073d508b6e31d807c1884b7ff167e"
+    },
+    "pixelizer-codex-research/evidence/alp-001/current-magenta.png": {
+      "bytes": 28999,
+      "sha256": "df23e1b31c2fd3cf2c82c89a0e55793b9e975c954b136353e971b98163312454"
+    },
+    "pixelizer-codex-research/evidence/alp-001/current-mobile-overlay.png": {
+      "bytes": 18345,
+      "sha256": "498ae4c6611543e100cf29199b77e7812ba8f9f0f64d2dc1d561a38601ba83fc"
+    },
+    "pixelizer-codex-research/evidence/alp-001/current-overlay-1x.png": {
+      "bytes": 49860,
+      "sha256": "218a4d062957b0f5fd83b11c10a889ae049d5a0bbc5acf7553c1911f21582866"
+    },
+    "pixelizer-codex-research/evidence/alp-001/current-overlay-2x.png": {
+      "bytes": 49523,
+      "sha256": "69d7731c7e348be3983e33f633b1ad62e99e2f6b87c0165c6ae17fd96aaa9d97"
+    },
+    "pixelizer-codex-research/evidence/alp-001/current-overlay-8x.png": {
+      "bytes": 49739,
+      "sha256": "d35bf5b85ce3dd65fbce53b408eb11f4ab446ded61fcbc4e3744efb0387ac0f4"
+    },
+    "tests/completion-browser-harness.html": {
+      "bytes": 879,
+      "sha256": "b5f61c47fef60d2e6f365d61f93cd50e3606dadc2f137f5ff267333ded23085b"
+    },
+    "tests/completion-browser-harness.js": {
+      "bytes": 12728,
+      "sha256": "bebc10bb4eb8278480a68265c0d8b6fb2cf514697bbae4fbc1372c06e81d5ea0"
+    }
+  },
+  "limitations": [
+    "Chrome native permission denied after explicit user authorization; Chrome browser unavailable.",
+    "IAB early keyboard cancellation maxInputDelayMs 131.2 exceeds 100ms; repeat visible Chrome test remains required.",
+    "OS save boundary not verified; integration captures actual production Blob bytes.",
+    "Mobile A/B latest screenshot uses 2048x2048 PERF fixture; prior DOM measurements use non-square hero fixture."
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "runDateKst": "2026-09-06",
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "status": "PASS",
+  "checks": [
+    {
+      "file": "scripts/visual-quality-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 656.2,
+      "stdout": "PASS ai-grid-wobble     35030be67bce 16.671ms\nPASS alpha-edge         71bc71d4bf93 3.412ms\nPASS animation-16       a55d1628c427 5.394ms\nPASS clean-pixel-art    f74f015261aa 1.347ms\nPASS gradient-gray      0da1ceafca73 3.061ms\nPASS hard-edge-phase    838c77defca9 3.851ms\nPASS low-contrast       4747493c3f44 2.758ms\nPASS non-square-factor  1729ccb8af7e 35.875ms\nPASS photo-like         f398b97a9dc1 13.608ms\nPASS sprite-sheet       25f83919cb99 4.237ms\nPASS texture-checker    892ecf467b08 4.692ms\nPASS thin-lines         19b80be38484 2.483ms\nPASS current-square-default       ab006b365f9c baseline\nPASS current-preserve-sheet-4x    55bf669981d7 baseline\nVisual quality checks: 12 passed, 0 failed, deterministic db4b3d904fbcc53e83966e3db097b6e27242ee6494e7c0f2f943a007e6f23cef.\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/animation-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 76.1,
+      "stdout": "ANI-001 animation implementation checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/ani001-ui-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 61,
+      "stdout": "ANI-001 DOM, layout, focus, lifecycle, and metadata checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/grid-detection-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 235,
+      "stdout": "GRID-001 detector checks passed. wobble=8/8 confidence=0.3820 photo=0.2253 hash=7d972e1967c885640cf996243e514567e601c0add626cf37e1e83c9869b16396\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/grid001-ui-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 54.3,
+      "stdout": "GRID-001 executable confidence, cancellation, 4M limit, metadata, and UI wiring checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/alp002-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 144,
+      "stdout": "✔ ALP-002: Alpha threshold boundary testing (values 0, 9, 10, 127, 255) (1.26975ms)\n✔ ALP-002: Coverage auto palette applies alpha/255 weighting without changing binary samples (0.301083ms)\n✔ ALP-002: Noise cleanup preserves alpha values unchanged (0.304958ms)\n✔ ALP-002: Outline assigns alpha 255 to newly created pixels and preserves existing alpha (0.235792ms)\n✔ ALP-002: computeAlphaDiagnostics accurately reflects custom threshold (0.29275ms)\n✔ ALP-002: Settings validation and normalization for alphaMode and alphaThreshold (1.324916ms)\n✔ ALP-002: Production alpha helpers generate matching binary/coverage output and improve MAE (0.397125ms)\n✔ ALP-002: Production alpha artifacts preserve hole topology, coverage matrix, legacy hash, and determinism (1.355083ms)\n✔ ALP-002: Coverage JSON/log size gate is fail-closed while small results remain storable (56.037583ms)\n✔ ALP-002: Restored logs retain the final partial-alpha summary (0.412875ms)\nℹ tests 10\nℹ suites 0\nℹ pass 10\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 70.113709\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/alp002-ui-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 55.7,
+      "stdout": "All ALP-002 UI DOM and interactive checks passed successfully!\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/cell001-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 368,
+      "stdout": "CELL-001 exact, route, threshold, determinism, and runtime checks passed. hashes={\"mean-srgb\":\"3b1bc28d94bbdb6bfa425e1f8351590775bb97f2ad9c0a76af1202ca7301b972\",\"mean-linear\":\"2af1ec14b9bd8c285224352290688de4f4ebf9f13ee2d88ed05e3cdfca9ef319\",\"center\":\"2d2d3c495e03c326fabce3bf80cfb2f918d5463a86dec6cbe78e7210182d65ac\",\"median\":\"97561a98ca549249e6847a20dfdaeeb45b5bc970f3cd52c3a580633106bcecac\",\"majority\":\"97561a98ca549249e6847a20dfdaeeb45b5bc970f3cd52c3a580633106bcecac\"} timingsMs={\"mean-srgb\":7.527,\"mean-linear\":87.584,\"center\":16.6,\"median\":16.445,\"majority\":23.337}\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/cell001-ui-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 55.3,
+      "stdout": "CELL-001 experimental UI, settings visibility, route wiring, warning, and metadata checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/pal002-ui-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 57.5,
+      "stdout": "PAL-002 experimental UI, disabled states, reference errors, metadata, and settings wiring passed.\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/dit001-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 72.4,
+      "stdout": "✔ DIT-001: Bayer matrix structure and threshold formulas (1.309042ms)\n✔ DIT-001: Two-nearest palette colors and tie-breaking (0.204ms)\n✔ DIT-001: Ordered dithering behavior across strength and modes (0.294708ms)\n✔ DIT-001: Monotonic block density response across uniform brightness levels (0.6225ms)\n✔ DIT-001: Alpha and transparency invariance (0.415959ms)\n✔ DIT-001: Global coordinate pattern origin consistency across frames/sheets (0.07875ms)\n✔ DIT-001: Settings normalization, defaults, presets, and validation (1.624375ms)\nℹ tests 7\nℹ suites 0\nℹ pass 7\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 9.432292\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/dit001-ui-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 61.5,
+      "stdout": "DIT-001 UI checks passed (markup, slider/num sync, presets, warning notice, metadata).\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/edge001-check.mjs",
+      "exitCode": 0,
+      "elapsedMs": 2210.5,
+      "stdout": "EDGE-001 exact, boundary, ordering, determinism, 4M runtime checks passed. baseline=5c374a7a2078bc144f23dfca48f4e1d03a5fd1d03113027743139b8960787044 candidate=d31d6ab3022e0cf3db012f4e3d791fe1a393f91331db03f5430446ad2e52f8d0 elapsedMs=2038.8 memoryBytes=25165824\n",
+      "stderr": ""
+    }
+  ]
+}

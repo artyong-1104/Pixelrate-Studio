@@ -1,0 +1,1 @@
+PASS: current-source integration/artifact integrity and missing/tampered/stale/FAIL rejection. This does not replace the dedicated PERF evidence gate.

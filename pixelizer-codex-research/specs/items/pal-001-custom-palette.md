@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 |
+| QA 상태 | 완료 — 현재 소스 검증 및 전체 37/37 PASS |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED |
 | 구현 모델 | Luna xhigh |
@@ -120,3 +120,11 @@
 
 - 브라우저 PNG decode가 색 profile 때문에 플랫폼별 RGB가 달라지면 fixture와 차이를 보고한다.
 - custom palette mismatch를 정량화하려면 PAL-002를 기다리고 임의 threshold 경고를 추가하지 않는다.
+
+## 2026-09-06 현재 소스 재검증
+
+잘못된 파일의 부분 적용을 차단하고 aria-live 오류와 object URL 해제를 보완했다. HEX/GPL/PNG·unused index·partial alpha·light/dark/mobile 캡처를 기록했다. [증거 및 남은 완료 조건](../../evidence/completion-20260906/README.md). 전체 36/37 검사로 최종 DONE은 보류한다.
+
+## 2026-09-06 최종 판정
+
+현재 소스 전체 자동 검사 37/37, 항목별 브라우저·결정성·무결성 증거를 확인해 `DONE`으로 갱신했다. 앞의 NEEDS_REVIEW 기록은 검증 진행 중의 이력이다. [최종 보고서 및 검증 환경·한계](../../evidence/completion-20260906/README.md).

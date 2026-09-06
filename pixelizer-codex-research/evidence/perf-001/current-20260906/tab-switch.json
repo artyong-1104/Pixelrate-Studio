@@ -1,0 +1,64 @@
+{
+  "tabBefore": "tabResultsBtn",
+  "tabDuring": "tabLogsBtn",
+  "tabAfter": "tabResultsBtn",
+  "cancelButtonDisabledAfter": true,
+  "focus": "tabResultsBtn",
+  "report": {
+    "cancelToTerminalMs": null,
+    "estimatedPeakBytes": 37748800,
+    "heapUsedBytes": 105697051,
+    "inputDelayAvailable": true,
+    "inputPixels": 4194304,
+    "longTasks": [],
+    "maxInputDelayMs": 21.5,
+    "maxWorkerChunkMs": 32.2,
+    "outcome": "completed",
+    "paletteAlgorithm": "kmeans-srgb",
+    "paletteMode": "auto",
+    "processId": "6",
+    "schemaVersion": 1,
+    "stages": {
+      "cleanup": {
+        "samples": 1,
+        "totalMs": 2430.9
+      },
+      "decode": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "downscale": {
+        "samples": 1,
+        "totalMs": 20.5
+      },
+      "export": {
+        "samples": 1,
+        "totalMs": 381.1
+      },
+      "grid": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "map": {
+        "samples": 1,
+        "totalMs": 362.7
+      },
+      "outline": {
+        "samples": 1,
+        "totalMs": 0
+      },
+      "palette": {
+        "samples": 1,
+        "totalMs": 108.3
+      }
+    },
+    "wallTimeMs": 3326.5,
+    "wasmDecision": "not-adopted-worker-below-memory-gate",
+    "workerCancelLatencyMs": null,
+    "workerThresholdPixels": 262144,
+    "workerUsed": true
+  },
+  "resultCount": 1,
+  "runButtonRestored": true,
+  "status": "완료 — 1개 이미지 처리됨"
+}

@@ -136,7 +136,8 @@ for (const fixtureId of ['256K', '1M', '4M']) {
   assert.equal(run.resultCount, 1, `${fixtureId} completion must publish exactly one result`);
   assert.equal(run.workerUsed, true, `${fixtureId} must use the measured Worker path`);
   assert.ok(run.maxWorkerChunkMs < 50, `${fixtureId} Worker chunk exceeded 50ms`);
-  assert.ok(run.maxInputDelayMs < 100, `${fixtureId} input delay exceeded 100ms`);
+  assert.equal(run.inputDelayAvailable, true, `${fixtureId} input-delay instrumentation unavailable`);
+  assert.ok(Number.isFinite(run.maxInputDelayMs) && run.maxInputDelayMs < 100, `${fixtureId} input delay exceeded 100ms`);
   assert.equal(run.longTaskCount, 0, `${fixtureId} reported a main-thread long task`);
   assert.ok(run.wallTimeMs > 0);
   assert.deepEqual(Object.keys(run.stagesMs), ['decode', 'downscale', 'grid', 'palette', 'map', 'cleanup', 'outline', 'export']);
@@ -190,7 +191,10 @@ assert.equal(browser.wasmDecision.decision, benchmark.wasmDecision.decision);
 
 const keyboardHarnessHtmlPath = path.join(root, 'tests', 'perf001-browser-keyboard-harness.html');
 const keyboardHarnessScriptPath = path.join(root, 'tests', 'perf001-browser-keyboard-harness.js');
-assert.equal(browser.keyboardCancellation.browser, 'Google Chrome');
+// The user explicitly selected the sidebar browser when Chrome was unavailable.
+const qaBrowser = 'Codex In-app Browser';
+assert.equal(browser.browserSelection, 'user-requested-sidebar-fallback');
+assert.equal(browser.keyboardCancellation.browser, qaBrowser);
 assert.equal(browser.keyboardCancellation.key, 'Space');
 assert.equal(browser.keyboardCancellation.outcome, 'cancelled');
 assert.equal(browser.keyboardCancellation.workerUsed, true);
@@ -207,7 +211,7 @@ const keyboardHarnessScript = fs.readFileSync(keyboardHarnessScriptPath, 'utf8')
 assert.match(keyboardHarnessScript, /fetch\('\.\.\/pixelizer-codex-research\/evidence\/perf-001\/browser-fixtures\/perf-2048x2048\.png'\)/);
 assert.doesNotMatch(keyboardHarnessScript, /https?:\/\//, 'keyboard harness must not make external requests');
 assert.equal(browser.accessibility.keyboardActivation, true);
-assert.equal(browser.accessibility.keyboardActivationBrowser, 'Google Chrome');
+assert.equal(browser.accessibility.keyboardActivationBrowser, qaBrowser);
 
 assert.match(html, /<button class="ghost" id="cancelProcessBtn" type="button" disabled[^>]*>\uCC98\uB9AC \uCDE8\uC18C<\/button>/);
 assert.match(html, /<div class="status" id="status" role="status" aria-live="polite"/);
@@ -216,5 +220,11 @@ assert.match(worker, /message\.stage !== 'cleanup'/);
 assert.match(worker, /message\.stage !== 'png-encode'/);
 assert.doesNotMatch(worker, /\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|importScripts)\s*\(/);
 assert.deepEqual(findWasmFiles(root), [], 'WASM gate is closed, so no production .wasm file may exist');
+
+for (const [file, expectedHash] of Object.entries(browser.rawReports)) assertArtifact(file, expectedHash);
+const rawKey = readJson('pixelizer-codex-research/evidence/perf-001/current-20260906/harness-keyboard.json');
+assert.equal(rawKey.report.inputDelayAvailable, true);
+assert.equal(rawKey.report.cancelToTerminalMs, browser.keyboardCancellation.cancelToTerminalMs);
+assert.equal(rawKey.report.workerUsed, true);
 
 console.log('PERF-001 evidence gate passed: QLT provenance, benchmark, performance trace, click/video/keyboard cancel, browser integrity, rerun, tab, mobile, failure and no-WASM decision');

@@ -1,0 +1,186 @@
+{
+  "scenarios": [
+    {
+      "name": "PERF-001 512",
+      "status": "PASS",
+      "measurements": {
+        "schemaVersion": 1,
+        "processId": "1",
+        "inputPixels": 262144,
+        "paletteAlgorithm": "kmeans-srgb",
+        "paletteMode": "auto",
+        "workerThresholdPixels": 262144,
+        "workerUsed": true,
+        "stages": {
+          "decode": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "downscale": {
+            "totalMs": 2.5,
+            "samples": 1
+          },
+          "grid": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "palette": {
+            "totalMs": 35.7,
+            "samples": 1
+          },
+          "map": {
+            "totalMs": 33.7,
+            "samples": 1
+          },
+          "cleanup": {
+            "totalMs": 0,
+            "samples": 0
+          },
+          "outline": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "export": {
+            "totalMs": 32.7,
+            "samples": 1
+          }
+        },
+        "longTasks": [],
+        "inputDelayAvailable": false,
+        "maxInputDelayMs": null,
+        "maxWorkerChunkMs": 2.4,
+        "workerCancelLatencyMs": null,
+        "estimatedPeakBytes": 2359360,
+        "wallTimeMs": 109.9,
+        "outcome": "completed",
+        "wasmDecision": "not-adopted-worker-below-memory-gate",
+        "cancelToTerminalMs": null,
+        "heapUsedBytes": 18030212
+      }
+    },
+    {
+      "name": "PERF-001 1024",
+      "status": "PASS",
+      "measurements": {
+        "schemaVersion": 1,
+        "processId": "1",
+        "inputPixels": 1048576,
+        "paletteAlgorithm": "kmeans-srgb",
+        "paletteMode": "auto",
+        "workerThresholdPixels": 262144,
+        "workerUsed": true,
+        "stages": {
+          "decode": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "downscale": {
+            "totalMs": 5.3,
+            "samples": 1
+          },
+          "grid": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "palette": {
+            "totalMs": 41.7,
+            "samples": 1
+          },
+          "map": {
+            "totalMs": 61.2,
+            "samples": 1
+          },
+          "cleanup": {
+            "totalMs": 0,
+            "samples": 0
+          },
+          "outline": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "export": {
+            "totalMs": 77.3,
+            "samples": 1
+          }
+        },
+        "longTasks": [],
+        "inputDelayAvailable": false,
+        "maxInputDelayMs": null,
+        "maxWorkerChunkMs": 2.3,
+        "workerCancelLatencyMs": null,
+        "estimatedPeakBytes": 9437248,
+        "wallTimeMs": 191.7,
+        "outcome": "completed",
+        "wasmDecision": "not-adopted-worker-below-memory-gate",
+        "cancelToTerminalMs": null,
+        "heapUsedBytes": 47484348
+      }
+    },
+    {
+      "name": "PERF-001 2048",
+      "status": "PASS",
+      "measurements": {
+        "schemaVersion": 1,
+        "processId": "1",
+        "inputPixels": 4194304,
+        "paletteAlgorithm": "kmeans-srgb",
+        "paletteMode": "auto",
+        "workerThresholdPixels": 262144,
+        "workerUsed": true,
+        "stages": {
+          "decode": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "downscale": {
+            "totalMs": 18.1,
+            "samples": 1
+          },
+          "grid": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "palette": {
+            "totalMs": 43.3,
+            "samples": 1
+          },
+          "map": {
+            "totalMs": 159.4,
+            "samples": 1
+          },
+          "cleanup": {
+            "totalMs": 0,
+            "samples": 0
+          },
+          "outline": {
+            "totalMs": 0,
+            "samples": 1
+          },
+          "export": {
+            "totalMs": 214.6,
+            "samples": 1
+          }
+        },
+        "longTasks": [],
+        "inputDelayAvailable": false,
+        "maxInputDelayMs": null,
+        "maxWorkerChunkMs": 2.3,
+        "workerCancelLatencyMs": null,
+        "estimatedPeakBytes": 37748800,
+        "wallTimeMs": 445.2,
+        "outcome": "completed",
+        "wasmDecision": "not-adopted-worker-below-memory-gate",
+        "cancelToTerminalMs": null,
+        "heapUsedBytes": 144640905
+      }
+    }
+  ],
+  "artifacts": {},
+  "startedAt": "2026-09-05T18:16:07.916Z",
+  "applicationSha256": "a671b665aee776bbc2872ff1461750543cf8eabe90ffe599dbdaee9fb6f55080",
+  "workerSha256": "444db75f4ebf6a57c43e1dc1805fb70459831003d34998a89b4db690994665f0",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "method": "Production iframe; programmatic integration scenarios; OS download boundary intercepted. CUA keyboard and screenshots recorded separately.",
+  "status": "PASS",
+  "finishedAt": "2026-09-05T18:16:08.873Z"
+}

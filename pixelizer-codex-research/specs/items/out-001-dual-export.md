@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 |
+| QA 상태 | 완료 — 현재 소스 검증 및 전체 37/37 PASS |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED |
 | 구현 모델 | Luna xhigh |
@@ -117,6 +117,8 @@ ZIP도 순차 생성해 동시에 여러 확대 canvas를 메모리에 잡지 �
 
 native/2×/8× sample, block 검사 결과, ZIP 목록, 제한 초과 캡처를 대시보드에 연결한다.
 
+현재 결속 증거: [OUT-001 검증 보고서](../../evidence/out-001/README.md), [브라우저 측정 JSON](../../evidence/out-001/browser-qa.json). 2026-08-30 재검증에서 기존 두 blocker를 해소했다. 실제 Space off→on 토글, 단일 제한 초과 결과의 checkbox·result button disabled·경고·ZIP 제외, desktop·390px mobile·재업로드·결정성·캡처 무결성을 통과했고 OUT evidence gate는 exit 0이다. 다만 운영 HTML 해시 변경으로 범위 밖 GEO-001·PERF-001 증거 gate가 stale해 전체 회귀는 31/33이다. OUT-only 지시에 따라 두 항목을 수정하지 않았으므로 전체 gate 33/33 전에는 `DONE`으로 승인하지 않는다.
+
 ## 15. Luna xhigh 실행 지시문
 
 > OUT-001만 구현한다. native 결과는 기존 파일명·canvas·JSON을 유지하고 2×/4×/8× nearest 파생 PNG를 선택적으로 on-demand 생성한다. smoothing을 끄고 block 균일성을 테스트한다. 확대 canvas를 로그에 저장하지 말고 ZIP에서 순차 생성한다. 픽셀 제한 초과는 배율별로 명확히 경고한다. settings, 로그 복원, 개별 다운로드, ZIP, 접근성, CSP 해시와 모든 회귀 검사를 완료한다.
@@ -126,3 +128,14 @@ native/2×/8× sample, block 검사 결과, ZIP 목록, 제한 초과 캡처를 
 - 브라우저별 canvas 최대 크기 차이로 명시된 제한만으로 안전하지 않으면 실제 capability probe 제안을 보고하고 중단한다.
 - ZIP 메모리 사용이 기존 전체 제한에서 안정적이지 않으면 PERF-001로 넘긴다.
 
+## 17. 2026-08-30 현재 판정
+
+최종 상태는 `NEEDS_REVIEW`다. [`scripts/out001-evidence-gate-check.mjs`](../../../scripts/out001-evidence-gate-check.mjs)의 실제 QA gate와 누락·변조·stale hash·`status: FAIL`·필수 시나리오 false 음성 테스트는 모두 통과했다. 남은 차단 조건은 OUT 코드·QA가 아니라 전체 스크립 집합에서 현재 HTML 해시를 거부하는 GEO-001·PERF-001 이전 증거다. 사용자의 OUT-only 범위 제한에 따라 다른 개선 항목의 증거·상태는 변경하지 않았다.
+
+## 2026-09-06 현재 소스 검증
+
+[현재 검증 결과와 남은 완료 조건](../../evidence/completion-20260906/README.md)을 참조한다. 전체 자동 검사는 36/37 PASS이며 PERF의 현재 소스 Chrome 증거 갱신이 남아 최종 상태는 `NEEDS_REVIEW`다. 과거 완료 기록은 현재 소스 승인을 뜻하지 않는다.
+
+## 2026-09-06 최종 판정
+
+현재 소스 전체 자동 검사 37/37, 항목별 브라우저·결정성·무결성 증거를 확인해 `DONE`으로 갱신했다. 앞의 NEEDS_REVIEW 기록은 검증 진행 중의 이력이다. [최종 보고서 및 검증 환경·한계](../../evidence/completion-20260906/README.md).

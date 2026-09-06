@@ -1,0 +1,450 @@
+diff --git a/SECURITY.md b/SECURITY.md
+index 4fd010e..e1668e2 100644
+--- a/SECURITY.md
++++ b/SECURITY.md
+@@ -15,7 +15,7 @@ Pixelate Studio에는 서버 API, 로그인, 서버 데이터베이스가 없습
+ - HTML의 CSP는 기본 보호 장치입니다. 실제 서비스에서는 아래 정책을 HTTP 응답 헤더에도 적용합니다.
+ 
+ ```text
+-Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-907FBsLrs3+PN/PpX+WhPl2UOwIYQusgxSlslxdB0QA='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'
++Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-xeZBKpEO9cyuJYX9uiZXp2SvwmRxk77EmGebESsfNaQ='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'
+ Referrer-Policy: no-referrer
+ X-Content-Type-Options: nosniff
+ Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+diff --git a/pixelate_studio.html b/pixelate_studio.html
+index 332e821..28b7b0b 100644
+--- a/pixelate_studio.html
++++ b/pixelate_studio.html
+@@ -3,12 +3,12 @@
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-907FBsLrs3+PN/PpX+WhPl2UOwIYQusgxSlslxdB0QA='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'">
++  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-xeZBKpEO9cyuJYX9uiZXp2SvwmRxk77EmGebESsfNaQ='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'">
+ <!--
+ <!-- Inactive historical CSP declarations:
+ Inactive previous CSP hash: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+ Legacy hash declaration:
+-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YZ8pydZnQSsiBhLg8l+Hlv+iCdkuUO7TNGotwx4Gam4='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
++<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-xeZBKpEO9cyuJYX9uiZXp2SvwmRxk77EmGebESsfNaQ='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
+ <meta name="referrer" content="no-referrer">
+ -->
+ <meta name="referrer" content="no-referrer">
+@@ -1174,7 +1174,7 @@ Legacy hash declaration:
+                   </div>
+ 
+                   <div id="customPaletteStats" class="frame-size-note" aria-live="polite" style="margin-top:6px;">유효 0색</div>
+-                  <div id="customPaletteWarning" class="frame-size-note" style="color:var(--danger); margin-top:4px; display:none;"></div>
++                  <div id="customPaletteWarning" class="frame-size-note" aria-live="polite" style="color:var(--danger); margin-top:4px; display:none;"></div>
+ 
+                   <div id="customPaletteChips" class="palette-chip-grid" role="region" aria-label="팔레트 색상 칩 미리보기"></div>
+                 </div>
+@@ -1480,7 +1480,7 @@ Legacy hash declaration:
+   </div>
+ </div>
+ 
+-<div class="modal-overlay" id="modalOverlay">
++<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+   <div class="modal-box">
+     <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+       <!-- Mode buttons -->
+@@ -1796,6 +1796,7 @@ const presetDiffList = document.getElementById('presetDiffList');
+ const presetDiffCancelBtn = document.getElementById('presetDiffCancelBtn');
+ const presetDiffConfirmBtn = document.getElementById('presetDiffConfirmBtn');
+ const settingsFeedback = document.getElementById('settingsFeedback');
++let pendingPresetKey = null;
+ 
+ // ---------- 아코디언 토글 제어 ----------
+ document.querySelectorAll('.accordion-header').forEach(header => {
+@@ -6005,6 +6006,19 @@ function renderCustomPalettePreview() {
+   });
+ }
+ 
++function validatePaletteFileResult(parsed) {
++  if (parsed.errors?.length) throw new Error(parsed.errors.join('\n'));
++  if (parsed.hexes.length < 2 || parsed.hexes.length > 256) {
++    throw new Error(`팔레트는 2~256개의 고유 색상이 필요합니다 (현재 ${parsed.hexes.length}색).`);
++  }
++  return parsed;
++}
++
++function showPaletteFileError(message) {
++  customPaletteWarning.textContent = message;
++  customPaletteWarning.style.display = 'block';
++}
++
+ function nearestColorIndex(r,g,b,palette){
+   let best=0, bestDist=Infinity;
+   for(let i=0;i<palette.length;i++){
+@@ -6240,6 +6254,27 @@ function getSelectedNearestScales(){
+   return scales;
+ }
+ 
++function nearestScaleExceedsLimit(result, scale){
++  const sourceW = Number(result?.canvas?.width);
++  const sourceH = Number(result?.canvas?.height);
++  const s = Number(scale);
++  if(!Number.isFinite(sourceW) || !Number.isFinite(sourceH) || sourceW <= 0 || sourceH <= 0 || ![2, 4, 8].includes(s)){
++    return true;
++  }
++  const targetW = sourceW * s;
++  const targetH = sourceH * s;
++  return targetW * targetH > MAX_RAW_PROCESS_PIXELS || targetW > 4096 || targetH > 4096;
++}
++
++function getNearestScaleAvailability(results, scale){
++  const list = Array.isArray(results) ? results : [];
++  const blockedCount = list.reduce((count, result) => count + (nearestScaleExceedsLimit(result, scale) ? 1 : 0), 0);
++  return {
++    blockedCount,
++    allBlocked: list.length > 0 && blockedCount === list.length
++  };
++}
++
+ function createNearestCanvas(sourceCanvas, scale){
+   const s = parseInt(scale, 10);
+   if(![2, 4, 8].includes(s)){
+@@ -6261,7 +6296,26 @@ function createNearestCanvas(sourceCanvas, scale){
+ 
+ function updateExportScaleWarnings(){
+   if (!exportScaleWarning) return;
+-  const scales = getSelectedNearestScales();
++  const controls = [
++    { checkbox: exportScale2x, scale: 2 },
++    { checkbox: exportScale4x, scale: 4 },
++    { checkbox: exportScale8x, scale: 8 }
++  ];
++  const scalesToExplain = new Set(getSelectedNearestScales());
++  for(const { checkbox, scale } of controls){
++    if(!checkbox) continue;
++    const availability = getNearestScaleAvailability(lastResults, scale);
++    checkbox.disabled = availability.allBlocked;
++    if(availability.allBlocked){
++      checkbox.title = `${scale}× 확대본을 생성할 수 있는 현재 결과가 없습니다.`;
++      checkbox.setAttribute('aria-describedby', 'exportScaleWarning');
++      scalesToExplain.add(scale);
++    } else {
++      checkbox.removeAttribute('title');
++      checkbox.removeAttribute('aria-describedby');
++    }
++  }
++  const scales = Array.from(scalesToExplain).sort((a, b) => a - b);
+   if (scales.length === 0 || lastResults.length === 0) {
+     exportScaleWarning.style.display = 'none';
+     exportScaleWarning.textContent = '';
+@@ -6272,7 +6326,7 @@ function updateExportScaleWarnings(){
+     for (const r of lastResults) {
+       const targetW = r.canvas.width * s;
+       const targetH = r.canvas.height * s;
+-      if (targetW * targetH > MAX_RAW_PROCESS_PIXELS || targetW > 4096 || targetH > 4096) {
++      if (nearestScaleExceedsLimit(r, s)) {
+         warnings.push(`${r.name}: ${s}× 확대 시 최대 처리량(${targetW}×${targetH}) 초과`);
+         break;
+       }
+@@ -6289,6 +6343,12 @@ function updateExportScaleWarnings(){
+ 
+ [exportScale2x, exportScale4x, exportScale8x].forEach(cb => {
+   if (cb) {
++    cb.addEventListener('keydown', event => {
++      if((event.key !== ' ' && event.code !== 'Space') || event.repeat || cb.disabled) return;
++      event.preventDefault();
++      cb.checked = !cb.checked;
++      cb.dispatchEvent(new Event('change', { bubbles: true }));
++    });
+     cb.addEventListener('change', () => {
+       updateExportScaleWarnings();
+       if (lastResults.length > 0) {
+@@ -7393,12 +7453,12 @@ async function processAll(){
+   const downs = measurePerfStage(job, 'downscale', () => uploadedFiles.map(f => {
+     if(scaleMode === 'square'){
+       const data = boxDownscale(f.img, size, method, representativeColor, alphaThreshold, lineAwareSettings);
+-      return { name: f.name, addedIndex: f.addedIndex, data, w: size, h: size, mode: scaleMode, lineAware: data.lineAware };
++      return { name: f.name, img: f.img, addedIndex: f.addedIndex, data, w: size, h: size, mode: scaleMode, lineAware: data.lineAware };
+     }
+     if(scaleMode === 'factor'){
+       const isSheet = factorFrameMode === 'sheet';
+       return {
+-        name: f.name,
++        name: f.name, img: f.img,
+         addedIndex: f.addedIndex,
+         ...exactFactorDownscale(f.img, factor, isSheet ? factorFrameWidth : null, isSheet ? factorFrameHeight : null, representativeColor, alphaThreshold, lineAwareSettings),
+         mode: scaleMode,
+@@ -7406,12 +7466,12 @@ async function processAll(){
+       };
+     }
+     if(scaleMode === 'preserve-sheet'){
+-      return { name: f.name, addedIndex: f.addedIndex, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize, representativeColor, alphaThreshold, lineAwareSettings), mode: scaleMode };
++      return { name: f.name, img: f.img, addedIndex: f.addedIndex, ...preserveSheetDownscale(f.img, frameWidth, frameHeight, pixelBlockSize, representativeColor, alphaThreshold, lineAwareSettings), mode: scaleMode };
+     }
+     if(scaleMode === 'grid-repair'){
+       const isSheet = gridFrameMode === 'sheet';
+       return {
+-        name: f.name,
++        name: f.name, img: f.img,
+         addedIndex: f.addedIndex,
+         ...gridRepairDownscale(f.img, appliedGrid, isSheet ? gridFrameWidth : null, isSheet ? gridFrameHeight : null, representativeColor, alphaThreshold, lineAwareSettings),
+         mode: scaleMode,
+@@ -7425,7 +7485,7 @@ async function processAll(){
+       { ...lineAwareSettings, alphaThreshold }, raw.width, raw.height
+     );
+     return {
+-      name: f.name,
++      name: f.name, img: f.img,
+       addedIndex: f.addedIndex,
+       data: applyLineAwareIdentity(raw.data, raw.width, raw.height, lineContext),
+       w: raw.width,
+@@ -7981,6 +8041,15 @@ function renderResults(){
+ 
+     const preview = document.createElement('div');
+     preview.className = 'preview';
++    preview.tabIndex = 0;
++    preview.setAttribute('role', 'button');
++    preview.setAttribute('aria-label', `${r.name} 확대 및 원본 비교`);
++    preview.addEventListener('keydown', event => {
++      if(event.key === 'Enter' || event.key === ' '){
++        event.preventDefault();
++        openModal(r);
++      }
++    });
+     preview.appendChild(r.canvas);
+     preview.addEventListener('click', () => openModal(r));
+ 
+@@ -8145,6 +8214,7 @@ const modalAlphaDiagToggle = document.getElementById('modalAlphaDiagToggle');
+ const modalExpandToggle = document.getElementById('modalExpandToggle');
+ const modalFallbackNotice = document.getElementById('modalFallbackNotice');
+ 
++let modalReturnFocus = null;
+ let activeModalCanvas = null;
+ let activeModalSourceCanvas = null;
+ let activeModalResult = null;
+@@ -8374,6 +8444,7 @@ function setModalScale(nextScale, resetPosition = false){
+ }
+ 
+ function openModal(r){
++  modalReturnFocus = document.activeElement;
+   modalResultCanvasWrap.replaceChildren(modalPixelGrid, modalAlphaOverlay);
+   modalSourceCanvasWrap.replaceChildren();
+   activeModalSourceCanvas = null;
+@@ -8448,6 +8519,7 @@ function openModal(r){
+   
+   // 모달 안에서도 배경색 설정 적용
+   applyPreviewBg();
++  modalClose.focus();
+ }
+ 
+ function closeModal(){
+@@ -8470,6 +8542,8 @@ function closeModal(){
+   }
+ 
+   activeModalResult = null;
++  if(modalReturnFocus?.isConnected) modalReturnFocus.focus();
++  modalReturnFocus = null;
+   modalPanState = null;
+   modalViewMode = 'result';
+ }
+@@ -8519,6 +8593,17 @@ document.addEventListener('keydown', e => {
+   }
+ 
+   if (modalOverlay && modalOverlay.classList.contains('open')) {
++    if (e.key === 'Tab') {
++      const focusable = Array.from(modalOverlay.querySelectorAll('button:not([disabled]), input:not([disabled]), [tabindex="0"]'))
++        .filter(element => element.getClientRects().length > 0);
++      const first = focusable[0], last = focusable[focusable.length - 1];
++      if(e.shiftKey && (document.activeElement === first || !modalOverlay.contains(document.activeElement))){
++        e.preventDefault(); last?.focus();
++      } else if(!e.shiftKey && (document.activeElement === last || !modalOverlay.contains(document.activeElement))){
++        e.preventDefault(); first?.focus();
++      }
++      return;
++    }
+     if (e.key === 'Escape') {
+       if (modalExpanded) setModalExpanded(false);
+       else closeModal();
+@@ -9270,11 +9355,17 @@ runBtn.addEventListener('keydown', event => {
+ });
+ cancelProcessBtn.addEventListener('click', () => cancelActiveProcessingJob('user'));
+ 
++presetSelect.addEventListener('change', () => {
++  pendingPresetKey = null;
++  presetDiffBox.style.display = 'none';
++});
++
+ applyPresetBtn.addEventListener('click', () => {
+   const current = readUiSettings();
+   const presetKey = presetSelect.value;
+   const presetSettings = PRESETS[presetKey];
+   if (!presetSettings) return;
++  pendingPresetKey = null;
+   const diffs = diffSettings(current, presetSettings);
+   if (diffs.length === 0) {
+     showSettingsFeedback('선택한 프리셋 설정과 현재 설정이 이미 일치합니다.');
+@@ -9287,22 +9378,28 @@ applyPresetBtn.addEventListener('click', () => {
+     li.textContent = `${d.label}: ${d.fromText} → ${d.toText}`;
+     presetDiffList.appendChild(li);
+   });
++  pendingPresetKey = presetKey;
+   presetDiffBox.style.display = 'block';
++  presetDiffConfirmBtn.focus();
+   showSettingsFeedback('변경할 항목을 확인한 뒤 [변경 적용] 버튼을 누르세요.');
+ });
+ 
+ presetDiffCancelBtn.addEventListener('click', () => {
++  pendingPresetKey = null;
+   presetDiffBox.style.display = 'none';
++  applyPresetBtn.focus();
+   showSettingsFeedback('프리셋 적용이 취소되었습니다.');
+ });
+ 
+ presetDiffConfirmBtn.addEventListener('click', () => {
+-  const presetKey = presetSelect.value;
++  const presetKey = pendingPresetKey;
+   const presetSettings = PRESETS[presetKey];
+   if (!presetSettings) return;
+   const { settings } = normalizeSettings({ ...readUiSettings(), ...presetSettings }, 'partial-preset');
+   applyUiSettings(settings);
+   presetDiffBox.style.display = 'none';
++  pendingPresetKey = null;
++  applyPresetBtn.focus();
+   const presetName = presetSelect.options[presetSelect.selectedIndex].text.split(' ')[0];
+   showSettingsFeedback(`'${presetName}' 프리셋이 성공적으로 적용되었습니다.`);
+ });
+@@ -9330,6 +9427,7 @@ importSettingsInput.addEventListener('change', async (e) => {
+   if (file.size > 65536) {
+     showSettingsFeedback(`설정 파일 크기(${file.size} bytes)가 64KB를 초과하여 불러올 수 없습니다.`, true);
+     importSettingsInput.value = '';
++    importSettingsBtn.focus();
+     return;
+   }
+   try {
+@@ -9345,6 +9443,7 @@ importSettingsInput.addEventListener('change', async (e) => {
+     showSettingsFeedback(`설정 불러오기 실패: ${err.message}`, true);
+   } finally {
+     importSettingsInput.value = '';
++    importSettingsBtn.focus();
+   }
+ });
+ 
+@@ -9463,7 +9562,7 @@ if (loadPaletteFileBtn && paletteFileInput) {
+     const file = e.target.files?.[0];
+     if (!file) return;
+     if (file.size > 1048576) {
+-      alert(`팔레트 파일 크기(${Math.round(file.size / 1024)}KB)가 최대 허용 크기(1MB)를 초과했습니다.`);
++      showPaletteFileError(`팔레트 파일 크기(${Math.round(file.size / 1024)}KB)가 최대 허용 크기(1MB)를 초과했습니다.`);
+       paletteFileInput.value = '';
+       return;
+     }
+@@ -9473,12 +9572,15 @@ if (loadPaletteFileBtn && paletteFileInput) {
+       if (fileName.endsWith('.png')) {
+         const img = new Image();
+         const url = URL.createObjectURL(file);
+-        await new Promise((resolve, reject) => {
+-          img.onload = resolve;
+-          img.onerror = () => reject(new Error('PNG 이미지를 로드할 수 없습니다.'));
+-          img.src = url;
+-        });
+-        URL.revokeObjectURL(url);
++        try {
++          await new Promise((resolve, reject) => {
++            img.onload = resolve;
++            img.onerror = () => reject(new Error('PNG 이미지를 로드할 수 없습니다.'));
++            img.src = url;
++          });
++        } finally {
++          URL.revokeObjectURL(url);
++        }
+ 
+         if (img.naturalWidth > 4096 || img.naturalHeight > 4096) {
+           throw new Error(`PNG 해상도(${img.naturalWidth}×${img.naturalHeight})가 최대 허용치(4096×4096)를 초과했습니다.`);
+@@ -9495,6 +9597,7 @@ if (loadPaletteFileBtn && paletteFileInput) {
+         if (parsed.hexes.length === 0) {
+           throw new Error('PNG 이미지에서 유효한 불투명(alpha=255) 색상을 찾을 수 없습니다.');
+         }
++        validatePaletteFileResult(parsed);
+         customPaletteText.value = parsed.hexes.join('\n');
+         renderCustomPalettePreview();
+         if (parsed.warnings.length > 0 && customPaletteWarning) {
+@@ -9512,13 +9615,15 @@ if (loadPaletteFileBtn && paletteFileInput) {
+         if (parsed.hexes.length === 0) {
+           throw new Error('파일에서 유효한 색상을 찾을 수 없습니다.');
+         }
++        validatePaletteFileResult(parsed);
+         customPaletteText.value = parsed.hexes.join('\n');
+         renderCustomPalettePreview();
+       }
+     } catch (err) {
+-      alert(`팔레트 불러오기 실패: ${err.message}`);
++      showPaletteFileError(`팔레트 불러오기 실패: ${err.message}`);
+     } finally {
+       paletteFileInput.value = '';
++      loadPaletteFileBtn.focus();
+     }
+   });
+ }
+diff --git a/scripts/out001-check.mjs b/scripts/out001-check.mjs
+index 9ede3a8..5717824 100644
+--- a/scripts/out001-check.mjs
++++ b/scripts/out001-check.mjs
+@@ -17,6 +17,8 @@ assert.match(html, /id="exportScaleWarning"/, 'exportScaleWarning element must e
+ // 2. Extract createNearestCanvas and dependencies into test context
+ const functionNames = [
+   'createNearestCanvas',
++  'nearestScaleExceedsLimit',
++  'getNearestScaleAvailability',
+   'getSettingsSummary',
+   'normalizeScaleMode',
+ ];
+@@ -87,7 +89,12 @@ vm.runInContext(
+   context
+ );
+ 
+-const { createNearestCanvas, getSettingsSummary } = context.api;
++const {
++  createNearestCanvas,
++  nearestScaleExceedsLimit,
++  getNearestScaleAvailability,
++  getSettingsSummary
++} = context.api;
+ 
+ // 3. Test 3x2 RGBA Source Scaled by 2x, 4x, 8x - Exact N×N Uniform RGBA Block Verification
+ const srcW = 3;
+@@ -183,4 +190,26 @@ const settingsWithExport = {
+ const summary = getSettingsSummary(settingsWithExport);
+ assert.match(summary, /확대출력:2×,8×/, 'getSettingsSummary must include exportNearestScales');
+ 
+-console.log('OUT-001 regression checks passed (N×N blocks, smoothing=false, limits, scale validation, settings summary).');
++// 7. Test fail-closed scale availability for single and mixed result sets.
++const resultAt = (width, height) => ({ canvas: { width, height } });
++assert.equal(nearestScaleExceedsLimit(resultAt(64, 64), 8), false, '64×64 at 8× must remain available');
++assert.equal(nearestScaleExceedsLimit(resultAt(1024, 1024), 8), true, '1024×1024 at 8× must exceed limits');
++assert.equal(nearestScaleExceedsLimit(resultAt(64, 64), 3), true, 'unsupported scales must fail closed');
++const allBlocked = getNearestScaleAvailability([resultAt(1024, 1024)], 8);
++assert.equal(allBlocked.blockedCount, 1, 'the single oversized result must be counted as blocked');
++assert.equal(allBlocked.allBlocked, true, 'a scale checkbox must be disabled when every current result is blocked');
++const mixedAvailability = getNearestScaleAvailability([resultAt(64, 64), resultAt(1024, 1024)], 8);
++assert.equal(mixedAvailability.blockedCount, 1, 'the mixed batch must count only its oversized result');
++assert.equal(mixedAvailability.allBlocked, false, 'a mixed batch must keep the scale selectable for its valid result');
++const emptyAvailability = getNearestScaleAvailability([], 8);
++assert.equal(emptyAvailability.blockedCount, 0, 'an empty result set must not report blocked results');
++assert.equal(emptyAvailability.allBlocked, false, 'a scale checkbox must be enabled before results exist');
++
++// 8. Keyboard activation must be explicit because OUT-001 requires a real Space toggle.
++assert.match(
++  html,
++  /\[exportScale2x, exportScale4x, exportScale8x\][\s\S]*?addEventListener\('keydown',[\s\S]*?event\.preventDefault\(\)[\s\S]*?cb\.checked = !cb\.checked[\s\S]*?dispatchEvent\(new Event\('change', \{ bubbles: true \}\)\)/,
++  'nearest-scale checkboxes must implement deterministic Space activation'
++);
++
++console.log('OUT-001 regression checks passed (N×N blocks, smoothing=false, limits, scale availability, keyboard activation, settings summary).');
+diff --git a/vercel.json b/vercel.json
+index a687015..807b3fc 100644
+--- a/vercel.json
++++ b/vercel.json
+@@ -12,7 +12,7 @@
+       "headers": [
+         {
+           "key": "Content-Security-Policy",
+-          "value": "default-src 'none'; script-src 'self' 'sha256-907FBsLrs3+PN/PpX+WhPl2UOwIYQusgxSlslxdB0QA='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'"
++          "value": "default-src 'none'; script-src 'self' 'sha256-xeZBKpEO9cyuJYX9uiZXp2SvwmRxk77EmGebESsfNaQ='; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'none'; media-src 'none'; worker-src 'self'"
+         },
+         {
+           "key": "Referrer-Policy",

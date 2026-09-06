@@ -6,7 +6,7 @@
 |---|---|
 | 명세 상태 | 완료 |
 | 구현 상태 | DONE |
-| QA 상태 | 완료 |
+| QA 상태 | 완료 — 현재 소스 검증 및 전체 37/37 PASS |
 | 우선순위 | P1 |
 | 근거 분류 | SOURCE-BACKED |
 | 구현 모델 | Luna xhigh |
@@ -104,3 +104,11 @@ non-square factor 결과, square 결과, 큰 source, 작은 16×16 결과, 로�
 
 - source/result geometry를 맞추려면 처리 pipeline의 좌표 변환 metadata가 추가로 필요하면 GEO-001 명세와 충돌 여부를 먼저 보고한다.
 - 대형 원본 lazy canvas가 메모리 제한을 넘으면 PERF-001로 넘기고 임의 축소 저장을 하지 않는다.
+
+## 2026-09-06 현재 소스 재검증
+
+원본 참조 유실 및 모달 키보드/focus 보완. 1/2/8배·로그 fallback·pan·모바일 A/B·닫기 cleanup을 기록했다. [증거 및 남은 완료 조건](../../evidence/completion-20260906/README.md). 전체 36/37 검사로 최종 DONE은 보류한다.
+
+## 2026-09-06 최종 판정
+
+현재 소스 전체 자동 검사 37/37, 항목별 브라우저·결정성·무결성 증거를 확인해 `DONE`으로 갱신했다. 앞의 NEEDS_REVIEW 기록은 검증 진행 중의 이력이다. [최종 보고서 및 검증 환경·한계](../../evidence/completion-20260906/README.md).

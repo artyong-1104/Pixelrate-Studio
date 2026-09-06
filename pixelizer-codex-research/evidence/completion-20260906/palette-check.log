@@ -1,0 +1,8 @@
+--- Testing parseHexPalette ---
+--- Testing parseGplPalette ---
+--- Testing parsePngPaletteData ---
+--- Testing Deduplication Order ---
+--- Testing nearestColorIndex Tie-breaking ---
+--- Testing Settings Pipeline ---
+--- Testing Unused Palette Retention ---
+ALL PAL-001 tests passed successfully.
